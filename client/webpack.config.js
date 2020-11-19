@@ -1,20 +1,17 @@
 const path = require("path");
-const webpack = require("webpack");
 const Dotenv = require("dotenv-webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+
 const port = process.env.PORT || 8080;
 
 module.exports = {
-  devtool: "inline-source-map",
   mode: "development",
-  entry: { app: ["babel-polyfill", "./src/index"] },
+  devtool: "inline-source-map",
   resolve: { extensions: [".js", ".jsx"] },
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    publicPath: "/",
-    filename: "bundle.js",
-  },
+
+  entry: { app: ["babel-polyfill", "./src/index"] },
   module: {
     rules: [
       {
@@ -32,15 +29,20 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
+    new CleanWebpackPlugin(),
+    new RefreshWebpackPlugin(),
     new Dotenv({
       path: "./.env",
     }),
-    new CleanWebpackPlugin(),
   ],
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
+    filename: "bundle.js",
+  },
   devServer: {
     host: "localhost",
     historyApiFallback: true,

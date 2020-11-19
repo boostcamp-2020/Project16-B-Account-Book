@@ -1,6 +1,5 @@
 # Project16-B-Account-Book
-![image](https://user-images.githubusercontent.com/38288479/99702565-493df880-2ad9-11eb-841d-6f9d56b40be4.png)
-
+<img src="https://user-images.githubusercontent.com/38288479/99702565-493df880-2ad9-11eb-841d-6f9d56b40be4.png" width="300" height="200" />
 ## 팀원
 |  <center>Name</center> |  <center>Camper ID</center> |  <center>GitHub ID</center> |
 |:--------:|:--------:|:--------:|

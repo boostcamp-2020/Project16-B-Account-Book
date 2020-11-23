@@ -1,6 +1,7 @@
 const Koa = require('koa');
 
 require('dotenv').config();
+require('./startup/db')();
 
 const app = new Koa();
 const port = process.env.PORT || 3000;

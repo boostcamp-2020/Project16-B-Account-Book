@@ -12,6 +12,10 @@ const port = process.env.PORT || 3000;
 router.use('', indexRouter.routes());
 app.use(router.routes()).use(router.allowedMethods());
 
+app.on('error', (err) => {
+  console.log('server error', err);
+});
+
 app.listen(port, () => {
   console.log(`Listening to port ${port}`);
 });

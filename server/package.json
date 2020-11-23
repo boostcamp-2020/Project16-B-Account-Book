@@ -13,6 +13,7 @@
   "dependencies": {
     "eslint-config-prettier": "^6.15.0",
     "koa": "^2.13.0",
+    "koa-router": "^10.0.0",
     "mongoose": "^5.10.15"
   },
   "devDependencies": {

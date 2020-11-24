@@ -16,7 +16,9 @@
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
-    "mongoose": "^5.10.15"
+    "mongoose": "^5.10.15",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

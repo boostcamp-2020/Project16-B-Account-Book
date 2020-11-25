@@ -32,12 +32,4 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          export NVM_DIR=~/.nvm
-          source ~/.nvm/nvm.sh
-          cd Project16-B-Account-Book/server
-          git pull
-          npm install
-          pm2 reload Project16-B-Account-Book
-          cd ../client
-          npm install
-          npm run build
+            mkdir asdfghjk

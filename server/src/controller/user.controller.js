@@ -6,7 +6,8 @@ const UserController = {
       const data = ctx.request.body || 'test';
       const testResult = await userService.test(data);
       if (testResult) {
-        ctx.body = `GOOOOD  ${ctx.request.url} ${ctx.response.status}`;
+        ctx.body = testResult;
+        // ctx.body = `GOOOOD  ${ctx.request.url} ${ctx.response.status} ${testResult}`;
         return;
       }
     } catch (err) {

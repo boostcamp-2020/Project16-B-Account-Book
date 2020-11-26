@@ -16,7 +16,6 @@ module.exports = {
       '@': path.resolve(__dirname, './src'),
     },
   },
-
   entry: { app: ['babel-polyfill', './src/index'] },
   module: {
     rules: [

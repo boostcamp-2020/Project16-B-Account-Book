@@ -27,10 +27,7 @@ const { actions, reducer } = createSlice({
   },
 });
 
-export const {
-  setTest,
-  // setTransactions
-} = actions;
+export const { setTest } = actions;
 
 export const loader = ({ test }) => {
   console.log('loader', test);

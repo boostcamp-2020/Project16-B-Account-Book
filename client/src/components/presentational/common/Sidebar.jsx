@@ -6,7 +6,7 @@ import * as AiIcons from 'react-icons/ai';
 import color from '@public/color';
 import { SidebarList } from './SidebarList';
 
-const MavMenu = styled.div`
+const NavMenu = styled.div`
   .nav-menu {
     z-index: 10;
     background-color: ${color.backgroundColor};
@@ -83,7 +83,7 @@ const Span = styled.span`
 
 export default function SideBar({ sidebar, showSidebar }) {
   return (
-    <MavMenu>
+    <NavMenu>
       <div className={sidebar ? 'nav-menu active' : 'nav-menu'}>
         <ul className="nav-menu-items" onClick={showSidebar}>
           <li className="navbar-toggle">
@@ -106,6 +106,6 @@ export default function SideBar({ sidebar, showSidebar }) {
           })}
         </ul>
       </div>
-    </MavMenu>
+    </NavMenu>
   );
 }

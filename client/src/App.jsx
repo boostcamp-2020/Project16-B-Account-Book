@@ -1,5 +1,7 @@
-import React from "react";
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+
+import Navbar from './components/presentational/navbar/Navbar';
 
 import LoginPage from './pages/LoginPage';
 import AccountBookPage from './pages/AccountBookPage';
@@ -15,18 +17,19 @@ import TransactionPage from './pages/TransactionPage';
 const App = () => {
   return (
     <>
+      <Navbar />
       <div>Hello React</div>
       <Switch>
         <Route exact path="/" component={LoginPage} />
-        {/* <Route path="/account-book" component={AccountBookPage} /> */}
-        {/* <Route path="/analysis" component={AnalysisPage} /> */}
-        {/* <Route exact path="/calendar" component={CalendarPage} /> */}
-        {/* <Route path="/category" component={CategoryPage} /> */}
-        {/* <Route path="/dashboard" component={DashboardPage} /> */}
-        {/* <Route path="/payment-method" component={PaymentMethodPage} /> */}
-        {/* <Route path="/setting" component={SettingPage} /> */}
-        {/* <Route path="/transaction" component={TransactionPage} /> */}
-        {/* <Route component={NotFoundPage} /> */}
+        <Route path="/account-book" component={AccountBookPage} />
+        <Route path="/analysis" component={AnalysisPage} />
+        <Route exact path="/calendar" component={CalendarPage} />
+        <Route path="/category" component={CategoryPage} />
+        <Route path="/dashboard" component={DashboardPage} />
+        <Route path="/payment-method" component={PaymentMethodPage} />
+        <Route path="/setting" component={SettingPage} />
+        <Route path="/transaction" component={TransactionPage} />
+        <Route component={NotFoundPage} />
       </Switch>
     </>
   );

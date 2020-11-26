@@ -7,6 +7,9 @@ import * as AiIcons from 'react-icons/ai';
 
 import svg from '@public/svg';
 import color from '@public/color';
+import logoImg from '@public/img/colored_logo_img.png';
+import logoTitle from '@public/img/dark_logo_title.png';
+import sampleUserImg from '@public/img/squirrel.jpeg';
 import { SidebarList } from './SidebarList';
 import UserMenuDropDown from './UserMenuDropDown';
 
@@ -149,19 +152,13 @@ const Header = () => {
           </MenuBars>
           <Logo>
             <Link to="/">
-              <img
-                className="logo-pig"
-                src="../../../../public/img/dark_logo_only_transparent_background.png"
-              />
-              <img
-                className="logo-title"
-                src="../../../../public/img/dark_title_transparent_background.png"
-              />
+              <img className="logo-pig" src={logoImg} />
+              <img className="logo-title" src={logoTitle} />
             </Link>
           </Logo>
           <UserMenu>
             <div className="user-img">
-              <img src="../../../../public/img/squirrel.jpeg" />
+              <img src={sampleUserImg} />
             </div>
             <div className="user-email">jotace422@gmail.com</div>
             <div className="user-dropdown" onClick={onUserMenuClick}>

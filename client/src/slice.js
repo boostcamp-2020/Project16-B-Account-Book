@@ -12,7 +12,7 @@ const { actions, reducer } = createSlice({
   },
 
   reducers: {
-    setTest(state, {payload: test}) {
+    setTest(state, { payload: test }) {
       return {
         ...state,
         test,
@@ -27,19 +27,16 @@ const { actions, reducer } = createSlice({
   },
 });
 
-export const {
-  setTest,
-  // setTransactions
-} = actions;
+export const { setTest } = actions;
 
 export const loader = ({ test }) => {
-  console.log("loader", test)
+  console.log('loader', test);
   return async (dispatch) => {
-    console.log('asd')
-    const testData = await fetchTest({ test })
-    dispatch(setTest(testData))
+    console.log('asd');
+    const testData = await fetchTest({ test });
+    dispatch(setTest(testData));
   };
-}
+};
 
 // export const loadTransaction = ({ userId }) => {
 //   return async (dispatch) => {
@@ -48,7 +45,4 @@ export const loader = ({ test }) => {
 //   };
 // }
 
-
-
 export default reducer;
-

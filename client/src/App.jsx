@@ -1,5 +1,6 @@
-import React from "react";
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
 
 import LoginPage from './pages/LoginPage';
 import AccountBookPage from './pages/AccountBookPage';
@@ -11,11 +12,22 @@ import NotFoundPage from './pages/NotFoundPage';
 import PaymentMethodPage from './pages/PaymentMethodPage';
 import SettingPage from './pages/SettingPage';
 import TransactionPage from './pages/TransactionPage';
+import Layout from './components/presentational/common/Layout';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 100px;
+  }
+`;
 
 const App = () => {
   return (
     <>
-      <div>Hello React</div>
+      <GlobalStyle />
+      <Layout />
       <Switch>
         <Route exact path="/" component={LoginPage} />
         {/* <Route path="/account-book" component={AccountBookPage} /> */}
@@ -26,7 +38,7 @@ const App = () => {
         {/* <Route path="/payment-method" component={PaymentMethodPage} /> */}
         {/* <Route path="/setting" component={SettingPage} /> */}
         {/* <Route path="/transaction" component={TransactionPage} /> */}
-        {/* <Route component={NotFoundPage} /> */}
+        {<Route component={NotFoundPage} />}
       </Switch>
     </>
   );

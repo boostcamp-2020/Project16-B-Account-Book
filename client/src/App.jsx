@@ -1,18 +1,18 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
 
-import LoginPage from "./pages/LoginPage";
-import AccountBookPage from "./pages/AccountBookPage";
-import AnalysisPage from "./pages/AnalysisPage";
-import CalendarPage from "./pages/CalendarPage";
-import CategoryPage from "./pages/CategoryPage";
-import DashboardPage from "./pages/DashboardPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import PaymentMethodPage from "./pages/PaymentMethodPage";
-import SettingPage from "./pages/SettingPage";
-import TransactionPage from "./pages/TransactionPage";
-import Layout from "./components/presentational/common/Layout";
+import LoginPage from './pages/LoginPage';
+import AccountBookPage from './pages/AccountBookPage';
+import AnalysisPage from './pages/AnalysisPage';
+import CalendarPage from './pages/CalendarPage';
+import CategoryPage from './pages/CategoryPage';
+import DashboardPage from './pages/DashboardPage';
+import NotFoundPage from './pages/NotFoundPage';
+import PaymentMethodPage from './pages/PaymentMethodPage';
+import SettingPage from './pages/SettingPage';
+import TransactionPage from './pages/TransactionPage';
+import Layout from './components/presentational/common/Layout';
 
 const GlobalStyle = createGlobalStyle`
   body {

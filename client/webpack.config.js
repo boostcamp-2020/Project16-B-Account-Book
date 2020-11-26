@@ -50,7 +50,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		publicPath: '/',
-		filename: 'bundle.js',
+		filename: 'bundle.[hash].js',
 	},
 	devServer: {
 		host: 'localhost',

@@ -4,10 +4,10 @@ import color from '@public/color';
 
 const OverlayWrapper = styled.div`
   position: fixed;
-  width: 767px;
+  width: ${(props) => (props.isModal ? '767px' : '100%')};
   height: 100%;
   top: 0;
-  left: -767px;
+  left: ${(props) => (props.isModal ? -767 : 0)}px;
   right: 0;
   bottom: 0;
   z-index: 11;

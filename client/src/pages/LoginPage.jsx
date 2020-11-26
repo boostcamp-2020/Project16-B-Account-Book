@@ -7,6 +7,6 @@ const LoginPage = () => {
       <LoginFormContainer />
     </>
   );
-}
+};
 
 export default LoginPage;

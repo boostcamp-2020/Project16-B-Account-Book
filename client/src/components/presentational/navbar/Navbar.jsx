@@ -132,7 +132,7 @@ const Navbar = () => {
 
               {SidebarList.map((item, index) => {
                 return (
-                  <li key={index} className={item.cName}>
+                  <li key={'sidebar' + index} className={item.cName}>
                     <Link to={item.path}>
                       {item.icon}
                       <Span>{item.title}</Span>

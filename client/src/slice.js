@@ -18,12 +18,12 @@ const { actions, reducer } = createSlice({
         test,
       };
     },
-    setTransactions(state, {payload: transactions}) {
+    setTransactions(state, { payload: transactions }) {
       return {
         ...state,
         transactions,
-      }
-    }
+      };
+    },
   },
 });
 

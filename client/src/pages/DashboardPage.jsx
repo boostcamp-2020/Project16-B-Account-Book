@@ -7,6 +7,5 @@ const DashboardPage = () => {
       <DashboardContainer />
     </>
   );
-}
-
+};
 export default DashboardPage;

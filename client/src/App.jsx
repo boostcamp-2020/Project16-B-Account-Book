@@ -30,15 +30,15 @@ const App = () => {
       <Layout />
       <Switch>
         <Route exact path="/" component={LoginPage} />
-        {/* <Route path="/account-book" component={AccountBookPage} /> */}
-        {/* <Route path="/analysis" component={AnalysisPage} /> */}
-        {/* <Route exact path="/calendar" component={CalendarPage} /> */}
-        {/* <Route path="/category" component={CategoryPage} /> */}
-        {/* <Route path="/dashboard" component={DashboardPage} /> */}
-        {/* <Route path="/payment-method" component={PaymentMethodPage} /> */}
-        {/* <Route path="/setting" component={SettingPage} /> */}
-        {/* <Route path="/transaction" component={TransactionPage} /> */}
-        {<Route component={NotFoundPage} />}
+        <Route path="/account-book" component={AccountBookPage} />
+        <Route path="/analysis" component={AnalysisPage} />
+        <Route exact path="/calendar" component={CalendarPage} />
+        <Route path="/category" component={CategoryPage} />
+        <Route path="/dashboard" component={DashboardPage} />
+        <Route path="/payment-method" component={PaymentMethodPage} />
+        <Route path="/setting" component={SettingPage} />
+        <Route path="/transaction" component={TransactionPage} />
+        <Route component={NotFoundPage} />
       </Switch>
     </>
   );

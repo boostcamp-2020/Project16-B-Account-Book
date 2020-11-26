@@ -9,8 +9,13 @@ const port = process.env.PORT || 8080;
 module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
-  resolve: { extensions: ['.js', '.jsx'] },
-
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    alias: {
+      '@public': path.resolve(__dirname, './public'),
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   entry: { app: ['babel-polyfill', './src/index'] },
   module: {
     rules: [

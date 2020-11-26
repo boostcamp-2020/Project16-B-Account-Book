@@ -2,8 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 
-import Navbar from './components/presentational/navbar/Navbar';
-
 import LoginPage from './pages/LoginPage';
 import AccountBookPage from './pages/AccountBookPage';
 import AnalysisPage from './pages/AnalysisPage';
@@ -30,7 +28,6 @@ const App = () => {
     <>
       <GlobalStyle />
       <Layout />
-      <Navbar />
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <Route path="/account-book" component={AccountBookPage} />

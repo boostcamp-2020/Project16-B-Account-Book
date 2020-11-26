@@ -100,7 +100,7 @@ const Header = () => {
             <div className="user-img">
               <img src={sampleUserImg} />
             </div>
-            <div className="user-email">jotace422@gmail.com</div>
+            <div className="user-email">piggybook@gmail.com</div>
             <div className="user-dropdown" onClick={onUserMenuClick}>
               <IoIcons.IoIosArrowDown size={20} />
             </div>

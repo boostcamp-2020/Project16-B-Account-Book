@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
+import * as AiIcons from 'react-icons/ai';
 
 import color from '@public/color';
 import { SidebarList } from './SidebarList';
 
 const NavMenu = styled.div`
   .nav-menu {
+    z-index: 10;
     background-color: ${color.backgroundColor};
     border-right: 1px solid ${color.line};
     width: 250px;
@@ -17,10 +19,15 @@ const NavMenu = styled.div`
     position: fixed;
     top: 61px;
     transition: 850ms;
-
     @media (max-width: 767px) {
       transform: translate(-251px, 0px);
     }
+    left: -100%;
+  }
+
+  .nav-menu.active {
+    left: 0;
+    transition: 350ms;
   }
 
   .nav-text {
@@ -29,14 +36,14 @@ const NavMenu = styled.div`
     align-items: center;
     padding: 8px 0 8px 16px;
     list-style: none;
-    height: 35px;
+    height: 60px;
   }
 
   .nav-text a {
     text-decoration: none;
     color: #f5f5f5;
     font-size: 15px;
-    width: 95%;
+    width: 85%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -56,10 +63,20 @@ const NavMenu = styled.div`
   .navbar-toggle {
     background-color: ${color.backgroundColor};
     width: 100%;
-    height: 80px;
+    height: 30px;
     display: flex;
-    justify-content: start;
+    justify-content: flex-end;
     align-items: center;
+  }
+`;
+
+const MenuBars = styled.div`
+  display: flex;
+
+  a {
+    margin-right: 1rem;
+    font-size: 2rem;
+    background: none;
   }
 `;
 
@@ -68,32 +85,31 @@ const Span = styled.span`
   margin-left: 16px;
 `;
 
-const Sidebar = () => {
-  const [sidebar, setSidebar] = useState(false);
-  const showSidebar = () => setSidebar(!sidebar);
-
+export default function SideBar({ sidebar, showSidebar }) {
   return (
-    <>
-      <IconContext.Provider value={{ color: color.fontBold }}>
-        <NavMenu>
-          <div className="nav-menu active">
-            <ul className="nav-menu-items" onClick={showSidebar}>
-              {SidebarList.map((item, index) => {
-                return (
-                  <li key={'sidebar' + index} className={item.cName}>
-                    <Link to={item.path}>
-                      {item.icon}
-                      <Span>{item.title}</Span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </NavMenu>
-      </IconContext.Provider>
-    </>
-  );
-};
+    <NavMenu>
+      <div className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+        <ul className="nav-menu-items" onClick={showSidebar}>
+          <li className="navbar-toggle">
+            <MenuBars>
+              <Link to="#">
+                <AiIcons.AiOutlineClose size={20} />
+              </Link>
+            </MenuBars>
+          </li>
 
-export default Sidebar;
+          {SidebarList.map((item, index) => {
+            return (
+              <li key={'sidebar' + index} className={item.cName}>
+                <Link to={item.path}>
+                  {item.icon}
+                  <Span>{item.title}</Span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </NavMenu>
+  );
+}

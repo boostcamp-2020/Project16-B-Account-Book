@@ -26,18 +26,15 @@ const UserMenuDropDownWrapper = styled.div`
 `;
 
 const UserMenuDropDown = ({ setUserMenu }) => {
-  const onClickChangeInfo = () => {};
-
-  const onClickLogOut = () => {};
-
+  
   return (
     <>
       <Overlay setModal={setUserMenu} />
       <UserMenuDropDownWrapper>
-        <div className="dropdown-option" onClick={onClickChangeInfo}>
+        <div className="dropdown-option">
           정보수정
         </div>
-        <div className="dropdown-option" onClick={onClickLogOut}>
+        <div className="dropdown-option">
           로그아웃
         </div>
       </UserMenuDropDownWrapper>

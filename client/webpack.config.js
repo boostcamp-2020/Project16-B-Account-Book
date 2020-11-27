@@ -3,6 +3,7 @@ const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const webpack = require('webpack');
 
 const port = process.env.PORT || 8080;
 
@@ -46,11 +47,14 @@ module.exports = {
     new Dotenv({
       path: './.env',
     }),
+    new webpack.ProvidePlugin({
+      React: 'react',
+    }),
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: 'bundle.[hash].js',
   },
   devServer: {
     host: 'localhost',

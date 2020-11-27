@@ -1,4 +1,3 @@
-import React from 'react';
 import * as FcIcons from 'react-icons/fc';
 
 export const SidebarList = [

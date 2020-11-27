@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
@@ -11,6 +11,7 @@ import logoTitle from '@public/img/dark_logo_title.png';
 import sampleUserImg from '@public/img/squirrel.jpeg';
 import UserMenuDropDown from './UserMenuDropDown';
 import SidebarModal from './SidebarModal';
+import SideBar from './Sidebar';
 
 const HeaderWrapper = styled.div`
   position: fixed;
@@ -106,6 +107,7 @@ const Header = () => {
             </div>
             {userMenu && <UserMenuDropDown setUserMenu={setUserMenu} />}
           </UserMenu>
+          <SideBar sidebar={sidebar} showSidebar={showSidebar} />
         </HeaderWrapper>
       </IconContext.Provider>
       {sidebar && <SidebarModal hideModal={hideSidebarModal} />}

@@ -1,6 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { IconContext } from 'react-icons';
 import * as AiIcons from 'react-icons/ai';
 
 import color from '@public/color';
@@ -16,9 +17,12 @@ const NavMenu = styled.div`
     display: flex;
     justify-content: center;
     position: fixed;
-    top: 0;
-    left: -100%;
+    top: 61px;
     transition: 850ms;
+    @media (max-width: 767px) {
+      transform: translate(-251px, 0px);
+    }
+    left: -100%;
   }
 
   .nav-menu.active {

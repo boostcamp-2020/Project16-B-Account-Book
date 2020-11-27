@@ -3,17 +3,25 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import * as FaIcons from 'react-icons/fa';
+import * as IoIcons from 'react-icons/io';
 
-import svg from '@public/svg';
 import color from '@public/color';
+import logoImg from '@public/img/colored_logo_img.png';
+import logoTitle from '@public/img/dark_logo_title.png';
+import sampleUserImg from '@public/img/squirrel.jpeg';
 import UserMenuDropDown from './UserMenuDropDown';
+import SidebarModal from './SidebarModal';
 import SideBar from './Sidebar';
 
 const HeaderWrapper = styled.div`
+  position: fixed;
+  width: 100%;
+  z-index: 2;
   display: flex;
+  align-items: center;
+  background-color: #ffffff;
   height: 60px;
   border-bottom: 1px solid ${color.line};
-  align-items: center;
 
   .logo-pig {
     width: 35px;
@@ -51,15 +59,20 @@ const UserMenu = styled.div`
       cursor: pointer;
     }
   }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;
 
 const MenuBars = styled.div`
-  display: flex;
+  display: none;
+  margin-left: 2rem;
+  font-size: 2rem;
+  background: none;
 
-  a {
-    margin-left: 2rem;
-    font-size: 2rem;
-    background: none;
+  @media (max-width: 767px) {
+    display: flex;
   }
 `;
 
@@ -67,46 +80,37 @@ const Header = () => {
   const [sidebar, setSidebar] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
 
-  const showSidebar = () => setSidebar(!sidebar);
-  const onUserMenuClick = () => {
-    setUserMenu(!userMenu);
-  };
+  const showSidebarModal = () => setSidebar(true);
+  const hideSidebarModal = () => setSidebar(false);
+  const onUserMenuClick = () => setUserMenu(!userMenu);
 
   return (
     <>
       <IconContext.Provider value={{ color: color.fontBold }}>
         <HeaderWrapper>
           <MenuBars>
-            <Link to="#">
-              <FaIcons.FaBars size={20} onClick={showSidebar} />
-            </Link>
+            <FaIcons.FaBars size={20} onClick={showSidebarModal} />
           </MenuBars>
           <Logo>
             <Link to="/">
-              <img
-                className="logo-pig"
-                src="../../../../public/img/dark_logo_only_transparent_background.png"
-              />
-              <img
-                className="logo-title"
-                src="../../../../public/img/dark_title_transparent_background.png"
-              />
+              <img className="logo-pig" src={logoImg} />
+              <img className="logo-title" src={logoTitle} />
             </Link>
           </Logo>
           <UserMenu>
             <div className="user-img">
-              <img src="../../../../public/img/squirrel.jpeg" />
+              <img src={sampleUserImg} />
             </div>
-            <div className="user-email">jotace422@gmail.com</div>
+            <div className="user-email">piggybook@gmail.com</div>
             <div className="user-dropdown" onClick={onUserMenuClick}>
-              {svg.arrowDown}
+              <IoIcons.IoIosArrowDown size={20} />
             </div>
             {userMenu && <UserMenuDropDown setUserMenu={setUserMenu} />}
           </UserMenu>
-
           <SideBar sidebar={sidebar} showSidebar={showSidebar} />
         </HeaderWrapper>
       </IconContext.Provider>
+      {sidebar && <SidebarModal hideModal={hideSidebarModal} />}
     </>
   );
 };

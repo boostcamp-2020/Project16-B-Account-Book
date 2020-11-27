@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import color from '../../../../public/color';
+import Overlay from './Overlay';
+import color from '@public/color';
 
 const UserMenuDropDownWrapper = styled.div`
   top: 15px;
@@ -14,6 +15,7 @@ const UserMenuDropDownWrapper = styled.div`
   color: ${color.fontLightBold};
   border: 1px solid ${color.line};
   box-shadow: ${color.boxShadow};
+  z-index: 12;
   .dropdown-option {
     height: 40px;
     line-height: 40px;
@@ -24,25 +26,17 @@ const UserMenuDropDownWrapper = styled.div`
 `;
 
 const UserMenuDropDown = ({ setUserMenu }) => {
-  const ref = useRef();
-
-  useEffect(() => {
-    const clickBody = (e) => {
-      if (ref.current && ref.current.contains(e.target)) return;
-      setUserMenu(false);
-    };
-    document.body.addEventListener('click', clickBody);
-
-    return () => {
-      document.body.removeEventListener('click', clickBody);
-    };
-  }, []);
-
+  
   return (
     <>
-      <UserMenuDropDownWrapper ref={ref}>
-        <div className="dropdown-option">정보수정</div>
-        <div className="dropdown-option">로그아웃</div>
+      <Overlay setModal={setUserMenu} />
+      <UserMenuDropDownWrapper>
+        <div className="dropdown-option">
+          정보수정
+        </div>
+        <div className="dropdown-option">
+          로그아웃
+        </div>
       </UserMenuDropDownWrapper>
     </>
   );

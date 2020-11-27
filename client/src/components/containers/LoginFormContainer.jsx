@@ -1,4 +1,3 @@
-import React from 'react';
 import LoginForm from '../presentational/LoginForm';
 
 import { useDispatch } from 'react-redux';

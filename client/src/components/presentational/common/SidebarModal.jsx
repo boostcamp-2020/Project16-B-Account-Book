@@ -30,7 +30,7 @@ const NavMenuModal = styled.div`
     align-items: center;
     padding: 8px 0 8px 16px;
     list-style: none;
-    height: 35px;
+    height: 60px;
   }
 
   .nav-text a {

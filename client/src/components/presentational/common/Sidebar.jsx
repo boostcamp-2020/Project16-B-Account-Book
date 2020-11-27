@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { IconContext } from 'react-icons';
 import * as AiIcons from 'react-icons/ai';
 
 import color from '@public/color';
@@ -27,7 +26,7 @@ const NavMenu = styled.div`
 
   .nav-menu.active {
     left: 0;
-    transition: 350ms;
+    transition: 850ms;
   }
 
   .nav-text {
@@ -85,10 +84,16 @@ const Span = styled.span`
   margin-left: 16px;
 `;
 
-export default function SideBar({ sidebar, showSidebar }) {
+const Sidebar = () => {
+  const [sidebar, setSidebar] = useState(false);
+  const showSidebar = () => setSidebar(!sidebar);
+
+  // TODO: 현재 sidebar의 state 에 상관없이 sidebar를 화면에 안보이는 왼쪽에 두었다가 화면에 보이도록
+  // media query만을 사용하고 있기 때문에, X 버튼을 눌러서 sidebar 가 사라지게 하는 기능은 구현하지 않은 상태입니다
+
   return (
     <NavMenu>
-      <div className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+      <div className="nav-menu active">
         <ul className="nav-menu-items" onClick={showSidebar}>
           <li className="navbar-toggle">
             <MenuBars>
@@ -112,4 +117,6 @@ export default function SideBar({ sidebar, showSidebar }) {
       </div>
     </NavMenu>
   );
-}
+};
+
+export default Sidebar;

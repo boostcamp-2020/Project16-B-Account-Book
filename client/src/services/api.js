@@ -8,3 +8,17 @@ export async function fetchTest({ test }) {
   const { data } = await axios(url);
   return data;
 }
+
+export async function getPayment({ userId, accountBookId }) {
+  const url = `${API_URL}/payment/${userId}`;
+
+  const { data } = await axios({
+    url: url,
+    method: 'post',
+    data: {
+      accountBookId: accountBookId,
+    },
+  });
+
+  return data;
+}

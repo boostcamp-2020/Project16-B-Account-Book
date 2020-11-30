@@ -1,11 +1,17 @@
 import styled from 'styled-components';
-import * as FcIcons from 'react-icons/fc';
 
 import PaymentItem from '@presentational/payment/PaymentItem';
+import AddButton from '@presentational/payment/AddButton';
 
 const PaymentApp = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+const PaymentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 80rem;
 `;
 
 const Payments = styled.ul`
@@ -13,22 +19,13 @@ const Payments = styled.ul`
   flex-wrap: wrap;
   align-items: center;
   list-style: none;
-  max-width: 80rem;
-`;
-
-const AddPaymentBtn = styled.div`
-  cursor: pointer;
-  border: none;
-  outline: none;
 `;
 
 const PaymentForm = ({ payments }) => {
   return (
-    <>
-      <PaymentApp>
-        {/* <AddPaymentBtn>
-          <FcIcons.FcPlus size={35} />
-        </AddPaymentBtn> */}
+    <PaymentApp>
+      <PaymentWrapper>
+        <AddButton />
 
         {payments !== 'error' && (
           <Payments>
@@ -39,8 +36,8 @@ const PaymentForm = ({ payments }) => {
         )}
 
         {payments === 'error' && <h2>아직 등록된 결제수단이 없습니다!</h2>}
-      </PaymentApp>
-    </>
+      </PaymentWrapper>
+    </PaymentApp>
   );
 };
 

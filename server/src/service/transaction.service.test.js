@@ -13,7 +13,7 @@ describe('TransactionService', () => {
     name: 'gibong',
     email: 'gibong@mail.com',
     provider: 'naver',
-    providerId: '1234',
+    providerId: '12345',
     startDayOfWeek: 'Sun',
     imageURL: 'http:url',
     paymentMethod: ['asd', 'bb'],
@@ -47,7 +47,7 @@ describe('TransactionService', () => {
   describe('getUserTransactions', () => {
     const name = 'gibong';
     const userProvider = 'naver';
-    const providerId = '1234';
+    const providerId = '12345';
 
     describe('with valid user', () => {
       it('returns transactions of given user data', async () => {

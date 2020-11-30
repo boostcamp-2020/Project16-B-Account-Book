@@ -1,14 +1,13 @@
 const TransactionModel = require('../model/transaction.model');
 const UserModel = require('../model/user.model');
 
-const TransactionService = {
+const transactionService = {
   getUserTransactions: async (name, provider, providerId) => {
     const userdata = await UserModel.findOne({
       name,
       provider,
       providerId,
     });
-
     if (userdata) {
       const transactions = await TransactionModel.find({
         userId: userdata._id,
@@ -20,4 +19,4 @@ const TransactionService = {
   },
 };
 
-module.exports = TransactionService;
+module.exports = transactionService;

@@ -1,7 +1,22 @@
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
 import DashboardVisualExpense from '../presentational/DashboardVisualExpense';
-import DashboardTextExpense from '../presentational/DashboardTextExpese';
+import DashboardTextExpense from '../presentational/DashboardTextExpense';
+
+const StyledDiv = styled.div`
+  display: flex;
+  & > * {
+    margin-right: 1rem;
+  }
+`;
+
+const MediaTextExpense = styled.div`
+  transition: 1s;
+  @media (max-width: 967px) {
+    transform: translate(-160%, 110%);
+  }
+`;
 
 const DashboardContainer = () => {
   const transactions = useSelector((state) => state.transactions);
@@ -18,8 +33,12 @@ const DashboardContainer = () => {
   return (
     <>
       <div>DashboardContainer</div>
-      <DashboardVisualExpense transactions={transactions} />
-      <DashboardTextExpense transactions={transactionByCard} />
+      <StyledDiv>
+        <DashboardVisualExpense transactions={transactions} />
+        <MediaTextExpense>
+          <DashboardTextExpense transactions={transactionByCard} />
+        </MediaTextExpense>
+      </StyledDiv>
     </>
   );
 };

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/app.js",
     "start": "NODE_ENV=production node src/app.js",
-    "test": "jest --testEnvironment=node"
+    "test": "jest --testEnvironment=node --runInBand"
   },
   "keywords": [],
   "author": "",

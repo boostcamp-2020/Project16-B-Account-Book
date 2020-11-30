@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as FcIcons from 'react-icons/fc';
 
 import PaymentItem from '@presentational/payment/PaymentItem';
 
@@ -15,19 +16,31 @@ const Payments = styled.ul`
   max-width: 80rem;
 `;
 
+const AddPaymentBtn = styled.div`
+  cursor: pointer;
+  border: none;
+  outline: none;
+`;
+
 const PaymentForm = ({ payments }) => {
   return (
-    <PaymentApp>
-      {payments !== 'error' && (
-        <Payments>
-          {payments.map((item, index) => (
-            <PaymentItem key={'payment' + index} item={item} />
-          ))}
-        </Payments>
-      )}
+    <>
+      <PaymentApp>
+        {/* <AddPaymentBtn>
+          <FcIcons.FcPlus size={35} />
+        </AddPaymentBtn> */}
 
-      {payments === 'error' && <h2>아직 등록된 결제수단이 없습니다!</h2>}
-    </PaymentApp>
+        {payments !== 'error' && (
+          <Payments>
+            {payments.map((item, index) => (
+              <PaymentItem key={'payment' + index} item={item} />
+            ))}
+          </Payments>
+        )}
+
+        {payments === 'error' && <h2>아직 등록된 결제수단이 없습니다!</h2>}
+      </PaymentApp>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 const transactionSchema = new Schema({
-  accountBookId: String,
+  accountBookId: ObjectId,
   userId: ObjectId,
   date: { type: Date, default: Date.now },
   category: String,

@@ -7,7 +7,7 @@ const Modal = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.3);
 `;
 
 const ModalWrapper = styled.div`
@@ -70,12 +70,24 @@ const SubTitle = styled.span`
   color: black;
 `;
 
-const PaymentModal = ({ isOpen, close, AddCard }) => {
+const PaymentModal = ({ isOpen, close, AddCard, payments }) => {
   const inputRef = useRef();
 
   const handleAdd = () => {
-    const value = inputRef.current.value;
-    AddCard(value);
+    const newCardName = inputRef.current.value;
+    const existCardName = payments.filter(
+      (item) => item.payment == newCardName
+    );
+
+    if (existCardName.length === 1) {
+      alert(`이미 존재하는 카드입니다 😥 \n카드 명을 다시 입력해주세요! 🤗`);
+      return;
+    } else if (newCardName === '') {
+      alert(`카드 명을 입력해주세요! 🤗`);
+      return;
+    }
+    AddCard(newCardName);
+    close();
   };
 
   const onClick = () => {

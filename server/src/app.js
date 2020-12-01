@@ -28,6 +28,10 @@ app.on('error', (err) => {
   console.log('server error', err);
 });
 
-app.listen(port, () => {
-  console.log(`Listening to port ${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`Listening to port ${port}`);
+  });
+}
+
+module.exports = app;

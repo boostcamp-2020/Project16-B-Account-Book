@@ -5,7 +5,7 @@ import * as FcIcons from 'react-icons/fc';
 import PaymentModal from './PaymentModal';
 
 const AddPaymentBtn = styled.div`
-  width: 84%;
+  width: 85%;
   display: flex;
   flex-direction: row-reverse;
   cursor: pointer;
@@ -13,9 +13,9 @@ const AddPaymentBtn = styled.div`
   outline: none;
 `;
 
-const AddButton = () => {
-  const AddCard = (cardName) => {
-    console.log(cardName);
+const AddButton = ({ payments, addClick }) => {
+  const AddCard = async (cardName) => {
+    addClick({ userId: '5fbe261bf9266857e4dd7c3f', paymentName: cardName });
   };
 
   const [show, setShow] = useState(false);
@@ -34,7 +34,12 @@ const AddButton = () => {
         />
       </AddPaymentBtn>
 
-      <PaymentModal isOpen={show} close={handleClose} AddCard={AddCard} />
+      <PaymentModal
+        isOpen={show}
+        close={handleClose}
+        AddCard={AddCard}
+        payments={payments}
+      />
     </>
   );
 };

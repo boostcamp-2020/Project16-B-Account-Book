@@ -21,11 +21,11 @@ const Payments = styled.ul`
   list-style: none;
 `;
 
-const PaymentForm = ({ payments }) => {
+const PaymentForm = ({ payments, addClick }) => {
   return (
     <PaymentApp>
       <PaymentWrapper>
-        <AddButton />
+        <AddButton payments={payments} addClick={addClick} />
 
         {payments !== 'error' && (
           <Payments>

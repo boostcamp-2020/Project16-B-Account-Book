@@ -34,6 +34,19 @@ const PaymentController = {
       ctx.body = 'error';
     }
   },
+
+  deletePayment: async (ctx) => {
+    try {
+      const { userId, paymentName } = ctx.request.body;
+
+      await PaymentService.deletePayment(userId, paymentName);
+      ctx.body = 'success';
+
+      return;
+    } catch (err) {
+      ctx.body = 'error';
+    }
+  },
 };
 
 module.exports = PaymentController;

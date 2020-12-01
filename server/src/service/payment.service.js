@@ -53,6 +53,19 @@ const PaymentService = {
 
     throw new Error('카드 추가에 실패했습니다.');
   },
+
+  deletePayment: async (userId, paymentName) => {
+    const result = await UserModel.update(
+      { _id: userId },
+      { $pull: { paymentMethod: paymentName } }
+    );
+
+    if (result.ok === 1) {
+      return 'success';
+    }
+
+    throw new Error('카드 삭제에 실패했습니다.');
+  },
 };
 
 module.exports = PaymentService;

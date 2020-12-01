@@ -1,22 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { getPayment } from '@service/api';
 import PaymentForm from '@presentational/payment/PaymentForm';
+import { paymentLoader } from '@slice';
+import { addPayment } from '@service/api';
 
 const PaymentContainer = () => {
-  const [payments, setPayments] = useState([]);
+  const dispatch = useDispatch();
+  const payments = useSelector((state) => state.payments);
 
   useEffect(async () => {
-    // TODO: 추후 로그인 기능이 완료되면, localStorage에서 정보 가져올 예정
-    const paymentsList = await getPayment({
-      userId: '5fbe261bf9266857e4dd7c3f',
-      accountBookId: '1',
-    });
-
-    setPayments(await paymentsList);
+    dispatch(
+      // TODO: 추후 로그인 기능이 완료되면, localStorage에서 정보 가져올 예정
+      paymentLoader({
+        userId: '5fbe261bf9266857e4dd7c3f',
+        accountBookId: '5fc46c4209dfb476c8bac16d',
+      })
+    );
   }, []);
 
-  return <PaymentForm payments={payments} />;
+  const handleClick = async ({ userId, paymentName }) => {
+    const addResult = await addPayment({
+      userId,
+      paymentName,
+    });
+
+    if (addResult === 'success') {
+      dispatch(
+        paymentLoader({
+          userId,
+          accountBookId: '5fc46c4209dfb476c8bac16d',
+        })
+      );
+    }
+  };
+
+  return <PaymentForm payments={payments} addClick={handleClick} />;
 };
 
 export default PaymentContainer;

@@ -40,6 +40,19 @@ const PaymentService = {
       '요청하신 결제수단의 결제정보를 불러오는데 에러가 발생했습니다.'
     );
   },
+
+  updatePayment: async (userId, paymentName) => {
+    const result = await UserModel.updateOne(
+      { _id: userId },
+      { $push: { paymentMethod: [paymentName] } }
+    );
+
+    if (result.ok === 1) {
+      return 'success';
+    }
+
+    throw new Error('카드 추가에 실패했습니다.');
+  },
 };
 
 module.exports = PaymentService;

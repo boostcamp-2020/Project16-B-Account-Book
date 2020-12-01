@@ -5,4 +5,6 @@ const paymentController = require('../controller/payment.controller');
 
 router.post('/:userId', paymentController.getPayments);
 
+router.put('/', paymentController.addPayment);
+
 module.exports = router;

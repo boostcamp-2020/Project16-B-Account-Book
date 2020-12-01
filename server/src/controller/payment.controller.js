@@ -14,8 +14,22 @@ const PaymentController = {
 
       if (paymentsList) {
         ctx.body = paymentsList;
+
         return;
       }
+    } catch (err) {
+      ctx.body = 'error';
+    }
+  },
+
+  addPayment: async (ctx) => {
+    try {
+      const { userId, paymentName } = ctx.request.body;
+
+      await PaymentService.updatePayment(userId, paymentName);
+      ctx.body = 'success';
+
+      return;
     } catch (err) {
       ctx.body = 'error';
     }

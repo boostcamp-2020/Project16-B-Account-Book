@@ -5,7 +5,7 @@ import * as FcIcons from 'react-icons/fc';
 import PaymentModal from './PaymentModal';
 
 const AddPaymentBtn = styled.div`
-  width: 85%;
+  width: 93%;
   display: flex;
   flex-direction: row-reverse;
   cursor: pointer;
@@ -33,7 +33,6 @@ const AddButton = ({ payments, addClick }) => {
           }}
         />
       </AddPaymentBtn>
-
       <PaymentModal
         isOpen={show}
         close={handleClose}

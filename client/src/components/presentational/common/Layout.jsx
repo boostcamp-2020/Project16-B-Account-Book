@@ -11,13 +11,14 @@ const ContentWrapper = styled.div`
   top: 61px;
   left: 251px;
   padding: 50px 20px;
-  width: 100%;
+  max-width: 972px;
   height: 100%;
   background-color: ${color.pageBackground};
   transition: 850ms;
 
   @media (max-width: 767px) {
     transform: translate(-231px, 0px);
+    width: 90%;
   }
 `;
 

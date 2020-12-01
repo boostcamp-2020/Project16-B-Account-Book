@@ -11,7 +11,7 @@ const PaymentApp = styled.div`
 const PaymentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 80rem;
+  max-width: 100rem;
 `;
 
 const Payments = styled.ul`
@@ -21,7 +21,7 @@ const Payments = styled.ul`
   list-style: none;
 `;
 
-const PaymentForm = ({ payments, addClick }) => {
+const PaymentForm = ({ payments, addClick, cardDelete }) => {
   return (
     <PaymentApp>
       <PaymentWrapper>
@@ -30,12 +30,18 @@ const PaymentForm = ({ payments, addClick }) => {
         {payments !== 'error' && (
           <Payments>
             {payments.map((item, index) => (
-              <PaymentItem key={'payment' + index} item={item} />
+              <PaymentItem
+                key={'payment' + index}
+                item={item}
+                cardDelete={cardDelete}
+              />
             ))}
           </Payments>
         )}
 
-        {payments === 'error' && <h2>아직 등록된 결제수단이 없습니다!</h2>}
+        {(payments === 'error' || payments.length === 0) && (
+          <h2>아직 등록된 결제수단이 없습니다!</h2>
+        )}
       </PaymentWrapper>
     </PaymentApp>
   );

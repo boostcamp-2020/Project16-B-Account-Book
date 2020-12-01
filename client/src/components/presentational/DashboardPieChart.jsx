@@ -48,29 +48,34 @@ const parseData = (transactions) => {
 };
 
 const Box = styled.div`
-  max-width: 75vh;
-  max-height: 50vh;
-  /* height: 25em; */
+  width: 75vh;
+  height: 75vh;
+  min-width: 250px;
+  min-height: 250px;
+
+  .recharts-legend-wrapper {
+    bottom: 10vh !important;
+  }
+  .recharts-legend-item {
+    font-size: 2.5vh;
+  }
 `;
 
 const DashboardPieChart = ({ transactions }) => {
   const data = parseData(transactions);
   return (
     <Box>
-      <ResponsiveContainer width="101%" height="100%">
+      <ResponsiveContainer>
         <PieChart>
           <Legend paylodUniqBy />
           <Pie
             data={data}
             dataKey="value"
-            // cx={200}
-            // cy={125}
+            cy="40%"
             startAngle={180}
             endAngle={-180}
-            innerRadius="40%"
-            outerRadius="50%"
-            // innerRadius={60}
-            // outerRadius={70}
+            innerRadius="45%"
+            outerRadius="55%"
             label={renderLabelContent}
             paddingAngle={5}
             isAnimationActive={true}
@@ -78,7 +83,7 @@ const DashboardPieChart = ({ transactions }) => {
             {data.map((entry, index) => (
               <Cell key={`slice-${index}`} fill={colors[index % 10]} />
             ))}
-            <Label width={50} position="center">
+            <Label width={50} fontSize="4vh" position="center">
               지출
             </Label>
           </Pie>

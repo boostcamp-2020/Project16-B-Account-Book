@@ -37,3 +37,18 @@ export async function addPayment({ userId, paymentName }) {
 
   return data;
 }
+
+export async function deletePayment({ userId, paymentName }) {
+  const url = `${API_URL}/payment/`;
+
+  const { data } = await axios({
+    url: url,
+    method: 'delete',
+    data: {
+      userId,
+      paymentName,
+    },
+  });
+
+  return data;
+}

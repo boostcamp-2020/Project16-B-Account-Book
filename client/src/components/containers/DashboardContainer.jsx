@@ -14,7 +14,10 @@ const StyledDiv = styled.div`
 const MediaTextExpense = styled.div`
   transition: 1s;
   @media (max-width: 967px) {
-    transform: translate(-160%, 110%);
+    transform: translate(-47vw, 110%);
+  }
+  @media (max-width: 768px) {
+    transform: translate(-50vw, 110%);
   }
 `;
 

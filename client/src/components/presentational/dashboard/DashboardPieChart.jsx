@@ -48,16 +48,16 @@ const parseData = (transactions) => {
 };
 
 const Box = styled.div`
-  width: 75vh;
-  height: 75vh;
+  width: 45vw;
+  height: 45vw;
   min-width: 250px;
   min-height: 250px;
 
   .recharts-legend-wrapper {
-    bottom: 10vh !important;
+    bottom: 10vw !important;
   }
   .recharts-legend-item {
-    font-size: 2.5vh;
+    font-size: 2.5vw;
   }
 `;
 
@@ -83,7 +83,7 @@ const DashboardPieChart = ({ transactions }) => {
             {data.map((entry, index) => (
               <Cell key={`slice-${index}`} fill={colors[index % 10]} />
             ))}
-            <Label width={50} fontSize="4vh" position="center">
+            <Label width={50} fontSize="4vw" position="center">
               지출
             </Label>
           </Pie>

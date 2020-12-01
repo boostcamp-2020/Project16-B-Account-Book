@@ -8,7 +8,7 @@ const StyledDiv = styled.div`
 `;
 //TODO: 그래프 css 수정 후 이 css도 다 다시 수정
 const Title = styled.div`
-  font-size: 3vh;
+  font-size: 1.5vw;
 `;
 
 const Body = styled.div``;
@@ -19,7 +19,7 @@ const Tabs = styled.div`
 
 const Tab = styled.div`
   padding: 0.5rem 3rem;
-  font-size: 4vh;
+  font-size: 2vw;
   white-space: nowrap;
   &:hover {
     cursor: pointer;
@@ -40,13 +40,13 @@ const Tab = styled.div`
 `;
 
 const SmallText = styled.span`
-  font-size: 2vh;
+  font-size: 1vw;
   color: grey;
 `;
 
 const Info = styled.div`
   display: flex;
-  font-size: 3vh;
+  font-size: 2vw;
   flex-direction: column;
   padding: 0.7rem 0px;
   & > * {

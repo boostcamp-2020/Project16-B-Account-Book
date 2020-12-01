@@ -55,7 +55,7 @@ const PaymentService = {
   },
 
   deletePayment: async (userId, paymentName) => {
-    const result = await UserModel.update(
+    const result = await UserModel.updateOne(
       { _id: userId },
       { $pull: { paymentMethod: paymentName } }
     );

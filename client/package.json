@@ -36,6 +36,7 @@
     "d3-scale-chromatic": "^2.0.0",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^5.1.0",
+    "numeral": "^2.0.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.0.0",

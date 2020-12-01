@@ -13,6 +13,11 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
+      '@presentational': path.resolve(
+        __dirname,
+        './src/components/presentational'
+      ),
+      '@service': path.resolve(__dirname, './src/services'),
       '@public': path.resolve(__dirname, './public'),
       '@': path.resolve(__dirname, './src'),
     },
@@ -41,6 +46,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
+      favicon: './public/favicon.ico',
     }),
     new CleanWebpackPlugin(),
     new RefreshWebpackPlugin(),

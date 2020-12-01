@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import * as AiIcons from 'react-icons/ai';
 
 import color from '@public/color';
 import { SidebarList } from './SidebarList';
@@ -35,7 +34,7 @@ const NavMenu = styled.div`
     align-items: center;
     padding: 8px 0 8px 16px;
     list-style: none;
-    height: 60px;
+    height: 50px;
   }
 
   .nav-text a {
@@ -69,16 +68,6 @@ const NavMenu = styled.div`
   }
 `;
 
-const MenuBars = styled.div`
-  display: flex;
-
-  a {
-    margin-right: 1rem;
-    font-size: 2rem;
-    background: none;
-  }
-`;
-
 const Span = styled.span`
   color: ${color.fontBold};
   margin-left: 16px;
@@ -95,14 +84,6 @@ const Sidebar = () => {
     <NavMenu>
       <div className="nav-menu active">
         <ul className="nav-menu-items" onClick={showSidebar}>
-          <li className="navbar-toggle">
-            <MenuBars>
-              <Link to="#">
-                <AiIcons.AiOutlineClose size={20} />
-              </Link>
-            </MenuBars>
-          </li>
-
           {SidebarList.map((item, index) => {
             return (
               <li key={'sidebar' + index} className={item.cName}>

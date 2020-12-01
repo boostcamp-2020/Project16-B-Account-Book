@@ -5,7 +5,7 @@ import LoginPage from './pages/LoginPage';
 import AccountBookPage from './pages/AccountBookPage';
 import AnalysisPage from './pages/AnalysisPage';
 import CalendarPage from './pages/CalendarPage';
-import CategoryPage from './pages/CategoryPage';
+import CategoryTagPage from './pages/CategoryTagPage';
 import DashboardPage from './pages/DashboardPage';
 import NotFoundPage from './pages/NotFoundPage';
 import PaymentMethodPage from './pages/PaymentMethodPage';
@@ -32,7 +32,7 @@ const App = () => {
           <Route path="/account-book" component={AccountBookPage} />
           <Route path="/analysis" component={AnalysisPage} />
           <Route exact path="/calendar" component={CalendarPage} />
-          <Route path="/category" component={CategoryPage} />
+          <Route path="/category" component={CategoryTagPage} />
           <Route path="/dashboard" component={DashboardPage} />
           <Route path="/payment-method" component={PaymentMethodPage} />
           <Route path="/setting" component={SettingPage} />

@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import DashboardVisualExpense from '../presentational/DashboardVisualExpense';
-import DashboardTextExpense from '../presentational/DashboardTextExpense';
+import DashboardVisualExpense from '../presentational/dashboard/DashboardVisualExpense';
+import DashboardTextExpense from '../presentational/dashboard/DashboardTextExpense';
 
 const StyledDiv = styled.div`
   display: flex;

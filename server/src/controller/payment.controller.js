@@ -6,10 +6,10 @@ const PaymentController = {
       const { userId } = ctx.request.params;
       const { accountBookId } = ctx.request.body;
 
-      const paymentsById = await PaymentService.getPayments(userId);
+      const paymentResultsById = await PaymentService.getPayments(userId);
       const paymentsList = await PaymentService.makePaymentsTemplate(
         accountBookId,
-        paymentsById
+        paymentResultsById
       );
 
       if (paymentsList) {

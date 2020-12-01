@@ -3,30 +3,33 @@ const TransactionModel = require('../model/transaction.model');
 
 const PaymentService = {
   getPayments: async (userId) => {
-    const resultById = await UserModel.find({ _id: userId });
+    const paymentResultById = await UserModel.findOne({ _id: userId });
 
-    if (resultById) {
-      return resultById[0].paymentMethod;
+    if (paymentResultById) {
+      return paymentResultById.paymentMethod;
     }
 
     throw new Error('요청하신 사용자의 결제수단이 존재하지 않습니다.');
   },
 
-  makePaymentsTemplate: async (accountBookId, paymentsById) => {
-    const paymentList = [...paymentsById];
+  makePaymentsTemplate: async (accountBookId, paymentResultsById) => {
+    const paymentList = [...paymentResultsById];
+    const transactionList = await TransactionModel.find({
+      accountBookId: accountBookId,
+      paymentMethod: { $in: [...paymentResultsById] },
+    });
 
     for (let [index, payment] of paymentList.entries()) {
-      const transactionList = await TransactionModel.find({
-        accountBookId: accountBookId,
-        paymentMethod: payment,
-      });
+      let totalCost = 0;
+      const filterResult = transactionList.filter(
+        (item) => item.paymentMethod === payment
+      );
 
-      let sum = 0;
-      for (let transaction of transactionList) {
-        sum += transaction.cost;
+      for (let transaction of filterResult) {
+        totalCost += transaction.cost;
       }
 
-      paymentList[index] = { payment: payment, totalCost: sum };
+      paymentList[index] = { payment, totalCost };
     }
 
     if (paymentList) {

@@ -25,8 +25,9 @@ const PaymentController = {
     try {
       const { userId, paymentName } = ctx.request.body;
 
-      await PaymentService.addPayment(userId, paymentName);
-      ctx.body = 'success';
+      const paymentList = await PaymentService.addPayment(userId, paymentName);
+
+      ctx.body = paymentList;
     } catch (err) {
       ctx.body = 'error';
     }
@@ -36,8 +37,12 @@ const PaymentController = {
     try {
       const { userId, paymentName } = ctx.request.body;
 
-      await PaymentService.deletePayment(userId, paymentName);
-      ctx.body = 'success';
+      const paymentList = await PaymentService.deletePayment(
+        userId,
+        paymentName
+      );
+
+      ctx.body = paymentList;
 
       return;
     } catch (err) {
@@ -49,8 +54,13 @@ const PaymentController = {
     try {
       const { userId, selectedCardName, newCardName } = ctx.request.body;
 
-      await PaymentService.updatePayment(userId, selectedCardName, newCardName);
-      ctx.body = 'success';
+      const paymentList = await PaymentService.updatePayment(
+        userId,
+        selectedCardName,
+        newCardName
+      );
+
+      ctx.body = paymentList;
     } catch (err) {
       ctx.body = 'error';
     }

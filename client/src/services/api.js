@@ -52,3 +52,29 @@ export async function deletePayment({ userId, paymentName }) {
 
   return data;
 }
+
+export async function postLoginGithub(code) {
+  const url = `${API_URL}/user/githublogin`;
+
+  const { data } = await axios(url, {
+    method: 'post',
+    data: {
+      code,
+    },
+  });
+
+  return data;
+}
+
+export async function postLoginNaver(code) {
+  const url = `${API_URL}/user/naverlogin`;
+
+  const { data } = await axios(url, {
+    method: 'post',
+    data: {
+      code,
+    },
+  });
+
+  return data;
+}

@@ -8,7 +8,6 @@ module.exports = async (ctx, next) => {
     ctx.status = 400;
   }
   const { code } = ctx.request.body;
-
   const token = await requestToken(code);
   const { login, id, avatar_url, email } = await requestUserInfo(token);
 
@@ -20,7 +19,7 @@ module.exports = async (ctx, next) => {
     imageURL: avatar_url,
   };
 
-  next();
+  await next();
 };
 
 const requestToken = async (code) => {
@@ -29,10 +28,11 @@ const requestToken = async (code) => {
     client_id: process.env.GITHUB_CLIENT_ID,
     client_secret: process.env.GITHUB_CLIENT_SECRET,
   };
+
   const { data } = await axios.post(GITHUB_TOKEN_API_URL, info, {
     headers: { accept: 'application/json' },
   });
-  
+
   return data.access_token;
 };
 
@@ -42,6 +42,6 @@ const requestUserInfo = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  
+
   return data;
 };

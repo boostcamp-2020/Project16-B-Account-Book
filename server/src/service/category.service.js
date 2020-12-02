@@ -5,7 +5,7 @@ const CategoryService = {
   getCategory: async () => {
     const result = await CategoryModel.find({});
 
-    if (result && result.length) {
+    if (result.length) {
       return result;
     }
 

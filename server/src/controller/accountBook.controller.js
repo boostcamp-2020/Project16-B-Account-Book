@@ -15,7 +15,7 @@ const accountBookController = {
   },
   getAccountBook: async (ctx) => {
     try {
-      const userId = ctx.request.header['userid']; // TODO: 위와 같다
+      const { userid: userId } = ctx.request.header; // TODO: 위와 같다
       const { accountBookId } = ctx.params;
       const accountBook = await accountBookService.getAccountBook(
         userId,

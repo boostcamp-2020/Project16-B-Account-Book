@@ -17,7 +17,8 @@ const PaymentController = {
         return;
       }
     } catch (err) {
-      ctx.body = 'error';
+      //ctx.body = 'error';
+      ctx.throw(err.code, err);
     }
   },
 };

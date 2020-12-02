@@ -1,5 +1,6 @@
 const UserModel = require('../model/user.model');
 const TransactionModel = require('../model/transaction.model');
+const createError = require('../util/error');
 
 const PaymentService = {
   getPayments: async (userId) => {
@@ -9,7 +10,13 @@ const PaymentService = {
       return resultById[0].paymentMethod;
     }
 
-    throw new Error('요청하신 사용자의 결제수단이 존재하지 않습니다.');
+    //throw new Error('요청하신 사용자의 결제수단이 존재하지 않습니다.');
+    const error = createError({
+      status: 'BAD REQUEST',
+      msg: '요청하신 사용자의 결제수단이 존재하지 않습니다.',
+    });
+
+    throw error;
   },
 
   makePaymentsTemplate: async (accountBookId, paymentsById) => {

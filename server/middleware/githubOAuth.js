@@ -32,6 +32,7 @@ const requestToken = async (code) => {
   const { data } = await axios.post(GITHUB_TOKEN_API_URL, info, {
     headers: { accept: 'application/json' },
   });
+  
   return data.access_token;
 };
 
@@ -41,5 +42,6 @@ const requestUserInfo = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  
   return data;
 };

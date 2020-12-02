@@ -4,7 +4,6 @@ import { getToken } from './token';
 axios.defaults.baseURL = process.env.API_URL;
 
 const axiosAPI = (url, method, body) => {
-  console.log(url, method, body);
   return axios({
     url,
     method,

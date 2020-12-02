@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import PaymentForm from '@presentational/payment/PaymentForm';
 import { paymentLoader } from '@slice';
-import { addPayment, deletePayment } from '@service/api';
+import { addPayment, deletePayment, updatePayment } from '@service/api';
 
 const PaymentContainer = () => {
   const dispatch = useDispatch();
@@ -44,11 +44,24 @@ const PaymentContainer = () => {
     }
   };
 
+  const cardUpdate = async ({ selectedCardName, newCardName }) => {
+    const deleteResult = await updatePayment({
+      userId: '5fbe261bf9266857e4dd7c3f',
+      selectedCardName,
+      newCardName,
+    });
+
+    if (deleteResult === 'success') {
+      changeStatus();
+    }
+  };
+
   return (
     <PaymentForm
       payments={payments}
       addClick={handleClick}
       cardDelete={cardDelete}
+      cardUpdate={cardUpdate}
     />
   );
 };

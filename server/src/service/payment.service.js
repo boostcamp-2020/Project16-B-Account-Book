@@ -3,10 +3,10 @@ const TransactionModel = require('../model/transaction.model');
 
 const PaymentService = {
   getPayments: async (userId) => {
-    const paymentResultById = await UserModel.findOne({ _id: userId });
+    const { paymentMethod } = await UserModel.findOne({ _id: userId });
 
-    if (paymentResultById) {
-      return paymentResultById.paymentMethod;
+    if (paymentMethod) {
+      return paymentMethod;
     }
 
     throw new Error('요청하신 사용자의 결제수단이 존재하지 않습니다.');

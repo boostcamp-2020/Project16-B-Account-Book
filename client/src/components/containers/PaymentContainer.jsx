@@ -8,7 +8,7 @@ import { addPayment, deletePayment } from '@service/api';
 const PaymentContainer = () => {
   const dispatch = useDispatch();
   const payments = useSelector((state) => state.payments);
-  const changeStatus = async () => {
+  const changeStatus = () => {
     dispatch(
       // TODO: 추후 로그인 기능이 완료되면, localStorage에서 정보 가져올 예정
       paymentLoader({
@@ -18,7 +18,7 @@ const PaymentContainer = () => {
     );
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     changeStatus();
   }, []);
 

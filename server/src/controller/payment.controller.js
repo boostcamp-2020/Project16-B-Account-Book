@@ -14,8 +14,6 @@ const PaymentController = {
 
       if (paymentsList) {
         ctx.body = paymentsList;
-
-        return;
       }
     } catch (err) {
       ctx.body = 'error';
@@ -28,8 +26,6 @@ const PaymentController = {
 
       await PaymentService.updatePayment(userId, paymentName);
       ctx.body = 'success';
-
-      return;
     } catch (err) {
       ctx.body = 'error';
     }

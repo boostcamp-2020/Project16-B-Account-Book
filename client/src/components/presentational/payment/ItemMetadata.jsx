@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
 
@@ -81,13 +81,14 @@ const PaymentBtn = styled.button`
 `;
 
 const ItemMetadata = ({ item, cardDelete }) => {
+  const titleRef = useRef();
   const [dropdown, setDropDown] = useState(false);
   const dropDownOptions = ['카드 수정', '카드 삭제', '취소'];
 
   return (
     <Metadata>
       <MainWrapper>
-        <Title>{item.payment}</Title>
+        <Title ref={titleRef}>{item.payment}</Title>
         <DropDownBtn onClick={() => setDropDown(!dropdown)}>
           {icon.more}
         </DropDownBtn>
@@ -96,6 +97,7 @@ const ItemMetadata = ({ item, cardDelete }) => {
             options={dropDownOptions}
             setDropDown={setDropDown}
             cardDelete={cardDelete}
+            titleRef={titleRef}
           />
         )}
       </MainWrapper>

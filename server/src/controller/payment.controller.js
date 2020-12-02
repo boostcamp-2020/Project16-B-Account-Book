@@ -6,16 +6,40 @@ const PaymentController = {
       const { userId } = ctx.request.params;
       const { accountBookId } = ctx.request.body;
 
-      const paymentsById = await PaymentService.getPayments(userId);
+      const paymentResultsById = await PaymentService.getPayments(userId);
       const paymentsList = await PaymentService.makePaymentsTemplate(
         accountBookId,
-        paymentsById
+        paymentResultsById
       );
 
       if (paymentsList) {
         ctx.body = paymentsList;
-        return;
       }
+    } catch (err) {
+      //ctx.body = 'error';
+      ctx.throw(err.code, err);
+    }
+  },
+
+  addPayment: async (ctx) => {
+    try {
+      const { userId, paymentName } = ctx.request.body;
+
+      await PaymentService.updatePayment(userId, paymentName);
+      ctx.body = 'success';
+    } catch (err) {
+      ctx.body = 'error';
+    }
+  },
+
+  deletePayment: async (ctx) => {
+    try {
+      const { userId, paymentName } = ctx.request.body;
+
+      await PaymentService.deletePayment(userId, paymentName);
+      ctx.body = 'success';
+
+      return;
     } catch (err) {
       ctx.body = 'error';
     }

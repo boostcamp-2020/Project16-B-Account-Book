@@ -5,10 +5,12 @@ const paymentRouter = require('./payment.route');
 const transactionRouter = require('./transaction.route');
 const categoryRouter = require('./category.route');
 const accountBookRouter = require('./accountBook.route');
+const tokenValidator = require('../../middleware/tokenValidator');
+
 
 const router = new Router();
 
-router.get('/', (ctx) => {
+router.get('/', tokenValidator, (ctx) => {
   ctx.body = 'index 입니다';
 });
 

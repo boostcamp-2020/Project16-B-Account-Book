@@ -24,6 +24,15 @@ const UserController = {
       ctx.body = 'error';
     }
   },
+  login: async (ctx) => {
+    try {
+      const { userInfo } = ctx.request;
+      const token = await userService.login(userInfo);
+      ctx.body = token;
+    } catch (err) {
+      ctx.body = 'error';
+    }
+  },
 };
 
 module.exports = UserController;

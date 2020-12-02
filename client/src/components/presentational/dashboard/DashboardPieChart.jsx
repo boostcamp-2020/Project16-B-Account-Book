@@ -8,6 +8,7 @@ import {
 } from 'recharts';
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
+import styled from 'styled-components';
 
 const colors = scaleOrdinal(schemeCategory10).range();
 
@@ -46,38 +47,49 @@ const parseData = (transactions) => {
     });
 };
 
+const Box = styled.div`
+  width: 45vw;
+  height: 45vw;
+  min-width: 250px;
+  min-height: 250px;
+
+  .recharts-legend-wrapper {
+    bottom: 10vw !important;
+  }
+  .recharts-legend-item {
+    font-size: 2.5vw;
+  }
+`;
+
 const DashboardPieChart = ({ transactions }) => {
   const data = parseData(transactions);
   return (
-    <ResponsiveContainer>
-      <div className="pie-charts">
-        <div className="pie-chart-wrapper">
-          <PieChart width={400} height={325}>
-            <Legend paylodUniqBy />
-            <Pie
-              data={data}
-              dataKey="value"
-              cx={200}
-              cy={125}
-              startAngle={180}
-              endAngle={-180}
-              innerRadius={60}
-              outerRadius={70}
-              label={renderLabelContent}
-              paddingAngle={5}
-              isAnimationActive={true}
-            >
-              {data.map((entry, index) => (
-                <Cell key={`slice-${index}`} fill={colors[index % 10]} />
-              ))}
-              <Label width={50} position="center">
-                지출
-              </Label>
-            </Pie>
-          </PieChart>
-        </div>
-      </div>
-    </ResponsiveContainer>
+    <Box>
+      <ResponsiveContainer>
+        <PieChart>
+          <Legend paylodUniqBy />
+          <Pie
+            data={data}
+            dataKey="value"
+            cy="40%"
+            startAngle={180}
+            endAngle={-180}
+            innerRadius="45%"
+            outerRadius="55%"
+            label={renderLabelContent}
+            paddingAngle={5}
+            isAnimationActive={true}
+          >
+            {data.map((entry, index) => (
+              <Cell key={`slice-${index}`} fill={colors[index % 10]} />
+            ))}
+            <Label width={50} fontSize="4vw" position="center">
+              지출
+            </Label>
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    </Box>
   );
 };
 

@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import DashboardVisualExpense from '../presentational/DashboardVisualExpense';
-import DashboardTextExpense from '../presentational/DashboardTextExpense';
+import DashboardVisualExpense from '../presentational/dashboard/DashboardVisualExpense';
+import DashboardTextExpense from '../presentational/dashboard/DashboardTextExpense';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -14,7 +14,10 @@ const StyledDiv = styled.div`
 const MediaTextExpense = styled.div`
   transition: 1s;
   @media (max-width: 967px) {
-    transform: translate(-160%, 110%);
+    transform: translate(-47vw, 110%);
+  }
+  @media (max-width: 768px) {
+    transform: translate(-50vw, 110%);
   }
 `;
 

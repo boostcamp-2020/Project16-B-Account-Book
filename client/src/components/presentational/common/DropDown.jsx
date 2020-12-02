@@ -30,10 +30,23 @@ const DropDownOption = styled.div`
   }
 `;
 
-const DropDown = ({ options, setDropDown }) => {
+const DropDown = ({ options, setDropDown, cardDelete, titleRef }) => {
   const optionOnClick = (e) => {
-    // TODO
-    console.log(e.target.textContent); // TODO: 삭제할 예정(확인용)
+    const optionTitle = e.target.textContent;
+    const selectedCardName = titleRef.current.innerText;
+
+    switch (optionTitle) {
+      case '카드 삭제':
+        cardDelete({
+          paymentName: selectedCardName,
+        });
+        break;
+      case '카드 수정':
+        console.log('수정 시작');
+        break;
+      default:
+        break;
+    }
     setDropDown(false);
   };
 

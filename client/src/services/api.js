@@ -23,7 +23,7 @@ export async function getPayment({ userId, accountBookId }) {
   return data;
 }
 
-export async function addPayment({ userId, paymentName }) {
+export async function patchPayment({ userId, paymentName }) {
   const url = `${API_URL}/payment/`;
 
   const { data } = await axios({

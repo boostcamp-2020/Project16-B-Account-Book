@@ -14,7 +14,8 @@ const transactionController = {
       );
       ctx.body = transactions;
     } catch (err) {
-      ctx.body = 'error';
+      //ctx.body = 'error';
+      ctx.throw(err.code, err);
     }
   },
 };

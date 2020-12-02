@@ -6,12 +6,13 @@ import color from '@public/color';
 import DropDown from '../common/DropDown';
 
 const CardWrapper = styled.div`
-  flex: 1 0 45%;
+  flex: 1 0 calc(50% - 20px);
   box-sizing: border-box;
   border: 1px solid ${color.lineBold};
   margin: 10px;
   padding: 10px;
   min-width: 400px;
+  max-width: calc(50% - 20px);
   .card-header {
     display: flex;
     position: relative;
@@ -51,10 +52,6 @@ const CardWrapper = styled.div`
       background-color: #8d45ff;
       border-radius: 50%;
     }
-  }
-
-  @media (max-width: 767px) {
-    flex: 1 0 100%;
   }
 `;
 

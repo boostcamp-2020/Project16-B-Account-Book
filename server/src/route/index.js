@@ -3,10 +3,11 @@ const Router = require('koa-router');
 const userRouter = require('./user.route');
 const paymentRouter = require('./payment.route');
 const transactionRouter = require('./transaction.route');
+const tokenValidator = require('../../middleware/tokenValidator');
 
 const router = new Router();
 
-router.get('/', (ctx) => {
+router.get('/', tokenValidator, (ctx) => {
   ctx.body = 'index 입니다';
 });
 

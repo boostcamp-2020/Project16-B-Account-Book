@@ -7,6 +7,6 @@ router.get('/', accountBookController.getAllAccountBooks);
 router.get('/:accountBookId', accountBookController.getAccountBook);
 router.post('/', accountBookController.createAccountBook);
 router.delete('/:accountBookId', accountBookController.deleteAccountBook);
-router.put('/:accountBookId', accountBookController.updateAccountBook);
+router.patch('/:accountBookId', accountBookController.updateAccountBook);
 
 module.exports = router;

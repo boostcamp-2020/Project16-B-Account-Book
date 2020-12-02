@@ -9,7 +9,7 @@ const statusCode = {
   'SERVICE UNAVAILABLE': 503,
 };
 
-const createError = ({ status, msg }) => {
+const newError = ({ status, msg }) => {
   const err = new Error(status);
   err.msg = msg;
   err.code = statusCode[status];
@@ -17,4 +17,4 @@ const createError = ({ status, msg }) => {
   return err;
 };
 
-module.exports = createError;
+module.exports = newError;

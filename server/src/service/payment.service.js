@@ -1,6 +1,6 @@
 const UserModel = require('../model/user.model');
 const TransactionModel = require('../model/transaction.model');
-const createError = require('../util/error');
+const newError = require('../util/error');
 
 const PaymentService = {
   getPayments: async (userId) => {
@@ -11,12 +11,10 @@ const PaymentService = {
     }
 
     //throw new Error('요청하신 사용자의 결제수단이 존재하지 않습니다.');
-    const error = createError({
+    throw newError({
       status: 'BAD REQUEST',
       msg: '요청하신 사용자의 결제수단이 존재하지 않습니다.',
     });
-
-    throw error;
   },
 
   makePaymentsTemplate: async (accountBookId, paymentsById) => {
@@ -40,9 +38,13 @@ const PaymentService = {
       return paymentList;
     }
 
-    throw new Error(
-      '요청하신 결제수단의 결제정보를 불러오는데 에러가 발생했습니다.'
-    );
+    // throw new Error(
+    //   '요청하신 결제수단의 결제정보를 불러오는데 에러가 발생했습니다.'
+    // );
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '요청하신 결제수단의 결제정보를 불러오는데 에러가 발생했습니다.',
+    });
   },
 };
 

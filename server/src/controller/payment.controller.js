@@ -24,7 +24,7 @@ const PaymentController = {
     try {
       const { userId, paymentName } = ctx.request.body;
 
-      await PaymentService.updatePayment(userId, paymentName);
+      await PaymentService.addPayment(userId, paymentName);
       ctx.body = 'success';
     } catch (err) {
       ctx.body = 'error';
@@ -39,6 +39,17 @@ const PaymentController = {
       ctx.body = 'success';
 
       return;
+    } catch (err) {
+      ctx.body = 'error';
+    }
+  },
+
+  updatePayment: async (ctx) => {
+    try {
+      const { userId, selectedCardName, newCardName } = ctx.request.body;
+
+      await PaymentService.updatePayment(userId, selectedCardName, newCardName);
+      ctx.body = 'success';
     } catch (err) {
       ctx.body = 'error';
     }

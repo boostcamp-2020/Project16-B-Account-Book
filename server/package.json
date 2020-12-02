@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon src/app.js",
+    "dev": "NODE_ENV=development nodemon --exec babel-node src/app.js",
     "start": "NODE_ENV=production node src/app.js",
     "test": "jest --testEnvironment=node --runInBand"
   },
@@ -12,6 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.7",
     "@koa/cors": "^3.1.0",
     "axios": "^0.21.0",
     "eslint-config-prettier": "^6.15.0",

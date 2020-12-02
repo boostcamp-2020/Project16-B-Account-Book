@@ -33,11 +33,10 @@ const DropDownOption = styled.div`
 const DropDown = ({ options, setDropDown, cardDelete, titleRef }) => {
   const optionOnClick = (e) => {
     const optionTitle = e.target.textContent;
-    let selectedCardName = null;
+    const selectedCardName = titleRef?.current?.innerText;
 
     switch (optionTitle) {
       case '카드 삭제':
-        selectedCardName = titleRef.current.innerText;
         cardDelete({
           paymentName: selectedCardName,
         });

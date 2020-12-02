@@ -10,7 +10,6 @@ const PaymentService = {
       return paymentMethod;
     }
 
-    //throw new Error('요청하신 사용자의 결제수단이 존재하지 않습니다.');
     throw newError({
       status: 'BAD REQUEST',
       msg: '요청하신 사용자의 결제수단이 존재하지 않습니다.',
@@ -41,9 +40,6 @@ const PaymentService = {
       return paymentList;
     }
 
-    // throw new Error(
-    //   '요청하신 결제수단의 결제정보를 불러오는데 에러가 발생했습니다.'
-    // );
     throw newError({
       status: 'BAD REQUEST',
       msg: '요청하신 결제수단의 결제정보를 불러오는데 에러가 발생했습니다.',
@@ -60,7 +56,10 @@ const PaymentService = {
       return 'success';
     }
 
-    throw new Error('카드 추가에 실패했습니다.');
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '카드 추가에 실패했습니다.',
+    });
   },
 
   deletePayment: async (userId, paymentName) => {
@@ -73,7 +72,10 @@ const PaymentService = {
       return 'success';
     }
 
-    throw new Error('카드 삭제에 실패했습니다.');
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '카드 삭제에 실패했습니다.',
+    });
   },
 
   updatePayment: async (userId, selectedCardName, newCardName) => {
@@ -92,7 +94,10 @@ const PaymentService = {
       return 'success';
     }
 
-    throw new Error('카드 추가에 실패했습니다.');
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '카드 명 수정에 실패했습니다.',
+    });
   },
 };
 

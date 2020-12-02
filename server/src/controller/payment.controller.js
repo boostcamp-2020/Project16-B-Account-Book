@@ -16,7 +16,6 @@ const PaymentController = {
         ctx.body = paymentsList;
       }
     } catch (err) {
-      //ctx.body = 'error';
       ctx.throw(err.code, err);
     }
   },
@@ -29,7 +28,7 @@ const PaymentController = {
 
       ctx.body = paymentList;
     } catch (err) {
-      ctx.body = 'error';
+      ctx.throw(err.code, err);
     }
   },
 
@@ -46,7 +45,7 @@ const PaymentController = {
 
       return;
     } catch (err) {
-      ctx.body = 'error';
+      ctx.throw(err.code, err);
     }
   },
 
@@ -62,7 +61,7 @@ const PaymentController = {
 
       ctx.body = paymentList;
     } catch (err) {
-      ctx.body = 'error';
+      ctx.throw(err.code, err);
     }
   },
 };

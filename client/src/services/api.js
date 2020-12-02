@@ -28,7 +28,7 @@ export async function addPayment({ userId, paymentName }) {
 
   const { data } = await axios({
     url: url,
-    method: 'put',
+    method: 'patch',
     data: {
       userId,
       paymentName,
@@ -47,6 +47,22 @@ export async function deletePayment({ userId, paymentName }) {
     data: {
       userId,
       paymentName,
+    },
+  });
+
+  return data;
+}
+
+export async function updatePayment({ userId, selectedCardName, newCardName }) {
+  const url = `${API_URL}/payment/update`;
+
+  const { data } = await axios({
+    url: url,
+    method: 'patch',
+    data: {
+      userId,
+      selectedCardName,
+      newCardName,
     },
   });
 

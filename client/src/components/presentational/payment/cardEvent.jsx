@@ -12,6 +12,9 @@ export const deleteCard = ({ cardDelete, selectedCardName }) => {
       cardDelete({
         paymentName: selectedCardName,
       });
+      Swal.fire({
+        text: `카드 삭제가 완료되었습니다.`,
+      });
     }
   });
 };
@@ -20,7 +23,7 @@ export const updateCard = ({ cardUpdate, selectedCardName }) => {
   Swal.fire({
     text: `수정할 카드 명을 입력해주세요`,
     input: 'text',
-    inputPlaceholder: selectedCardName,
+    inputValue: selectedCardName,
     inputAttributes: {
       autocapitalize: 'off',
     },
@@ -38,7 +41,7 @@ export const updateCard = ({ cardUpdate, selectedCardName }) => {
   }).then((result) => {
     if (result.isConfirmed) {
       Swal.fire({
-        title: `카드 수정이 완료되었습니다.`,
+        text: `카드 수정이 완료되었습니다.`,
       });
     }
   });

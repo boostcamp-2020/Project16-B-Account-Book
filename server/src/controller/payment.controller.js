@@ -3,13 +3,12 @@ const PaymentService = require('../service/payment.service');
 const PaymentController = {
   getPayments: async (ctx) => {
     try {
-      const { userid } = ctx.request.header;
-      const { accountBookId } = ctx.request.params;
-      //const { accountBookId } = ctx.request.body;
-      console.log(accountBookId);
+      const { accountbookid: accountBookId } = ctx.request.header;
+
       const paymentResultsById = await PaymentService.getPayments(
         accountBookId
       );
+
       const paymentsList = await PaymentService.makePaymentsTemplate(
         accountBookId,
         paymentResultsById
@@ -25,9 +24,13 @@ const PaymentController = {
 
   addPayment: async (ctx) => {
     try {
-      const { userId, paymentName } = ctx.request.body;
+      const { accountbookid: accountBookId } = ctx.request.header;
+      const { paymentName } = ctx.request.body;
 
-      const paymentList = await PaymentService.addPayment(userId, paymentName);
+      const paymentList = await PaymentService.addPayment(
+        accountBookId,
+        paymentName
+      );
 
       ctx.body = paymentList;
     } catch (err) {
@@ -37,10 +40,11 @@ const PaymentController = {
 
   deletePayment: async (ctx) => {
     try {
-      const { userId, paymentName } = ctx.request.body;
+      const { accountbookid: accountBookId } = ctx.request.header;
+      const { paymentName } = ctx.request.body;
 
       const paymentList = await PaymentService.deletePayment(
-        userId,
+        accountBookId,
         paymentName
       );
 
@@ -52,10 +56,11 @@ const PaymentController = {
 
   updatePayment: async (ctx) => {
     try {
-      const { userId, selectedCardName, newCardName } = ctx.request.body;
+      const { accountbookid: accountBookId } = ctx.request.header;
+      const { selectedCardName, newCardName } = ctx.request.body;
 
       const paymentList = await PaymentService.updatePayment(
-        userId,
+        accountBookId,
         selectedCardName,
         newCardName
       );

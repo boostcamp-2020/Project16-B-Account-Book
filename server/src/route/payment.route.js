@@ -3,11 +3,9 @@ const router = new Router();
 
 const paymentController = require('../controller/payment.controller');
 
-router.get('/:accountBookId', paymentController.getPayments);
-
+router.get('/', paymentController.getPayments);
 router.patch('/', paymentController.addPayment);
 router.patch('/update', paymentController.updatePayment);
-
 router.delete('/', paymentController.deletePayment);
 
 module.exports = router;

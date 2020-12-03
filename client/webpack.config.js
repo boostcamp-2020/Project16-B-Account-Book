@@ -52,7 +52,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new RefreshWebpackPlugin(),
     new Dotenv({
-      path: './.env',
+      path: `./.env.${process.env.NODE_ENV}`,
     }),
     new webpack.ProvidePlugin({
       React: 'react',

@@ -5,7 +5,7 @@ const accountBookController = {
     try {
       // TODO: ctx.request.header에서 JWT를 추출해 decode 를 하거나
       // middleware를 거쳐 인증이되면 ctx에 userId 속성을 하나 넣어놓고 사용해도 편할 듯
-      const userId = ctx.request.header['userid'];
+      const { userid: userId } = ctx.request.header;
       const accountBooks = await accountBookService.getAllAccountBooks(userId);
 
       ctx.body = accountBooks;
@@ -29,7 +29,7 @@ const accountBookController = {
   },
   createAccountBook: async (ctx) => {
     try {
-      const userId = ctx.request.header['userid']; // TODO: 위와 같다
+      const { userid: userId } = ctx.request.header; // TODO: 위와 같다
       const { title } = ctx.request.body;
       const accountBook = await accountBookService.createAccountBook(
         userId,
@@ -43,7 +43,7 @@ const accountBookController = {
   },
   deleteAccountBook: async (ctx) => {
     try {
-      const userId = ctx.request.header['userid']; // TODO: 위와 같다
+      const { userid: userId } = ctx.request.header; // TODO: 위와 같다
       const { accountBookId } = ctx.params;
       const accountBook = await accountBookService.deleteAccountBook(
         userId,
@@ -57,7 +57,7 @@ const accountBookController = {
   },
   updateAccountBook: async (ctx) => {
     try {
-      const userId = ctx.request.header['userid']; // TODO: 위와 같다
+      const { userid: userId } = ctx.request.header; // TODO: 위와 같다
       const { accountBookId } = ctx.params;
       const { newTitle, newUsers } = ctx.request.body;
       const accountBook = await accountBookService.updateAccountBook(

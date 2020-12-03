@@ -7,14 +7,14 @@ import { loadDetailPayment } from '@paymentSlice';
 const PaymentDetailContainer = (cardName) => {
   const dispatch = useDispatch();
   const transactions = useSelector((state) => state.transactions);
+  const title = transactions[transactions.length - 1].title;
 
   useEffect(() => {
     dispatch(loadDetailPayment(cardName.id));
   }, []);
 
   const showAll = () => {
-    console.log('전체 내역');
-    //dispatch(addPayment());
+    dispatch(loadDetailPayment(cardName.id));
   };
 
   const showIncome = () => {
@@ -29,6 +29,7 @@ const PaymentDetailContainer = (cardName) => {
 
   return (
     <DetailForm
+      title={title}
       transactions={transactions}
       showAll={showAll}
       showIncome={showIncome}

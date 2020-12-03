@@ -23,7 +23,7 @@ const { actions, reducer } = createSlice({
         payments,
       };
     },
-    setTransaction(state, { payload: transactions }) {
+    setTransactions(state, { payload: transactions }) {
       return {
         ...state,
         transactions,
@@ -32,7 +32,7 @@ const { actions, reducer } = createSlice({
   },
 });
 
-export const { setPayments, setTransaction } = actions;
+export const { setPayments, setTransactions } = actions;
 
 export const loadPayment = () => {
   return async (dispatch) => {
@@ -46,7 +46,7 @@ export const loadDetailPayment = (cardName) => {
   return async (dispatch) => {
     const paymentsList = await getAllTransaction(cardName);
 
-    dispatch(setTransaction(paymentsList));
+    dispatch(setTransactions(paymentsList));
   };
 };
 

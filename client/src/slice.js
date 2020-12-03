@@ -4,12 +4,15 @@ import {
   fetchTest,
   postLoginGithub,
   postLoginNaver,
+  getTags,
+} from '@service/api';
+
+import {
   getPayment,
   patchPayment,
   deletePayment,
   updatePayment,
-  getTags,
-} from '@service/api';
+} from '@service/paymentAPI';
 
 import { tempTransactionData } from './tempData';
 

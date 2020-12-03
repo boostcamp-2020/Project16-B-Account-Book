@@ -19,13 +19,14 @@ module.exports = async (ctx, next) => {
     providerId: id,
   };
 
-  next();
+  await next();
 };
 
 const requestToken = async (code) => {
   const { data } = await axios.get(
     `${NAVER_TOKEN_API_URL}?grant_type=authorization_code&client_id=${process.env.NAVER_CLIENT_ID}&client_secret=${process.env.NAVER_CLIENT_SECRET}&code=${code}&state=asds`
   );
+
   return data.access_token;
 };
 
@@ -35,5 +36,6 @@ const requestUserInfo = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   });
+
   return data;
 };

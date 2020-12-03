@@ -74,7 +74,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const Card = ({ iconName, title, description }) => {
+const CategoryCard = ({ iconName, title, description }) => {
   const [dropdown, setDropDown] = useState(false);
   const dropDownOptions = ['분석에서 제외', '보고서 보기', '내역 보기'];
   return (
@@ -96,4 +96,4 @@ const Card = ({ iconName, title, description }) => {
   );
 };
 
-export default Card;
+export default CategoryCard;

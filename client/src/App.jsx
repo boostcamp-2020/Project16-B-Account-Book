@@ -9,6 +9,7 @@ import CategoryTagPage from './pages/CategoryTagPage';
 import DashboardPage from './pages/DashboardPage';
 import NotFoundPage from './pages/NotFoundPage';
 import PaymentMethodPage from './pages/PaymentMethodPage';
+import PaymentDetailPage from './pages/PaymentDetailPage';
 import SettingPage from './pages/SettingPage';
 import TransactionPage from './pages/TransactionPage';
 import Layout from './components/presentational/common/Layout';
@@ -34,6 +35,7 @@ const App = () => {
           <Route exact path="/calendar" component={CalendarPage} />
           <Route path="/category" component={CategoryTagPage} />
           <Route path="/dashboard" component={DashboardPage} />
+          <Route path="/payment-method/:id" component={PaymentDetailPage} />
           <Route path="/payment-method" component={PaymentMethodPage} />
           <Route path="/setting" component={SettingPage} />
           <Route path="/transaction" component={TransactionPage} />

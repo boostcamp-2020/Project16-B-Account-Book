@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchTest, getPayment } from '@service/api';
+import { fetchTest, getPayment, getTags } from '@service/api';
 import { tempTransactionData } from './tempData';
 
 const { actions, reducer } = createSlice({
@@ -9,6 +9,7 @@ const { actions, reducer } = createSlice({
     test: 1,
     transactions: tempTransactionData,
     payments: [],
+    tags: [],
   },
 
   reducers: {
@@ -30,10 +31,16 @@ const { actions, reducer } = createSlice({
         payments,
       };
     },
+    setTags(state, { payload: tags }) {
+      return {
+        ...state,
+        tags,
+      };
+    },
   },
 });
 
-export const { setTest, setPayments } = actions;
+export const { setTest, setPayments, setTags } = actions;
 
 export const loader = ({ test }) => {
   console.log('loader', test);
@@ -52,6 +59,16 @@ export const paymentLoader = ({ userId, accountBookId }) => {
     });
 
     dispatch(setPayments(paymentsList));
+  };
+};
+
+export const tagLoader = ({ accountBookId }) => {
+  return async (dispatch) => {
+    const tagList = await getTags({
+      accountBookId,
+    });
+
+    dispatch(setTags(tagList));
   };
 };
 

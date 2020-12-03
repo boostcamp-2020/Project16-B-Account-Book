@@ -20,13 +20,22 @@ const PaymentService = {
   },
 
   getAllTransaction: async (cardName, accountBookId) => {
-    const allTransactionList = await TransactionModel.find({
+    let transactionList = await TransactionModel.find({
       accountBookId,
       paymentMethod: cardName,
     });
 
-    if (allTransactionList) {
-      return allTransactionList;
+    if (transactionList) {
+      let totalCost = 0;
+
+      for (let transaction of transactionList) {
+        totalCost += transaction.cost;
+      }
+
+      transactionList.push({ title: `💸 수입/지출 내역 : ${totalCost}원` });
+      console.log(transactionList);
+
+      return transactionList;
     }
 
     throw newError({

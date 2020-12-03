@@ -20,10 +20,17 @@ const PaymentService = {
   },
 
   getAllTransaction: async (cardName, accountBookId) => {
-    let transactionList = await TransactionModel.find({
-      accountBookId,
-      paymentMethod: cardName,
-    });
+    let transactionList = await TransactionModel.aggregate([
+      {
+        $match: { paymentMethod: cardName },
+      },
+      {
+        $group: {
+          _id: '$category',
+          cost: { $sum: '$cost' },
+        },
+      },
+    ]);
 
     if (transactionList) {
       let totalCost = 0;
@@ -33,7 +40,6 @@ const PaymentService = {
       }
 
       transactionList.push({ title: `💸 수입/지출 내역 : ${totalCost}원` });
-      console.log(transactionList);
 
       return transactionList;
     }

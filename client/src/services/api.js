@@ -1,5 +1,10 @@
 import axios from 'axios';
-import axiosAPI from '../../util/axios';
+import {
+  axiosAPI,
+  getOptions,
+  patchOptions,
+  deleteOptions,
+} from '../../util/axios';
 import { getToken } from '../../util/token';
 
 const API_URL = process.env.API_URL;
@@ -11,64 +16,36 @@ export async function fetchTest({ test }) {
   return data;
 }
 
-export async function getPayment({ accountBookId }) {
-  const url = `${API_URL}/payment/${accountBookId}`;
-
-  const { data } = await axios({
-    url: url,
-    method: 'get',
-    headers: {
-      'Content-Type': 'application/jso; charset=UTF-8',
-      Authorization: `Bearer ${getToken()}`,
-      userid: '5fbe261bf9266857e4dd7c3f',
-    },
-  });
-
-  return data;
-}
-
-export async function patchPayment({ userId, paymentName }) {
+export async function getPayment() {
   const url = `${API_URL}/payment/`;
-
-  const { data } = await axios({
-    url: url,
-    method: 'patch',
-    data: {
-      userId,
-      paymentName,
-    },
-  });
+  const { data } = await axios(getOptions(url));
 
   return data;
 }
 
-export async function deletePayment({ userId, paymentName }) {
+export async function patchPayment({ paymentName }) {
   const url = `${API_URL}/payment/`;
+  const body = { paymentName };
 
-  const { data } = await axios({
-    url: url,
-    method: 'delete',
-    data: {
-      userId,
-      paymentName,
-    },
-  });
+  const { data } = await axios(patchOptions(url, body));
 
   return data;
 }
 
-export async function updatePayment({ userId, selectedCardName, newCardName }) {
+export async function deletePayment({ paymentName }) {
+  const url = `${API_URL}/payment/`;
+  const body = { paymentName };
+
+  const { data } = await axios(deleteOptions(url, body));
+
+  return data;
+}
+
+export async function updatePayment({ selectedCardName, newCardName }) {
   const url = `${API_URL}/payment/update`;
+  const body = { selectedCardName, newCardName };
 
-  const { data } = await axios({
-    url: url,
-    method: 'patch',
-    data: {
-      userId,
-      selectedCardName,
-      newCardName,
-    },
-  });
+  const { data } = await axios(patchOptions(url, body));
 
   return data;
 }

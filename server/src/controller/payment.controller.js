@@ -16,7 +16,6 @@ const PaymentController = {
         ctx.body = paymentsList;
       }
     } catch (err) {
-      //ctx.body = 'error';
       ctx.throw(err.code, err);
     }
   },
@@ -25,10 +24,11 @@ const PaymentController = {
     try {
       const { userId, paymentName } = ctx.request.body;
 
-      await PaymentService.updatePayment(userId, paymentName);
-      ctx.body = 'success';
+      const paymentList = await PaymentService.addPayment(userId, paymentName);
+
+      ctx.body = paymentList;
     } catch (err) {
-      ctx.body = 'error';
+      ctx.throw(err.code, err);
     }
   },
 
@@ -36,12 +36,30 @@ const PaymentController = {
     try {
       const { userId, paymentName } = ctx.request.body;
 
-      await PaymentService.deletePayment(userId, paymentName);
-      ctx.body = 'success';
+      const paymentList = await PaymentService.deletePayment(
+        userId,
+        paymentName
+      );
 
-      return;
+      ctx.body = paymentList;
     } catch (err) {
-      ctx.body = 'error';
+      ctx.throw(err.code, err);
+    }
+  },
+
+  updatePayment: async (ctx) => {
+    try {
+      const { userId, selectedCardName, newCardName } = ctx.request.body;
+
+      const paymentList = await PaymentService.updatePayment(
+        userId,
+        selectedCardName,
+        newCardName
+      );
+
+      ctx.body = paymentList;
+    } catch (err) {
+      ctx.throw(err.code, err);
     }
   },
 };

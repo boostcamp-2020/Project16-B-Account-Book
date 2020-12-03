@@ -1,6 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchTest, getPayment, getTags } from '@service/api';
+import {
+  fetchTest,
+  postLoginGithub,
+  postLoginNaver,
+  getPayment,
+  patchPayment,
+  deletePayment,
+  updatePayment,
+  getTags
+} from '@service/api';
+
 import { tempTransactionData } from './tempData';
 
 const { actions, reducer } = createSlice({
@@ -11,6 +21,7 @@ const { actions, reducer } = createSlice({
     payments: [],
     tags: [],
   },
+  accessToken: '',
 
   reducers: {
     setTest(state, { payload: test }) {
@@ -23,6 +34,12 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         transactions,
+      };
+    },
+    setAccessToken(state, { payload: accessToken }) {
+      return {
+        ...state,
+        accessToken,
       };
     },
     setPayments(state, { payload: payments }) {
@@ -40,18 +57,33 @@ const { actions, reducer } = createSlice({
   },
 });
 
-export const { setTest, setPayments, setTags } = actions;
+export const { setTest, setAccessToken, setPayments, setTags } = actions;
 
 export const loader = ({ test }) => {
-  console.log('loader', test);
   return async (dispatch) => {
-    console.log('asd');
     const testData = await fetchTest({ test });
     dispatch(setTest(testData));
   };
 };
 
-export const paymentLoader = ({ userId, accountBookId }) => {
+export function login({ code, state }) {
+  return async (dispatch) => {
+    let accessToken;
+
+    if (code && state === 'naver') {
+      accessToken = await postLoginNaver(code);
+    }
+    if (code && !state) {
+      accessToken = await postLoginGithub(code);
+    }
+
+    localStorage.setItem('accessToken', accessToken);
+    dispatch(setAccessToken(accessToken));
+  };
+}
+
+
+export const loadPayment = ({ userId, accountBookId }) => {
   return async (dispatch) => {
     const paymentsList = await getPayment({
       userId,
@@ -59,6 +91,55 @@ export const paymentLoader = ({ userId, accountBookId }) => {
     });
 
     dispatch(setPayments(paymentsList));
+  };
+};
+
+export const addPayment = ({ userId, paymentName }) => {
+  return async (dispatch) => {
+    await patchPayment({
+      userId,
+      paymentName,
+    });
+
+    dispatch(
+      loadPayment({
+        userId,
+        accountBookId: '5fc46c4209dfb476c8bac16d',
+      })
+    );
+  };
+};
+
+export const removePayment = ({ paymentName }) => {
+  return async (dispatch) => {
+    await deletePayment({
+      userId: '5fbe261bf9266857e4dd7c3f',
+      paymentName,
+    });
+
+    dispatch(
+      loadPayment({
+        userId: '5fbe261bf9266857e4dd7c3f',
+        accountBookId: '5fc46c4209dfb476c8bac16d',
+      })
+    );
+  };
+};
+
+export const changePayment = ({ selectedCardName, newCardName }) => {
+  return async (dispatch) => {
+    await updatePayment({
+      userId: '5fbe261bf9266857e4dd7c3f',
+      selectedCardName,
+      newCardName,
+    });
+
+    dispatch(
+      loadPayment({
+        userId: '5fbe261bf9266857e4dd7c3f',
+        accountBookId: '5fc46c4209dfb476c8bac16d',
+      })
+    );
   };
 };
 
@@ -71,12 +152,5 @@ export const tagLoader = ({ accountBookId }) => {
     dispatch(setTags(tagList));
   };
 };
-
-// export const loadTransaction = ({ userId }) => {
-//   return async (dispatch) => {
-//     const transactions = await fetchTransactions({ userId })
-//     dispatch(setTransactions(transactions))
-//   };
-// }
 
 export default reducer;

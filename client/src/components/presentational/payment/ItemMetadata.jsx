@@ -80,7 +80,7 @@ const PaymentBtn = styled.button`
   }
 `;
 
-const ItemMetadata = ({ item, cardDelete }) => {
+const ItemMetadata = ({ item, cardDelete, cardUpdate }) => {
   const titleRef = useRef();
   const [dropdown, setDropDown] = useState(false);
   const dropDownOptions = ['카드 수정', '카드 삭제', '취소'];
@@ -97,6 +97,7 @@ const ItemMetadata = ({ item, cardDelete }) => {
             options={dropDownOptions}
             setDropDown={setDropDown}
             cardDelete={cardDelete}
+            cardUpdate={cardUpdate}
             titleRef={titleRef}
           />
         )}

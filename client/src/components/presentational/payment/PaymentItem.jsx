@@ -30,14 +30,18 @@ const Img = styled.img`
   margin-right: 25px;
 `;
 
-const PaymentItem = ({ item, cardDelete }) => (
+const PaymentItem = ({ item, cardDelete, cardUpdate }) => (
   <PaymentContainer>
     <Payment>
       <Img
         src="https://cdn.finda.co.kr/blog/20180724190225/cover-3.jpg"
         alt="card image"
       />
-      <ItemMetadata item={item} cardDelete={cardDelete} />
+      <ItemMetadata
+        item={item}
+        cardDelete={cardDelete}
+        cardUpdate={cardUpdate}
+      />
     </Payment>
   </PaymentContainer>
 );

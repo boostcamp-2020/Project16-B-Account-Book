@@ -24,12 +24,12 @@ export async function getPayment({ userId, accountBookId }) {
   return data;
 }
 
-export async function addPayment({ userId, paymentName }) {
+export async function patchPayment({ userId, paymentName }) {
   const url = `${API_URL}/payment/`;
 
   const { data } = await axios({
     url: url,
-    method: 'put',
+    method: 'patch',
     data: {
       userId,
       paymentName,
@@ -48,6 +48,48 @@ export async function deletePayment({ userId, paymentName }) {
     data: {
       userId,
       paymentName,
+    },
+  });
+
+  return data;
+}
+
+export async function updatePayment({ userId, selectedCardName, newCardName }) {
+  const url = `${API_URL}/payment/update`;
+
+  const { data } = await axios({
+    url: url,
+    method: 'patch',
+    data: {
+      userId,
+      selectedCardName,
+      newCardName,
+    },
+  });
+
+  return data;
+}
+
+export async function postLoginGithub(code) {
+  const url = `${API_URL}/user/githublogin`;
+
+  const { data } = await axios(url, {
+    method: 'post',
+    data: {
+      code,
+    },
+  });
+
+  return data;
+}
+
+export async function postLoginNaver(code) {
+  const url = `${API_URL}/user/naverlogin`;
+
+  const { data } = await axios(url, {
+    method: 'post',
+    data: {
+      code,
     },
   });
 

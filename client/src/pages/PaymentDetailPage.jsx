@@ -8,7 +8,7 @@ const PaymentApp = styled.div`
   justify-content: center;
   font-size: 18px;
   font-weight: bold;
-  width: 55vw;
+  width: 50vw;
   margin-bottom: 20px;
 `;
 

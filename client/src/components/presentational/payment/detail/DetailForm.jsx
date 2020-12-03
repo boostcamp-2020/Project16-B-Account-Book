@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import {
   Chart,
@@ -9,21 +7,24 @@ import {
   ArgumentAxis,
   ValueAxis,
 } from '@devexpress/dx-react-chart-material-ui';
-
 import { Animation } from '@devexpress/dx-react-chart';
 
-const PaymentApp = styled.div`
+import DetailButton from './DetailButton';
+
+const PaymentDetail = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 55vw;
-  margin-bottom: 15px;
+  width: 50vw;
 `;
 
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-}));
+const NoContents = styled.div`
+  display: flex;
+  width: 50vw;
+  justify-content: center;
+  font-size: 1rem;
+  margin-top: 20px;
+`;
 
 const DetailForm = ({
   title,
@@ -32,60 +33,33 @@ const DetailForm = ({
   showIncome,
   showExpenditure,
 }) => {
-  const classes = useStyles();
-
   return (
-    <>
-      <PaymentApp>
-        <Button
-          variant="outlined"
-          color="default"
-          className={classes.margin}
-          onClick={() => {
-            showAll();
-          }}
-        >
-          ALL
-        </Button>
+    <PaymentDetail>
+      <DetailButton
+        showAll={showAll}
+        showIncome={showIncome}
+        showExpenditure={showExpenditure}
+      />
 
-        <Button
-          variant="outlined"
-          color="primary"
-          className={classes.margin}
-          onClick={() => {
-            showIncome();
-          }}
-        >
-          수입
-        </Button>
-
-        <Button
-          variant="outlined"
-          color="secondary"
-          className={classes.margin}
-          onClick={() => {
-            showExpenditure();
-          }}
-        >
-          지출
-        </Button>
-      </PaymentApp>
-
-      <Paper>
-        <Chart data={transactions}>
-          <ArgumentAxis />
-          <ValueAxis max={20} />
-
-          <BarSeries
-            valueField="cost"
-            argumentField="category"
-            color="#f50057"
-          />
-          <Title text={title} />
-          <Animation />
-        </Chart>
-      </Paper>
-    </>
+      {transactions.length === 1 ? (
+        <NoContents>요청하신 카드의 사용 내역이 존재하지 않습니다.</NoContents>
+      ) : (
+        <Paper>
+          <Chart data={transactions}>
+            <ArgumentAxis />
+            <ValueAxis max={20} />
+            <BarSeries
+              valueField="cost"
+              argumentField="_id"
+              color="#f50057"
+              barWidth="0.5"
+            />
+            <Title text={title} />
+            <Animation />
+          </Chart>
+        </Paper>
+      )}
+    </PaymentDetail>
   );
 };
 

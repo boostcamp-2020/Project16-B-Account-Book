@@ -59,12 +59,13 @@ const accountBookController = {
     try {
       const { userid: userId } = ctx.request.header; // TODO: 위와 같다
       const { accountBookId } = ctx.params;
-      const { newTitle, newUsers } = ctx.request.body;
+      const { newTitle, newUsers, newTags } = ctx.request.body;
       const accountBook = await accountBookService.updateAccountBook(
         userId,
         accountBookId,
         newTitle,
-        newUsers
+        newUsers,
+        newTags
       );
 
       ctx.body = accountBook;

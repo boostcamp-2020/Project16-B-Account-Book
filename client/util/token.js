@@ -1,8 +1,6 @@
-const JWT = 'JWT';
-
 export const setToken = (token) => {
-  localStorage.setItem(JWT, `Bearer ${token}`);
+  localStorage.setItem('token', token);
 };
-export const getToken = () => localStorage.getItem(JWT);
+export const getToken = () => localStorage.getItem('token');
 
-export const removeToken = () => localStorage.removeItem(JWT);
+export const removeToken = () => localStorage.removeItem('token');

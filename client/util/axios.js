@@ -1,20 +1,19 @@
 import axios from 'axios';
 import { getToken } from './token';
 
-axios.defaults.baseURL = process.env.API_URL;
-
 const axiosAPI = (url, method, body) => {
   return axios({
     url,
     method,
+    baseURL: process.env.API_URL,
     credentials: 'include',
-    mode: 'cors',
+    withCredentials: true,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: getToken(),
-      userid: '5fc67adeecfd3cb85cc7fb4d',
+      Authorization: `Bearer ${getToken()}`,
+      userid: '5fc67adeecfd3cb85cc7fb4d', // TODO: 추후 삭제
     },
-    data: JSON.stringify(body),
+    data: body,
   });
 };
 

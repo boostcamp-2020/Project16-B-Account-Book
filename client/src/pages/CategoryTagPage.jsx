@@ -10,7 +10,10 @@ const CategoryTagPage = () => {
   return (
     <>
       <Navigation navMenu={navMenu} setNavMenu={setNavMenu} />
-      <CardContainer dummy={navMenu === 'tag' ? dummy.tag : dummy.category} />
+      <CardContainer
+        dummy={navMenu === 'tag' ? dummy.tag : dummy.category}
+        navMenu={navMenu}
+      />
     </>
   );
 };

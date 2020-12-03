@@ -49,9 +49,15 @@ const AccountBookService = {
 
     return accountBook;
   },
-  updateAccountBook: async (userId, accountBookId, newTitle, newUsers) => {
+  updateAccountBook: async (
+    userId,
+    accountBookId,
+    newTitle,
+    newUsers,
+    newTags
+  ) => {
     const updateContent = {
-      $push: { authorizedUsers: newUsers },
+      $push: { authorizedUsers: newUsers, tags: newTags },
     };
     if (newTitle) {
       updateContent.$set = { title: newTitle };

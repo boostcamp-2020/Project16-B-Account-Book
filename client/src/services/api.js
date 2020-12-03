@@ -1,4 +1,5 @@
 import axios from 'axios';
+import axiosAPI from '../../util/axios';
 
 const API_URL = process.env.API_URL;
 
@@ -95,3 +96,8 @@ export async function postLoginNaver(code) {
   return data;
 }
 
+export async function getTags({ accountBookId }) {
+  const { data } = await axiosAPI(`/accountBook/${accountBookId}`, 'GET');
+
+  return data.tags;
+}

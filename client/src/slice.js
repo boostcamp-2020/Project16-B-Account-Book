@@ -8,6 +8,7 @@ import {
   patchPayment,
   deletePayment,
   updatePayment,
+  getTags
 } from '@service/api';
 
 import { tempTransactionData } from './tempData';
@@ -18,6 +19,7 @@ const { actions, reducer } = createSlice({
     test: 1,
     transactions: tempTransactionData,
     payments: [],
+    tags: [],
   },
   accessToken: '',
 
@@ -46,10 +48,16 @@ const { actions, reducer } = createSlice({
         payments,
       };
     },
+    setTags(state, { payload: tags }) {
+      return {
+        ...state,
+        tags,
+      };
+    },
   },
 });
 
-export const { setTest, setAccessToken, setPayments } = actions;
+export const { setTest, setAccessToken, setPayments, setTags } = actions;
 
 export const loader = ({ test }) => {
   return async (dispatch) => {
@@ -135,5 +143,14 @@ export const changePayment = ({ selectedCardName, newCardName }) => {
   };
 };
 
+export const tagLoader = ({ accountBookId }) => {
+  return async (dispatch) => {
+    const tagList = await getTags({
+      accountBookId,
+    });
+
+    dispatch(setTags(tagList));
+  };
+};
 
 export default reducer;

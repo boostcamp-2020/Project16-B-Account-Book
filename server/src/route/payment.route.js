@@ -3,7 +3,7 @@ const router = new Router();
 
 const paymentController = require('../controller/payment.controller');
 
-router.post('/:userId', paymentController.getPayments);
+router.get('/:accountBookId', paymentController.getPayments);
 
 router.patch('/', paymentController.addPayment);
 router.patch('/update', paymentController.updatePayment);

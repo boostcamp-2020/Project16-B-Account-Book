@@ -1,10 +1,16 @@
 const UserModel = require('../model/user.model');
 const TransactionModel = require('../model/transaction.model');
+const AccountBookModel = require('../model/accountBook.model');
+
 const newError = require('../util/error');
 
 const PaymentService = {
-  getPayments: async (userId) => {
-    const { paymentMethod } = await UserModel.findOne({ _id: userId });
+  getPayments: async (accountBookId) => {
+    const { paymentMethod } = await AccountBookModel.findOne({
+      _id: accountBookId,
+    });
+
+    // const { paymentMethod } = await UserModel.findOne({ _id: userId });
 
     if (paymentMethod) {
       return paymentMethod;
@@ -22,6 +28,8 @@ const PaymentService = {
       accountBookId: accountBookId,
       paymentMethod: { $in: [...paymentResultsById] },
     });
+
+    console.log(transactionList);
 
     for (let [index, payment] of paymentList.entries()) {
       let totalCost = 0;

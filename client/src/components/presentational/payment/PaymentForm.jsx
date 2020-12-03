@@ -21,7 +21,7 @@ const Payments = styled.ul`
   list-style: none;
 `;
 
-const PaymentForm = ({ payments, addClick, cardDelete }) => {
+const PaymentForm = ({ payments, addClick, cardDelete, cardUpdate }) => {
   return (
     <PaymentApp>
       <PaymentWrapper>
@@ -34,6 +34,7 @@ const PaymentForm = ({ payments, addClick, cardDelete }) => {
                 key={'payment' + index}
                 item={item}
                 cardDelete={cardDelete}
+                cardUpdate={cardUpdate}
               />
             ))}
           </Payments>

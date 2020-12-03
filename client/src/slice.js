@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchTest, getPayment } from '@service/api';
+import {
+  fetchTest,
+  getPayment,
+  patchPayment,
+  deletePayment,
+  updatePayment,
+} from '@service/api';
 import { tempTransactionData } from './tempData';
 
 const { actions, reducer } = createSlice({
@@ -44,7 +50,7 @@ export const loader = ({ test }) => {
   };
 };
 
-export const paymentLoader = ({ userId, accountBookId }) => {
+export const loadPayment = ({ userId, accountBookId }) => {
   return async (dispatch) => {
     const paymentsList = await getPayment({
       userId,
@@ -52,6 +58,55 @@ export const paymentLoader = ({ userId, accountBookId }) => {
     });
 
     dispatch(setPayments(paymentsList));
+  };
+};
+
+export const addPayment = ({ userId, paymentName }) => {
+  return async (dispatch) => {
+    await patchPayment({
+      userId,
+      paymentName,
+    });
+
+    dispatch(
+      loadPayment({
+        userId,
+        accountBookId: '5fc46c4209dfb476c8bac16d',
+      })
+    );
+  };
+};
+
+export const removePayment = ({ paymentName }) => {
+  return async (dispatch) => {
+    await deletePayment({
+      userId: '5fbe261bf9266857e4dd7c3f',
+      paymentName,
+    });
+
+    dispatch(
+      loadPayment({
+        userId: '5fbe261bf9266857e4dd7c3f',
+        accountBookId: '5fc46c4209dfb476c8bac16d',
+      })
+    );
+  };
+};
+
+export const changePayment = ({ selectedCardName, newCardName }) => {
+  return async (dispatch) => {
+    await updatePayment({
+      userId: '5fbe261bf9266857e4dd7c3f',
+      selectedCardName,
+      newCardName,
+    });
+
+    dispatch(
+      loadPayment({
+        userId: '5fbe261bf9266857e4dd7c3f',
+        accountBookId: '5fc46c4209dfb476c8bac16d',
+      })
+    );
   };
 };
 

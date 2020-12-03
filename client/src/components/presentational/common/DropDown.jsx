@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Overlay from './Overlay';
 import color from '@public/color';
+import { deleteCard, updateCard } from '@presentational/payment/cardEvent';
 
 const DropDownWrapper = styled.div`
   position: absolute;
@@ -30,19 +31,23 @@ const DropDownOption = styled.div`
   }
 `;
 
-const DropDown = ({ options, setDropDown, cardDelete, titleRef }) => {
+const DropDown = ({
+  options,
+  setDropDown,
+  cardDelete,
+  cardUpdate,
+  titleRef,
+}) => {
   const optionOnClick = (e) => {
     const optionTitle = e.target.textContent;
     const selectedCardName = titleRef?.current?.innerText;
 
     switch (optionTitle) {
       case '카드 삭제':
-        cardDelete({
-          paymentName: selectedCardName,
-        });
+        deleteCard({ cardDelete, selectedCardName });
         break;
       case '카드 수정':
-        console.log('수정 시작');
+        updateCard({ cardUpdate, selectedCardName });
         break;
       default:
         break;

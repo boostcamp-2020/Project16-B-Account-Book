@@ -1,5 +1,8 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
+
+import { errorFormat, successFormat } from '@service/swalFormat';
 
 const Modal = styled.div`
   z-index: 10;
@@ -81,12 +84,32 @@ const PaymentModal = ({ isOpen, close, AddCard, payments }) => {
     );
 
     if (existCardName.length === 1) {
-      alert(`이미 존재하는 카드입니다 😥 \n카드 명을 다시 입력해주세요! 🤗`);
-      return;
-    } else if (newCardName === '') {
-      alert(`카드 명을 입력해주세요! 🤗`);
+      Swal.fire(
+        errorFormat({
+          position: 'top',
+          title: '이미 존재하는 카드입니다 😥',
+          text: `카드 명을 다시 입력해주세요`,
+        })
+      );
+
       return;
     }
+    if (newCardName === '') {
+      Swal.fire(
+        errorFormat({
+          position: 'top',
+          text: `카드 명을 입력해주세요`,
+        })
+      );
+
+      return;
+    }
+    Swal.fire(
+      successFormat({
+        position: 'center',
+        title: '카드 등록이 완료되었습니다.',
+      })
+    );
     AddCard(newCardName);
     close();
   };

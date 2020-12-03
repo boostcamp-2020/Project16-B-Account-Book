@@ -19,6 +19,22 @@ const PaymentService = {
     });
   },
 
+  getAllTransaction: async (cardName, accountBookId) => {
+    const allTransactionList = await TransactionModel.find({
+      accountBookId,
+      paymentMethod: cardName,
+    });
+
+    if (allTransactionList) {
+      return allTransactionList;
+    }
+
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '요청하신 거래내역이 존재하지 않습니다.',
+    });
+  },
+
   makePaymentsTemplate: async (accountBookId, paymentResultsById) => {
     const paymentList = [...paymentResultsById];
     const transactionList = await TransactionModel.find({

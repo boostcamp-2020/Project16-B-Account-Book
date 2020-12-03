@@ -22,6 +22,24 @@ const PaymentController = {
     }
   },
 
+  getAllTransaction: async (ctx) => {
+    try {
+      const { cardName } = ctx.request.params;
+      const { accountbookid: accountBookId } = ctx.request.header;
+
+      const paymentsList = await PaymentService.getAllTransaction(
+        cardName,
+        accountBookId
+      );
+
+      if (paymentsList) {
+        ctx.body = paymentsList;
+      }
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
+
   addPayment: async (ctx) => {
     try {
       const { accountbookid: accountBookId } = ctx.request.header;

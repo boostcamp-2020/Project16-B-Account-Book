@@ -42,8 +42,6 @@ const PaymentController = {
       );
 
       ctx.body = paymentList;
-
-      return;
     } catch (err) {
       ctx.throw(err.code, err);
     }

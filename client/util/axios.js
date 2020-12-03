@@ -8,11 +8,10 @@ export const axiosAPI = (url, method, body) => {
     url,
     method,
     baseURL: process.env.API_URL,
-    // mode: 'cors',
     credentials: 'include',
     withCredentials: true,
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${getToken()}`,
       userid: '5fc67adeecfd3cb85cc7fb4d', // TODO: 추후 삭제
     },

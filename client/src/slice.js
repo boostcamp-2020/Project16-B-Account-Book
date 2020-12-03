@@ -8,7 +8,7 @@ import {
   patchPayment,
   deletePayment,
   updatePayment,
-  getTags
+  getTags,
 } from '@service/api';
 
 import { tempTransactionData } from './tempData';
@@ -82,7 +82,6 @@ export function login({ code, state }) {
   };
 }
 
-
 export const loadPayment = ({ userId, accountBookId }) => {
   return async (dispatch) => {
     const paymentsList = await getPayment({
@@ -137,7 +136,7 @@ export const changePayment = ({ selectedCardName, newCardName }) => {
     dispatch(
       loadPayment({
         userId: '5fbe261bf9266857e4dd7c3f',
-        accountBookId: '5fc46c4209dfb476c8bac16d',
+        accountBookId: '5fc713abd120a78e5c18216d',
       })
     );
   };

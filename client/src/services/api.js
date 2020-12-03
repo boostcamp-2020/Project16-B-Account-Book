@@ -1,5 +1,6 @@
 import axios from 'axios';
 import axiosAPI from '../../util/axios';
+import { getToken } from '../../util/token';
 
 const API_URL = process.env.API_URL;
 
@@ -10,14 +11,16 @@ export async function fetchTest({ test }) {
   return data;
 }
 
-export async function getPayment({ userId, accountBookId }) {
-  const url = `${API_URL}/payment/${userId}`;
+export async function getPayment({ accountBookId }) {
+  const url = `${API_URL}/payment/${accountBookId}`;
 
   const { data } = await axios({
     url: url,
-    method: 'post',
-    data: {
-      accountBookId: accountBookId,
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/jso; charset=UTF-8',
+      Authorization: `Bearer ${getToken()}`,
+      userid: '5fbe261bf9266857e4dd7c3f',
     },
   });
 
@@ -98,6 +101,5 @@ export async function postLoginNaver(code) {
 
 export async function getTags({ accountBookId }) {
   const { data } = await axiosAPI(`/accountBook/${accountBookId}`, 'GET');
-
   return data.tags;
 }

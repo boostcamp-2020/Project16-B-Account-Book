@@ -13,7 +13,7 @@ const PaymentContainer = () => {
       // TODO: 추후 로그인 기능이 완료되면, localStorage에서 정보 가져올 예정
       loadPayment({
         userId: '5fbe261bf9266857e4dd7c3f',
-        accountBookId: '5fc46c4209dfb476c8bac16d',
+        accountBookId: '5fc713abd120a78e5c18216d',
       })
     );
   }, []);

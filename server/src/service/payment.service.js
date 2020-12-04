@@ -1,10 +1,13 @@
-const UserModel = require('../model/user.model');
 const TransactionModel = require('../model/transaction.model');
+const AccountBookModel = require('../model/accountBook.model');
+
 const newError = require('../util/error');
 
 const PaymentService = {
-  getPayments: async (userId) => {
-    const { paymentMethod } = await UserModel.findOne({ _id: userId });
+  getPayments: async (accountBookId) => {
+    const { paymentMethod } = await AccountBookModel.findOne({
+      _id: accountBookId,
+    });
 
     if (paymentMethod) {
       return paymentMethod;
@@ -12,7 +15,38 @@ const PaymentService = {
 
     throw newError({
       status: 'BAD REQUEST',
-      msg: '요청하신 사용자의 결제수단이 존재하지 않습니다.',
+      msg: '요청하신 가계부에 결제수단이 존재하지 않습니다.',
+    });
+  },
+
+  getAllTransaction: async (cardName, accountBookId) => {
+    let transactionList = await TransactionModel.aggregate([
+      {
+        $match: { paymentMethod: cardName },
+      },
+      {
+        $group: {
+          _id: '$category',
+          cost: { $sum: '$cost' },
+        },
+      },
+    ]);
+
+    if (transactionList) {
+      let totalCost = 0;
+
+      for (let transaction of transactionList) {
+        totalCost += transaction.cost;
+      }
+
+      transactionList.push({ title: `💸 수입/지출 내역 : ${totalCost}원` });
+
+      return transactionList;
+    }
+
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '요청하신 거래내역이 존재하지 않습니다.',
     });
   },
 
@@ -46,9 +80,9 @@ const PaymentService = {
     });
   },
 
-  addPayment: async (userId, paymentName) => {
-    const result = await UserModel.updateOne(
-      { _id: userId },
+  addPayment: async (accountBookId, paymentName) => {
+    const result = await AccountBookModel.updateOne(
+      { _id: accountBookId },
       { $push: { paymentMethod: [paymentName] } }
     );
 
@@ -62,9 +96,9 @@ const PaymentService = {
     });
   },
 
-  deletePayment: async (userId, paymentName) => {
-    const result = await UserModel.updateOne(
-      { _id: userId },
+  deletePayment: async (accountBookId, paymentName) => {
+    const result = await AccountBookModel.updateOne(
+      { _id: accountBookId },
       { $pull: { paymentMethod: paymentName } }
     );
 
@@ -78,15 +112,15 @@ const PaymentService = {
     });
   },
 
-  updatePayment: async (userId, selectedCardName, newCardName) => {
-    const { paymentMethod } = await UserModel.findOne({
-      _id: userId,
+  updatePayment: async (accountBookId, selectedCardName, newCardName) => {
+    const { paymentMethod } = await AccountBookModel.findOne({
+      _id: accountBookId,
     });
 
     const cardIndex = paymentMethod.indexOf(selectedCardName);
 
-    const result = await UserModel.updateOne(
-      { _id: userId },
+    const result = await AccountBookModel.updateOne(
+      { _id: accountBookId },
       { $set: { [`paymentMethod.${cardIndex}`]: newCardName } }
     );
 

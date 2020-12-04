@@ -4,16 +4,19 @@ import {
   fetchTest,
   postLoginGithub,
   postLoginNaver,
-  getPayment,
-  patchPayment,
-  deletePayment,
-  updatePayment,
   getTags,
   getTransactions,
   postTransaction,
   updateTransaction,
   deleteTransaction,
 } from '@service/api';
+
+import {
+  getPayment,
+  patchPayment,
+  deletePayment,
+  updatePayment,
+} from '@service/paymentAPI';
 
 import { tempTransactionData } from './tempData';
 
@@ -97,63 +100,42 @@ export function login({ code, state }) {
   };
 }
 
-export const loadPayment = ({ userId, accountBookId }) => {
+export const loadPayment = () => {
   return async (dispatch) => {
-    const paymentsList = await getPayment({
-      userId,
-      accountBookId,
-    });
+    const paymentsList = await getPayment();
 
     dispatch(setPayments(paymentsList));
   };
 };
 
-export const addPayment = ({ userId, paymentName }) => {
+export const addPayment = ({ paymentName }) => {
   return async (dispatch) => {
     await patchPayment({
-      userId,
       paymentName,
     });
 
-    dispatch(
-      loadPayment({
-        userId,
-        accountBookId: '5fc46c4209dfb476c8bac16d',
-      })
-    );
+    dispatch(loadPayment());
   };
 };
 
 export const removePayment = ({ paymentName }) => {
   return async (dispatch) => {
     await deletePayment({
-      userId: '5fbe261bf9266857e4dd7c3f',
       paymentName,
     });
 
-    dispatch(
-      loadPayment({
-        userId: '5fbe261bf9266857e4dd7c3f',
-        accountBookId: '5fc46c4209dfb476c8bac16d',
-      })
-    );
+    dispatch(loadPayment());
   };
 };
 
 export const changePayment = ({ selectedCardName, newCardName }) => {
   return async (dispatch) => {
     await updatePayment({
-      userId: '5fbe261bf9266857e4dd7c3f',
       selectedCardName,
       newCardName,
     });
 
-    dispatch(
-      loadPayment({
-        userId: '5fbe261bf9266857e4dd7c3f',
-        accountBookId: '5fc46c4209dfb476c8bac16d',
-      })
-    );
+    dispatch(loadPayment());
   };
 };
 

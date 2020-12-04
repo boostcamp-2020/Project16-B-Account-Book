@@ -129,9 +129,7 @@ export const loadDetailPayment = (cardName, type) => {
 
 export const addPayment = ({ paymentName }) => {
   return async (dispatch) => {
-    await patchPayment({
-      paymentName,
-    });
+    await patchPayment({ paymentName });
 
     dispatch(loadPayment());
   };
@@ -139,9 +137,7 @@ export const addPayment = ({ paymentName }) => {
 
 export const removePayment = ({ paymentName }) => {
   return async (dispatch) => {
-    await deletePayment({
-      paymentName,
-    });
+    await deletePayment({ paymentName });
 
     dispatch(loadPayment());
   };
@@ -149,10 +145,7 @@ export const removePayment = ({ paymentName }) => {
 
 export const changePayment = ({ selectedCardName, newCardName }) => {
   return async (dispatch) => {
-    await updatePayment({
-      selectedCardName,
-      newCardName,
-    });
+    await updatePayment({ selectedCardName, newCardName });
 
     dispatch(loadPayment());
   };

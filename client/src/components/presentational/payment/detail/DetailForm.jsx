@@ -27,6 +27,7 @@ const NoContents = styled.div`
 `;
 
 const DetailForm = ({
+  color,
   title,
   transactions,
   showAll,
@@ -51,7 +52,7 @@ const DetailForm = ({
             <BarSeries
               valueField="cost"
               argumentField="_id"
-              color="#f50057"
+              color={color}
               barWidth="0.5"
             />
             <Title text={title} />

@@ -1,8 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import DashboardVisualExpense from '../presentational/dashboard/DashboardVisualExpense';
 import DashboardTextExpense from '../presentational/dashboard/DashboardTextExpense';
+import { loadTransactions } from '@slice';
 const StyledDiv = styled.div`
   display: flex;
   & > * {
@@ -21,7 +23,13 @@ const MediaTextExpense = styled.div`
 `;
 
 const DashboardContainer = () => {
+  const dispatch = useDispatch();
+
   const transactions = useSelector((state) => state.transactions);
+
+  useEffect(() => {
+    dispatch(loadTransactions());
+  }, []);
 
   const transactionByCard = transactions.reduce((acc, cur) => {
     const index = acc.findIndex(

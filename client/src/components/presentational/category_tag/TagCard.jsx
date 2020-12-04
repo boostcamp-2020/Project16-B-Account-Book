@@ -193,7 +193,9 @@ const TagCard = ({
       text: '태그 삭제',
       func: () => {
         onClickDelete('5fc713abd120a78e5c18216d', title);
+        setEditMode(true);
         setDropDown(false);
+        setTagName('');
       },
     },
     {

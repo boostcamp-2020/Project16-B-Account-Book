@@ -1,7 +1,9 @@
-const TransactionModel = require('../model/transaction.model');
-const AccountBookModel = require('../model/accountBook.model');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 const newError = require('../util/error');
+const TransactionModel = require('../model/transaction.model');
+const AccountBookModel = require('../model/accountBook.model');
 
 const PaymentService = {
   getPayments: async (accountBookId) => {
@@ -19,18 +21,61 @@ const PaymentService = {
     });
   },
 
-  getAllTransaction: async (cardName, accountBookId) => {
-    let transactionList = await TransactionModel.aggregate([
-      {
-        $match: { paymentMethod: cardName },
-      },
-      {
-        $group: {
-          _id: '$category',
-          cost: { $sum: '$cost' },
-        },
-      },
-    ]);
+  getTransactions: async (cardName, accountBookId, type) => {
+    let transactionList = null;
+
+    switch (type) {
+      case 'all':
+        transactionList = await TransactionModel.aggregate([
+          {
+            $match: {
+              paymentMethod: cardName,
+              accountBookId: ObjectId(accountBookId),
+            },
+          },
+          {
+            $group: {
+              _id: '$category',
+              cost: { $sum: '$cost' },
+            },
+          },
+        ]);
+        break;
+      case 'income':
+        transactionList = await TransactionModel.aggregate([
+          {
+            $match: {
+              paymentMethod: cardName,
+              accountBookId: ObjectId(accountBookId),
+              type: '수입',
+            },
+          },
+          {
+            $group: {
+              _id: '$category',
+              cost: { $sum: '$cost' },
+            },
+          },
+        ]);
+        break;
+      case 'expenditure':
+        transactionList = await TransactionModel.aggregate([
+          {
+            $match: {
+              paymentMethod: cardName,
+              accountBookId: ObjectId(accountBookId),
+              type: '지출',
+            },
+          },
+          {
+            $group: {
+              _id: '$category',
+              cost: { $sum: '$cost' },
+            },
+          },
+        ]);
+        break;
+    }
 
     if (transactionList) {
       let totalCost = 0;
@@ -39,7 +84,17 @@ const PaymentService = {
         totalCost += transaction.cost;
       }
 
-      transactionList.push({ title: `💸 수입/지출 내역 : ${totalCost}원` });
+      switch (type) {
+        case 'all':
+          transactionList.push({ title: `📢 수입/지출 내역 : ${totalCost}원` });
+          break;
+        case 'income':
+          transactionList.push({ title: `💰 수입 내역 : ${totalCost}원` });
+          break;
+        case 'expenditure':
+          transactionList.push({ title: `💸 지출 내역 : ${totalCost}원` });
+          break;
+      }
 
       return transactionList;
     }

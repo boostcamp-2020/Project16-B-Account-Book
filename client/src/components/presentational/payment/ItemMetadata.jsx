@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import numeral from 'numeral';
 
@@ -106,7 +107,9 @@ const ItemMetadata = ({ item, cardDelete, cardUpdate }) => {
         <SubTitle>누적: </SubTitle>
         {numeral(item.totalCost).format('0,0')}원
       </Cost>
-      <PaymentBtn>내역 보기</PaymentBtn>
+      <Link to={`/payment-method/${item.payment}`}>
+        <PaymentBtn>내역 보기</PaymentBtn>
+      </Link>
     </Metadata>
   );
 };

@@ -1,7 +1,12 @@
 import React from 'react';
+import TransactionContainer from '../components/containers/TransactionContainer';
 
 const TransactionPage = () => {
-  return <div>TransactionPage</div>;
+  return (
+    <>
+      <TransactionContainer />
+    </>
+  );
 };
 
 export default TransactionPage;

@@ -15,7 +15,7 @@ const AddPaymentBtn = styled.div`
 
 const AddButton = ({ payments, addClick }) => {
   const AddCard = async (cardName) => {
-    addClick({ userId: '5fbe261bf9266857e4dd7c3f', paymentName: cardName });
+    addClick({ paymentName: cardName });
   };
 
   const [show, setShow] = useState(false);

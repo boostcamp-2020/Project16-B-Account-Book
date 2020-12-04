@@ -8,7 +8,11 @@ import {
   patchPayment,
   deletePayment,
   updatePayment,
-  getTags
+  getTags,
+  getTransactions,
+  postTransaction,
+  updateTransaction,
+  deleteTransaction,
 } from '@service/api';
 
 import { tempTransactionData } from './tempData';
@@ -36,6 +40,10 @@ const { actions, reducer } = createSlice({
         transactions,
       };
     },
+    insertTransactions(state, { payload: transactions }) {
+      console.log(transactions, 'transaction');
+      state.transactions.push(transactions);
+    },
     setAccessToken(state, { payload: accessToken }) {
       return {
         ...state,
@@ -57,7 +65,14 @@ const { actions, reducer } = createSlice({
   },
 });
 
-export const { setTest, setAccessToken, setPayments, setTags } = actions;
+export const {
+  setTest,
+  setAccessToken,
+  setPayments,
+  setTags,
+  setTransactions,
+  insertTransactions,
+} = actions;
 
 export const loader = ({ test }) => {
   return async (dispatch) => {
@@ -81,7 +96,6 @@ export function login({ code, state }) {
     dispatch(setAccessToken(accessToken));
   };
 }
-
 
 export const loadPayment = ({ userId, accountBookId }) => {
   return async (dispatch) => {
@@ -150,6 +164,38 @@ export const tagLoader = ({ accountBookId }) => {
     });
 
     dispatch(setTags(tagList));
+  };
+};
+
+export const loadTransactions = () => {
+  return async (dispatch) => {
+    const transactions = await getTransactions();
+
+    dispatch(setTransactions(transactions));
+  };
+};
+
+export const addTransaction = ({ transaction }) => {
+  return async (dispatch) => {
+    await postTransaction({ transaction });
+
+    dispatch(loadTransactions());
+  };
+};
+
+export const changeTransaction = ({ transactionId, transaction }) => {
+  return async (dispatch) => {
+    await updateTransaction({ transactionId, transaction });
+
+    dispatch(loadTransactions());
+  };
+};
+
+export const removeTransaction = ({ transactionId }) => {
+  return async (dispatch) => {
+    await deleteTransaction({ transactionId });
+
+    dispatch(loadTransactions());
   };
 };
 

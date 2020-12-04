@@ -101,3 +101,48 @@ export async function getTags({ accountBookId }) {
 
   return data.tags;
 }
+
+export async function getTransactions() {
+  const url = `${API_URL}/transaction`;
+
+  const { data } = await axiosAPI(url, 'GET');
+
+  return data;
+}
+
+export async function postTransaction({ transaction }) {
+  const url = `${API_URL}/transaction`;
+
+  const { data } = await axios(url, {
+    method: 'post',
+    data: {
+      ...transaction,
+    },
+  });
+
+  return data;
+}
+
+export async function updateTransaction({ transactionId, transaction }) {
+  const url = `${API_URL}/transaction`;
+
+  const { data } = await axios(url, {
+    method: 'patch',
+    data: {
+      transactionId,
+      ...transaction,
+    },
+  });
+
+  return data;
+}
+
+export async function deleteTransaction({ transactionId }) {
+  const url = `${API_URL}/transaction?id=${transactionId}`;
+
+  const { data } = await axios(url, {
+    method: 'delete',
+  });
+
+  return data;
+}

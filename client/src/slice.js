@@ -5,6 +5,9 @@ import {
   postLoginGithub,
   postLoginNaver,
   getTags,
+  createTag,
+  updateTag,
+  deleteTag,
   getTransactions,
   postTransaction,
   updateTransaction,
@@ -139,13 +142,35 @@ export const changePayment = ({ selectedCardName, newCardName }) => {
   };
 };
 
-export const tagLoader = ({ accountBookId }) => {
+export const loadTag = ({ accountBookId }) => {
   return async (dispatch) => {
-    const tagList = await getTags({
-      accountBookId,
-    });
+    const tags = await getTags({ accountBookId });
 
-    dispatch(setTags(tagList));
+    dispatch(setTags(tags));
+  };
+};
+
+export const addTag = ({ accountBookId, tag }) => {
+  return async (dispatch) => {
+    await createTag({ accountBookId, tag });
+
+    dispatch(loadTag({ accountBookId }));
+  };
+};
+
+export const changeTag = ({ accountBookId, originalTag, newTag }) => {
+  return async (dispatch) => {
+    await updateTag({ accountBookId, originalTag, newTag });
+
+    dispatch(loadTag({ accountBookId }));
+  };
+};
+
+export const removeTag = ({ accountBookId, tag }) => {
+  return async (dispatch) => {
+    await deleteTag({ accountBookId, tag });
+
+    dispatch(loadTag({ accountBookId }));
   };
 };
 

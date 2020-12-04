@@ -71,6 +71,9 @@ const IconWrapper = styled.div`
     margin: auto;
     text-align: center;
     fill: white;
+    path {
+      stroke: white;
+    }
   }
 `;
 

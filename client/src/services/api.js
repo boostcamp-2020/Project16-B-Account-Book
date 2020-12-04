@@ -85,3 +85,28 @@ export async function deleteTransaction({ transactionId }) {
 
   return data;
 }
+
+export async function createTag({ accountBookId, tag }) {
+  const data = await axiosAPI(`/accountBook/${accountBookId}`, 'PATCH', {
+    newTags: [tag],
+  });
+
+  return data;
+}
+
+export async function updateTag({ accountBookId, originalTag, newTag }) {
+  const data = await axiosAPI(`/accountBook/${accountBookId}/tag`, 'PATCH', {
+    originalTag,
+    newTag,
+  });
+
+  return data;
+}
+
+export async function deleteTag({ accountBookId, tag }) {
+  const data = await axiosAPI(`/accountBook/${accountBookId}/tag`, 'DELETE', {
+    tag,
+  });
+
+  return data;
+}

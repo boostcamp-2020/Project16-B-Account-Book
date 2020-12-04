@@ -6,6 +6,7 @@ import NavigationMarker from './NavigationMarker';
 const NavigationWrapper = styled.div`
   width: 50%;
   margin-left: 10px;
+  min-width: 1px;
   ul {
     padding-inline-start: 0px;
     li {

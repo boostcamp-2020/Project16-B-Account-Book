@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
 
 import icon from '@public/icon';
 import color from '@public/color';
 import CardDropDown from './CardDropDown';
+import { errorFormat } from '@service/swalFormat';
 
 const CardWrapper = styled.div`
   box-sizing: border-box;
@@ -14,12 +17,14 @@ const CardWrapper = styled.div`
   min-width: 400px;
   max-width: calc(50% - 20px);
   position: relative;
+  visibility: ${({ hidden }) => (hidden ? 'hidden' : 'visible')};
 `;
 
 const CardHeader = styled.div`
   display: flex;
   position: relative;
 `;
+
 const CardTitle = styled.div`
   font-weight: bold;
   font-size: 0.9rem;
@@ -58,9 +63,8 @@ const IconWrapper = styled.div`
   position: relative;
   width: 22px;
   height: 22px;
-  background-color: orange;
+  background-color: #999999;
   border-radius: 50%;
-
   svg {
     position: absolute;
     top: 50%;
@@ -122,13 +126,52 @@ const EditSave = styled.div`
   }
 `;
 
-const TagCard = ({ iconName, title }) => {
+const TagCard = ({
+  iconName,
+  title,
+  onClickAdd,
+  onClickChange,
+  onClickDelete,
+  hidden,
+  setAddMode,
+}) => {
   const [dropdown, setDropDown] = useState(false);
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(hidden);
   const [tagName, setTagName] = useState(title);
+  const tags = useSelector((state) => state.tags);
 
   const onInputChange = (e) => {
     setTagName(e.target.value);
+  };
+
+  const onClickSave = () => {
+    if (tags.includes(tagName)) {
+      Swal.fire(
+        errorFormat({
+          position: 'top',
+          title: '이미 존재하는 태그입니다 😥',
+          text: `태그명을 다시 입력해주세요`,
+        })
+      );
+      return;
+    }
+    if (!tagName) {
+      Swal.fire(
+        errorFormat({
+          position: 'top',
+          title: '태그명을 입력해야 태그를 생성할 수 있습니다 😥',
+          text: '한 글자 이상 입력해주세요',
+        })
+      );
+      return;
+    }
+    setEditMode(false);
+    if (title) {
+      onClickChange('5fc713abd120a78e5c18216d', title, tagName);
+      return;
+    }
+    onClickAdd('5fc713abd120a78e5c18216d', tagName);
+    setAddMode(false);
   };
 
   const dropDownOptions = [
@@ -149,8 +192,10 @@ const TagCard = ({ iconName, title }) => {
     {
       text: '태그 삭제',
       func: () => {
-        console.log('TODO-태그 삭제');
+        onClickDelete('5fc713abd120a78e5c18216d', title);
+        setEditMode(true);
         setDropDown(false);
+        setTagName('');
       },
     },
     {
@@ -171,7 +216,7 @@ const TagCard = ({ iconName, title }) => {
 
   return (
     <>
-      <CardWrapper>
+      <CardWrapper hidden={hidden}>
         <CardHeader>
           <IconWrapper>{icon[iconName]}</IconWrapper>
           <CardTitle>{title}</CardTitle>
@@ -190,8 +235,20 @@ const TagCard = ({ iconName, title }) => {
               value={tagName}
               onChange={onInputChange}
             ></input>
-            <EditCancel onClick={() => setEditMode(false)}>취소</EditCancel>
-            <EditSave>저장</EditSave>
+            <EditCancel
+              onClick={() => {
+                setAddMode(false);
+                if (!title.length) {
+                  setTagName('');
+                  return;
+                }
+                setTagName(title);
+                setEditMode(false);
+              }}
+            >
+              취소
+            </EditCancel>
+            <EditSave onClick={onClickSave}>저장</EditSave>
           </Edit>
         )}
       </CardWrapper>

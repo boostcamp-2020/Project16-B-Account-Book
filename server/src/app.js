@@ -13,6 +13,7 @@ require('./startup/db')();
 
 const corsOptions = {
   origin: process.env.CLIENT_URL,
+  credentials: true,
 };
 
 const app = new Koa();

@@ -42,12 +42,12 @@ const AccountBookService = {
     return newAccountBook;
   },
   deleteAccountBook: async (userId, accountBookId) => {
-    const accountBook = await AccountBookModel.updateOne(
+    const result = await AccountBookModel.updateOne(
       { _id: accountBookId },
       { $pull: { authorizedUsers: userId } }
     );
 
-    return accountBook;
+    return result;
   },
   updateAccountBook: async (
     userId,
@@ -57,18 +57,48 @@ const AccountBookService = {
     newTags
   ) => {
     const updateContent = {
-      $push: { authorizedUsers: newUsers, tags: newTags },
+      $addToSet: { authorizedUsers: newUsers, tags: newTags },
     };
     if (newTitle) {
       updateContent.$set = { title: newTitle };
     }
 
-    const accountBook = await AccountBookModel.updateOne(
-      { _id: accountBookId },
+    const result = await AccountBookModel.updateOne(
+      { _id: accountBookId, authorizedUsers: userId },
       updateContent
     );
 
-    return accountBook;
+    return result;
+  },
+  updateAccountBookTag: async (userId, accountBookId, originalTag, newTag) => {
+    const { tags } = await AccountBookModel.findOne({
+      _id: accountBookId,
+      authorizedUsers: userId,
+    });
+
+    const tagIndex = tags.indexOf(originalTag);
+
+    const result = await AccountBookModel.updateOne(
+      { _id: accountBookId },
+      { $set: { [`tags.${tagIndex}`]: newTag } }
+    );
+
+    return result;
+  },
+  deleteAccountBookTag: async (userId, accountBookId, tag) => {
+    const result = await AccountBookModel.updateOne(
+      { _id: accountBookId, authorizedUsers: userId },
+      { $pull: { tags: tag } }
+    );
+
+    if (result.nModified === 1) {
+      return result;
+    }
+
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '존재하지 않는 태그입니다.',
+    });
   },
 };
 

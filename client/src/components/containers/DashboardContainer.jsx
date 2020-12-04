@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import DashboardVisualExpense from '../presentational/dashboard/DashboardVisualExpense';
 import DashboardTextExpense from '../presentational/dashboard/DashboardTextExpense';
-
 const StyledDiv = styled.div`
   display: flex;
   & > * {
@@ -25,12 +24,14 @@ const DashboardContainer = () => {
   const transactions = useSelector((state) => state.transactions);
 
   const transactionByCard = transactions.reduce((acc, cur) => {
-    const index = acc.findIndex((item) => item.card === cur.card);
+    const index = acc.findIndex(
+      (item) => item.paymentMethod === cur.paymentMethod
+    );
     if (acc[index]) {
       acc[index].cost += cur.cost;
       return acc;
     }
-    return [...acc, { card: cur.card, cost: cur.cost }];
+    return [...acc, { paymentMethod: cur.paymentMethod, cost: cur.cost }];
   }, []);
 
   return (

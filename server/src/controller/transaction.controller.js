@@ -1,20 +1,63 @@
 const transactionService = require('../service/transaction.service');
 
 const transactionController = {
-  fetchTransaction: async (ctx) => {
+  getUserTransactions: async (ctx) => {
     try {
-      //TODO: oauth 미들웨어로 유저 인증 및 데이터 주입.
-      const name = ctx.request.body.user || 'gibong';
-      const provider = ctx.request.body.provider || 'naver';
-      const providerId = ctx.request.body.providerId || '12345';
-      const transactions = await transactionService.getUserTransactions(
-        name,
-        provider,
-        providerId
+      //개발용
+      const userId = ctx.request.userInfo?.userId || '5fc75fa3d69e8b4e1f3313ac';
+
+      const transactions = await transactionService.getUserTransactions({
+        userId,
+      });
+
+      ctx.body = transactions;
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
+
+  addTransaction: async (ctx) => {
+    try {
+      //개발용
+      const userId = ctx.request.userInfo?.userId || '5fc75fa3d69e8b4e1f3313ac';
+      const accountBookId = '5fc713abd120a78e5c18216d';
+      // const { userId } = ctx.request.userInfo;
+
+      const result = await transactionService.addTransaction({
+        userId,
+        accountBookId,
+        ...ctx.request.body,
+      });
+
+      ctx.body = result;
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
+
+  updateTransaction: async (ctx) => {
+    try {
+      const transactionInfo = ctx.request.body;
+      console.log(transactionInfo);
+      const transactions = await transactionService.updateTransaction(
+        transactionInfo
       );
+
       ctx.body = transactions;
     } catch (err) {
       //ctx.body = 'error';
+      ctx.throw(err.code, err);
+    }
+  },
+
+  deleteTransaction: async (ctx) => {
+    try {
+      const { id } = ctx.query;
+
+      const transactions = await transactionService.deleteTransaction({ id });
+
+      ctx.body = transactions;
+    } catch (err) {
       ctx.throw(err.code, err);
     }
   },

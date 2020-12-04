@@ -16,6 +16,7 @@ import {
 
 import {
   getPayments,
+  getPaymentsDetail,
   patchPayment,
   deletePayment,
   updatePayment,
@@ -29,6 +30,7 @@ const { actions, reducer } = createSlice({
     test: 1,
     transactions: tempTransactionData,
     payments: [],
+    paymentsDetail: [{ title: null }],
     tags: [],
   },
   accessToken: '',
@@ -47,7 +49,6 @@ const { actions, reducer } = createSlice({
       };
     },
     insertTransactions(state, { payload: transactions }) {
-      console.log(transactions, 'transaction');
       state.transactions.push(transactions);
     },
     setAccessToken(state, { payload: accessToken }) {
@@ -60,6 +61,12 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         payments,
+      };
+    },
+    setPaymentsDetail(state, { payload: paymentsDetail }) {
+      return {
+        ...state,
+        paymentsDetail,
       };
     },
     setTags(state, { payload: tags }) {
@@ -75,6 +82,7 @@ export const {
   setTest,
   setAccessToken,
   setPayments,
+  setPaymentsDetail,
   setTags,
   setTransactions,
   insertTransactions,
@@ -108,6 +116,14 @@ export const loadPayment = () => {
     const paymentsList = await getPayments();
 
     dispatch(setPayments(paymentsList));
+  };
+};
+
+export const loadDetailPayment = (cardName, type) => {
+  return async (dispatch) => {
+    const paymentsList = await getPaymentsDetail(cardName, type);
+
+    dispatch(setPaymentsDetail(paymentsList));
   };
 };
 

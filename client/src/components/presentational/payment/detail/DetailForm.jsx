@@ -26,6 +26,11 @@ const NoContents = styled.div`
   margin-top: 20px;
 `;
 
+const GraphDetail = styled.div`
+  margin-left: 10%;
+  width: 40vw;
+`;
+
 const DetailForm = ({
   color,
   title,
@@ -45,20 +50,22 @@ const DetailForm = ({
       {transactions.length === 1 ? (
         <NoContents>요청하신 카드의 사용 내역이 존재하지 않습니다.</NoContents>
       ) : (
-        <Paper>
-          <Chart data={transactions}>
-            <ArgumentAxis />
-            <ValueAxis max={20} />
-            <BarSeries
-              valueField="cost"
-              argumentField="_id"
-              color={color}
-              barWidth="0.5"
-            />
-            <Title text={title} />
-            <Animation />
-          </Chart>
-        </Paper>
+        <GraphDetail>
+          <Paper>
+            <Chart data={transactions}>
+              <ArgumentAxis />
+              <ValueAxis max={20} />
+              <BarSeries
+                valueField="cost"
+                argumentField="_id"
+                color={color}
+                barWidth="0.3"
+              />
+              <Title text={title} />
+              <Animation />
+            </Chart>
+          </Paper>
+        </GraphDetail>
       )}
     </PaymentDetail>
   );

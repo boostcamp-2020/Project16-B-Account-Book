@@ -24,11 +24,25 @@ export const getOptions = (url) => {
     url,
     method: 'get',
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${getToken()}`,
       userid: '5fc67adeecfd3cb85cc7fb4d', // TODO: 추후 삭제
       accountBookId,
     },
+  };
+};
+
+export const postOptions = (url, data) => {
+  return {
+    url,
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
+      userid: '5fc67adeecfd3cb85cc7fb4d', // TODO: 추후 삭제
+      accountBookId,
+    },
+    data,
   };
 };
 
@@ -37,7 +51,7 @@ export const patchOptions = (url, data) => {
     url,
     method: 'patch',
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${getToken()}`,
       userid: '5fc67adeecfd3cb85cc7fb4d', // TODO: 추후 삭제
       accountBookId,
@@ -51,7 +65,7 @@ export const deleteOptions = (url, data) => {
     url,
     method: 'delete',
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${getToken()}`,
       userid: '5fc67adeecfd3cb85cc7fb4d', // TODO: 추후 삭제
       accountBookId,

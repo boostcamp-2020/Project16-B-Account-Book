@@ -15,7 +15,7 @@ import {
 } from '@service/api';
 
 import {
-  getPayment,
+  getPayments,
   patchPayment,
   deletePayment,
   updatePayment,
@@ -105,7 +105,7 @@ export function login({ code, state }) {
 
 export const loadPayment = () => {
   return async (dispatch) => {
-    const paymentsList = await getPayment();
+    const paymentsList = await getPayments();
 
     dispatch(setPayments(paymentsList));
   };

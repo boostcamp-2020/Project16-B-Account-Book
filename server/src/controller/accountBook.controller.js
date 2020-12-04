@@ -45,12 +45,12 @@ const accountBookController = {
     try {
       const { userid: userId } = ctx.request.header; // TODO: 위와 같다
       const { accountBookId } = ctx.params;
-      const accountBook = await accountBookService.deleteAccountBook(
+      const result = await accountBookService.deleteAccountBook(
         userId,
         accountBookId
       );
 
-      ctx.body = accountBook;
+      ctx.body = result;
     } catch (err) {
       ctx.throw(err.code, err);
     }
@@ -60,7 +60,7 @@ const accountBookController = {
       const { userid: userId } = ctx.request.header; // TODO: 위와 같다
       const { accountBookId } = ctx.params;
       const { newTitle, newUsers, newTags } = ctx.request.body;
-      const accountBook = await accountBookService.updateAccountBook(
+      const result = await accountBookService.updateAccountBook(
         userId,
         accountBookId,
         newTitle,
@@ -68,7 +68,40 @@ const accountBookController = {
         newTags
       );
 
-      ctx.body = accountBook;
+      ctx.body = result;
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
+  updateAccountBookTag: async (ctx) => {
+    try {
+      const { userid: userId } = ctx.request.header;
+      const { accountBookId } = ctx.params;
+      const { originalTag, newTag } = ctx.request.body;
+      const result = await accountBookService.updateAccountBookTag(
+        userId,
+        accountBookId,
+        originalTag,
+        newTag
+      );
+
+      ctx.body = result;
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
+  deleteAccountBookTag: async (ctx) => {
+    try {
+      const { userid: userId } = ctx.request.header;
+      const { accountBookId } = ctx.params;
+      const { tag } = ctx.request.body;
+      const result = await accountBookService.deleteAccountBookTag(
+        userId,
+        accountBookId,
+        tag
+      );
+
+      ctx.body = result;
     } catch (err) {
       ctx.throw(err.code, err);
     }

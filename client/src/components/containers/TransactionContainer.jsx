@@ -6,10 +6,12 @@ import {
   removeTransaction,
   changeTransaction,
   loadTransactions,
+  updateDate,
 } from '@slice';
 import TransactionList from '@presentational/transaction/TransactionList';
 import TransactionFab from '../presentational/transaction/TransactionFab';
 import TransactionModal from '../presentational/transaction/TransactionModal';
+import TransactionDate from '../presentational/transaction/TransactionDate';
 
 const TransactionContainer = () => {
   const dispatch = useDispatch();
@@ -27,6 +29,7 @@ const TransactionContainer = () => {
   const ImageURLInput = useRef();
 
   const transactions = useSelector((state) => state.transactions);
+  const date = useSelector((state) => state.selectedDate);
 
   useEffect(() => {
     dispatch(loadTransactions());
@@ -44,6 +47,10 @@ const TransactionContainer = () => {
   const updateTransactionHandler = ({ transaction }) => {
     dispatch(changeTransaction({ transactionId: editIdStatus, transaction }));
     handleCancel();
+  };
+
+  const updateDateHandler = ({ date }) => {
+    dispatch(updateDate({ date }));
   };
 
   const handleCancel = () => {
@@ -64,6 +71,7 @@ const TransactionContainer = () => {
 
   return (
     <>
+      <TransactionDate date={date} updateDateHandler={updateDateHandler} />
       <TransactionList
         transactions={transactions}
         deleteTransactionHandler={deleteTransactionHandler}

@@ -11,7 +11,9 @@ import {
 import TransactionList from '@presentational/transaction/TransactionList';
 import TransactionFab from '../presentational/transaction/TransactionFab';
 import TransactionModal from '../presentational/transaction/TransactionModal';
+import TransactionLineChart from '../presentational/transaction/TransactionLineChart';
 import TransactionDate from '../presentational/transaction/TransactionDate';
+import { getCurrentDateTransactions } from './util';
 
 const TransactionContainer = () => {
   const dispatch = useDispatch();
@@ -30,6 +32,11 @@ const TransactionContainer = () => {
 
   const transactions = useSelector((state) => state.transactions);
   const date = useSelector((state) => state.selectedDate);
+
+  const currentDateTransactions = getCurrentDateTransactions(
+    date,
+    transactions
+  );
 
   useEffect(() => {
     dispatch(loadTransactions());
@@ -72,6 +79,7 @@ const TransactionContainer = () => {
   return (
     <>
       <TransactionDate date={date} updateDateHandler={updateDateHandler} />
+      <TransactionLineChart currentDateTransactions={currentDateTransactions} />
       <TransactionList
         transactions={transactions}
         deleteTransactionHandler={deleteTransactionHandler}

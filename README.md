@@ -17,7 +17,7 @@ Piggy Book에서 돈을 나눠주고 있잖아.
 변호사? 그것도 Piggy Book이 사준다.
 
 나는 무적이다.
-PiggyBook "신"이고
+PiggyBook은 "신"이고
 ```
 
 ## 😊 팀원 소개

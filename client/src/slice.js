@@ -32,7 +32,7 @@ const { actions, reducer } = createSlice({
     tags: [],
     selectedDate: {
       year: new Date().getFullYear(),
-      month: new Date().getMonth(),
+      month: new Date().getMonth() + 1,
       day: new Date().getDay(),
     },
   },

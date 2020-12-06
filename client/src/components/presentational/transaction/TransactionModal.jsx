@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import TransactionInputForm from './TransactionInputForm';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -18,7 +19,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TransactionModal = ({ openModalStatus, setOpenModalStatus }) => {
+const TransactionModal = ({
+  openModalStatus,
+  setOpenModalStatus,
+  insertTransaction,
+  updateTransactionHandler,
+  categoryInput,
+  paymentMethodInput,
+  costInput,
+  dateInput,
+  timeInput,
+  descriptionInput,
+  tagInput,
+  ImageURLInput,
+  editIdStatus,
+  handleCancel,
+}) => {
   const classes = useStyles();
 
   const handleClose = () => {
@@ -40,7 +56,22 @@ const TransactionModal = ({ openModalStatus, setOpenModalStatus }) => {
         }}
       >
         <Fade in={openModalStatus}>
-          <div className={classes.paper}>hello</div>
+          <div className={classes.paper}>
+            <TransactionInputForm
+              insertTransaction={insertTransaction}
+              updateTransactionHandler={updateTransactionHandler}
+              categoryInput={categoryInput}
+              paymentMethodInput={paymentMethodInput}
+              costInput={costInput}
+              dateInput={dateInput}
+              timeInput={timeInput}
+              descriptionInput={descriptionInput}
+              tagInput={tagInput}
+              ImageURLInput={ImageURLInput}
+              editIdStatus={editIdStatus}
+              handleCancel={handleCancel}
+            />
+          </div>
         </Fade>
       </Modal>
     </div>

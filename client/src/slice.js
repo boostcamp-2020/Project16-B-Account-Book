@@ -12,6 +12,9 @@ import {
   postTransaction,
   updateTransaction,
   deleteTransaction,
+  getAccountBooks,
+  createAccountBook,
+  deleteAccountBook,
 } from '@service/api';
 
 import {
@@ -30,6 +33,8 @@ const { actions, reducer } = createSlice({
     transactions: tempTransactionData,
     payments: [],
     tags: [],
+    accountBooks: [],
+    accountBookId: '',
   },
   accessToken: '',
 
@@ -68,6 +73,18 @@ const { actions, reducer } = createSlice({
         tags,
       };
     },
+    setAccountBooks(state, { payload: accountBooks }) {
+      return {
+        ...state,
+        accountBooks,
+      };
+    },
+    setAccountBook(state, { payload: accountBookId }) {
+      return {
+        ...state,
+        accountBookId,
+      };
+    },
   },
 });
 
@@ -76,6 +93,8 @@ export const {
   setAccessToken,
   setPayments,
   setTags,
+  setAccountBooks,
+  setAccountBook,
   setTransactions,
   insertTransactions,
 } = actions;
@@ -142,35 +161,35 @@ export const changePayment = ({ selectedCardName, newCardName }) => {
   };
 };
 
-export const loadTag = ({ accountBookId }) => {
+export const loadTag = () => {
   return async (dispatch) => {
-    const tags = await getTags({ accountBookId });
+    const tags = await getTags();
 
     dispatch(setTags(tags));
   };
 };
 
-export const addTag = ({ accountBookId, tag }) => {
+export const addTag = ({ tag }) => {
   return async (dispatch) => {
-    await createTag({ accountBookId, tag });
+    await createTag({ tag });
 
-    dispatch(loadTag({ accountBookId }));
+    dispatch(loadTag());
   };
 };
 
-export const changeTag = ({ accountBookId, originalTag, newTag }) => {
+export const changeTag = ({ originalTag, newTag }) => {
   return async (dispatch) => {
-    await updateTag({ accountBookId, originalTag, newTag });
+    await updateTag({ originalTag, newTag });
 
-    dispatch(loadTag({ accountBookId }));
+    dispatch(loadTag());
   };
 };
 
-export const removeTag = ({ accountBookId, tag }) => {
+export const removeTag = ({ tag }) => {
   return async (dispatch) => {
-    await deleteTag({ accountBookId, tag });
+    await deleteTag({ tag });
 
-    dispatch(loadTag({ accountBookId }));
+    dispatch(loadTag());
   };
 };
 
@@ -203,6 +222,36 @@ export const removeTransaction = ({ transactionId }) => {
     await deleteTransaction({ transactionId });
 
     dispatch(loadTransactions());
+  };
+};
+
+export const loadAccountBooks = () => {
+  return async (dispatch) => {
+    const accountBooks = await getAccountBooks();
+
+    dispatch(setAccountBooks(accountBooks));
+  };
+};
+
+export const loadAccountBook = ({ accountBookId }) => {
+  return (dispatch) => {
+    dispatch(setAccountBook(accountBookId));
+  };
+};
+
+export const addAccountBook = ({ title }) => {
+  return async (dispatch) => {
+    await createAccountBook({ title });
+
+    dispatch(loadAccountBooks());
+  };
+};
+
+export const removeAccountBook = ({ accountBookId }) => {
+  return async (dispatch) => {
+    await deleteAccountBook({ accountBookId });
+
+    dispatch(loadAccountBooks());
   };
 };
 

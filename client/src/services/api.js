@@ -36,8 +36,9 @@ export async function postLoginNaver(code) {
   return data;
 }
 
-export async function getTags({ accountBookId }) {
-  const { data } = await axiosAPI(`/accountBook/${accountBookId}`, 'GET');
+export async function getTags() {
+  const { data } = await axiosAPI('/accountBook/', 'GET');
+
   return data.tags;
 }
 
@@ -86,16 +87,16 @@ export async function deleteTransaction({ transactionId }) {
   return data;
 }
 
-export async function createTag({ accountBookId, tag }) {
-  const data = await axiosAPI(`/accountBook/${accountBookId}`, 'PATCH', {
-    newTags: [tag],
+export async function createTag({ tag }) {
+  const { data } = await axiosAPI('/accountBook/tag', 'POST', {
+    newTag: [tag],
   });
 
   return data;
 }
 
-export async function updateTag({ accountBookId, originalTag, newTag }) {
-  const data = await axiosAPI(`/accountBook/${accountBookId}/tag`, 'PATCH', {
+export async function updateTag({ originalTag, newTag }) {
+  const { data } = await axiosAPI(`/accountBook/tag/${originalTag}`, 'PATCH', {
     originalTag,
     newTag,
   });
@@ -103,10 +104,32 @@ export async function updateTag({ accountBookId, originalTag, newTag }) {
   return data;
 }
 
-export async function deleteTag({ accountBookId, tag }) {
-  const data = await axiosAPI(`/accountBook/${accountBookId}/tag`, 'DELETE', {
-    tag,
-  });
+export async function deleteTag({ tag }) {
+  const { data } = await axiosAPI(`/accountBook/tag/${tag}`, 'DELETE');
+
+  return data;
+}
+
+export async function getAccountBooks() {
+  const { data } = await axiosAPI('/accountBook/all', 'GET');
+
+  return data;
+}
+
+export async function getAccountBook() {
+  const { data } = await axiosAPI(`/accountBook/`, 'GET');
+
+  return data;
+}
+
+export async function createAccountBook({ title }) {
+  const { data } = await axiosAPI('/accountBook', 'POST', { title });
+
+  return data;
+}
+
+export async function deleteAccountBook({ accountBookId }) {
+  const { data } = await axiosAPI(`/accountBook/${accountBookId}`, 'DELETE');
 
   return data;
 }

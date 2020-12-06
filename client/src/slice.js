@@ -30,6 +30,11 @@ const { actions, reducer } = createSlice({
     transactions: tempTransactionData,
     payments: [],
     tags: [],
+    selectedDate: {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),
+      day: new Date().getDay(),
+    },
   },
   accessToken: '',
 
@@ -47,7 +52,6 @@ const { actions, reducer } = createSlice({
       };
     },
     insertTransactions(state, { payload: transactions }) {
-      console.log(transactions, 'transaction');
       state.transactions.push(transactions);
     },
     setAccessToken(state, { payload: accessToken }) {
@@ -68,6 +72,12 @@ const { actions, reducer } = createSlice({
         tags,
       };
     },
+    setDate(state, { payload: selectedDate }) {
+      return {
+        ...state,
+        ...selectedDate,
+      };
+    },
   },
 });
 
@@ -78,6 +88,7 @@ export const {
   setTags,
   setTransactions,
   insertTransactions,
+  setDate,
 } = actions;
 
 export const loader = ({ test }) => {
@@ -206,4 +217,10 @@ export const removeTransaction = ({ transactionId }) => {
   };
 };
 
+export const updateDate = ({ date }) => {
+  return async (dispatch) => {
+    console.log(date);
+    dispatch(setDate({ selectedDate: date }));
+  };
+};
 export default reducer;

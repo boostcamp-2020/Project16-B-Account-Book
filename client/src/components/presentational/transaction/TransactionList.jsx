@@ -4,14 +4,19 @@ import styled from 'styled-components';
 const StyledDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border: 1px solid black;
-  width: 55vw;
+  border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  border-top: none;
+  width: 65vw;
   background: #f5f5f7;
+  padding: 1% 2%;
 `;
 
 const StyledDate = styled.div`
   background: #fafafc;
-  border: 1px black solid;
+  border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  margin-top: 2%;
+  padding: 1% 2%;
+  width: 65vw;
 `;
 
 const Cost = styled.div`

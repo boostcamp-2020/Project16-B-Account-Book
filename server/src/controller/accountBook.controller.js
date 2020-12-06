@@ -3,9 +3,7 @@ const accountBookService = require('../service/accountBook.service');
 const accountBookController = {
   getAllAccountBooks: async (ctx) => {
     try {
-      // TODO: ctx.request.header에서 JWT를 추출해 decode 를 하거나
-      // middleware를 거쳐 인증이되면 ctx에 userId 속성을 하나 넣어놓고 사용해도 편할 듯
-      const { userid: userId } = ctx.request.header;
+      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
       const accountBooks = await accountBookService.getAllAccountBooks(userId);
 
       ctx.body = accountBooks;
@@ -15,8 +13,8 @@ const accountBookController = {
   },
   getAccountBook: async (ctx) => {
     try {
-      const { userid: userId } = ctx.request.header; // TODO: 위와 같다
-      const { accountBookId } = ctx.params;
+      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const accountBookId = ctx.cookies.get('accountBookId');
       const accountBook = await accountBookService.getAccountBook(
         userId,
         accountBookId
@@ -29,7 +27,7 @@ const accountBookController = {
   },
   createAccountBook: async (ctx) => {
     try {
-      const { userid: userId } = ctx.request.header; // TODO: 위와 같다
+      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
       const { title } = ctx.request.body;
       const accountBook = await accountBookService.createAccountBook(
         userId,
@@ -43,8 +41,8 @@ const accountBookController = {
   },
   deleteAccountBook: async (ctx) => {
     try {
-      const { userid: userId } = ctx.request.header; // TODO: 위와 같다
-      const { accountBookId } = ctx.params;
+      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const accountBookId = ctx.cookies.get('accountBookId');
       const result = await accountBookService.deleteAccountBook(
         userId,
         accountBookId
@@ -57,15 +55,45 @@ const accountBookController = {
   },
   updateAccountBook: async (ctx) => {
     try {
-      const { userid: userId } = ctx.request.header; // TODO: 위와 같다
-      const { accountBookId } = ctx.params;
-      const { newTitle, newUsers, newTags } = ctx.request.body;
+      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const accountBookId = ctx.cookies.get('accountBookId');
+      const { newTitle } = ctx.request.body;
+      const result = await accountBookService.updateAccountBookTitle(
+        userId,
+        accountBookId,
+        newTitle
+      );
+
+      ctx.body = result;
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
+  addAccountBookUsers: async (ctx) => {
+    try {
+      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const accountBookId = ctx.cookies.get('accountBookId');
+      const { newUsers } = ctx.request.body;
       const result = await accountBookService.updateAccountBook(
         userId,
         accountBookId,
-        newTitle,
-        newUsers,
-        newTags
+        newUsers
+      );
+
+      ctx.body = result;
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
+  addAccountBookTag: async (ctx) => {
+    try {
+      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const accountBookId = ctx.cookies.get('accountBookId');
+      const { newTag } = ctx.request.body;
+      const result = await accountBookService.addAccountBookTag(
+        userId,
+        accountBookId,
+        newTag
       );
 
       ctx.body = result;
@@ -75,8 +103,8 @@ const accountBookController = {
   },
   updateAccountBookTag: async (ctx) => {
     try {
-      const { userid: userId } = ctx.request.header;
-      const { accountBookId } = ctx.params;
+      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const accountBookId = ctx.cookies.get('accountBookId');
       const { originalTag, newTag } = ctx.request.body;
       const result = await accountBookService.updateAccountBookTag(
         userId,
@@ -92,9 +120,9 @@ const accountBookController = {
   },
   deleteAccountBookTag: async (ctx) => {
     try {
-      const { userid: userId } = ctx.request.header;
-      const { accountBookId } = ctx.params;
-      const { tag } = ctx.request.body;
+      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const accountBookId = ctx.cookies.get('accountBookId');
+      const { tagName: tag } = ctx.request.params;
       const result = await accountBookService.deleteAccountBookTag(
         userId,
         accountBookId,

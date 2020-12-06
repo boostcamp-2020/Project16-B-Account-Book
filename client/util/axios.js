@@ -13,7 +13,6 @@ export const axiosAPI = (url, method, body) => {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getToken()}`,
-      userid: '5fc67adeecfd3cb85cc7fb4d', // TODO: 추후 삭제
     },
     data: body,
   });

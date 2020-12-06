@@ -8,9 +8,14 @@ import {
   loadTransactions,
 } from '@slice';
 import TransactionList from '@presentational/transaction/TransactionList';
+import TransactionFab from '../presentational/transaction/TransactionFab';
+import TransactionModal from '../presentational/transaction/TransactionModal';
 
 const TransactionContainer = () => {
   const dispatch = useDispatch();
+
+  const [editIdStatus, setEditIdStatus] = useState('');
+  const [openModalStatus, setOpenModalStatus] = useState(false);
 
   const categoryInput = useRef();
   const paymentMethodInput = useRef();
@@ -43,6 +48,7 @@ const TransactionContainer = () => {
 
   const handleCancel = () => {
     emptyInput();
+    setEditIdStatus('');
   };
 
   const emptyInput = () => {

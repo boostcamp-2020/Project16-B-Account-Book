@@ -1,3 +1,4 @@
+import { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 
 const StyledForm = styled.form`
@@ -44,6 +45,22 @@ const TransactionInputForm = ({
       imageURL: ImageURLInput.current.value,
     };
   };
+
+  const insertData = (transaction) => {
+    categoryInput.current.value = transaction.category || '';
+    paymentMethodInput.current.value = transaction.paymentMethod || '';
+    costInput.current.value = transaction.cost || '';
+    dateInput.current.value =
+      `${transaction.year}-${transaction.month}-${transaction.day}` || '';
+    timeInput.current.value = transaction.time || '';
+    descriptionInput.current.value = transaction.description || '';
+    tagInput.current.value = transaction?.tag || '';
+    ImageURLInput.current.value = transaction.imageURL || '';
+  };
+
+  useLayoutEffect(() => {
+    insertData(editIdStatus);
+  }, []);
 
   return (
     <>

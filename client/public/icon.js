@@ -26,6 +26,14 @@ const icon = {
       }}
     />
   ),
+  largeAddBtn: (
+    <FcIcons.FcPlus
+      size={60}
+      style={{
+        filter: `drop-shadow(4px 2px 2px rgba(0, 0, 0, 0.173))`,
+      }}
+    />
+  ),
 };
 
 export default icon;

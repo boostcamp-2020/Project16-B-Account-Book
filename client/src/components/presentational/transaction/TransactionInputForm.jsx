@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const StyledForm = styled.form`
@@ -37,7 +36,7 @@ const TransactionInputForm = ({
     );
     return {
       category: categoryInput.current.value,
-      payment: paymentMethodInput.current.value,
+      paymentMethod: paymentMethodInput.current.value,
       cost: costInput.current.value,
       date: ISODate,
       description: descriptionInput.current.value,
@@ -68,7 +67,7 @@ const TransactionInputForm = ({
         </label>
         <label>
           time:
-          <input type="time" name="name" ref={timeInput} />
+          <input type="time" step="any" name="name" ref={timeInput} />
         </label>
         <label>
           description:

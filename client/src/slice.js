@@ -29,15 +29,19 @@ import { tempTransactionData } from './tempData';
 const { actions, reducer } = createSlice({
   name: 'app',
   initialState: {
+    accessToken: '',
     test: 1,
     transactions: tempTransactionData,
     payments: [],
     tags: [],
     accountBooks: [],
     accountBookId: '',
+    selectedDate: {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDay(),
+    },
   },
-  accessToken: '',
-
   reducers: {
     setTest(state, { payload: test }) {
       return {
@@ -52,7 +56,6 @@ const { actions, reducer } = createSlice({
       };
     },
     insertTransactions(state, { payload: transactions }) {
-      console.log(transactions, 'transaction');
       state.transactions.push(transactions);
     },
     setAccessToken(state, { payload: accessToken }) {
@@ -83,6 +86,10 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         accountBookId,
+    setDate(state, { payload: selectedDate }) {
+      return {
+        ...state,
+        ...selectedDate,
       };
     },
   },
@@ -97,6 +104,7 @@ export const {
   setAccountBook,
   setTransactions,
   insertTransactions,
+  setDate,
 } = actions;
 
 export const loader = ({ test }) => {
@@ -255,4 +263,10 @@ export const removeAccountBook = ({ accountBookId }) => {
   };
 };
 
+export const updateDate = ({ date }) => {
+  return async (dispatch) => {
+    dispatch(setDate({ selectedDate: date }));
+  };
+};
+      
 export default reducer;

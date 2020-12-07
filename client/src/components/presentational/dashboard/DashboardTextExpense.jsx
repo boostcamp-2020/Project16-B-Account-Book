@@ -92,7 +92,7 @@ const DashboardTextExpense = ({ transactions }) => {
     // 나중에 지출/수입 형태 결정되면 다시 수정하기
     return (
       <Info key={`card-transaction${i}`}>
-        <SmallText>{transaction.card}</SmallText>
+        <SmallText>{transaction.paymentMethod}</SmallText>
         <span>{Number(transaction.cost).toLocaleString()}</span>
       </Info>
     );

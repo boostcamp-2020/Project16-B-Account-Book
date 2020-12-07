@@ -237,9 +237,9 @@ export const changeTransaction = ({ transactionId, transaction }) => {
   };
 };
 
-export const removeTransaction = ({ transactionId }) => {
+export const removeTransaction = ({ transactionIds }) => {
   return async (dispatch) => {
-    await deleteTransaction({ transactionId });
+    await deleteTransaction({ transactionIds });
 
     dispatch(loadTransactions());
   };
@@ -280,5 +280,5 @@ export const updateDate = ({ date }) => {
     dispatch(setDate({ selectedDate: date }));
   };
 };
-      
+
 export default reducer;

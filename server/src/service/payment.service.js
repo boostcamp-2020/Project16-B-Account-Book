@@ -56,9 +56,22 @@ const PaymentService = {
       case 'income':
         transactionList = await TransactionModel.aggregate([
           {
+            $project: {
+              paymentMethod: 1,
+              accountBookId: 1,
+              category: 1,
+              cost: 1,
+              type: 1,
+              month: { $month: '$date' },
+              year: { $year: '$date' },
+            },
+          },
+          {
             $match: {
               paymentMethod: cardName,
               accountBookId: ObjectId(accountBookId),
+              month: Number(month),
+              year: Number(year),
               type: '수입',
             },
           },
@@ -73,9 +86,22 @@ const PaymentService = {
       case 'expenditure':
         transactionList = await TransactionModel.aggregate([
           {
+            $project: {
+              paymentMethod: 1,
+              accountBookId: 1,
+              category: 1,
+              cost: 1,
+              type: 1,
+              month: { $month: '$date' },
+              year: { $year: '$date' },
+            },
+          },
+          {
             $match: {
               paymentMethod: cardName,
               accountBookId: ObjectId(accountBookId),
+              month: Number(month),
+              year: Number(year),
               type: '지출',
             },
           },

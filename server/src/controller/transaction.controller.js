@@ -52,9 +52,11 @@ const transactionController = {
 
   deleteTransaction: async (ctx) => {
     try {
-      const { id } = ctx.query;
+      const { transactionIds } = ctx.request.body;
 
-      const transactions = await transactionService.deleteTransaction({ id });
+      const transactions = await transactionService.deleteTransaction({
+        ids: transactionIds,
+      });
 
       ctx.body = transactions;
     } catch (err) {

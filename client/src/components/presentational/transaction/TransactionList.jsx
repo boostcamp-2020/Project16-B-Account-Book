@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`
@@ -9,6 +9,12 @@ const StyledDiv = styled.div`
   width: 65vw;
   background: #f5f5f7;
   padding: 1% 2%;
+`;
+
+const StyledCheckbox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const StyledDate = styled.div`
@@ -31,27 +37,24 @@ const StyledTransactionList = styled.div`
 const TransactionList = ({
   transactions,
   deleteTransactionHandler,
-  categoryInput,
-  paymentMethodInput,
-  costInput,
-  dateInput,
-  timeInput,
-  descriptionInput,
-  tagInput,
-  ImageURLInput,
+  deleteStatus,
+  setDeleteStatus,
   setEditIdStatus,
+  setOpenModalStatus,
 }) => {
+  const [dataSets, setDataSets] = useState([]);
   const handleClick = (transaction) => {
-    categoryInput.current.value = transaction.category || '';
-    paymentMethodInput.current.value = transaction.paymentMethod || '';
-    costInput.current.value = transaction.cost || '';
-    dateInput.current.value =
-      `${transaction.year}-${transaction.month}-${transaction.day}` || '';
-    timeInput.current.value = transaction.time || '';
-    descriptionInput.current.value = transaction.description || '';
-    tagInput.current.value = transaction?.tag || '';
-    ImageURLInput.current.value = transaction.imageURL || '';
-    setEditIdStatus(transaction._id);
+    setOpenModalStatus(true);
+    setEditIdStatus(transaction);
+  };
+
+  const handleDeleteClick = (e) => {
+    if (e.target.checked) {
+      setDataSets([...dataSets, e.target.dataset.id]);
+    }
+    if (!e.target.checked) {
+      setDataSets(dataSets.filter((data) => data !== e.target.dataset.id));
+    }
   };
 
   const parseDate = (date) => {
@@ -106,20 +109,27 @@ const TransactionList = ({
             </StyledDate>
             {transactionByDate[month][day].map((transaction, i) => {
               return (
-                <Fragment key={`transactionDay${i}`}>
-                  <StyledDiv onClick={() => handleClick(transaction._id)}>
-                    <div>{transaction.time}</div>
-                    <div>{transaction.category}</div>
-                    <div>{transaction.description}</div>
-                    <Cost>{transaction.cost}</Cost>
-                  </StyledDiv>
-                  <button onClick={() => handleClick(transaction)}>수정</button>
-                  <button
-                    onClick={() => deleteTransactionHandler(transaction._id)}
-                  >
-                    삭제
-                  </button>
-                </Fragment>
+                <>
+                  <StyledCheckbox>
+                    <>
+                      {deleteStatus && (
+                        <input
+                          type="checkbox"
+                          data-id={transaction._id}
+                          onClick={(e) => handleDeleteClick(e)}
+                        />
+                      )}
+                      <Fragment key={`transactionDay${i}`}>
+                        <StyledDiv onClick={() => handleClick(transaction)}>
+                          <div>{transaction.time}</div>
+                          <div>{transaction.category}</div>
+                          <div>{transaction.description}</div>
+                          <Cost>{transaction.cost}</Cost>
+                        </StyledDiv>
+                      </Fragment>
+                    </>
+                  </StyledCheckbox>
+                </>
               );
             })}
           </Fragment>

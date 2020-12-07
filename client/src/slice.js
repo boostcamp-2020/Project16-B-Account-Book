@@ -94,6 +94,8 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         accountBookId,
+      };
+    },
     setDate(state, { payload: selectedDate }) {
       return {
         ...state,

@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const StyledForm = styled.form`
@@ -9,17 +9,18 @@ const StyledForm = styled.form`
 const TransactionInputForm = ({
   insertTransaction,
   updateTransactionHandler,
-  categoryInput,
-  paymentMethodInput,
-  costInput,
-  dateInput,
-  timeInput,
-  descriptionInput,
-  tagInput,
-  ImageURLInput,
   editIdStatus,
   handleCancel,
 }) => {
+  const categoryInput = useRef();
+  const paymentMethodInput = useRef();
+  const costInput = useRef();
+  const dateInput = useRef();
+  const timeInput = useRef();
+  const descriptionInput = useRef();
+  const tagInput = useRef();
+  const ImageURLInput = useRef();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = parseData();

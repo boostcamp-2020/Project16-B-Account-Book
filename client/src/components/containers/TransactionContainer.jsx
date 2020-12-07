@@ -21,15 +21,6 @@ const TransactionContainer = () => {
   const [editIdStatus, setEditIdStatus] = useState('');
   const [openModalStatus, setOpenModalStatus] = useState(false);
 
-  const categoryInput = useRef();
-  const paymentMethodInput = useRef();
-  const costInput = useRef();
-  const dateInput = useRef();
-  const timeInput = useRef();
-  const descriptionInput = useRef();
-  const tagInput = useRef();
-  const ImageURLInput = useRef();
-
   const transactions = useSelector((state) => state.transactions);
   const date = useSelector((state) => state.selectedDate);
 
@@ -75,31 +66,13 @@ const TransactionContainer = () => {
         setOpenModalStatus={setOpenModalStatus}
         insertTransaction={insertTransaction}
         updateTransactionHandler={updateTransactionHandler}
-        categoryInput={categoryInput}
-        paymentMethodInput={paymentMethodInput}
-        costInput={costInput}
-        dateInput={dateInput}
-        timeInput={timeInput}
-        descriptionInput={descriptionInput}
-        tagInput={tagInput}
-        ImageURLInput={ImageURLInput}
         editIdStatus={editIdStatus}
         handleCancel={handleCancel}
       />
       <TransactionList
         transactions={currentDateTransactions}
         deleteTransactionHandler={deleteTransactionHandler}
-        categoryInput={categoryInput}
-        paymentMethodInput={paymentMethodInput}
-        costInput={costInput}
-        dateInput={dateInput}
-        timeInput={timeInput}
-        descriptionInput={descriptionInput}
-        tagInput={tagInput}
-        ImageURLInput={ImageURLInput}
-        editIdStatus={editIdStatus}
         setEditIdStatus={setEditIdStatus}
-        openModalStatus={openModalStatus}
         setOpenModalStatus={setOpenModalStatus}
       />
     </>

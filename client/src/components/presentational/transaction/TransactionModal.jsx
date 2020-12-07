@@ -24,14 +24,6 @@ const TransactionModal = ({
   setOpenModalStatus,
   insertTransaction,
   updateTransactionHandler,
-  categoryInput,
-  paymentMethodInput,
-  costInput,
-  dateInput,
-  timeInput,
-  descriptionInput,
-  tagInput,
-  ImageURLInput,
   editIdStatus,
   handleCancel,
 }) => {
@@ -60,14 +52,6 @@ const TransactionModal = ({
             <TransactionInputForm
               insertTransaction={insertTransaction}
               updateTransactionHandler={updateTransactionHandler}
-              categoryInput={categoryInput}
-              paymentMethodInput={paymentMethodInput}
-              costInput={costInput}
-              dateInput={dateInput}
-              timeInput={timeInput}
-              descriptionInput={descriptionInput}
-              tagInput={tagInput}
-              ImageURLInput={ImageURLInput}
               editIdStatus={editIdStatus}
               handleCancel={handleCancel}
             />

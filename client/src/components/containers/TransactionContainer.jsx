@@ -18,6 +18,7 @@ import { getCurrentDateTransactions } from './util';
 const TransactionContainer = () => {
   const dispatch = useDispatch();
 
+  const [deleteStatus, setDeleteStatus] = useState(false);
   const [editIdStatus, setEditIdStatus] = useState('');
   const [openModalStatus, setOpenModalStatus] = useState(false);
 
@@ -38,8 +39,8 @@ const TransactionContainer = () => {
     handleCancel();
   };
 
-  const deleteTransactionHandler = (transactionId) => {
-    dispatch(removeTransaction({ transactionId }));
+  const deleteTransactionHandler = (transactionIds) => {
+    dispatch(removeTransaction({ transactionIds }));
   };
 
   const updateTransactionHandler = ({ transaction }) => {
@@ -60,7 +61,10 @@ const TransactionContainer = () => {
     <>
       <TransactionDate date={date} updateDateHandler={updateDateHandler} />
       <TransactionLineChart currentDateTransactions={currentDateTransactions} />
-      <TransactionFab setOpenModalStatus={setOpenModalStatus} />
+      <TransactionFab
+        setOpenModalStatus={setOpenModalStatus}
+        setDeleteStatus={setDeleteStatus}
+      />
       <TransactionModal
         openModalStatus={openModalStatus}
         setOpenModalStatus={setOpenModalStatus}
@@ -72,8 +76,10 @@ const TransactionContainer = () => {
       <TransactionList
         transactions={currentDateTransactions}
         deleteTransactionHandler={deleteTransactionHandler}
+        setDeleteStatus={setDeleteStatus}
         setEditIdStatus={setEditIdStatus}
         setOpenModalStatus={setOpenModalStatus}
+        deleteStatus={deleteStatus}
       />
     </>
   );

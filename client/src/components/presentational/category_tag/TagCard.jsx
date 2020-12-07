@@ -167,11 +167,11 @@ const TagCard = ({
     }
     setEditMode(false);
     if (title) {
-      onClickChange('5fc713abd120a78e5c18216d', title, tagName);
+      onClickChange(title, tagName);
       return;
     }
-    onClickAdd('5fc713abd120a78e5c18216d', tagName);
     setAddMode(false);
+    onClickAdd(tagName);
   };
 
   const dropDownOptions = [
@@ -192,10 +192,8 @@ const TagCard = ({
     {
       text: '태그 삭제',
       func: () => {
-        onClickDelete('5fc713abd120a78e5c18216d', title);
-        setEditMode(true);
         setDropDown(false);
-        setTagName('');
+        onClickDelete(title);
       },
     },
     {
@@ -227,7 +225,7 @@ const TagCard = ({
             <CardDropDown options={dropDownOptions} setDropDown={setDropDown} />
           )}
         </CardHeader>
-        {editMode && (
+        {(editMode || !title.length) && (
           <Edit>
             <input
               type="text"

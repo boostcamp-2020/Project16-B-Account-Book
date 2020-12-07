@@ -1,34 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import DetailForm from '@presentational/payment/detail/DetailForm';
-import { loadDetailPayment } from '@paymentSlice';
+import { loadDetailPayment } from '@slice';
 
 const PaymentDetailContainer = (cardName) => {
   const dispatch = useDispatch();
-  const transactions = useSelector((state) => state.transactions);
+  const [color, setColor] = useState('#ffc221');
+  const transactions = useSelector((state) => state.paymentsDetail);
+
   const title = transactions[transactions.length - 1].title;
 
   useEffect(() => {
-    dispatch(loadDetailPayment(cardName.id));
+    dispatch(loadDetailPayment(cardName.id, 'all'));
   }, []);
 
   const showAll = () => {
-    dispatch(loadDetailPayment(cardName.id));
+    setColor('#ffc221');
+    dispatch(loadDetailPayment(cardName.id, 'all'));
   };
 
   const showIncome = () => {
-    console.log('수입 내역');
-    //dispatch(addPayment());
+    setColor('#3682e8');
+    dispatch(loadDetailPayment(cardName.id, 'income'));
   };
 
   const showExpenditure = () => {
-    console.log('지출 내역');
-    //dispatch(addPayment());
+    setColor('#ff616a');
+    dispatch(loadDetailPayment(cardName.id, 'expenditure'));
   };
 
   return (
     <DetailForm
+      color={color}
       title={title}
       transactions={transactions}
       showAll={showAll}

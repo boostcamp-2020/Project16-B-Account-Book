@@ -18,7 +18,8 @@ import {
 } from '@service/api';
 
 import {
-  getPayment,
+  getPayments,
+  getPaymentsDetail,
   patchPayment,
   deletePayment,
   updatePayment,
@@ -33,6 +34,7 @@ const { actions, reducer } = createSlice({
     test: 1,
     transactions: tempTransactionData,
     payments: [],
+    paymentsDetail: [{ title: null }],
     tags: [],
     accountBooks: [],
     accountBookId: '',
@@ -70,6 +72,12 @@ const { actions, reducer } = createSlice({
         payments,
       };
     },
+    setPaymentsDetail(state, { payload: paymentsDetail }) {
+      return {
+        ...state,
+        paymentsDetail,
+      };
+    },
     setTags(state, { payload: tags }) {
       return {
         ...state,
@@ -99,6 +107,7 @@ export const {
   setTest,
   setAccessToken,
   setPayments,
+  setPaymentsDetail,
   setTags,
   setAccountBooks,
   setAccountBook,
@@ -132,17 +141,23 @@ export function login({ code, state }) {
 
 export const loadPayment = () => {
   return async (dispatch) => {
-    const paymentsList = await getPayment();
+    const paymentsList = await getPayments();
 
     dispatch(setPayments(paymentsList));
   };
 };
 
+export const loadDetailPayment = (cardName, type) => {
+  return async (dispatch) => {
+    const paymentsList = await getPaymentsDetail(cardName, type);
+
+    dispatch(setPaymentsDetail(paymentsList));
+  };
+};
+
 export const addPayment = ({ paymentName }) => {
   return async (dispatch) => {
-    await patchPayment({
-      paymentName,
-    });
+    await patchPayment({ paymentName });
 
     dispatch(loadPayment());
   };
@@ -150,9 +165,7 @@ export const addPayment = ({ paymentName }) => {
 
 export const removePayment = ({ paymentName }) => {
   return async (dispatch) => {
-    await deletePayment({
-      paymentName,
-    });
+    await deletePayment({ paymentName });
 
     dispatch(loadPayment());
   };
@@ -160,10 +173,7 @@ export const removePayment = ({ paymentName }) => {
 
 export const changePayment = ({ selectedCardName, newCardName }) => {
   return async (dispatch) => {
-    await updatePayment({
-      selectedCardName,
-      newCardName,
-    });
+    await updatePayment({ selectedCardName, newCardName });
 
     dispatch(loadPayment());
   };

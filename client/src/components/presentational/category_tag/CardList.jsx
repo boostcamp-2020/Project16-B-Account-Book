@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import icon from '@public/icon';
+import { v4 as uuid } from 'uuid';
 
 import CategoryCard from './CategoryCard';
 import TagCard from './TagCard';
@@ -36,10 +37,10 @@ const CardList = ({
   const [addMode, setAddMode] = useState(false);
 
   const renderCategoryList = (categories) => {
-    return categories.map(({ icon, title, description }, index) => {
+    return categories.map(({ icon, title, description }) => {
       return (
         <CategoryCard
-          key={'card' + index}
+          key={uuid()}
           iconName={icon}
           title={title}
           description={description}
@@ -54,10 +55,10 @@ const CardList = ({
   };
 
   const renderTagList = (tags) => {
-    return tags.concat(['']).map((tag, index) => {
+    return tags.concat(['']).map((tag) => {
       return (
         <TagCard
-          key={'tag' + index}
+          key={uuid()}
           iconName="tagDefault"
           title={tag}
           onClickAdd={onClickAdd}

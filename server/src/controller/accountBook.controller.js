@@ -14,7 +14,8 @@ const accountBookController = {
   getAccountBook: async (ctx) => {
     try {
       const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
-      const accountBookId = ctx.cookies.get('accountBookId');
+      const accountBookId =
+        ctx.cookies.get('accountBookId') || '5fc713abd120a78e5c18216d';
       const accountBook = await accountBookService.getAccountBook(
         userId,
         accountBookId

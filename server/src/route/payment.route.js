@@ -4,7 +4,7 @@ const router = new Router();
 const paymentController = require('../controller/payment.controller');
 
 router.get('/', paymentController.getPayments);
-router.get('/:cardName/:type', paymentController.getTransactions);
+router.get('/:cardName/:type/:year/:month', paymentController.getTransactions);
 
 router.post('/', paymentController.addPayment);
 router.patch('/', paymentController.updatePayment);

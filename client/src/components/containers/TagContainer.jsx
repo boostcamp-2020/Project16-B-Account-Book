@@ -1,16 +1,30 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
+import styled from 'styled-components';
 
 import CardList from '@presentational/category_tag/CardList';
-import { addTag, changeTag, removeTag } from '@slice';
+import { loadTag, addTag, changeTag, removeTag } from '@slice';
 import { successFormat, confirmFormat } from '@service/swalFormat';
+import logoImg from '@public/img/colored_logo_img.png';
+
+const LoadSpinner = styled.img`
+  width: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const TagContainer = ({ navMenu }) => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadTag());
+  }, []);
+
   const tags = useSelector((state) => state.tags);
 
-  const handleAddTag = (accountBookId, tag) => {
-    dispatch(addTag({ accountBookId, tag }));
+  const handleAddTag = (tag) => {
+    dispatch(addTag({ tag }));
     Swal.fire(
       successFormat({
         position: 'center',
@@ -19,8 +33,8 @@ const TagContainer = ({ navMenu }) => {
     );
   };
 
-  const handleChangeTag = (accountBookId, originalTag, newTag) => {
-    dispatch(changeTag({ accountBookId, originalTag, newTag }));
+  const handleChangeTag = (originalTag, newTag) => {
+    dispatch(changeTag({ originalTag, newTag }));
     Swal.fire(
       successFormat({
         position: 'center',
@@ -29,14 +43,14 @@ const TagContainer = ({ navMenu }) => {
     );
   };
 
-  const handleRemoveTag = (accountBookId, tag) => {
+  const handleRemoveTag = (tag) => {
     Swal.fire(
       confirmFormat({
         position: 'top',
       })
     ).then((result) => {
       if (result.isConfirmed) {
-        dispatch(removeTag({ accountBookId, tag }));
+        dispatch(removeTag({ tag }));
         Swal.fire({
           text: `태그 삭제가 완료되었습니다.`,
         });
@@ -46,13 +60,17 @@ const TagContainer = ({ navMenu }) => {
 
   return (
     <>
-      <CardList
-        navMenu={navMenu}
-        data={tags}
-        onClickAdd={handleAddTag}
-        onClickChange={handleChangeTag}
-        onClickDelete={handleRemoveTag}
-      />
+      {tags.length ? (
+        <CardList
+          navMenu={navMenu}
+          data={tags}
+          onClickAdd={handleAddTag}
+          onClickChange={handleChangeTag}
+          onClickDelete={handleRemoveTag}
+        />
+      ) : (
+        <LoadSpinner src={logoImg} />
+      )}
     </>
   );
 };

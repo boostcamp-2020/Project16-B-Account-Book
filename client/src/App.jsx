@@ -27,21 +27,65 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Layout>
-        <Switch>
-          <Route exact path="/" component={LoginPage} />
-          <Route path="/account-book" component={AccountBookPage} />
-          <Route path="/analysis" component={AnalysisPage} />
-          <Route exact path="/calendar" component={CalendarPage} />
-          <Route path="/category" component={CategoryTagPage} />
-          <Route path="/dashboard" component={DashboardPage} />
-          <Route path="/payment-method/:id" component={PaymentDetailPage} />
-          <Route path="/payment-method" component={PaymentMethodPage} />
-          <Route path="/setting" component={SettingPage} />
-          <Route path="/transaction" component={TransactionPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
-      </Layout>
+
+      <Switch>
+        <Route exact path="/" component={LoginPage} />
+        <Route path="/account-book" component={AccountBookPage} />
+
+        <Route path="/analysis">
+          <Layout>
+            <Route component={AnalysisPage} />
+          </Layout>
+        </Route>
+
+        <Route exact path="/calendar">
+          <Layout>
+            <Route component={CalendarPage} />
+          </Layout>
+        </Route>
+
+        <Route exact path="/category">
+          <Layout>
+            <Route component={CategoryTagPage} />
+          </Layout>
+        </Route>
+
+        <Route path="/dashboard">
+          <Layout>
+            <Route component={DashboardPage} />
+          </Layout>
+        </Route>
+
+        <Route path="/payment-method/:id">
+          <Layout>
+            <Route component={PaymentDetailPage} />
+          </Layout>
+        </Route>
+
+        <Route path="/payment-method">
+          <Layout>
+            <Route component={PaymentMethodPage} />
+          </Layout>
+        </Route>
+
+        <Route path="/setting">
+          <Layout>
+            <Route component={SettingPage} />
+          </Layout>
+        </Route>
+
+        <Route path="/transaction">
+          <Layout>
+            <Route component={TransactionPage} />
+          </Layout>
+        </Route>
+
+        <Route component={NotFoundPage}>
+          <Layout>
+            <Route />
+          </Layout>
+        </Route>
+      </Switch>
     </>
   );
 };

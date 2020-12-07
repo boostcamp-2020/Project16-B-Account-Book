@@ -3,15 +3,14 @@ const router = new Router();
 
 const accountBookController = require('../controller/accountBook.controller');
 
-router.get('/', accountBookController.getAllAccountBooks);
-router.get('/:accountBookId', accountBookController.getAccountBook);
+router.get('/all', accountBookController.getAllAccountBooks);
+router.get('/', accountBookController.getAccountBook);
 router.post('/', accountBookController.createAccountBook);
 router.delete('/:accountBookId', accountBookController.deleteAccountBook);
-router.patch('/:accountBookId', accountBookController.updateAccountBook);
-router.patch('/:accountBookId/tag', accountBookController.updateAccountBookTag);
-router.delete(
-  '/:accountBookId/tag',
-  accountBookController.deleteAccountBookTag
-);
+router.patch('/', accountBookController.updateAccountBook);
+router.post('/users', accountBookController.addAccountBookUsers);
+router.post('/tag', accountBookController.addAccountBookTag);
+router.patch('/tag/:tagName', accountBookController.updateAccountBookTag);
+router.delete('/tag/:tagName', accountBookController.deleteAccountBookTag);
 
 module.exports = router;

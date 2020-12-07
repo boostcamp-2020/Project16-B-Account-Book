@@ -43,6 +43,12 @@ const { actions, reducer } = createSlice({
       month: new Date().getMonth() + 1,
       day: new Date().getDay(),
     },
+    calendarInfo: {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      date: new Date().getDate(),
+      day: new Date().getDay(),
+    },
   },
   reducers: {
     setTest(state, { payload: test }) {
@@ -102,6 +108,12 @@ const { actions, reducer } = createSlice({
         ...selectedDate,
       };
     },
+    setCalendarInfo(state, { payload: calendarInfo }) {
+      return {
+        ...state,
+        calendarInfo,
+      };
+    },
   },
 });
 
@@ -116,6 +128,7 @@ export const {
   setTransactions,
   insertTransactions,
   setDate,
+  setCalendarInfo,
 } = actions;
 
 export const loader = ({ test }) => {

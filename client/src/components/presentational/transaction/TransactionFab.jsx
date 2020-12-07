@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     bottom: 0,
     right: 0,
+    zIndex: 15,
   },
   exampleWrapper: {
     position: 'fixed',
@@ -51,13 +52,6 @@ const TransactionFab = ({ setOpenModalStatus, setDeleteStatus }) => {
       name: 'Add',
       handleClick: () => {
         setOpenModalStatus(true);
-      },
-    },
-    {
-      icon: <EditIcon />,
-      name: 'Edit',
-      handleClick: () => {
-        console.log('edit');
       },
     },
     {

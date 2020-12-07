@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TransactionFab = ({ setOpenModalStatus }) => {
+const TransactionFab = ({ setOpenModalStatus, setDeleteStatus }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -64,7 +64,7 @@ const TransactionFab = ({ setOpenModalStatus }) => {
       icon: <DeleteIcon />,
       name: 'Delete',
       handleClick: () => {
-        console.log('delete');
+        setDeleteStatus(true);
       },
     },
   ];

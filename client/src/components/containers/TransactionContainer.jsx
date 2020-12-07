@@ -44,7 +44,7 @@ const TransactionContainer = () => {
 
   const insertTransaction = ({ transaction }) => {
     dispatch(addTransaction({ transaction }));
-    emptyInput();
+    handleCancel();
   };
 
   const deleteTransactionHandler = (transactionId) => {
@@ -61,19 +61,8 @@ const TransactionContainer = () => {
   };
 
   const handleCancel = () => {
-    emptyInput();
     setEditIdStatus('');
-  };
-
-  const emptyInput = () => {
-    categoryInput.current.value = '';
-    paymentMethodInput.current.value = '';
-    costInput.current.value = '';
-    dateInput.current.value = '';
-    timeInput.current.value = '';
-    descriptionInput.current.value = '';
-    tagInput.current.value = '';
-    ImageURLInput.current.value = '';
+    setOpenModalStatus(false);
   };
 
   return (

@@ -10,6 +10,7 @@ import {
 import { Animation } from '@devexpress/dx-react-chart';
 
 import DetailButton from './DetailButton';
+import DetailDropdown from './DetailDropdown';
 
 const PaymentDetail = styled.div`
   display: flex;
@@ -38,9 +39,12 @@ const DetailForm = ({
   showAll,
   showIncome,
   showExpenditure,
+  setYear,
+  setMonth,
 }) => {
   return (
     <PaymentDetail>
+      <DetailDropdown setYear={setYear} setMonth={setMonth} />
       <DetailButton
         showAll={showAll}
         showIncome={showIncome}

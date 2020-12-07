@@ -80,19 +80,6 @@ const TransactionContainer = () => {
     <>
       <TransactionDate date={date} updateDateHandler={updateDateHandler} />
       <TransactionLineChart currentDateTransactions={currentDateTransactions} />
-      <TransactionList
-        transactions={transactions}
-        deleteTransactionHandler={deleteTransactionHandler}
-        categoryInput={categoryInput}
-        paymentMethodInput={paymentMethodInput}
-        costInput={costInput}
-        dateInput={dateInput}
-        timeInput={timeInput}
-        descriptionInput={descriptionInput}
-        tagInput={tagInput}
-        ImageURLInput={ImageURLInput}
-        setEditIdStatus={setEditIdStatus}
-      />
       <TransactionFab setOpenModalStatus={setOpenModalStatus} />
       <TransactionModal
         openModalStatus={openModalStatus}
@@ -109,6 +96,22 @@ const TransactionContainer = () => {
         ImageURLInput={ImageURLInput}
         editIdStatus={editIdStatus}
         handleCancel={handleCancel}
+      />
+      <TransactionList
+        transactions={currentDateTransactions}
+        deleteTransactionHandler={deleteTransactionHandler}
+        categoryInput={categoryInput}
+        paymentMethodInput={paymentMethodInput}
+        costInput={costInput}
+        dateInput={dateInput}
+        timeInput={timeInput}
+        descriptionInput={descriptionInput}
+        tagInput={tagInput}
+        ImageURLInput={ImageURLInput}
+        editIdStatus={editIdStatus}
+        setEditIdStatus={setEditIdStatus}
+        openModalStatus={openModalStatus}
+        setOpenModalStatus={setOpenModalStatus}
       />
     </>
   );

@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StyledDiv = styled.div`
   display: grid;
@@ -34,6 +34,49 @@ const StyledTransactionList = styled.div`
   margin-top: 10%;
 `;
 
+const DeleteOverview = styled.div`
+  background: pink;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 1%;
+  margin: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  & > * {
+    width: 25%;
+  }
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const StyledButton = styled.button`
+  &:hover {
+    cursor: pointer;
+  }
+  ${(props) => {
+    if (props.isCancel) {
+      return css`
+        background-color: pink;
+        color: white;
+        border: none;
+        margin-right: 15%;
+      `;
+    }
+    return css`
+      margin-right: 5%;
+      padding: 1% 5%;
+    `;
+  }}
+`;
+
 const TransactionList = ({
   transactions,
   deleteTransactionHandler,
@@ -46,6 +89,17 @@ const TransactionList = ({
   const handleClick = (transaction) => {
     setOpenModalStatus(true);
     setEditIdStatus(transaction);
+  };
+
+  const cancelDeleteHandler = () => {
+    setDeleteStatus(false);
+    setDataSets([]);
+  };
+
+  const deleteHandler = () => {
+    deleteTransactionHandler(dataSets);
+    setDeleteStatus(false);
+    setDataSets([]);
   };
 
   const handleDeleteClick = (e) => {
@@ -144,6 +198,19 @@ const TransactionList = ({
   return (
     <>
       <StyledTransactionList>{template}</StyledTransactionList>
+      {deleteStatus && (
+        <DeleteOverview>
+          <span>삭제할 내역을 선택해 주세요. ({dataSets.length}개 선택됨)</span>
+          <ButtonGroup>
+            <StyledButton isCancel={true} onClick={cancelDeleteHandler}>
+              취소
+            </StyledButton>
+            <StyledButton isCancel={false} onClick={deleteHandler}>
+              확인
+            </StyledButton>
+          </ButtonGroup>
+        </DeleteOverview>
+      )}
     </>
   );
 };

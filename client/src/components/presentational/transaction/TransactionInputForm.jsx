@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { Fragment, useLayoutEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const StyledForm = styled.form`
@@ -11,6 +11,8 @@ const TransactionInputForm = ({
   updateTransactionHandler,
   editIdStatus,
   handleCancel,
+  paymentMethods,
+  tags,
 }) => {
   const categoryInput = useRef();
   const paymentMethodInput = useRef();
@@ -71,10 +73,16 @@ const TransactionInputForm = ({
           category:
           <input type="text" name="name" ref={categoryInput} />
         </label>
-        <label>
-          paymentMethod:
-          <input type="text" name="name" ref={paymentMethodInput} />
-        </label>
+        <label>paymentMethod:</label>
+        <select ref={paymentMethodInput}>
+          {paymentMethods.map((paymentMethod, i) => {
+            return (
+              <Fragment key={`paymentMethod-${i}`}>
+                <option value={paymentMethod}>{paymentMethod}</option>
+              </Fragment>
+            );
+          })}
+        </select>
         <label>
           cost:
           <input type="text" name="name" ref={costInput} />
@@ -91,10 +99,16 @@ const TransactionInputForm = ({
           description:
           <input type="text" name="name" ref={descriptionInput} />
         </label>
-        <label>
-          tag:
-          <input type="text" name="name" ref={tagInput} />
-        </label>
+        <label>tag:</label>
+        <select ref={tagInput}>
+          {tags.map((tag, i) => {
+            return (
+              <Fragment key={`tag-${i}`}>
+                <option value={tag}>{tag}</option>
+              </Fragment>
+            );
+          })}
+        </select>
         <label>
           imageURL:
           <input type="text" name="name" ref={ImageURLInput} />

@@ -26,6 +26,8 @@ const TransactionModal = ({
   updateTransactionHandler,
   editIdStatus,
   handleCancel,
+  tags,
+  paymentMethods,
 }) => {
   const classes = useStyles();
 
@@ -54,6 +56,8 @@ const TransactionModal = ({
               updateTransactionHandler={updateTransactionHandler}
               editIdStatus={editIdStatus}
               handleCancel={handleCancel}
+              tags={tags}
+              paymentMethods={paymentMethods}
             />
           </div>
         </Fade>

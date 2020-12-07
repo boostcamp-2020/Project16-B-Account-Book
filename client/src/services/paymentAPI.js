@@ -15,8 +15,8 @@ export async function getPayments() {
   return data;
 }
 
-export async function getPaymentsDetail(cardName, type) {
-  const url = `${API_URL}/payment/${cardName}/${type}`;
+export async function getPaymentsDetail(cardName, type, year, month) {
+  const url = `${API_URL}/payment/${cardName}/${type}/${year}/${month}`;
   const { data } = await axios(getOptions(url));
 
   return data;

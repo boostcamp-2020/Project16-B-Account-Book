@@ -7,6 +7,7 @@ import {
   changeTransaction,
   loadTransactions,
   updateDate,
+  loadAccountbookTest,
 } from '@slice';
 import TransactionList from '@presentational/transaction/TransactionList';
 import TransactionFab from '../presentational/transaction/TransactionFab';
@@ -24,6 +25,9 @@ const TransactionContainer = () => {
 
   const transactions = useSelector((state) => state.transactions);
   const date = useSelector((state) => state.selectedDate);
+  // const categories = useSelector((state) => state.category);
+  const paymentMethods = useSelector((state) => state.paymentMethods);
+  const tags = useSelector((state) => state.tags);
 
   const currentDateTransactions = getCurrentDateTransactions(
     date,
@@ -32,6 +36,7 @@ const TransactionContainer = () => {
 
   useEffect(() => {
     dispatch(loadTransactions());
+    dispatch(loadAccountbookTest());
   }, []);
 
   const insertTransaction = ({ transaction }) => {
@@ -72,6 +77,8 @@ const TransactionContainer = () => {
         updateTransactionHandler={updateTransactionHandler}
         editIdStatus={editIdStatus}
         handleCancel={handleCancel}
+        tags={tags}
+        paymentMethods={paymentMethods}
       />
       <TransactionList
         transactions={currentDateTransactions}

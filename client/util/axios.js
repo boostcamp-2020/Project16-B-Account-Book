@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 import { getToken } from './token';
+import { getCookie } from './cookie';
 
 const accountBookId = '5fc713abd120a78e5c18216d'; // TODO: Local Storage에서 get해 올 예정
 
@@ -14,7 +16,10 @@ export const axiosAPI = (url, method, body) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getToken()}`,
     },
-    data: body,
+    data: {
+      ...body,
+      accountBookId: getCookie('accountBookId'),
+    },
   });
 };
 

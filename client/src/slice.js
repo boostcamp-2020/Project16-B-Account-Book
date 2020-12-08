@@ -248,12 +248,11 @@ export const removeTransaction = ({ transactionId }) => {
 export const loadAccountBooks = () => {
   return async (dispatch) => {
     const accountBooks = await getAccountBooks();
-
     dispatch(setAccountBooks(accountBooks));
   };
 };
 
-export const loadAccountBook = ({ accountBookId }) => {
+export const loadAccountBook = (accountBookId) => {
   return (dispatch) => {
     dispatch(setAccountBook(accountBookId));
   };
@@ -280,5 +279,5 @@ export const updateDate = ({ date }) => {
     dispatch(setDate({ selectedDate: date }));
   };
 };
-      
+
 export default reducer;

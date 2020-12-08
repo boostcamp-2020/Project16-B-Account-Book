@@ -24,16 +24,10 @@ const TransactionModal = ({
   setOpenModalStatus,
   insertTransaction,
   updateTransactionHandler,
-  categoryInput,
-  paymentMethodInput,
-  costInput,
-  dateInput,
-  timeInput,
-  descriptionInput,
-  tagInput,
-  ImageURLInput,
   editIdStatus,
   handleCancel,
+  tags,
+  paymentMethods,
 }) => {
   const classes = useStyles();
 
@@ -60,16 +54,10 @@ const TransactionModal = ({
             <TransactionInputForm
               insertTransaction={insertTransaction}
               updateTransactionHandler={updateTransactionHandler}
-              categoryInput={categoryInput}
-              paymentMethodInput={paymentMethodInput}
-              costInput={costInput}
-              dateInput={dateInput}
-              timeInput={timeInput}
-              descriptionInput={descriptionInput}
-              tagInput={tagInput}
-              ImageURLInput={ImageURLInput}
               editIdStatus={editIdStatus}
               handleCancel={handleCancel}
+              tags={tags}
+              paymentMethods={paymentMethods}
             />
           </div>
         </Fade>

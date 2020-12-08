@@ -1,5 +1,5 @@
-import { Fragment } from 'react';
-import styled from 'styled-components';
+import { Fragment, useState } from 'react';
+import styled, { css } from 'styled-components';
 
 const StyledDiv = styled.div`
   display: grid;
@@ -9,6 +9,12 @@ const StyledDiv = styled.div`
   width: 65vw;
   background: #f5f5f7;
   padding: 1% 2%;
+`;
+
+const StyledCheckbox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const StyledDate = styled.div`
@@ -28,30 +34,81 @@ const StyledTransactionList = styled.div`
   margin-top: 10%;
 `;
 
+const DeleteOverview = styled.div`
+  background: pink;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 1%;
+  margin: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  & > * {
+    width: 25%;
+  }
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const StyledButton = styled.button`
+  &:hover {
+    cursor: pointer;
+  }
+  ${(props) => {
+    if (props.isCancel) {
+      return css`
+        background-color: pink;
+        color: white;
+        border: none;
+        margin-right: 15%;
+      `;
+    }
+    return css`
+      margin-right: 5%;
+      padding: 1% 5%;
+    `;
+  }}
+`;
+
 const TransactionList = ({
   transactions,
   deleteTransactionHandler,
-  categoryInput,
-  paymentMethodInput,
-  costInput,
-  dateInput,
-  timeInput,
-  descriptionInput,
-  tagInput,
-  ImageURLInput,
+  deleteStatus,
+  setDeleteStatus,
   setEditIdStatus,
+  setOpenModalStatus,
 }) => {
+  const [dataSets, setDataSets] = useState([]);
   const handleClick = (transaction) => {
-    categoryInput.current.value = transaction.category || '';
-    paymentMethodInput.current.value = transaction.paymentMethod || '';
-    costInput.current.value = transaction.cost || '';
-    dateInput.current.value =
-      `${transaction.year}-${transaction.month}-${transaction.day}` || '';
-    timeInput.current.value = transaction.time || '';
-    descriptionInput.current.value = transaction.description || '';
-    tagInput.current.value = transaction?.tag || '';
-    ImageURLInput.current.value = transaction.imageURL || '';
-    setEditIdStatus(transaction._id);
+    setOpenModalStatus(true);
+    setEditIdStatus(transaction);
+  };
+
+  const cancelDeleteHandler = () => {
+    setDeleteStatus(false);
+    setDataSets([]);
+  };
+
+  const deleteHandler = () => {
+    deleteTransactionHandler(dataSets);
+    setDeleteStatus(false);
+    setDataSets([]);
+  };
+
+  const handleDeleteClick = (e) => {
+    if (e.target.checked) {
+      setDataSets([...dataSets, e.target.dataset.id]);
+    }
+    if (!e.target.checked) {
+      setDataSets(dataSets.filter((data) => data !== e.target.dataset.id));
+    }
   };
 
   const parseDate = (date) => {
@@ -106,20 +163,27 @@ const TransactionList = ({
             </StyledDate>
             {transactionByDate[month][day].map((transaction, i) => {
               return (
-                <Fragment key={`transactionDay${i}`}>
-                  <StyledDiv onClick={() => handleClick(transaction._id)}>
-                    <div>{transaction.time}</div>
-                    <div>{transaction.category}</div>
-                    <div>{transaction.description}</div>
-                    <Cost>{transaction.cost}</Cost>
-                  </StyledDiv>
-                  <button onClick={() => handleClick(transaction)}>수정</button>
-                  <button
-                    onClick={() => deleteTransactionHandler(transaction._id)}
-                  >
-                    삭제
-                  </button>
-                </Fragment>
+                <>
+                  <StyledCheckbox>
+                    <>
+                      {deleteStatus && (
+                        <input
+                          type="checkbox"
+                          data-id={transaction._id}
+                          onClick={(e) => handleDeleteClick(e)}
+                        />
+                      )}
+                      <Fragment key={`transactionDay${i}`}>
+                        <StyledDiv onClick={() => handleClick(transaction)}>
+                          <div>{transaction.time}</div>
+                          <div>{transaction.category}</div>
+                          <div>{transaction.description}</div>
+                          <Cost>{transaction.cost}</Cost>
+                        </StyledDiv>
+                      </Fragment>
+                    </>
+                  </StyledCheckbox>
+                </>
               );
             })}
           </Fragment>
@@ -134,6 +198,19 @@ const TransactionList = ({
   return (
     <>
       <StyledTransactionList>{template}</StyledTransactionList>
+      {deleteStatus && (
+        <DeleteOverview>
+          <span>삭제할 내역을 선택해 주세요. ({dataSets.length}개 선택됨)</span>
+          <ButtonGroup>
+            <StyledButton isCancel={true} onClick={cancelDeleteHandler}>
+              취소
+            </StyledButton>
+            <StyledButton isCancel={false} onClick={deleteHandler}>
+              확인
+            </StyledButton>
+          </ButtonGroup>
+        </DeleteOverview>
+      )}
     </>
   );
 };

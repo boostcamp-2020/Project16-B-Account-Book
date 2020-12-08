@@ -1,6 +1,10 @@
-import React, { useRef, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useRef, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { setCalendarInfo, loadCalendarTransactions } from '@slice';
+import { findDate } from '@presentational/calendar/CalendarUtil';
+
+import styled from 'styled-components';
 import * as FaIcons from 'react-icons/fa';
 
 import makeTemplate from './MakeTemplate';
@@ -28,7 +32,7 @@ const Container = styled.div`
 
 const Calendar = styled.div`
   width: 45rem;
-  height: 47rem;
+  height: 52rem;
   background-color: #fbfbfb;
   border-left: 0.3px solid rgba(0, 0, 0, 0.05);
   border-bottom: 0.3px solid rgba(0, 0, 0, 0.05);
@@ -51,7 +55,6 @@ const Month = styled.div`
 
 const Prev = styled.div`
   font-size: 2.5rem;
-
   cursor: pointer;
 `;
 
@@ -153,7 +156,7 @@ const Days = styled.div`
     color: #4a74fb;
   }
 
-  div:hover:not(.today) {
+  .transaction:hover:not(.today) {
     border: 0.1rem solid #bbbbbb;
     cursor: pointer;
   }
@@ -164,39 +167,88 @@ const Next = styled.div`
   cursor: pointer;
 `;
 
-const CalendarForm = ({ calendarInfo, transactions }) => {
-  const daysRef = useRef();
+const CalendarForm = () => {
+  const dispatch = useDispatch();
+  const transactions = useSelector((state) => state.calendarTransactions);
+  const calendarInfo = useSelector((state) => state.calendarInfo);
+
+  const [nowYear, setYear] = useState(new Date().getUTCFullYear());
+  const [nowMonth, setMonth] = useState(new Date().getUTCMonth() + 1);
+
+  const onClickPrev = (nowYear, nowMonth) => {
+    const { year, month } = findDate({ type: 'before', nowYear, nowMonth });
+    setYear(year);
+    setMonth(month);
+
+    const prev = new Date(year, month);
+    console.log(prev);
+
+    const map = {
+      year,
+      month,
+      date: prev.getUTCDate(),
+      day: prev.getUTCDay(),
+    };
+
+    dispatch(loadCalendarTransactions(year, month));
+    dispatch(setCalendarInfo(map));
+    makeTemplate({ calendarInfo, daysRef, transactions });
+  };
+
+  const onClickNext = (nowYear, nowMonth) => {
+    const { year, month } = findDate({ type: 'next', nowYear, nowMonth });
+    setYear(year);
+    setMonth(month);
+
+    const next = new Date(year, month);
+    console.log(next);
+
+    const map = {
+      year: next.getUTCFullYear(),
+      month: next.getUTCMonth() + 1,
+      date: next.getUTCDate(),
+      day: next.getUTCDay(),
+    };
+
+    dispatch(loadCalendarTransactions(year, month));
+    dispatch(setCalendarInfo(map));
+    makeTemplate({ calendarInfo, daysRef, transactions });
+  };
+
+  useEffect(() => {
+    dispatch(loadCalendarTransactions(nowYear, nowMonth));
+    makeTemplate({ calendarInfo, daysRef, transactions });
+  }, []);
 
   useEffect(() => {
     makeTemplate({ calendarInfo, daysRef, transactions });
-  }, [calendarInfo]);
+  }, [transactions, calendarInfo]); // 2020 12
 
-  const onClickPrev = () => {
-    // TODO: 이전 달로 넘어가게 이벤트 구현
-    alert('이전 달!');
-  };
-
-  const onClickNext = () => {
-    // TODO: 다음 달로 넘어가게 이벤트 구현
-    alert('다음 달!');
-  };
+  const daysRef = useRef();
 
   return (
     <Main>
       <Container>
         <Calendar>
           <Month>
-            <Prev onClick={onClickPrev}>
+            <Prev
+              onClick={() => {
+                onClickPrev(calendarInfo.year, calendarInfo.month);
+              }}
+            >
               <FaIcons.FaAngleLeft size={30} />
             </Prev>
             <DateDiv>
               <h1>{calendarInfo.month}월</h1>
               <p>
-                - {calendarInfo.year}년 {calendarInfo.month}월{' '}
-                {calendarInfo.date}일 -
+                - {calendarInfo.year}년 {calendarInfo.month}월 -
               </p>
             </DateDiv>
-            <Next onClick={onClickNext}>
+            <Next
+              onClick={() => {
+                onClickNext(calendarInfo.year, calendarInfo.month);
+              }}
+            >
               <FaIcons.FaAngleRight size={30} />
             </Next>
           </Month>

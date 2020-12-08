@@ -123,6 +123,7 @@ const { actions, reducer } = createSlice({
         ...selectedDate,
       };
     },
+
     setCalendarInfo(state, { payload: calendarInfo }) {
       return {
         ...state,
@@ -330,7 +331,7 @@ export const updateDate = ({ date }) => {
 export const loadCalendarTransactions = (year, month) => {
   return async (dispatch) => {
     const transactions = await getCalendarTransactions(year, month);
-
+    //alert(JSON.stringify(transactions));
     dispatch(setCalendarTransactions(transactions));
   };
 };

@@ -42,7 +42,7 @@ const Month = styled.div`
   align-items: center;
   padding: 0 2rem;
   text-align: center;
-  text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5); // 글씨 그림자
+  text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
 `;
 
 const Prev = styled.div`
@@ -75,7 +75,7 @@ const WeekDays = styled.div`
     font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: 0.1rem;
-    width: calc(44.2rem / 7); // 요일 간격
+    width: calc(44.2rem / 7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,7 +102,6 @@ const Days = styled.div`
   }
 
   div:hover:not(Today) {
-    // 회색 네모
     background-color: #262626;
     border: 0.2rem solid #777;
     cursor: pointer;

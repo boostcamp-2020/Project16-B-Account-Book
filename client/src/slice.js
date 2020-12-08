@@ -15,6 +15,7 @@ import {
   getAccountBooks,
   createAccountBook,
   deleteAccountBook,
+  updateAccountBook,
   getAccountBook,
 } from '@service/api';
 
@@ -296,7 +297,7 @@ export const loadAccountbookTest = () => {
   };
 };
 
-export const addAccountBook = ({ title }) => {
+export const addAccountBook = (title) => {
   return async (dispatch) => {
     await createAccountBook({ title });
 
@@ -304,9 +305,17 @@ export const addAccountBook = ({ title }) => {
   };
 };
 
-export const removeAccountBook = ({ accountBookId }) => {
+export const removeAccountBook = (accountBookId) => {
   return async (dispatch) => {
     await deleteAccountBook({ accountBookId });
+
+    dispatch(loadAccountBooks());
+  };
+};
+
+export const changeAccountBook = (accountBookId, newTitle) => {
+  return async (dispatch) => {
+    await updateAccountBook({ accountBookId, newTitle });
 
     dispatch(loadAccountBooks());
   };

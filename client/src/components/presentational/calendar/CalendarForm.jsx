@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setCalendarInfo, loadCalendarTransactions } from '@slice';
-import { findDate } from '@presentational/calendar/CalendarUtil';
+import { nowDateMap } from './CalendarUtil';
 
 import styled from 'styled-components';
 import * as FaIcons from 'react-icons/fa';
@@ -34,10 +34,9 @@ const Calendar = styled.div`
   width: 45rem;
   height: 52rem;
   background-color: #fbfbfb;
-  border-left: 0.3px solid rgba(0, 0, 0, 0.05);
-  border-bottom: 0.3px solid rgba(0, 0, 0, 0.05);
+  border: 0.5px solid rgba(0, 0, 0, 0.05);
   color: #393e46;
-  box-shadow: 0.8rem 0.8rem rgba(0, 0, 0, 0.2);
+  box-shadow: 15px 15px 2px 1px rgba(236, 236, 236, 1);
 `;
 
 const Month = styled.div`
@@ -172,59 +171,34 @@ const CalendarForm = () => {
   const transactions = useSelector((state) => state.calendarTransactions);
   const calendarInfo = useSelector((state) => state.calendarInfo);
 
-  const [nowYear, setYear] = useState(new Date().getUTCFullYear());
-  const [nowMonth, setMonth] = useState(new Date().getUTCMonth() + 1);
+  const daysRef = useRef();
+  const [date, setDate] = useState(new Date());
 
-  const onClickPrev = (nowYear, nowMonth) => {
-    const { year, month } = findDate({ type: 'before', nowYear, nowMonth });
-    setYear(year);
-    setMonth(month);
-
-    const prev = new Date(year, month);
-    console.log(prev);
-
-    const map = {
-      year,
-      month,
-      date: prev.getUTCDate(),
-      day: prev.getUTCDay(),
-    };
-
-    dispatch(loadCalendarTransactions(year, month));
-    dispatch(setCalendarInfo(map));
-    makeTemplate({ calendarInfo, daysRef, transactions });
+  const updateData = () => {
+    setDate(date);
+    dispatch(
+      loadCalendarTransactions(date.getUTCFullYear(), date.getUTCMonth() + 1)
+    );
+    dispatch(setCalendarInfo(nowDateMap(date)));
   };
 
-  const onClickNext = (nowYear, nowMonth) => {
-    const { year, month } = findDate({ type: 'next', nowYear, nowMonth });
-    setYear(year);
-    setMonth(month);
+  const onClickPrev = () => {
+    date.setUTCMonth(date.getUTCMonth() - 1);
+    updateData();
+  };
 
-    const next = new Date(year, month);
-    console.log(next);
-
-    const map = {
-      year: next.getUTCFullYear(),
-      month: next.getUTCMonth() + 1,
-      date: next.getUTCDate(),
-      day: next.getUTCDay(),
-    };
-
-    dispatch(loadCalendarTransactions(year, month));
-    dispatch(setCalendarInfo(map));
-    makeTemplate({ calendarInfo, daysRef, transactions });
+  const onClickNext = () => {
+    date.setUTCMonth(date.getUTCMonth() + 1);
+    updateData();
   };
 
   useEffect(() => {
-    dispatch(loadCalendarTransactions(nowYear, nowMonth));
-    makeTemplate({ calendarInfo, daysRef, transactions });
+    updateData();
   }, []);
 
   useEffect(() => {
     makeTemplate({ calendarInfo, daysRef, transactions });
-  }, [transactions, calendarInfo]); // 2020 12
-
-  const daysRef = useRef();
+  }, [transactions]);
 
   return (
     <Main>
@@ -233,10 +207,10 @@ const CalendarForm = () => {
           <Month>
             <Prev
               onClick={() => {
-                onClickPrev(calendarInfo.year, calendarInfo.month);
+                onClickPrev();
               }}
             >
-              <FaIcons.FaAngleLeft size={30} />
+              <FaIcons.FaAngleLeft size={50} />
             </Prev>
             <DateDiv>
               <h1>{calendarInfo.month}월</h1>
@@ -246,10 +220,10 @@ const CalendarForm = () => {
             </DateDiv>
             <Next
               onClick={() => {
-                onClickNext(calendarInfo.year, calendarInfo.month);
+                onClickNext();
               }}
             >
-              <FaIcons.FaAngleRight size={30} />
+              <FaIcons.FaAngleRight size={50} />
             </Next>
           </Month>
           <WeekDays>
@@ -262,7 +236,7 @@ const CalendarForm = () => {
             <div className="saturday">Sat</div>
           </WeekDays>
 
-          <Days ref={daysRef}></Days>
+          <Days ref={daysRef} />
         </Calendar>
       </Container>
     </Main>

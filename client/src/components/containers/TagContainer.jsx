@@ -1,19 +1,10 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
-import styled from 'styled-components';
 
 import CardList from '@presentational/category_tag/CardList';
 import { loadTag, addTag, changeTag, removeTag } from '@slice';
 import { successFormat, confirmFormat } from '@service/swalFormat';
-import logoImg from '@public/img/colored_logo_img.png';
-
-const LoadSpinner = styled.img`
-  width: 200px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-`;
 
 const TagContainer = ({ navMenu }) => {
   const dispatch = useDispatch();
@@ -60,17 +51,13 @@ const TagContainer = ({ navMenu }) => {
 
   return (
     <>
-      {tags.length ? (
-        <CardList
-          navMenu={navMenu}
-          data={tags}
-          onClickAdd={handleAddTag}
-          onClickChange={handleChangeTag}
-          onClickDelete={handleRemoveTag}
-        />
-      ) : (
-        <LoadSpinner src={logoImg} />
-      )}
+      <CardList
+        navMenu={navMenu}
+        data={tags}
+        onClickAdd={handleAddTag}
+        onClickChange={handleChangeTag}
+        onClickDelete={handleRemoveTag}
+      />
     </>
   );
 };

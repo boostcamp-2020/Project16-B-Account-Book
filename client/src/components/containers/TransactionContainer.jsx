@@ -7,6 +7,7 @@ import {
   changeTransaction,
   loadTransactions,
   updateDate,
+  loadAccountbookTest,
 } from '@slice';
 import TransactionList from '@presentational/transaction/TransactionList';
 import TransactionFab from '../presentational/transaction/TransactionFab';
@@ -18,20 +19,15 @@ import { getCurrentDateTransactions } from './util';
 const TransactionContainer = () => {
   const dispatch = useDispatch();
 
+  const [deleteStatus, setDeleteStatus] = useState(false);
   const [editIdStatus, setEditIdStatus] = useState('');
   const [openModalStatus, setOpenModalStatus] = useState(false);
 
-  const categoryInput = useRef();
-  const paymentMethodInput = useRef();
-  const costInput = useRef();
-  const dateInput = useRef();
-  const timeInput = useRef();
-  const descriptionInput = useRef();
-  const tagInput = useRef();
-  const ImageURLInput = useRef();
-
   const transactions = useSelector((state) => state.transactions);
   const date = useSelector((state) => state.selectedDate);
+  // const categories = useSelector((state) => state.category);
+  const paymentMethods = useSelector((state) => state.paymentMethods);
+  const tags = useSelector((state) => state.tags);
 
   const currentDateTransactions = getCurrentDateTransactions(
     date,
@@ -40,15 +36,16 @@ const TransactionContainer = () => {
 
   useEffect(() => {
     dispatch(loadTransactions());
+    dispatch(loadAccountbookTest());
   }, []);
 
   const insertTransaction = ({ transaction }) => {
     dispatch(addTransaction({ transaction }));
-    emptyInput();
+    handleCancel();
   };
 
-  const deleteTransactionHandler = (transactionId) => {
-    dispatch(removeTransaction({ transactionId }));
+  const deleteTransactionHandler = (transactionIds) => {
+    dispatch(removeTransaction({ transactionIds }));
   };
 
   const updateTransactionHandler = ({ transaction }) => {
@@ -61,54 +58,35 @@ const TransactionContainer = () => {
   };
 
   const handleCancel = () => {
-    emptyInput();
     setEditIdStatus('');
-  };
-
-  const emptyInput = () => {
-    categoryInput.current.value = '';
-    paymentMethodInput.current.value = '';
-    costInput.current.value = '';
-    dateInput.current.value = '';
-    timeInput.current.value = '';
-    descriptionInput.current.value = '';
-    tagInput.current.value = '';
-    ImageURLInput.current.value = '';
+    setOpenModalStatus(false);
   };
 
   return (
     <>
       <TransactionDate date={date} updateDateHandler={updateDateHandler} />
       <TransactionLineChart currentDateTransactions={currentDateTransactions} />
-      <TransactionList
-        transactions={transactions}
-        deleteTransactionHandler={deleteTransactionHandler}
-        categoryInput={categoryInput}
-        paymentMethodInput={paymentMethodInput}
-        costInput={costInput}
-        dateInput={dateInput}
-        timeInput={timeInput}
-        descriptionInput={descriptionInput}
-        tagInput={tagInput}
-        ImageURLInput={ImageURLInput}
-        setEditIdStatus={setEditIdStatus}
+      <TransactionFab
+        setOpenModalStatus={setOpenModalStatus}
+        setDeleteStatus={setDeleteStatus}
       />
-      <TransactionFab setOpenModalStatus={setOpenModalStatus} />
       <TransactionModal
         openModalStatus={openModalStatus}
         setOpenModalStatus={setOpenModalStatus}
         insertTransaction={insertTransaction}
         updateTransactionHandler={updateTransactionHandler}
-        categoryInput={categoryInput}
-        paymentMethodInput={paymentMethodInput}
-        costInput={costInput}
-        dateInput={dateInput}
-        timeInput={timeInput}
-        descriptionInput={descriptionInput}
-        tagInput={tagInput}
-        ImageURLInput={ImageURLInput}
         editIdStatus={editIdStatus}
         handleCancel={handleCancel}
+        tags={tags}
+        paymentMethods={paymentMethods}
+      />
+      <TransactionList
+        transactions={currentDateTransactions}
+        deleteTransactionHandler={deleteTransactionHandler}
+        setDeleteStatus={setDeleteStatus}
+        setEditIdStatus={setEditIdStatus}
+        setOpenModalStatus={setOpenModalStatus}
+        deleteStatus={deleteStatus}
       />
     </>
   );

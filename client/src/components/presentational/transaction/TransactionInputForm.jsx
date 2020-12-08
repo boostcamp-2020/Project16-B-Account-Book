@@ -1,3 +1,4 @@
+import { Fragment, useLayoutEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const StyledForm = styled.form`
@@ -8,17 +9,20 @@ const StyledForm = styled.form`
 const TransactionInputForm = ({
   insertTransaction,
   updateTransactionHandler,
-  categoryInput,
-  paymentMethodInput,
-  costInput,
-  dateInput,
-  timeInput,
-  descriptionInput,
-  tagInput,
-  ImageURLInput,
   editIdStatus,
   handleCancel,
+  paymentMethods,
+  tags,
 }) => {
+  const categoryInput = useRef();
+  const paymentMethodInput = useRef();
+  const costInput = useRef();
+  const dateInput = useRef();
+  const timeInput = useRef();
+  const descriptionInput = useRef();
+  const tagInput = useRef();
+  const ImageURLInput = useRef();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = parseData();
@@ -45,6 +49,22 @@ const TransactionInputForm = ({
     };
   };
 
+  const insertData = (transaction) => {
+    categoryInput.current.value = transaction.category || '';
+    paymentMethodInput.current.value = transaction.paymentMethod || '';
+    costInput.current.value = transaction.cost || '';
+    dateInput.current.value =
+      `${transaction.year}-${transaction.month}-${transaction.day}` || '';
+    timeInput.current.value = transaction.time || '';
+    descriptionInput.current.value = transaction.description || '';
+    tagInput.current.value = transaction?.tag || '';
+    ImageURLInput.current.value = transaction.imageURL || '';
+  };
+
+  useLayoutEffect(() => {
+    insertData(editIdStatus);
+  }, []);
+
   return (
     <>
       <div>Transaction Input Form</div>
@@ -53,10 +73,16 @@ const TransactionInputForm = ({
           category:
           <input type="text" name="name" ref={categoryInput} />
         </label>
-        <label>
-          paymentMethod:
-          <input type="text" name="name" ref={paymentMethodInput} />
-        </label>
+        <label>paymentMethod:</label>
+        <select ref={paymentMethodInput}>
+          {paymentMethods.map((paymentMethod, i) => {
+            return (
+              <Fragment key={`paymentMethod-${i}`}>
+                <option value={paymentMethod}>{paymentMethod}</option>
+              </Fragment>
+            );
+          })}
+        </select>
         <label>
           cost:
           <input type="text" name="name" ref={costInput} />
@@ -73,10 +99,16 @@ const TransactionInputForm = ({
           description:
           <input type="text" name="name" ref={descriptionInput} />
         </label>
-        <label>
-          tag:
-          <input type="text" name="name" ref={tagInput} />
-        </label>
+        <label>tag:</label>
+        <select ref={tagInput}>
+          {tags.map((tag, i) => {
+            return (
+              <Fragment key={`tag-${i}`}>
+                <option value={tag}>{tag}</option>
+              </Fragment>
+            );
+          })}
+        </select>
         <label>
           imageURL:
           <input type="text" name="name" ref={ImageURLInput} />

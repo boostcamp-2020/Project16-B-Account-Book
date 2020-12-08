@@ -7,7 +7,6 @@ const categoryRouter = require('./category.route');
 const accountBookRouter = require('./accountBook.route');
 const tokenValidator = require('../../middleware/tokenValidator');
 
-
 const router = new Router();
 
 router.get('/', tokenValidator, (ctx) => {
@@ -18,6 +17,6 @@ router.use('/user', userRouter.routes());
 router.use('/payment', paymentRouter.routes());
 router.use('/transaction', transactionRouter.routes());
 router.use('/category', categoryRouter.routes());
-router.use('/accountBook', accountBookRouter.routes());
+router.use('/accountBook', tokenValidator, accountBookRouter.routes());
 
 module.exports = router;

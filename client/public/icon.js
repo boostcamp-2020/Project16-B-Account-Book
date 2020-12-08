@@ -34,6 +34,8 @@ const icon = {
       }}
     />
   ),
+  edit: <BiIcons.BiPencil size={14} />,
+  save: <BiIcons.BiSave size={14} />,
 };
 
 export default icon;

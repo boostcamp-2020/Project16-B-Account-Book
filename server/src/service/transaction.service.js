@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+
 const TransactionModel = require('../model/transaction.model');
 
 const transactionService = {
@@ -31,6 +34,34 @@ const transactionService = {
       date,
     });
     await transaction.save();
+  },
+
+  getCalendarTransactions: async ({ accountBookId, year, month }) => {
+    const transactionList = await TransactionModel.aggregate([
+      {
+        $project: {
+          _id: 1,
+          accountBookId: 1,
+          category: 1,
+          paymentMethod: 1,
+          description: 1,
+          cost: 1,
+          tag: 1,
+          type: 1,
+          month: { $month: '$date' },
+          year: { $year: '$date' },
+        },
+      },
+      {
+        $match: {
+          accountBookId: ObjectId(accountBookId),
+          month: Number(month),
+          year: Number(year),
+        },
+      },
+    ]);
+
+    return transactionList;
   },
 
   updateTransaction: async (transactionInfo) => {

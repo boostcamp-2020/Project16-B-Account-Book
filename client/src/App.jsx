@@ -30,60 +30,43 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <Route path="/account-book" component={AccountBookPage} />
-
-        <Route path="/analysis">
-          <Layout>
+        <Layout>
+          <Route path="/analysis">
             <Route component={AnalysisPage} />
-          </Layout>
-        </Route>
+          </Route>
 
-        <Route exact path="/calendar">
-          <Layout>
+          <Route exact path="/calendar">
             <Route component={CalendarPage} />
-          </Layout>
-        </Route>
+          </Route>
 
-        <Route exact path="/category">
-          <Layout>
+          <Route exact path="/category">
             <Route component={CategoryTagPage} />
-          </Layout>
-        </Route>
+          </Route>
 
-        <Route path="/dashboard">
-          <Layout>
+          <Route path="/dashboard">
             <Route component={DashboardPage} />
-          </Layout>
-        </Route>
+          </Route>
 
-        <Route path="/payment-method/:id">
-          <Layout>
+          <Route path="/payment-method/:id">
             <Route component={PaymentDetailPage} />
-          </Layout>
-        </Route>
+          </Route>
 
-        <Route path="/payment-method">
-          <Layout>
+          <Route path="/payment-method">
             <Route component={PaymentMethodPage} />
-          </Layout>
-        </Route>
+          </Route>
 
-        <Route path="/setting">
-          <Layout>
+          <Route path="/setting">
             <Route component={SettingPage} />
-          </Layout>
-        </Route>
+          </Route>
 
-        <Route path="/transaction">
-          <Layout>
+          <Route path="/transaction">
             <Route component={TransactionPage} />
-          </Layout>
-        </Route>
+          </Route>
 
-        <Route>
-          <Layout>
+          <Route>
             <Route component={NotFoundPage} />
-          </Layout>
-        </Route>
+          </Route>
+        </Layout>
       </Switch>
     </>
   );

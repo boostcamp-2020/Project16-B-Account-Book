@@ -147,7 +147,7 @@ const makeTemplate = ({ calendarInfo, daysRef }) => {
 
   let days = '';
 
-  for (let x = firstDayIndex + 1; x > 0; x--) {
+  for (let x = firstDayIndex; x > 0; x--) {
     days += `<div>${prevLastDay - x + 1}</div>`;
   }
 

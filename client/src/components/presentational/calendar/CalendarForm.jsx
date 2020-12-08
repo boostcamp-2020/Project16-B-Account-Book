@@ -148,11 +148,11 @@ const Days = styled.div`
   }
 
   .income {
-    color: #ff616a;
+    color: #4a74fb;
   }
 
   .expenditure {
-    color: #4a74fb;
+    color: #ff616a;
   }
 
   .transaction:hover:not(.today) {

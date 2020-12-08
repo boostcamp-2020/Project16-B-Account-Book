@@ -22,20 +22,13 @@ const Variable = ({ calendarInfo }) => {
   };
 };
 
-const findDate = ({ type, nowYear, nowMonth }) => {
-  if (type === 'before') {
-    if (nowMonth - 1 === 0) {
-      return { year: nowYear - 1, month: 12 };
-    }
-    return { year: nowYear, month: nowMonth - 1 };
-  }
-
-  if (type === 'next') {
-    if (nowMonth + 1 === 13) {
-      return { year: nowYear + 1, month: 1 };
-    }
-    return { year: nowYear, month: nowMonth + 1 };
-  }
+const nowDateMap = (date) => {
+  return {
+    year: date.getUTCFullYear(),
+    month: date.getUTCMonth() + 1,
+    date: date.getUTCDate(),
+    day: date.getUTCDay(),
+  };
 };
 
-export { Variable, findDate };
+export { Variable, nowDateMap };

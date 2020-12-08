@@ -1,3 +1,4 @@
+//팀에서 서비스에 맞게 추가. 현재는 각 서비스에 있는 결제 수단을 모두 넣은  것.
 const paymentList = [
   '신한',
   '국민',
@@ -53,8 +54,8 @@ const smsParser = (sms) => {
         .toUpperCase();
       newData['cardname'] = cardName;
     }
-    if (data.includes('원') && !newData['amount']) {
-      newData['amount'] = Number(
+    if (data.includes('원') && !newData['cost']) {
+      newData['cost'] = Number(
         data.match(/[0-9]+(,?[0-9]+)+/)[0].replace(',', '')
       );
       return;
@@ -76,3 +77,5 @@ const parseSMS = (string) => {
     .split(/[\s\n\r]/g)
     .filter((e) => e);
 };
+
+export default smsParser;

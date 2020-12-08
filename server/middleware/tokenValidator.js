@@ -27,7 +27,7 @@ module.exports = async function (ctx, next) {
       providerId: user.providerId,
     };
 
-    next();
+    await next();
   } catch (err) {
     ctx.body = 'err';
   }

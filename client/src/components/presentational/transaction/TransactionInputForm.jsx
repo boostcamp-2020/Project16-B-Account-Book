@@ -11,8 +11,8 @@ const TransactionInputForm = ({
   updateTransactionHandler,
   editIdStatus,
   handleCancel,
-  paymentMethods,
-  tags,
+  paymentMethods = [],
+  tags = [],
 }) => {
   const categoryInput = useRef();
   const paymentMethodInput = useRef();

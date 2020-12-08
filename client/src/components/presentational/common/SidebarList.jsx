@@ -26,7 +26,7 @@ export const SidebarList = [
     cName: 'nav-text',
   },
   {
-    title: '카테고리',
+    title: '카테고리/태그',
     path: '/category',
     icon: <FcIcons.FcTodoList />,
     cName: 'nav-text',

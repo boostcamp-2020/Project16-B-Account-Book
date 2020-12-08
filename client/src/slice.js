@@ -164,9 +164,9 @@ export const loadPayment = () => {
   };
 };
 
-export const loadDetailPayment = (cardName, type) => {
+export const loadDetailPayment = (cardName, type, year, month) => {
   return async (dispatch) => {
-    const paymentsList = await getPaymentsDetail(cardName, type);
+    const paymentsList = await getPaymentsDetail(cardName, type, year, month);
 
     dispatch(setPaymentsDetail(paymentsList));
   };

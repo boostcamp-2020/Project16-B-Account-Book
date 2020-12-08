@@ -15,6 +15,7 @@ import {
   getAccountBooks,
   createAccountBook,
   deleteAccountBook,
+  getAccountBook,
 } from '@service/api';
 
 import {
@@ -78,10 +79,22 @@ const { actions, reducer } = createSlice({
         paymentsDetail,
       };
     },
+    setPaymentMethods(state, { payload: paymentMethods }) {
+      return {
+        ...state,
+        paymentMethods,
+      };
+    },
     setTags(state, { payload: tags }) {
       return {
         ...state,
         tags,
+      };
+    },
+    setCategories(state, { payload: categories }) {
+      return {
+        ...state,
+        categories,
       };
     },
     setAccountBooks(state, { payload: accountBooks }) {
@@ -116,6 +129,8 @@ export const {
   setTransactions,
   insertTransactions,
   setDate,
+  setPaymentMethods,
+  setCategories,
 } = actions;
 
 export const loader = ({ test }) => {
@@ -237,9 +252,9 @@ export const changeTransaction = ({ transactionId, transaction }) => {
   };
 };
 
-export const removeTransaction = ({ transactionId }) => {
+export const removeTransaction = ({ transactionIds }) => {
   return async (dispatch) => {
-    await deleteTransaction({ transactionId });
+    await deleteTransaction({ transactionIds });
 
     dispatch(loadTransactions());
   };
@@ -256,6 +271,16 @@ export const loadAccountBooks = () => {
 export const loadAccountBook = ({ accountBookId }) => {
   return (dispatch) => {
     dispatch(setAccountBook(accountBookId));
+  };
+};
+
+export const loadAccountbookTest = () => {
+  return async (dispatch) => {
+    const accountBookInfo = await getAccountBook();
+
+    // dispatch(setCategories(accountBookInfo.categories));
+    dispatch(setTags(accountBookInfo.tags));
+    dispatch(setPaymentMethods(accountBookInfo.paymentMethod));
   };
 };
 
@@ -280,5 +305,5 @@ export const updateDate = ({ date }) => {
     dispatch(setDate({ selectedDate: date }));
   };
 };
-      
+
 export default reducer;

@@ -44,8 +44,12 @@ const transactionService = {
     return transaction;
   },
 
-  deleteTransaction: async ({ id }) => {
-    await TransactionModel.deleteOne({ _id: id });
+  deleteTransaction: async ({ ids }) => {
+    await TransactionModel.deleteMany({
+      _id: {
+        $in: ids,
+      },
+    });
   },
 };
 

@@ -77,11 +77,11 @@ export async function updateTransaction({ transactionId, transaction }) {
   return data;
 }
 
-export async function deleteTransaction({ transactionId }) {
-  const url = `${API_URL}/transaction?id=${transactionId}`;
-
+export async function deleteTransaction({ transactionIds }) {
+  const url = `${API_URL}/transaction`;
   const { data } = await axios(url, {
     method: 'delete',
+    data: { transactionIds },
   });
 
   return data;

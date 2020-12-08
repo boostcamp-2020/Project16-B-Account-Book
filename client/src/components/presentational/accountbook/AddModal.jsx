@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Overlay from './Overlay';
@@ -9,7 +9,7 @@ const AddForm = styled.div`
   left: 0;
   right: 0;
   width: 25rem;
-  height: 11.5rem;
+  height: 10.8rem;
   margin: auto;
   z-index: 3;
   background-color: white;
@@ -45,19 +45,25 @@ const Input = styled.input`
   outline: none;
 `;
 const SubmitBtn = styled.button`
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   height: 2rem;
   border: none;
   border-radius: 5px;
   background-color: #ff7bac;
   color: white;
+  transition: transform 250ms ease-in;
   &:hover {
     cursor: pointer;
+    transform: scale(1.03);
   }
 `;
 
 const AddModal = ({ setModal, addAccountBook }) => {
   const [accountBookName, setAccountBookName] = useState('');
+  const nameRef = useRef();
+  useEffect(() => {
+    nameRef.current.focus();
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -81,6 +87,7 @@ const AddModal = ({ setModal, addAccountBook }) => {
             placeholder="ex) 내 가계부"
             type="text"
             onChange={onInputChange}
+            ref={nameRef}
           ></Input>
           <SubmitBtn onClick={onSubmit}>가계부 생성</SubmitBtn>
         </Form>

@@ -19,8 +19,6 @@ const Main = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 60rem;
-  background-color: #12121f;
-  color: #eee;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,24 +27,27 @@ const Container = styled.div`
 const Calendar = styled.div`
   width: 45rem;
   height: 52rem;
-  background-color: #222227;
-  box-shadow: 0.5rem 3rem rgba(0, 0, 0, 0.4);
+  background-color: #eeeeee;
+  color: #393e46;
+  box-shadow: 0.8rem 0.8rem rgba(0, 0, 0, 0.2);
 `;
 
 const Month = styled.div`
   width: 100%;
   height: 12rem;
-  background-color: #167e56;
+  background-color: #00adb5;
+  color: #eeeeee;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
   text-align: center;
-  text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.2);
 `;
 
 const Prev = styled.div`
   font-size: 2.5rem;
+
   cursor: pointer;
 `;
 
@@ -79,7 +80,6 @@ const WeekDays = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -92,36 +92,30 @@ const Days = styled.div`
   div {
     font-size: 1.4rem;
     margin: 0.3rem;
+    margin-bottom: 20px;
     width: calc(40.2rem / 7);
     height: 5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+
     transition: background-color 0.2s;
   }
 
-  div:hover:not(Today) {
-    background-color: #262626;
-    border: 0.2rem solid #777;
+  .today {
+    color: #00adb5;
+    font-weight: 600;
+  }
+
+  .prev-date,
+  .next-date {
+    opacity: 0.3;
+  }
+
+  div:hover:not(.today) {
+    border: 0.1rem solid #bbbbbb;
     cursor: pointer;
   }
-
-  today {
-    background-color: #167e56;
-  }
-`;
-
-const PrevDate = styled.div`
-  opacity: 0.5;
-`;
-
-const NextDate = styled.div`
-  opacity: 0.5;
-`;
-
-const Today = styled.div`
-  background-color: #167e56;
 `;
 
 const Next = styled.div`
@@ -148,7 +142,7 @@ const makeTemplate = ({ calendarInfo, daysRef }) => {
   let days = '';
 
   for (let x = firstDayIndex; x > 0; x--) {
-    days += `<div>${prevLastDay - x + 1}</div>`;
+    days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
   }
 
   for (let i = 1; i <= lastDay; i++) {
@@ -156,14 +150,15 @@ const makeTemplate = ({ calendarInfo, daysRef }) => {
       calendarInfo.date === i &&
       calendarInfo.month === new Date().getMonth() + 1
     ) {
-      days += `<div today="today">${i}</div>`;
+      days += `<div class="today">${i}</div>`;
+
       continue;
     }
     days += `<div>${i}</div>`;
   }
 
   for (let j = 1; j <= nextDays; j++) {
-    days += `<div>${j}</div>`;
+    days += `<div class="next-date">${j}</div>`;
   }
 
   daysRef.current.innerHTML = days;
@@ -197,8 +192,8 @@ const CalendarForm = ({ calendarInfo }) => {
             <DateDiv>
               <h1>{calendarInfo.month}월</h1>
               <p>
-                🙈 {calendarInfo.year}년 {calendarInfo.month}월{' '}
-                {calendarInfo.date}일 🙈
+                - {calendarInfo.year}년 {calendarInfo.month}월{' '}
+                {calendarInfo.date}일 -
               </p>
             </DateDiv>
             <Next onClick={onClickNext}>

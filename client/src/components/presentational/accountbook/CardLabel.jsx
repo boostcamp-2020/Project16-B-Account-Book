@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const CardLabelWrapper = styled.div`
-  border: 1px solid gray;
+  border: 1px solid ${({ fontColor }) => fontColor};
   border-radius: 500px;
   display: inline-block;
   font-size: 6px;

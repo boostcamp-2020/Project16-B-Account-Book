@@ -45,10 +45,10 @@ const { actions, reducer } = createSlice({
       day: new Date().getDay(),
     },
     calendarInfo: {
-      year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
-      date: new Date().getDate(),
-      day: new Date().getDay(),
+      year: new Date().getUTCFullYear(),
+      month: new Date().getUTCMonth() + 1,
+      date: new Date().getUTCDate(),
+      day: new Date().getUTCDay(),
     },
   },
   reducers: {

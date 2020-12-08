@@ -9,8 +9,8 @@ const PaymentDetailContainer = (cardName) => {
   const [color, setColor] = useState('#ffc221');
 
   const date = new Date();
-  const [year, setYear] = useState(date.getFullYear());
-  const [month, setMonth] = useState(date.getMonth() + 1);
+  const [year, setYear] = useState(date.getUTCFullYear());
+  const [month, setMonth] = useState(date.getUTCMonth() + 1);
 
   const transactions = useSelector((state) => state.paymentsDetail);
 

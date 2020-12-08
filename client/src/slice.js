@@ -9,6 +9,7 @@ import {
   updateTag,
   deleteTag,
   getTransactions,
+  getCalendarTransactions,
   postTransaction,
   updateTransaction,
   deleteTransaction,
@@ -50,6 +51,7 @@ const { actions, reducer } = createSlice({
       date: new Date().getUTCDate(),
       day: new Date().getUTCDay(),
     },
+    calendarTransactions: [],
   },
   reducers: {
     setTest(state, { payload: test }) {
@@ -127,6 +129,12 @@ const { actions, reducer } = createSlice({
         calendarInfo,
       };
     },
+    setCalendarTransactions(state, { payload: calendarTransactions }) {
+      return {
+        ...state,
+        calendarTransactions,
+      };
+    },
   },
 });
 
@@ -142,6 +150,7 @@ export const {
   insertTransactions,
   setDate,
   setCalendarInfo,
+  setCalendarTransactions,
   setPaymentMethods,
   setCategories,
 } = actions;
@@ -315,6 +324,14 @@ export const removeAccountBook = ({ accountBookId }) => {
 export const updateDate = ({ date }) => {
   return async (dispatch) => {
     dispatch(setDate({ selectedDate: date }));
+  };
+};
+
+export const loadCalendarTransactions = (year, month) => {
+  return async (dispatch) => {
+    const transactions = await getCalendarTransactions(year, month);
+
+    dispatch(setCalendarTransactions(transactions));
   };
 };
 

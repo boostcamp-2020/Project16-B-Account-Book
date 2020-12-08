@@ -15,6 +15,7 @@ import {
   getAccountBooks,
   createAccountBook,
   deleteAccountBook,
+  getAccountBook,
 } from '@service/api';
 
 import {
@@ -41,6 +42,12 @@ const { actions, reducer } = createSlice({
     selectedDate: {
       year: new Date().getFullYear(),
       month: new Date().getMonth() + 1,
+      day: new Date().getDay(),
+    },
+    calendarInfo: {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      date: new Date().getDate(),
       day: new Date().getDay(),
     },
   },
@@ -78,10 +85,22 @@ const { actions, reducer } = createSlice({
         paymentsDetail,
       };
     },
+    setPaymentMethods(state, { payload: paymentMethods }) {
+      return {
+        ...state,
+        paymentMethods,
+      };
+    },
     setTags(state, { payload: tags }) {
       return {
         ...state,
         tags,
+      };
+    },
+    setCategories(state, { payload: categories }) {
+      return {
+        ...state,
+        categories,
       };
     },
     setAccountBooks(state, { payload: accountBooks }) {
@@ -102,6 +121,12 @@ const { actions, reducer } = createSlice({
         ...selectedDate,
       };
     },
+    setCalendarInfo(state, { payload: calendarInfo }) {
+      return {
+        ...state,
+        calendarInfo,
+      };
+    },
   },
 });
 
@@ -116,6 +141,9 @@ export const {
   setTransactions,
   insertTransactions,
   setDate,
+  setCalendarInfo,
+  setPaymentMethods,
+  setCategories,
 } = actions;
 
 export const loader = ({ test }) => {
@@ -149,9 +177,9 @@ export const loadPayment = () => {
   };
 };
 
-export const loadDetailPayment = (cardName, type) => {
+export const loadDetailPayment = (cardName, type, year, month) => {
   return async (dispatch) => {
-    const paymentsList = await getPaymentsDetail(cardName, type);
+    const paymentsList = await getPaymentsDetail(cardName, type, year, month);
 
     dispatch(setPaymentsDetail(paymentsList));
   };
@@ -237,9 +265,9 @@ export const changeTransaction = ({ transactionId, transaction }) => {
   };
 };
 
-export const removeTransaction = ({ transactionId }) => {
+export const removeTransaction = ({ transactionIds }) => {
   return async (dispatch) => {
-    await deleteTransaction({ transactionId });
+    await deleteTransaction({ transactionIds });
 
     dispatch(loadTransactions());
   };
@@ -255,6 +283,16 @@ export const loadAccountBooks = () => {
 export const loadAccountBook = (accountBookId) => {
   return (dispatch) => {
     dispatch(setAccountBook(accountBookId));
+  };
+};
+
+export const loadAccountbookTest = () => {
+  return async (dispatch) => {
+    const accountBookInfo = await getAccountBook();
+
+    // dispatch(setCategories(accountBookInfo.categories));
+    dispatch(setTags(accountBookInfo.tags));
+    dispatch(setPaymentMethods(accountBookInfo.paymentMethod));
   };
 };
 

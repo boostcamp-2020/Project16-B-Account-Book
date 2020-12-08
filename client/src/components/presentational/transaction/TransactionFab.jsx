@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     bottom: 0,
     right: 0,
+    zIndex: 15,
   },
   exampleWrapper: {
     position: 'fixed',
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TransactionFab = ({ setOpenModalStatus }) => {
+const TransactionFab = ({ setOpenModalStatus, setDeleteStatus }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -54,17 +55,10 @@ const TransactionFab = ({ setOpenModalStatus }) => {
       },
     },
     {
-      icon: <EditIcon />,
-      name: 'Edit',
-      handleClick: () => {
-        console.log('edit');
-      },
-    },
-    {
       icon: <DeleteIcon />,
       name: 'Delete',
       handleClick: () => {
-        console.log('delete');
+        setDeleteStatus(true);
       },
     },
   ];

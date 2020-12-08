@@ -24,13 +24,15 @@ const PaymentController = {
 
   getTransactions: async (ctx) => {
     try {
-      const { cardName, type } = ctx.request.params;
+      const { cardName, type, year, month } = ctx.request.params;
       const { accountbookid: accountBookId } = ctx.request.header;
 
       const paymentsList = await PaymentService.getTransactions(
         cardName,
         accountBookId,
-        type
+        type,
+        year,
+        month
       );
 
       if (paymentsList) {

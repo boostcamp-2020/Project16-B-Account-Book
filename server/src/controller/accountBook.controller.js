@@ -13,7 +13,7 @@ const accountBookController = {
   getAccountBook: async (ctx) => {
     try {
       const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
-      const { accountBookId } = ctx.request.params;
+      const { accountBookId } = ctx.request.params;     
       const accountBook = await accountBookService.getAccountBook(
         userId,
         accountBookId
@@ -55,7 +55,7 @@ const accountBookController = {
   updateAccountBook: async (ctx) => {
     try {
       const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
-      const accountBookId = ctx.request.body;
+      const { accountBookId } = ctx.request.body;
       const { newTitle } = ctx.request.body;
       const result = await accountBookService.updateAccountBookTitle(
         userId,

@@ -7,27 +7,32 @@ import { loadDetailPayment } from '@slice';
 const PaymentDetailContainer = (cardName) => {
   const dispatch = useDispatch();
   const [color, setColor] = useState('#ffc221');
+
+  const date = new Date();
+  const [year, setYear] = useState(date.getFullYear());
+  const [month, setMonth] = useState(date.getMonth() + 1);
+
   const transactions = useSelector((state) => state.paymentsDetail);
 
   const title = transactions[transactions.length - 1].title;
 
   useEffect(() => {
-    dispatch(loadDetailPayment(cardName.id, 'all'));
+    dispatch(loadDetailPayment(cardName.id, 'all', year, month));
   }, []);
 
   const showAll = () => {
     setColor('#ffc221');
-    dispatch(loadDetailPayment(cardName.id, 'all'));
+    dispatch(loadDetailPayment(cardName.id, 'all', year, month));
   };
 
   const showIncome = () => {
     setColor('#3682e8');
-    dispatch(loadDetailPayment(cardName.id, 'income'));
+    dispatch(loadDetailPayment(cardName.id, 'income', year, month));
   };
 
   const showExpenditure = () => {
     setColor('#ff616a');
-    dispatch(loadDetailPayment(cardName.id, 'expenditure'));
+    dispatch(loadDetailPayment(cardName.id, 'expenditure', year, month));
   };
 
   return (
@@ -38,6 +43,8 @@ const PaymentDetailContainer = (cardName) => {
       showAll={showAll}
       showIncome={showIncome}
       showExpenditure={showExpenditure}
+      setYear={setYear}
+      setMonth={setMonth}
     />
   );
 };

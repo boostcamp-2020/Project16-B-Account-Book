@@ -50,6 +50,7 @@ const transactionService = {
           type: 1,
           month: { $month: '$date' },
           year: { $year: '$date' },
+          day: { $dayOfMonth: '$date' },
         },
       },
       {

@@ -19,7 +19,6 @@ const GlobalStyle = createGlobalStyle`
     background: #ffffff;
     margin: 0;
     padding: 0;
-    padding-bottom: 100px;
   }
 `;
 
@@ -80,9 +79,9 @@ const App = () => {
           </Layout>
         </Route>
 
-        <Route component={NotFoundPage}>
+        <Route>
           <Layout>
-            <Route />
+            <Route component={NotFoundPage} />
           </Layout>
         </Route>
       </Switch>

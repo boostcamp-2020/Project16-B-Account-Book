@@ -5,17 +5,15 @@ const accountBookController = {
     try {
       const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
       const accountBooks = await accountBookService.getAllAccountBooks(userId);
-
       ctx.body = accountBooks;
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.throw(err.code, err);
     }
   },
   getAccountBook: async (ctx) => {
     try {
       const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
-      const accountBookId =
-        ctx.cookies.get('accountBookId') || '5fc713abd120a78e5c18216d';
+      const { accountBookId } = ctx.request.params;     
       const accountBook = await accountBookService.getAccountBook(
         userId,
         accountBookId
@@ -43,7 +41,7 @@ const accountBookController = {
   deleteAccountBook: async (ctx) => {
     try {
       const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
-      const accountBookId = ctx.cookies.get('accountBookId');
+      const { accountBookId } = ctx.request.params;
       const result = await accountBookService.deleteAccountBook(
         userId,
         accountBookId
@@ -57,7 +55,7 @@ const accountBookController = {
   updateAccountBook: async (ctx) => {
     try {
       const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
-      const accountBookId = ctx.cookies.get('accountBookId');
+      const { accountBookId } = ctx.request.body;
       const { newTitle } = ctx.request.body;
       const result = await accountBookService.updateAccountBookTitle(
         userId,
@@ -73,8 +71,7 @@ const accountBookController = {
   addAccountBookUsers: async (ctx) => {
     try {
       const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
-      const accountBookId = ctx.cookies.get('accountBookId');
-      const { newUsers } = ctx.request.body;
+      const { newUsers, accountBookId } = ctx.request.body;
       const result = await accountBookService.updateAccountBook(
         userId,
         accountBookId,
@@ -89,8 +86,7 @@ const accountBookController = {
   addAccountBookTag: async (ctx) => {
     try {
       const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
-      const accountBookId = ctx.cookies.get('accountBookId');
-      const { newTag } = ctx.request.body;
+      const { newTag, accountBookId } = ctx.request.body;
       const result = await accountBookService.addAccountBookTag(
         userId,
         accountBookId,
@@ -105,8 +101,7 @@ const accountBookController = {
   updateAccountBookTag: async (ctx) => {
     try {
       const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
-      const accountBookId = ctx.cookies.get('accountBookId');
-      const { originalTag, newTag } = ctx.request.body;
+      const { originalTag, newTag, accountBookId } = ctx.request.body;
       const result = await accountBookService.updateAccountBookTag(
         userId,
         accountBookId,
@@ -122,8 +117,7 @@ const accountBookController = {
   deleteAccountBookTag: async (ctx) => {
     try {
       const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
-      const accountBookId = ctx.cookies.get('accountBookId');
-      const { tagName: tag } = ctx.request.params;
+      const { accountBookId, tagName: tag } = ctx.request.params;
       const result = await accountBookService.deleteAccountBookTag(
         userId,
         accountBookId,

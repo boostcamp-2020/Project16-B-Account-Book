@@ -20,6 +20,7 @@ module.exports = {
       ),
       '@service': path.resolve(__dirname, './src/services'),
       '@public': path.resolve(__dirname, './public'),
+      '@util': path.resolve(__dirname, './util'),
       '@': path.resolve(__dirname, './src'),
     },
   },

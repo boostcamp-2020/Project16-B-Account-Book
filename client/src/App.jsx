@@ -15,7 +15,7 @@ import SettingPage from './pages/SettingPage';
 import TransactionPage from './pages/TransactionPage';
 import Layout from './components/presentational/common/Layout';
 
-import { setAccessToken } from './slice';
+import { setAccessToken, setUserInfo } from './slice';
 import { getCookie } from '@util/cookie';
 
 const GlobalStyle = createGlobalStyle`
@@ -33,6 +33,7 @@ const App = () => {
   const accessToken = localStorage.getItem('accessToken');
   if (accessToken) {
     dispatch(setAccessToken(accessToken));
+    dispatch(setUserInfo(JSON.parse(localStorage.getItem('userInfo'))));
   }
 
   return (

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setAccessToken, login } from '../../slice';
+import { setAccessToken, login, setUserInfo } from '../../slice';
 import { useEffect } from 'react';
 import queryString from 'query-string';
 import LoginForm from '../presentational/LoginForm';
@@ -18,9 +18,9 @@ const LoginFormContainer = () => {
 
     if (accessToken) {
       dispatch(setAccessToken(accessToken));
+      dispatch(setUserInfo(JSON.parse(localStorage.getItem('userInfo'))));
       return;
     }
-
     if (code && !accessToken) {
       dispatch(login({ code, state }));
       return;

@@ -28,7 +28,10 @@ const UserController = {
     try {
       const { userInfo } = ctx.request;
       const token = await userService.login(userInfo);
-      ctx.body = token;
+      ctx.body = {
+        token,
+        userInfo: { name: userInfo.name, imageURL: userInfo.imageURL },
+      };
     } catch (err) {
       ctx.body = 'error';
     }

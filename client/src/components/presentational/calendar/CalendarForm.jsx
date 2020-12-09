@@ -1,7 +1,13 @@
-import React, { useRef, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useRef, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { setCalendarInfo, loadCalendarTransactions } from '@slice';
+import { nowDateMap } from './CalendarUtil';
+
+import styled from 'styled-components';
 import * as FaIcons from 'react-icons/fa';
+
+import makeTemplate from './MakeTemplate';
 
 const Main = styled.div`
   * {
@@ -19,8 +25,6 @@ const Main = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 60rem;
-  background-color: #12121f;
-  color: #eee;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,20 +33,23 @@ const Container = styled.div`
 const Calendar = styled.div`
   width: 45rem;
   height: 52rem;
-  background-color: #222227;
-  box-shadow: 0.5rem 3rem rgba(0, 0, 0, 0.4);
+  background-color: #fbfbfb;
+  border: 0.5px solid rgba(0, 0, 0, 0.05);
+  color: #393e46;
+  box-shadow: 15px 15px 2px 1px rgba(236, 236, 236, 1);
 `;
 
 const Month = styled.div`
   width: 100%;
   height: 12rem;
-  background-color: #167e56;
+  background-color: #00adb5;
+  color: #eeeeee;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
   text-align: center;
-  text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.2);
 `;
 
 const Prev = styled.div`
@@ -53,7 +60,7 @@ const Prev = styled.div`
 const DateDiv = styled.div`
   h1 {
     font-size: 3rem;
-    font-weight: 400;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.2rem;
     margin-bottom: 1rem;
@@ -73,13 +80,20 @@ const WeekDays = styled.div`
 
   div {
     font-size: 1.5rem;
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: 0.1rem;
     width: calc(44.2rem / 7);
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+  }
+
+  .sunday {
+    color: #ff616a;
+  }
+
+  .saturday {
+    color: #4a74fb;
   }
 `;
 
@@ -92,36 +106,59 @@ const Days = styled.div`
   div {
     font-size: 1.4rem;
     margin: 0.3rem;
+    padding-bottom: 50px;
     width: calc(40.2rem / 7);
     height: 5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+    padding: 0;
     transition: background-color 0.2s;
   }
 
-  div:hover:not(Today) {
-    background-color: #262626;
-    border: 0.2rem solid #777;
+  .transaction {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .today {
+    background-color: #eeeeee;
+    color: #00adb5;
+    font-weight: 500;
+  }
+
+  .prev-date,
+  .next-date {
+    opacity: 0.3;
+  }
+
+  .income,
+  .expenditure,
+  .no-income,
+  .no-expenditure {
+    font-size: 0.8rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .no-income,
+  .no-expenditure {
+    visibility: hidden;
+  }
+
+  .income {
+    color: #4a74fb;
+  }
+
+  .expenditure {
+    color: #ff616a;
+  }
+
+  .transaction:hover:not(.today) {
+    border: 0.1rem solid #bbbbbb;
     cursor: pointer;
   }
-
-  today {
-    background-color: #167e56;
-  }
-`;
-
-const PrevDate = styled.div`
-  opacity: 0.5;
-`;
-
-const NextDate = styled.div`
-  opacity: 0.5;
-`;
-
-const Today = styled.div`
-  background-color: #167e56;
 `;
 
 const Next = styled.div`
@@ -129,93 +166,77 @@ const Next = styled.div`
   cursor: pointer;
 `;
 
-const makeTemplate = ({ calendarInfo, daysRef }) => {
-  const lastDay = new Date(calendarInfo.year, calendarInfo.month, 0).getDate();
-  const firstDayIndex = calendarInfo.day;
-  const prevLastDay = new Date(
-    calendarInfo.year,
-    calendarInfo.month - 1,
-    0
-  ).getDate();
-  const lastDayIndex = new Date(
-    calendarInfo.year,
-    calendarInfo.month,
-    0
-  ).getDay();
+const CalendarForm = () => {
+  const dispatch = useDispatch();
+  const transactions = useSelector((state) => state.calendarTransactions);
+  const calendarInfo = useSelector((state) => state.calendarInfo);
 
-  const nextDays = 7 - lastDayIndex - 1;
-
-  let days = '';
-
-  for (let x = firstDayIndex + 1; x > 0; x--) {
-    days += `<div>${prevLastDay - x + 1}</div>`;
-  }
-
-  for (let i = 1; i <= lastDay; i++) {
-    if (
-      calendarInfo.date === i &&
-      calendarInfo.month === new Date().getMonth() + 1
-    ) {
-      days += `<div today="today">${i}</div>`;
-      continue;
-    }
-    days += `<div>${i}</div>`;
-  }
-
-  for (let j = 1; j <= nextDays; j++) {
-    days += `<div>${j}</div>`;
-  }
-
-  daysRef.current.innerHTML = days;
-};
-
-const CalendarForm = ({ calendarInfo }) => {
   const daysRef = useRef();
+  const [date, setDate] = useState(new Date());
 
-  useEffect(() => {
-    makeTemplate({ calendarInfo, daysRef });
-  }, [calendarInfo]);
+  const updateData = () => {
+    setDate(date);
+    dispatch(
+      loadCalendarTransactions(date.getUTCFullYear(), date.getUTCMonth() + 1)
+    );
+    dispatch(setCalendarInfo(nowDateMap(date)));
+  };
 
   const onClickPrev = () => {
-    // TODO: 이전 달로 넘어가게 이벤트 구현
-    alert('이전 달!');
+    date.setUTCMonth(date.getUTCMonth() - 1);
+    updateData();
   };
 
   const onClickNext = () => {
-    // TODO: 다음 달로 넘어가게 이벤트 구현
-    alert('다음 달!');
+    date.setUTCMonth(date.getUTCMonth() + 1);
+    updateData();
   };
+
+  useEffect(() => {
+    updateData();
+  }, []);
+
+  useEffect(() => {
+    makeTemplate({ calendarInfo, daysRef, transactions });
+  }, [transactions]);
 
   return (
     <Main>
       <Container>
         <Calendar>
           <Month>
-            <Prev onClick={onClickPrev}>
-              <FaIcons.FaAngleLeft size={30} />
+            <Prev
+              onClick={() => {
+                onClickPrev();
+              }}
+            >
+              <FaIcons.FaAngleLeft size={50} />
             </Prev>
             <DateDiv>
               <h1>{calendarInfo.month}월</h1>
               <p>
-                🙈 {calendarInfo.year}년 {calendarInfo.month}월{' '}
-                {calendarInfo.date}일 🙈
+                - {calendarInfo.year}년 {calendarInfo.month}월 -
               </p>
             </DateDiv>
-            <Next onClick={onClickNext}>
-              <FaIcons.FaAngleRight size={30} />
+            <Next
+              onClick={() => {
+                onClickNext();
+              }}
+            >
+              <FaIcons.FaAngleRight size={50} />
             </Next>
           </Month>
           <WeekDays>
-            <div>Sun</div>
+            <div className="sunday">Sun</div>
             <div>Mon</div>
             <div>Tue</div>
             <div>Wed</div>
             <div>Thu</div>
             <div>Fri</div>
-            <div>Sat</div>
+            <div className="saturday">Sat</div>
           </WeekDays>
 
-          <Days ref={daysRef}></Days>
+          <Days ref={daysRef} />
         </Calendar>
       </Container>
     </Main>

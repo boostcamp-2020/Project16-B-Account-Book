@@ -55,7 +55,7 @@ const { actions, reducer } = createSlice({
       day: new Date().getUTCDay(),
     },
     calendarTransactions: [],
-    userInfo: [],
+    UserSettingsInfo: [],
   },
   reducers: {
     setTest(state, { payload: test }) {
@@ -140,10 +140,10 @@ const { actions, reducer } = createSlice({
         calendarTransactions,
       };
     },
-    setUserInfo(state, { payload: userInfo }) {
+    setUserSettingsInfo(state, { payload: UserSettingsInfo }) {
       return {
         ...state,
-        userInfo,
+        UserSettingsInfo,
       };
     },
   },
@@ -164,7 +164,7 @@ export const {
   setCalendarTransactions,
   setPaymentMethods,
   setCategories,
-  setUserInfo,
+  setUserSettingsInfo,
 } = actions;
 
 export const loader = ({ test }) => {
@@ -356,8 +356,8 @@ export const loadCalendarTransactions = (year, month) => {
 
 export const loadUserInfo = () => {
   return async (dispatch) => {
-    const userInfo = await getUserInfo();
-    dispatch(setUserInfo(userInfo));
+    const UserSettingsInfo = await getUserInfo();
+    dispatch(setUserSettingsInfo(UserSettingsInfo));
   };
 };
 

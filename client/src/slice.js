@@ -188,9 +188,9 @@ export function login({ code, state }) {
       userInfo = result.userInfo;
     }
 
-    console.log;
+    console.log(accessToken);
+    console.log(userInfo);
     localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('userInfo', JSON.stringify(userInfo));
     dispatch(setAccessToken(accessToken));
     dispatch(setUserInfo(userInfo));
   };

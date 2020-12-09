@@ -24,7 +24,7 @@ export default {
 
   Calendar: styled.div`
     width: 45rem;
-    height: 52rem;
+    height: 58rem;
     background-color: #fbfbfb;
     border: 0.5px solid rgba(0, 0, 0, 0.05);
     color: #393e46;
@@ -81,10 +81,11 @@ export default {
 
   WeekDays: styled.div`
     width: 100%;
-    height: 5rem;
+    height: 4rem;
     padding: 0 0.4rem;
     display: flex;
     align-items: center;
+    margin-top: 0;
   `,
 
   WeekDay: styled.div`

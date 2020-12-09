@@ -43,9 +43,9 @@ const App = () => {
       {accessToken && !cookie && <Redirect to="/account-book" />}
       <Switch>
         <Route exact path="/" component={LoginPage} />
+        <Route exact path="/account-book" component={AccountBookPage} />
         <Layout>
           <Switch>
-            <Route exact path="/account-book" component={AccountBookPage} />
             <Route exact path="/analysis" component={AnalysisPage} />
             <Route exact path="/calendar" component={CalendarPage} />
             <Route exact path="/category" component={CategoryTagPage} />

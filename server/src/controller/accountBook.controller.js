@@ -3,7 +3,7 @@ const accountBookService = require('../service/accountBook.service');
 const accountBookController = {
   getAllAccountBooks: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const userId = ctx.request.userInfo?.userId;
       const accountBooks = await accountBookService.getAllAccountBooks(userId);
       ctx.body = accountBooks;
     } catch (err) {
@@ -12,7 +12,7 @@ const accountBookController = {
   },
   getAccountBook: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const userId = ctx.request.userInfo?.userId;
       const { accountBookId } = ctx.request.params;
       const accountBook = await accountBookService.getAccountBook(
         userId,
@@ -26,7 +26,7 @@ const accountBookController = {
   },
   createAccountBook: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const userId = ctx.request.userInfo?.userId;
       const { title } = ctx.request.body;
       const accountBook = await accountBookService.createAccountBook(
         userId,
@@ -40,7 +40,7 @@ const accountBookController = {
   },
   deleteAccountBook: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const userId = ctx.request.userInfo?.userId;
       const { accountBookId } = ctx.request.params;
       const result = await accountBookService.deleteAccountBook(
         userId,
@@ -54,7 +54,7 @@ const accountBookController = {
   },
   updateAccountBook: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const userId = ctx.request.userInfo?.userId;
       const { accountBookId } = ctx.request.body;
       const { newTitle } = ctx.request.body;
       const result = await accountBookService.updateAccountBookTitle(
@@ -70,7 +70,7 @@ const accountBookController = {
   },
   addAccountBookUsers: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const userId = ctx.request.userInfo?.userId;
       const { newUsers, accountBookId } = ctx.request.body;
       const result = await accountBookService.updateAccountBook(
         userId,
@@ -85,7 +85,7 @@ const accountBookController = {
   },
   addAccountBookTag: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const userId = ctx.request.userInfo?.userId;
       const { newTag, accountBookId } = ctx.request.body;
       const result = await accountBookService.addAccountBookTag(
         userId,
@@ -100,7 +100,7 @@ const accountBookController = {
   },
   updateAccountBookTag: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const userId = ctx.request.userInfo?.userId;
       const { originalTag, newTag, accountBookId } = ctx.request.body;
       const result = await accountBookService.updateAccountBookTag(
         userId,
@@ -116,7 +116,7 @@ const accountBookController = {
   },
   deleteAccountBookTag: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId || '5fc8454fda706fc9acfc94c4';
+      const userId = ctx.request.userInfo?.userId;
       const { accountBookId, tagName: tag } = ctx.request.params;
       const result = await accountBookService.deleteAccountBookTag(
         userId,

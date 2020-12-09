@@ -153,3 +153,12 @@ export async function deleteAccountBook({ accountBookId }) {
 
   return data;
 }
+
+export async function updateAccountBook({ accountBookId, newTitle }) {
+  const { data } = await axiosAPI('/accountBook', 'PATCH', {
+    accountBookId,
+    newTitle,
+  });
+
+  return data;
+}

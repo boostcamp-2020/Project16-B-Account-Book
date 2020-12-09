@@ -20,16 +20,13 @@ const colorArr = [
 ];
 
 export const generateRandomColor = (num) => {
-  const max = colorArr.length;
-  const randomNumArr = new Set();
-  const randomColors = [];
+  const colors = [];
 
-  while (randomNumArr.size < num) {
-    randomNumArr.add(Math.floor(Math.random() * Math.floor(max)));
+  for (let i = 0; i < num; i++) {
+    colors.push(colorArr[i]);
   }
-  randomNumArr.forEach((randomNum) => randomColors.push(colorArr[randomNum]));
 
-  return randomColors;
+  return colors;
 };
 
 export const getContrastYIQ = (background) => {

@@ -13,13 +13,14 @@ const AccountBookWrapper = styled.div`
 const AccountBookUl = styled.ul`
   list-style-type: none;
   position: relative;
-  left: 50%;
+  left: 55%;
 `;
 
 const AccountBookList = ({
   accountBooks,
   onClickAccountBook,
   onClickDelete,
+  onClickSaveTitle,
 }) => {
   const colors = generateRandomColor(accountBooks.length);
 
@@ -35,6 +36,7 @@ const AccountBookList = ({
         fontColor={getContrastYIQ(colors[index])}
         onClickAccountBook={onClickAccountBook}
         onClickDelete={onClickDelete}
+        onClickSaveTitle={onClickSaveTitle}
       />
     );
   });

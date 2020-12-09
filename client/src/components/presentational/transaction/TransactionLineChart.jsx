@@ -9,47 +9,59 @@ import {
   Legend,
 } from 'recharts';
 
-const parseTransaction = (transactions) => {
-  return transactions.reduce((acc, cur) => {
-    const state = acc.find((ac) => ac.name === cur.userId);
-    const day = cur.date.split(/-|T/)[2];
-    if (state) {
-      const existingDate = state.data.find((date) => date.category == day);
-      if (existingDate) {
-        existingDate.value += cur.cost;
-        return acc;
+const changeTransaction = (transactions) => {
+  const transactionWithDateKey = transactions.map((transaction) => {
+    return {
+      ...transaction,
+      day: new Date(Date.parse(transaction.date)).getDate(),
+    };
+  });
+
+  const transactionLogByDate = new Array(31).fill(0).map((_, i) => i + 1);
+
+  return transactionLogByDate
+    .map((date) => {
+      const filteredTransaction = transactionWithDateKey.filter(
+        (transaction) => transaction.day === date
+      );
+      if (filteredTransaction[0]) {
+        return filteredTransaction.reduce(
+          (acc, cur) => {
+            if (!acc.name) {
+              return { ...acc, name: cur.day, [cur.type]: cur.cost };
+            }
+            return { ...acc, [cur.type]: acc[cur.type] + cur.cost };
+          },
+          { 수입: 0, 지출: 0 }
+        );
       }
-      state.data = [...state.data, { ...cur, category: day, value: cur.cost }];
-      return acc;
-    }
-    return [
-      ...acc,
-      { name: cur.userId, data: [{ ...cur, category: day, value: cur.cost }] },
-    ];
-  }, []);
+      return 0;
+    })
+    .filter((e) => e);
 };
 
 const TransactionLineChart = ({ currentDateTransactions }) => {
-  const formattedTransaction = parseTransaction(currentDateTransactions);
+  const transactions = changeTransaction(currentDateTransactions);
   return (
-    <div className="line-charts">
-      <div className="line-chart-wrapper">
-        <LineChart width={600} height={300}>
-          <XAxis
-            dataKey="category"
-            type="category"
-            allowDuplicatedCategory={false}
-          />
-          <YAxis dataKey="value" />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Legend />
-          {formattedTransaction.map((s) => (
-            <Line dataKey="value" data={s.data} name={s.name} key={s.name} />
-          ))}
-        </LineChart>
-      </div>
-    </div>
+    <LineChart
+      width={600}
+      height={300}
+      data={transactions}
+      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+    >
+      <XAxis dataKey="name" />
+      <YAxis />
+      <CartesianGrid strokeDasharray="3 3" />
+      <Tooltip />
+      <Legend />
+      <Line
+        type="monotone"
+        dataKey="지출"
+        stroke="#8884d8"
+        activeDot={{ r: 8 }}
+      />
+      <Line type="monotone" dataKey="수입" stroke="#82ca9d" />
+    </LineChart>
   );
 };
 

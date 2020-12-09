@@ -2,10 +2,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import S from '@presentational/calendar/style';
-import * as FaIcons from 'react-icons/fa';
-
 import { setCalendarInfo, loadCalendarTransactions } from '@slice';
 import { nowDateMap } from '@presentational/calendar/CalendarUtil';
+import CalendarForm from '@presentational/calendar/CalendarForm';
 import makeTemplate from '@presentational/calendar/MakeTemplate';
 
 const CalendarContainer = () => {
@@ -15,6 +14,10 @@ const CalendarContainer = () => {
 
   const daysRef = useRef();
   const [date, setDate] = useState(new Date());
+  const [state, setState] = useState({
+    income: true,
+    expenditure: true,
+  });
 
   const updateData = () => {
     setDate(date);
@@ -34,11 +37,19 @@ const CalendarContainer = () => {
     updateData();
   };
 
+  const onClickType = (type) => {
+    makeTemplate({ type, calendarInfo, daysRef, transactions });
+  };
+
   useEffect(() => {
     updateData();
   }, []);
 
   useEffect(() => {
+    setState({
+      income: true,
+      expenditure: true,
+    });
     makeTemplate({ calendarInfo, daysRef, transactions });
   }, [transactions]);
 
@@ -46,37 +57,14 @@ const CalendarContainer = () => {
     <S.Main>
       <S.Container>
         <S.Calendar>
-          <S.Month>
-            <S.Prev
-              onClick={() => {
-                onClickPrev();
-              }}
-            >
-              <FaIcons.FaAngleLeft size={50} />
-            </S.Prev>
-            <S.DateDiv>
-              <S.MonthTitle>{calendarInfo.month}월</S.MonthTitle>
-              <S.MonthSubTitle>
-                - {calendarInfo.year}년 {calendarInfo.month}월 -
-              </S.MonthSubTitle>
-            </S.DateDiv>
-            <S.Next
-              onClick={() => {
-                onClickNext();
-              }}
-            >
-              <FaIcons.FaAngleRight size={50} />
-            </S.Next>
-          </S.Month>
-          <S.WeekDays>
-            <S.WeekDay sunday={true}>Sun</S.WeekDay>
-            <S.WeekDay>Mon</S.WeekDay>
-            <S.WeekDay>Tue</S.WeekDay>
-            <S.WeekDay>Wed</S.WeekDay>
-            <S.WeekDay>Thu</S.WeekDay>
-            <S.WeekDay>Fri</S.WeekDay>
-            <S.WeekDay saturday={true}>Sat</S.WeekDay>
-          </S.WeekDays>
+          <CalendarForm
+            calendarInfo={calendarInfo}
+            onClickPrev={onClickPrev}
+            onClickNext={onClickNext}
+            onClickType={onClickType}
+            state={state}
+            setState={setState}
+          />
           <S.Days ref={daysRef} />
         </S.Calendar>
       </S.Container>

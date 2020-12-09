@@ -1,12 +1,4 @@
 {
-  "env": {
-    "dev": {
-      "presets": ["@babel/preset-env", "@babel/preset-react"],
-      "plugins": ["react-refresh/babel"]
-    },
-    "test": {
-      "presets": ["@babel/preset-env", "@babel/preset-react"],
-      "plugins": []
-    }
-  }
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": ["react-refresh/babel"]
 }

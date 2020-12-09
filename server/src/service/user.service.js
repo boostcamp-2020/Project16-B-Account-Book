@@ -1,3 +1,4 @@
+const newError = require('../util/error');
 const UserModel = require('../model/user.model');
 const JWTTokenUtil = require('../util/jwtToken.util');
 
@@ -34,6 +35,20 @@ const UserService = {
     }
 
     return JWTTokenUtil.createToken(userId || user._id);
+  },
+
+  getUser: async (token) => {
+    const tokenInfo = JWTTokenUtil.verifyToken(token);
+    const userInfo = await UserModel.findOne({ _id: tokenInfo.data });
+
+    if (userInfo) {
+      return userInfo;
+    }
+
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '요청하신 token을 다시 확인해주세요.',
+    });
   },
 };
 

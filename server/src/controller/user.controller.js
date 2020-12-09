@@ -33,6 +33,12 @@ const UserController = {
       ctx.body = 'error';
     }
   },
+  getUser: async (ctx) => {
+    const token = ctx.header.authorization.replace(/Bearer /, '');
+    const userInfo = await userService.getUser(token);
+
+    ctx.body = userInfo;
+  },
 };
 
 module.exports = UserController;

@@ -178,7 +178,10 @@ const TransactionList = ({
                           <div>{transaction.time}</div>
                           <div>{transaction.category}</div>
                           <div>{transaction.description}</div>
-                          <Cost>{transaction.cost}</Cost>
+                          <Cost>
+                            {transaction.type === '수입' ? '+' : '-'}
+                            {transaction.cost}
+                          </Cost>
                         </StyledDiv>
                       </Fragment>
                     </>

@@ -41,6 +41,7 @@ const { actions, reducer } = createSlice({
     tags: [],
     accountBooks: [],
     accountBookId: '',
+    userInfo: { name: '', ImageURL: '' },
     selectedDate: {
       year: new Date().getFullYear(),
       month: new Date().getMonth() + 1,
@@ -137,6 +138,12 @@ const { actions, reducer } = createSlice({
         calendarTransactions,
       };
     },
+    setUserInfo(state, { payload: userInfo }) {
+      return {
+        ...state,
+        userInfo,
+      };
+    },
   },
 });
 
@@ -149,6 +156,7 @@ export const {
   setAccountBooks,
   setAccountBook,
   setTransactions,
+  setUserInfo,
   insertTransactions,
   setDate,
   setCalendarInfo,
@@ -167,16 +175,24 @@ export const loader = ({ test }) => {
 export function login({ code, state }) {
   return async (dispatch) => {
     let accessToken;
+    let userInfo;
 
     if (code && state === 'naver') {
-      accessToken = await postLoginNaver(code);
+      const result = await postLoginNaver(code);
+      accessToken = result.token;
+      userInfo = result.userInfo;
     }
     if (code && !state) {
-      accessToken = await postLoginGithub(code);
+      const result = await postLoginGithub(code);
+      accessToken = result.token;
+      userInfo = result.userInfo;
     }
 
+    console.log(accessToken);
+    console.log(userInfo);
     localStorage.setItem('accessToken', accessToken);
     dispatch(setAccessToken(accessToken));
+    dispatch(setUserInfo(userInfo));
   };
 }
 

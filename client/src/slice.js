@@ -28,6 +28,8 @@ import {
   updatePayment,
 } from '@service/paymentAPI';
 
+import { getUserInfo } from '@service/userAPI';
+
 import { tempTransactionData } from './tempData';
 
 const { actions, reducer } = createSlice({
@@ -53,6 +55,7 @@ const { actions, reducer } = createSlice({
       day: new Date().getUTCDay(),
     },
     calendarTransactions: [],
+    userInfo: [],
   },
   reducers: {
     setTest(state, { payload: test }) {
@@ -137,6 +140,12 @@ const { actions, reducer } = createSlice({
         calendarTransactions,
       };
     },
+    setUserInfo(state, { payload: userInfo }) {
+      return {
+        ...state,
+        userInfo,
+      };
+    },
   },
 });
 
@@ -155,6 +164,7 @@ export const {
   setCalendarTransactions,
   setPaymentMethods,
   setCategories,
+  setUserInfo,
 } = actions;
 
 export const loader = ({ test }) => {
@@ -340,8 +350,14 @@ export const updateDate = ({ date }) => {
 export const loadCalendarTransactions = (year, month) => {
   return async (dispatch) => {
     const transactions = await getCalendarTransactions(year, month);
-    //alert(JSON.stringify(transactions));
     dispatch(setCalendarTransactions(transactions));
+  };
+};
+
+export const loadUserInfo = () => {
+  return async (dispatch) => {
+    const userInfo = await getUserInfo();
+    dispatch(setUserInfo(userInfo));
   };
 };
 

@@ -6,6 +6,7 @@ import AddButton from '@presentational/payment/AddButton';
 const PaymentApp = styled.div`
   display: flex;
   justify-content: center;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 const PaymentWrapper = styled.div`

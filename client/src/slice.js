@@ -144,6 +144,9 @@ const { actions, reducer } = createSlice({
         userInfo,
       };
     },
+    reset() {
+      return { state: {} };
+    },
   },
 });
 
@@ -163,6 +166,7 @@ export const {
   setCalendarTransactions,
   setPaymentMethods,
   setCategories,
+  reset,
 } = actions;
 
 export const loader = ({ test }) => {

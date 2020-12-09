@@ -67,7 +67,7 @@ const StyledDiv = styled.div`
   justify-content: center;
 `;
 
-const OO = styled.div`
+const O = styled.div`
   vertical-align: text-top;
   width: 156px;
   height: 156px;
@@ -104,22 +104,24 @@ const Box = styled.div`
   display: flex;
 `;
 
+const Four = (
+  <>
+    <Box>
+      <AA />
+      <BB />
+      <CC />
+    </Box>
+  </>
+);
+
 export default function NotFoundPage() {
   return (
     <>
-      <Title>Error Not Found</Title>
+      <Title>Page Not Found</Title>
       <StyledDiv>
-        <Box>
-          <AA />
-          <BB />
-          <CC />
-        </Box>
-        <OO />
-        <Box>
-          <AA />
-          <BB />
-          <CC />
-        </Box>
+        <Four />
+        <O />
+        <Four />
       </StyledDiv>
     </>
   );

@@ -4,6 +4,7 @@ import { setAccessToken, login } from '../../slice';
 import { useEffect } from 'react';
 import queryString from 'query-string';
 import LoginForm from '../presentational/LoginForm';
+import { Redirect } from 'react-router-dom';
 
 const LoginFormContainer = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const LoginFormContainer = () => {
     handleLogin();
   }, []);
 
-  return <>{!token ? <LoginForm /> : <span>hello</span>}</>;
+  return <>{!token ? <LoginForm /> : <Redirect to="/account-book" />}</>;
 };
 
 export default LoginFormContainer;

@@ -53,6 +53,13 @@ export async function getTransactions() {
   return data;
 }
 
+export async function getTransactionsByAccountBookId() {
+  const accountBookId = getCookie('accountBookId');
+  const { data } = await axiosAPI(`/transaction/${accountBookId}`, 'GET');
+
+  return data;
+}
+
 export async function getCalendarTransactions(year, month) {
   const url = `${API_URL}/transaction/${year}/${month}`;
 

@@ -13,7 +13,7 @@ const transactionController = {
       ctx.throw(err.code, err);
     }
   },
-  
+
   getAccountBookTransactions: async (ctx) => {
     try {
       const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
@@ -45,8 +45,7 @@ const transactionController = {
 
   addTransaction: async (ctx) => {
     try {
-      //개발용
-      const userId = ctx.request.userInfo?.userId || '5fc75fa3d69e8b4e1f3313ac';
+      const userId = ctx.request.userInfo?.userId;
       const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
 
       const result = await transactionService.addTransaction({
@@ -69,7 +68,7 @@ const transactionController = {
       );
 
       ctx.body = transactions;
-    } catch (err) {      
+    } catch (err) {
       ctx.throw(err.code, err);
     }
   },
@@ -77,7 +76,7 @@ const transactionController = {
   deleteTransaction: async (ctx) => {
     try {
       const { transactionIds } = ctx.request.body;
-      
+
       const transactions = await transactionService.deleteTransaction({
         ids: transactionIds,
       });

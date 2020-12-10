@@ -22,6 +22,7 @@ const TransactionContainer = () => {
   const [deleteStatus, setDeleteStatus] = useState(false);
   const [editIdStatus, setEditIdStatus] = useState('');
   const [openModalStatus, setOpenModalStatus] = useState(false);
+  const [parserStatus, setParserStatus] = useState(false);
 
   const transactions = useSelector((state) => state.transactions);
   const date = useSelector((state) => state.selectedDate);
@@ -69,16 +70,21 @@ const TransactionContainer = () => {
       <TransactionFab
         setOpenModalStatus={setOpenModalStatus}
         setDeleteStatus={setDeleteStatus}
+        setParserStatus={setParserStatus}
       />
       <TransactionModal
         openModalStatus={openModalStatus}
         setOpenModalStatus={setOpenModalStatus}
         insertTransaction={insertTransaction}
         updateTransactionHandler={updateTransactionHandler}
+        deleteTransactionHandler={deleteTransactionHandler}
         editIdStatus={editIdStatus}
+        setEditIdStatus={setEditIdStatus}
         handleCancel={handleCancel}
         tags={tags}
         paymentMethods={paymentMethods}
+        parserStatus={parserStatus}
+        setParserStatus={setParserStatus}
       />
       <TransactionList
         transactions={currentDateTransactions}

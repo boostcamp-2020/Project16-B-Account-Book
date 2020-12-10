@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { loadUserInfo } from '@slice';
+import { loadUserInfo, reset } from '@slice';
 import SettingHeader from '@presentational/setting/SettingHeader';
 import SettingEditor from '../presentational/setting/SettingEditor';
 import SettingPreview from '../presentational/setting/SettingPreview';
@@ -25,6 +26,7 @@ const SubContainer = styled.div`
 `;
 
 const SettingContainer = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.UserSettingsInfo);
 
@@ -33,7 +35,12 @@ const SettingContainer = () => {
   }, []);
 
   const onLogout = () => {
-    alert('로그아웃! 😥');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('userInfo');
+    history.push('/');
+    dispatch(reset());
+    document.cookie =
+      'accountBookId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
   };
 
   return (

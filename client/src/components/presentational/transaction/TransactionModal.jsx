@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TransactionInputForm from './TransactionInputForm';
+import ParserInputForm from './ParserInputForm';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -29,12 +30,15 @@ const TransactionModal = ({
   handleCancel,
   tags,
   paymentMethods,
+  parserStatus,
+  setParserStatus,
 }) => {
   const classes = useStyles();
 
   const handleClose = () => {
     setOpenModalStatus(false);
     setEditIdStatus('');
+    setParserStatus(false);
   };
 
   return (
@@ -53,14 +57,21 @@ const TransactionModal = ({
       >
         <Fade in={openModalStatus}>
           <div className={classes.paper}>
-            <TransactionInputForm
-              insertTransaction={insertTransaction}
-              updateTransactionHandler={updateTransactionHandler}
-              editIdStatus={editIdStatus}
-              handleCancel={handleCancel}
-              tags={tags}
-              paymentMethods={paymentMethods}
-            />
+            {parserStatus ? (
+              <ParserInputForm
+                setParserStatus={setParserStatus}
+                setEditIdStatus={setEditIdStatus}
+              />
+            ) : (
+              <TransactionInputForm
+                insertTransaction={insertTransaction}
+                updateTransactionHandler={updateTransactionHandler}
+                editIdStatus={editIdStatus}
+                handleCancel={handleCancel}
+                tags={tags}
+                paymentMethods={paymentMethods}
+              />
+            )}
           </div>
         </Fade>
       </Modal>

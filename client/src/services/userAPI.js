@@ -1,16 +1,17 @@
-import axios from 'axios';
-import {
-  getOptions,
-  postOptions,
-  patchOptions,
-  deleteOptions,
-} from '../../util/axios';
+import { axiosAPI } from '../../util/axios';
 
 const API_URL = process.env.API_URL;
 
 export async function getUserInfo() {
   const url = `${API_URL}/user/info`;
-  const { data } = await axios(getOptions(url));
+  const { data } = await axiosAPI(url, 'GET');
+
+  return data;
+}
+
+export async function getUsersByAccountBook() {
+  const url = `${API_URL}/user/accountBook`;
+  const { data } = await axiosAPI(url, 'GET');
 
   return data;
 }

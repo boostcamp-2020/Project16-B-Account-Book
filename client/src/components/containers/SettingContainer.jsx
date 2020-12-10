@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { loadUserInfo, reset } from '@slice';
+import { loadUserInfo, loadAllUsersInfo, reset } from '@slice';
 import SettingHeader from '@presentational/setting/SettingHeader';
 import SettingEditor from '../presentational/setting/SettingEditor';
 import SettingPreview from '../presentational/setting/SettingPreview';
@@ -28,10 +28,13 @@ const SubContainer = styled.div`
 const SettingContainer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.UserSettingsInfo);
+
+  const userInfo = useSelector((state) => state.userSettingsInfo);
+  const usersInfo = useSelector((state) => state.allUsersInfo);
 
   useEffect(() => {
     dispatch(loadUserInfo());
+    dispatch(loadAllUsersInfo());
   }, []);
 
   const onLogout = () => {
@@ -47,8 +50,8 @@ const SettingContainer = () => {
     <MainContainer>
       <SettingHeader userInfo={userInfo} onLogout={onLogout} />
       <SubContainer>
-        <SettingEditor />
-        <SettingPreview />
+        <SettingEditor userInfo={userInfo} />
+        <SettingPreview usersInfo={usersInfo} />
       </SubContainer>
     </MainContainer>
   );

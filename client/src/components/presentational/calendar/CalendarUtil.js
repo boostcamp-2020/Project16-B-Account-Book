@@ -1,6 +1,9 @@
 const Variable = ({ calendarInfo }) => {
   const lastDay = new Date(calendarInfo.year, calendarInfo.month, 0).getDate();
-  const firstDayIndex = calendarInfo.day;
+  const firstDayIndex = new Date(
+    `${calendarInfo.year}-${calendarInfo.month}-01`
+  ).getDay();
+
   const prevLastDay = new Date(
     calendarInfo.year,
     calendarInfo.month - 1,
@@ -24,10 +27,10 @@ const Variable = ({ calendarInfo }) => {
 
 const nowDateMap = (date) => {
   return {
-    year: date.getUTCFullYear(),
-    month: date.getUTCMonth() + 1,
-    date: date.getUTCDate(),
-    day: date.getUTCDay(),
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    date: date.getDate(),
+    day: date.getDay(),
   };
 };
 

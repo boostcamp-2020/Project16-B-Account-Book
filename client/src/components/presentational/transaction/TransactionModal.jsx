@@ -1,10 +1,11 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+
 import TransactionInputForm from './TransactionInputForm';
 import ParserInputForm from './ParserInputForm';
+import BulkInputForm from './BulkInputForm';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -33,6 +34,9 @@ const TransactionModal = ({
   paymentMethods,
   parserStatus,
   setParserStatus,
+  bulkInsert,
+  setBulkInsert,
+  bulkInsertTransactionHandler,
 }) => {
   const classes = useStyles();
 
@@ -40,6 +44,7 @@ const TransactionModal = ({
     setOpenModalStatus(false);
     setEditIdStatus('');
     setParserStatus(false);
+    setBulkInsert([]);
   };
 
   return (
@@ -58,7 +63,13 @@ const TransactionModal = ({
       >
         <Fade in={openModalStatus}>
           <div className={classes.paper}>
-            {parserStatus ? (
+            {bulkInsert[0] ? (
+              <BulkInputForm
+                bulkInsert={bulkInsert}
+                setBulkInsert={setBulkInsert}
+                bulkInsertTransactionHandler={bulkInsertTransactionHandler}
+              />
+            ) : parserStatus ? (
               <ParserInputForm
                 setParserStatus={setParserStatus}
                 setEditIdStatus={setEditIdStatus}

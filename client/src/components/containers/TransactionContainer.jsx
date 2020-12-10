@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -10,11 +10,11 @@ import {
   loadAccountbookTest,
 } from '@slice';
 import TransactionList from '@presentational/transaction/TransactionList';
-import TransactionFab from '../presentational/transaction/TransactionFab';
-import TransactionModal from '../presentational/transaction/TransactionModal';
-import TransactionLineChart from '../presentational/transaction/TransactionLineChart';
-import TransactionDate from '../presentational/transaction/TransactionDate';
-import { getCurrentDateTransactions } from './util';
+import TransactionFab from '@presentational/transaction/TransactionFab';
+import TransactionModal from '@presentational/transaction/TransactionModal';
+import TransactionLineChart from '@presentational/transaction/TransactionLineChart';
+import TransactionDate from '@presentational/transaction/TransactionDate';
+import { getCurrentDateTransactions } from '@util/transaction';
 
 const TransactionContainer = () => {
   const dispatch = useDispatch();
@@ -23,10 +23,10 @@ const TransactionContainer = () => {
   const [editIdStatus, setEditIdStatus] = useState('');
   const [openModalStatus, setOpenModalStatus] = useState(false);
   const [parserStatus, setParserStatus] = useState(false);
+  const [bulkInsert, setBulkInsert] = useState([]);
 
   const transactions = useSelector((state) => state.transactions);
   const date = useSelector((state) => state.selectedDate);
-  // const categories = useSelector((state) => state.category);
   const paymentMethods = useSelector((state) => state.paymentMethods);
   const tags = useSelector((state) => state.tags);
 
@@ -41,8 +41,12 @@ const TransactionContainer = () => {
   }, []);
 
   const insertTransaction = ({ transaction }) => {
-    dispatch(addTransaction({ transaction }));
+    dispatch(addTransaction({ transactions: [transaction] }));
     handleCancel();
+  };
+
+  const bulkInsertTransactionHandler = ({ transactions }) => {
+    dispatch(addTransaction({ transactions }));
   };
 
   const deleteTransactionHandler = (transactionIds) => {
@@ -71,6 +75,7 @@ const TransactionContainer = () => {
         setOpenModalStatus={setOpenModalStatus}
         setDeleteStatus={setDeleteStatus}
         setParserStatus={setParserStatus}
+        setBulkInsert={setBulkInsert}
       />
       <TransactionModal
         openModalStatus={openModalStatus}
@@ -85,6 +90,9 @@ const TransactionContainer = () => {
         paymentMethods={paymentMethods}
         parserStatus={parserStatus}
         setParserStatus={setParserStatus}
+        setBulkInsert={setBulkInsert}
+        bulkInsert={bulkInsert}
+        bulkInsertTransactionHandler={bulkInsertTransactionHandler}
       />
       <TransactionList
         transactions={currentDateTransactions}

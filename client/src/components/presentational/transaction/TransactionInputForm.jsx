@@ -1,5 +1,6 @@
 import { Fragment, useLayoutEffect, useRef } from 'react';
 import styled from 'styled-components';
+import categories from '@presentational/category_tag/categories';
 
 const StyledForm = styled.form`
   display: flex;
@@ -92,11 +93,21 @@ const TransactionInputForm = ({
       <StyledForm onSubmit={handleSubmit}>
         <label>
           category:
-          <input type="text" name="name" ref={categoryInput} />
+          <input type="text" list="category" ref={categoryInput} />
+          <datalist id="category">
+            {categories.map((category, i) => {
+              return (
+                <Fragment key={`category-${i}`}>
+                  <option value={category.title}>{category.title}</option>
+                </Fragment>
+              );
+            })}
+          </datalist>
         </label>
         <label>
           paymentMethod:
-          <select ref={paymentMethodInput}>
+          <input type="text" list="paymentMethod" ref={paymentMethodInput} />
+          <datalist id="paymentMethod">
             {paymentMethods.map((paymentMethod, i) => {
               return (
                 <Fragment key={`paymentMethod-${i}`}>
@@ -104,11 +115,11 @@ const TransactionInputForm = ({
                 </Fragment>
               );
             })}
-          </select>
+          </datalist>
         </label>
         <label>
           cost:
-          <input type="text" name="name" ref={costInput} />
+          <input type="number" name="name" ref={costInput} />
         </label>
         <label>
           수입/지출:
@@ -131,7 +142,8 @@ const TransactionInputForm = ({
         </label>
         <label>
           tag:
-          <select ref={tagInput}>
+          <input type="text" list="tag" ref={tagInput} />
+          <datalist id="tag">
             {tags.map((tag, i) => {
               return (
                 <Fragment key={`tag-${i}`}>
@@ -139,7 +151,7 @@ const TransactionInputForm = ({
                 </Fragment>
               );
             })}
-          </select>
+          </datalist>
         </label>
         <label>
           imageURL:

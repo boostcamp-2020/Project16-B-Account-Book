@@ -25,6 +25,7 @@ const TransactionModal = ({
   setOpenModalStatus,
   insertTransaction,
   updateTransactionHandler,
+  deleteTransactionHandler,
   editIdStatus,
   setEditIdStatus,
   handleCancel,
@@ -65,7 +66,9 @@ const TransactionModal = ({
             ) : (
               <TransactionInputForm
                 insertTransaction={insertTransaction}
+                setOpenModalStatus={setOpenModalStatus}
                 updateTransactionHandler={updateTransactionHandler}
+                deleteTransactionHandler={deleteTransactionHandler}
                 editIdStatus={editIdStatus}
                 handleCancel={handleCancel}
                 tags={tags}

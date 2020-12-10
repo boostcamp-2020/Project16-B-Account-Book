@@ -10,8 +10,10 @@ const StyledForm = styled.form`
 const TransactionInputForm = ({
   insertTransaction,
   updateTransactionHandler,
+  deleteTransactionHandler,
   editIdStatus,
   handleCancel,
+  setOpenModalStatus,
   paymentMethods = [],
   tags = [],
 }) => {
@@ -34,6 +36,11 @@ const TransactionInputForm = ({
       return;
     }
     insertTransaction({ transaction: data });
+  };
+
+  const handleDelete = () => {
+    setOpenModalStatus(false);
+    deleteTransactionHandler([editIdStatus._id]);
   };
 
   const parseData = () => {
@@ -161,7 +168,13 @@ const TransactionInputForm = ({
           확인
         </button>
       </StyledForm>
-      {editIdStatus && <button onClick={handleCancel}>수정 취소</button>}
+
+      {editIdStatus && (
+        <>
+          <button onClick={handleCancel}>수정 취소</button>
+          <button onClick={handleDelete}>삭제</button>
+        </>
+      )}
     </>
   );
 };

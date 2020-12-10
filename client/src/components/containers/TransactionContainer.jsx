@@ -77,6 +77,7 @@ const TransactionContainer = () => {
         setOpenModalStatus={setOpenModalStatus}
         insertTransaction={insertTransaction}
         updateTransactionHandler={updateTransactionHandler}
+        deleteTransactionHandler={deleteTransactionHandler}
         editIdStatus={editIdStatus}
         setEditIdStatus={setEditIdStatus}
         handleCancel={handleCancel}

@@ -62,8 +62,8 @@ const { actions, reducer } = createSlice({
       day: new Date().getDay(),
     },
     calendarTransactions: [],
-    userSettingsInfo: [],
-    allUsersInfo: [],
+    userSettingsInfo: [{ _id: null }],
+    allUsersInfo: [{ _id: null }],
   },
   reducers: {
     setTest(state, { payload: test }) {

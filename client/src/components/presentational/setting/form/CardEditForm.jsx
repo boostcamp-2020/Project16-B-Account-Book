@@ -9,7 +9,7 @@ const CardFormContainer = styled.form`
   flex-wrap: wrap;
   border-top: 1px solid black;
   border-left: 1px solid black;
-  margin-bottom: 1em;
+  margin-bottom: 5em;
 `;
 
 const Info = styled.div`

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -35,8 +35,24 @@ const SettingContainer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const [isMaster, setIsMaster] = useState(false);
   const userInfo = useSelector((state) => state.userSettingsInfo);
   const usersInfo = useSelector((state) => state.allUsersInfo);
+
+  const compareInfo = () => {
+    if (userInfo._id === usersInfo[0]._id) {
+      setIsMaster(true);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(loadUserInfo());
+    dispatch(loadAllUsersInfo());
+  }, []);
+
+  useEffect(() => {
+    compareInfo();
+  }, [usersInfo]);
 
   const updateUserInfo = (info) => {
     dispatch(changeUserInfo(info));
@@ -45,11 +61,6 @@ const SettingContainer = () => {
   const onChange = (info) => {
     dispatch(setUserSettingsInfo(info));
   };
-
-  useEffect(() => {
-    dispatch(loadUserInfo());
-    dispatch(loadAllUsersInfo());
-  }, []);
 
   const onLogout = () => {
     localStorage.removeItem('accessToken');
@@ -68,6 +79,7 @@ const SettingContainer = () => {
           userInfo={userInfo}
           updateUserInfo={updateUserInfo}
           onChange={onChange}
+          isMaster={isMaster}
         />
         <SettingPreview usersInfo={usersInfo} />
       </SubContainer>

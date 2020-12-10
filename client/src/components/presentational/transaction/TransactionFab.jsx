@@ -7,6 +7,7 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import icon from '@public/icon';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +35,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TransactionFab = ({ setOpenModalStatus, setDeleteStatus }) => {
+const TransactionFab = ({
+  setOpenModalStatus,
+  setDeleteStatus,
+  setParserStatus,
+}) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -59,6 +64,14 @@ const TransactionFab = ({ setOpenModalStatus, setDeleteStatus }) => {
       name: 'Delete',
       handleClick: () => {
         setDeleteStatus(true);
+      },
+    },
+    {
+      icon: icon.message,
+      name: 'Message',
+      handleClick: () => {
+        setOpenModalStatus(true);
+        setParserStatus(true);
       },
     },
   ];

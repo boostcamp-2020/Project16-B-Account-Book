@@ -68,37 +68,27 @@ export async function getCalendarTransactions(year, month) {
 }
 
 export async function postTransaction({ transaction }) {
-  const url = `${API_URL}/transaction`;
-
-  const { data } = await axios(url, {
-    method: 'post',
-    data: {
-      ...transaction,
-    },
-  });
+  const { data } = await axiosAPI(
+    `${API_URL}/transaction`,
+    'POST',
+    transaction
+  );
 
   return data;
 }
 
 export async function updateTransaction({ transactionId, transaction }) {
-  const url = `${API_URL}/transaction`;
-
-  const { data } = await axios(url, {
-    method: 'patch',
-    data: {
-      transactionId,
-      ...transaction,
-    },
+  const { data } = await axiosAPI(`${API_URL}/transaction`, 'PATCH', {
+    transactionId,
+    ...transaction,
   });
 
   return data;
 }
 
 export async function deleteTransaction({ transactionIds }) {
-  const url = `${API_URL}/transaction`;
-  const { data } = await axios(url, {
-    method: 'delete',
-    data: { transactionIds },
+  const { data } = await axiosAPI(`${API_URL}/transaction`, 'DELETE', {
+    transactionIds,
   });
 
   return data;

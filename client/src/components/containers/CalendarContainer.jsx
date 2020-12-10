@@ -21,19 +21,17 @@ const CalendarContainer = () => {
 
   const updateData = () => {
     setDate(date);
-    dispatch(
-      loadCalendarTransactions(date.getUTCFullYear(), date.getUTCMonth() + 1)
-    );
+    dispatch(loadCalendarTransactions(date.getFullYear(), date.getMonth() + 1));
     dispatch(setCalendarInfo(nowDateMap(date)));
   };
 
   const onClickPrev = () => {
-    date.setUTCMonth(date.getUTCMonth() - 1);
+    date.setMonth(date.getMonth() - 1);
     updateData();
   };
 
   const onClickNext = () => {
-    date.setUTCMonth(date.getUTCMonth() + 1);
+    date.setMonth(date.getMonth() + 1);
     updateData();
   };
 
@@ -42,7 +40,8 @@ const CalendarContainer = () => {
   };
 
   useEffect(() => {
-    updateData();
+    dispatch(loadCalendarTransactions(date.getFullYear(), date.getMonth() + 1));
+    dispatch(setCalendarInfo(nowDateMap(date)));
   }, []);
 
   useEffect(() => {

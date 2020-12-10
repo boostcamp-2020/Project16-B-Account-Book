@@ -45,8 +45,7 @@ const transactionController = {
 
   addTransaction: async (ctx) => {
     try {
-      //개발용
-      const userId = ctx.request.userInfo?.userId || '5fc75fa3d69e8b4e1f3313ac';
+      const userId = ctx.request.userInfo?.userId;
       const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
 
       const result = await transactionService.addTransaction({

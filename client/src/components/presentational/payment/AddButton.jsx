@@ -11,7 +11,6 @@ const AddPaymentBtn = styled.div`
   cursor: pointer;
   border: none;
   outline: none;
-  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 const AddButton = ({ payments, addClick }) => {

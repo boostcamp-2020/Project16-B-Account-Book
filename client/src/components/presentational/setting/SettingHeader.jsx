@@ -6,7 +6,6 @@ const HeaderContainer = styled.header`
   text-align: center;
   padding: 0.5em;
   position: relative;
-  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 const Logout = styled.div`

@@ -28,7 +28,6 @@ export const getOptions = (url) => {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getToken()}`,
-      userid: '5fc67adeecfd3cb85cc7fb4d', // TODO: 추후 삭제
       accountBookId: getCookie('accountBookId'),
     },
   };
@@ -41,7 +40,6 @@ export const postOptions = (url, data) => {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getToken()}`,
-      userid: '5fc67adeecfd3cb85cc7fb4d', // TODO: 추후 삭제
       accountBookId: getCookie('accountBookId'),
     },
     data,
@@ -55,7 +53,6 @@ export const patchOptions = (url, data) => {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getToken()}`,
-      userid: '5fc67adeecfd3cb85cc7fb4d', // TODO: 추후 삭제
       accountBookId: getCookie('accountBookId'),
     },
     data,
@@ -69,7 +66,6 @@ export const deleteOptions = (url, data) => {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getToken()}`,
-      userid: '5fc67adeecfd3cb85cc7fb4d', // TODO: 추후 삭제
       accountBookId: getCookie('accountBookId'),
     },
     data,

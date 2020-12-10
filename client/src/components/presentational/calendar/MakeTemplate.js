@@ -1,6 +1,12 @@
 import { Variable } from './CalendarUtil';
+import TypeTemplate from './TypeTemplate';
 
-const makeTemplate = ({ calendarInfo, daysRef, transactions }) => {
+const makeTemplate = ({
+  type = 'all',
+  calendarInfo,
+  daysRef,
+  transactions,
+}) => {
   const { lastDay, firstDayIndex, prevLastDay, nextDays } = Variable({
     calendarInfo,
   });
@@ -36,15 +42,7 @@ const makeTemplate = ({ calendarInfo, daysRef, transactions }) => {
       }
     });
 
-    if (expenditure === 0) days += `<div class="no-expenditure">`;
-    else days += `<div class="expenditure">`;
-    days += `- ${expenditure.toLocaleString()}원</div>`;
-
-    if (income === 0) days += `<div class="no-income">`;
-    else days += `<div class="income">`;
-    days += `+ ${income.toLocaleString()}원</div>`;
-
-    days += `</div>`;
+    days += TypeTemplate(type, expenditure, income);
   }
 
   for (let j = 1; j <= nextDays; j++) {

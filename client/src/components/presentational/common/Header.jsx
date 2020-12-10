@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io';
+import { useSelector } from 'react-redux';
 
 import color from '@public/color';
 import logoImg from '@public/img/colored_logo_img.png';
@@ -76,6 +77,7 @@ const MenuBars = styled.div`
 `;
 
 const Header = () => {
+  const userInfo = useSelector((state) => state.userInfo);
   const [sidebarModal, setSidebarModal] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
 
@@ -98,9 +100,9 @@ const Header = () => {
           </Logo>
           <UserMenu>
             <div className="user-img">
-              <img src={sampleUserImg} />
+              <img src={userInfo?.imageURL || sampleUserImg} />
             </div>
-            <div className="user-email">piggybook@gmail.com</div>
+            <div className="user-email">{userInfo?.name || 'piggy book'}</div>
             <div className="user-dropdown" onClick={onUserMenuClick}>
               <IoIcons.IoIosArrowDown size={20} />
             </div>

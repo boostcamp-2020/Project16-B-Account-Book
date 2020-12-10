@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Swal from 'sweetalert2';
 
 import AccountBookList from '@presentational/accountbook/AccountBookList';
-import AddModal from '@presentational/accountBook/AddModal';
+import AddModal from '@presentational/accountbook/AddModal';
 import {
   loadAccountBooks,
   loadAccountBook,

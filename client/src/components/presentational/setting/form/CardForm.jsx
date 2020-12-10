@@ -14,6 +14,7 @@ const CardFormContainer = styled.li`
   border: 1px solid whitesmoke;
   box-shadow: 6px 6px 8px 0px rgba(226, 226, 226, 1);
   max-width: 30rem;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.05);
@@ -101,8 +102,8 @@ const CardForm = ({ userInfo, index }) => {
           <Email>{email}</Email>
         )}
         <SubInfo>소셜 로그인: {provider}</SubInfo>
-        <SubInfo>달력 시작 요일: {startDateOfMonth}일</SubInfo>
-        <SubInfo>달력 시작일: {startDayOfWeek}</SubInfo>
+        <SubInfo>달력 시작 일: {startDateOfMonth}일</SubInfo>
+        <SubInfo>달력 시작 요일: {startDayOfWeek}</SubInfo>
       </Info>
     </CardFormContainer>
   );

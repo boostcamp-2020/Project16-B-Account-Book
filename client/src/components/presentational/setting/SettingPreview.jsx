@@ -12,7 +12,7 @@ const Title = styled.h1`
 `;
 
 const Cards = styled.ul`
-  width: 90%;
+  width: 95%;
   padding: 0.5em 2em;
 
   display: flex;

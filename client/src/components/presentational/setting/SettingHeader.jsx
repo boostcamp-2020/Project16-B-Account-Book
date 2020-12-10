@@ -17,11 +17,14 @@ const Logout = styled.div`
 
 const ItemContainer = styled.div`
   font-size: 1.3rem;
+  margin-top: 15px;
+  margin-bottom: 15px;
 
   img {
     margin-left: 10px;
     margin-right: 8px;
-    border-radius: 50% !important;
+    margin-bottom: 5px;
+    border-radius: 50%;
     width: 100px;
     height: 100px;
     object-fit: cover;

@@ -26,6 +26,7 @@ const Card = styled.li`
   transition: transform 250ms ease-in;
   padding: 1.5rem 1rem 0rem 1rem;
   box-sizing: border-box;
+  box-shadow: 5px 5px 0px 0px #4b4c4b, 5px 7px 15px 5px rgba(0, 0, 0, 0);
 
   &:hover {
     ${({ isCurrent }) => !isCurrent && `transform: scale(1.05);`}
@@ -37,8 +38,7 @@ const Card = styled.li`
     `
     outline: none;
     border-color: #9ecaed;
-    box-shadow: 0 0 10px #9ecaed;
-    transform: scale(1.2);
+    box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 7px 15px 5px rgba(0,0,0,0);
   `}
 
   ${({ clicked }) =>

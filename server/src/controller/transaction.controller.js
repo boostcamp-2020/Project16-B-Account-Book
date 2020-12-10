@@ -13,7 +13,7 @@ const transactionController = {
       ctx.throw(err.code, err);
     }
   },
-  
+
   getAccountBookTransactions: async (ctx) => {
     try {
       const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
@@ -29,7 +29,7 @@ const transactionController = {
   getCalendarTransactions: async (ctx) => {
     try {
       const { year, month } = ctx.request.params;
-      const { accountbookid: accountBookId } = ctx.request.header;
+      const accountBookId = ctx.header.cookie.replace(/accountBookId=/, '');
 
       const transactions = await transactionService.getCalendarTransactions({
         accountBookId,
@@ -69,7 +69,7 @@ const transactionController = {
       );
 
       ctx.body = transactions;
-    } catch (err) {      
+    } catch (err) {
       ctx.throw(err.code, err);
     }
   },
@@ -77,7 +77,7 @@ const transactionController = {
   deleteTransaction: async (ctx) => {
     try {
       const { transactionIds } = ctx.request.body;
-      
+
       const transactions = await transactionService.deleteTransaction({
         ids: transactionIds,
       });

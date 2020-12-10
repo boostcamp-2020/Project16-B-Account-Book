@@ -42,6 +42,77 @@ const categories = [
     title: '의료/건강',
     description: '기타, 병원, 보조식품, 약국, 요양, 의료기기, 치과, 한의원',
   },
+  {
+    icon: 'tagDefault',
+    title: '뷰티/미용',
+    description: '기타, 네일, 뷰티제품, 피부/체형관리, 헤어샵',
+  },
+  {
+    icon: 'tagDefault',
+    title: '주거/통신',
+    description: '공과금, 관리비, 기타, 부동산, 월세, 이사, 통신',
+  },
+  {
+    icon: 'tagDefault',
+    title: '학습/교육',
+    description: '기타, 시험, 학교, 학습교재, 학습시설, 학원',
+  },
+  {
+    icon: 'tagDefault',
+    title: '문화/예술',
+    description: '공연, 기타, 도서, 여가시설, 영화, 전시/관람, 취미',
+  },
+  {
+    icon: 'tagDefault',
+    title: '교통/차량',
+    description:
+      '기타, 대리운전, 대중교통, 렌트카, 정비/부품, 주유소, 주차/요금소, 택시, 휴게소',
+  },
+  {
+    icon: 'tagDefault',
+    title: '스포츠/레저',
+    description: '기타, 레저, 무예, 스파/마사지, 스포츠, 요가/헬스, 테마파크',
+  },
+  {
+    icon: 'tagDefault',
+    title: '여행/숙박',
+    description: '관광, 기타, 숙박, 여행, 여행용품, 항공, 해외결제',
+  },
+  {
+    icon: 'tagDefault',
+    title: '경조사/회비',
+    description: '경조사, 기부, 기타, 용돈, 헌금, 회비',
+  },
+  {
+    icon: 'tagDefault',
+    title: '출금',
+    description: '기타',
+  },
+  {
+    icon: 'tagDefault',
+    title: '기타지출',
+    description: '공공기관, 기업, 기타, 컨설팅',
+  },
+  {
+    icon: 'tagDefault',
+    title: '주수입',
+    description: '기타',
+  },
+  {
+    icon: 'tagDefault',
+    title: '부수입',
+    description: '기타',
+  },
+  {
+    icon: 'tagDefault',
+    title: '금융/대출',
+    description: '기타',
+  },
+  {
+    icon: 'tagDefault',
+    title: '기타수입',
+    description: '기타',
+  },
 ];
 
 export default categories;

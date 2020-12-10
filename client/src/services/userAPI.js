@@ -15,3 +15,11 @@ export async function getUsersByAccountBook() {
 
   return data;
 }
+
+export async function updateUserInfo(userInfo) {
+  const { data } = await axiosAPI(`${API_URL}/user`, 'POST', {
+    userInfo,
+  });
+
+  return data;
+}

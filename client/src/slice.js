@@ -29,7 +29,11 @@ import {
   updatePayment,
 } from '@service/paymentAPI';
 
-import { getUserInfo, getUsersByAccountBook } from '@service/userAPI';
+import {
+  getUserInfo,
+  getUsersByAccountBook,
+  updateUserInfo,
+} from '@service/userAPI';
 
 import { tempTransactionData } from './tempData';
 
@@ -408,6 +412,13 @@ export const loadAllUsersInfo = () => {
   return async (dispatch) => {
     const usersInfo = await getUsersByAccountBook();
     dispatch(setUsersInfo(usersInfo));
+  };
+};
+
+export const changeUserInfo = (userInfo) => {
+  return async (dispatch) => {
+    await updateUserInfo(userInfo);
+    dispatch(loadAllUsersInfo());
   };
 };
 

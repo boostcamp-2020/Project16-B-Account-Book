@@ -3,7 +3,13 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { loadUserInfo, loadAllUsersInfo, reset } from '@slice';
+import {
+  loadUserInfo,
+  loadAllUsersInfo,
+  setUserSettingsInfo,
+  changeUserInfo,
+  reset,
+} from '@slice';
 import SettingHeader from '@presentational/setting/SettingHeader';
 import SettingEditor from '../presentational/setting/SettingEditor';
 import SettingPreview from '../presentational/setting/SettingPreview';
@@ -32,6 +38,14 @@ const SettingContainer = () => {
   const userInfo = useSelector((state) => state.userSettingsInfo);
   const usersInfo = useSelector((state) => state.allUsersInfo);
 
+  const updateUserInfo = (info) => {
+    dispatch(changeUserInfo(info));
+  };
+
+  const onChange = (info) => {
+    dispatch(setUserSettingsInfo(info));
+  };
+
   useEffect(() => {
     dispatch(loadUserInfo());
     dispatch(loadAllUsersInfo());
@@ -50,7 +64,11 @@ const SettingContainer = () => {
     <MainContainer>
       <SettingHeader userInfo={userInfo} onLogout={onLogout} />
       <SubContainer>
-        <SettingEditor userInfo={userInfo} />
+        <SettingEditor
+          userInfo={userInfo}
+          updateUserInfo={updateUserInfo}
+          onChange={onChange}
+        />
         <SettingPreview usersInfo={usersInfo} />
       </SubContainer>
     </MainContainer>

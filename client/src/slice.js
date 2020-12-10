@@ -43,6 +43,7 @@ const { actions, reducer } = createSlice({
     tags: [],
     accountBooks: [],
     accountBookId: '',
+    userInfo: { name: '', ImageURL: '' },
     selectedDate: {
       year: new Date().getFullYear(),
       month: new Date().getMonth() + 1,
@@ -127,7 +128,6 @@ const { actions, reducer } = createSlice({
         ...selectedDate,
       };
     },
-
     setCalendarInfo(state, { payload: calendarInfo }) {
       return {
         ...state,
@@ -146,6 +146,15 @@ const { actions, reducer } = createSlice({
         UserSettingsInfo,
       };
     },
+    setUserInfo(state, { payload: userInfo }) {
+      return {
+        ...state,
+        userInfo,
+      };
+    },
+    reset() {
+      return { state: {} };
+    },
   },
 });
 
@@ -158,6 +167,7 @@ export const {
   setAccountBooks,
   setAccountBook,
   setTransactions,
+  setUserInfo,
   insertTransactions,
   setDate,
   setCalendarInfo,
@@ -165,6 +175,7 @@ export const {
   setPaymentMethods,
   setCategories,
   setUserSettingsInfo,
+  reset,
 } = actions;
 
 export const loader = ({ test }) => {
@@ -177,16 +188,23 @@ export const loader = ({ test }) => {
 export function login({ code, state }) {
   return async (dispatch) => {
     let accessToken;
+    let userInfo;
 
     if (code && state === 'naver') {
-      accessToken = await postLoginNaver(code);
+      const result = await postLoginNaver(code);
+      accessToken = result.token;
+      userInfo = result.userInfo;
     }
     if (code && !state) {
-      accessToken = await postLoginGithub(code);
+      const result = await postLoginGithub(code);
+      accessToken = result.token;
+      userInfo = result.userInfo;
     }
 
     localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
     dispatch(setAccessToken(accessToken));
+    dispatch(setUserInfo(userInfo));
   };
 }
 

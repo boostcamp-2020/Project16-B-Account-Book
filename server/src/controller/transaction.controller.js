@@ -16,6 +16,18 @@ const transactionController = {
     }
   },
 
+  getAccountBookTransactions: async (ctx) => {
+    try {
+      const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
+      const transactions = await transactionService.getAccountBookTransactions({
+        accountBookId,
+      });
+      ctx.body = transactions;
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
+
   getCalendarTransactions: async (ctx) => {
     try {
       const { year, month } = ctx.request.params;
@@ -37,8 +49,7 @@ const transactionController = {
     try {
       //개발용
       const userId = ctx.request.userInfo?.userId || '5fc75fa3d69e8b4e1f3313ac';
-      const accountBookId = '5fc713abd120a78e5c18216d';
-      // const { userId } = ctx.request.userInfo;
+      const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
 
       const result = await transactionService.addTransaction({
         userId,

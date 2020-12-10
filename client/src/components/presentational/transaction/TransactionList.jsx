@@ -6,9 +6,12 @@ const StyledDiv = styled.div`
   grid-template-columns: repeat(4, 1fr);
   border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
   border-top: none;
-  width: 65vw;
   background: #f5f5f7;
   padding: 1% 2%;
+  width: 100%;
+`;
+const TransactionContainerDay = styled.div`
+  width: 65vw;
 `;
 
 const StyledCheckbox = styled.div`
@@ -22,7 +25,6 @@ const StyledDate = styled.div`
   border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
   margin-top: 2%;
   padding: 1% 2%;
-  width: 65vw;
 `;
 
 const Cost = styled.div`
@@ -158,34 +160,39 @@ const TransactionList = ({
       return days.map((day, i) => {
         return (
           <Fragment key={`transactionMonth${i}`}>
-            <StyledDate>
-              {month}/{day}
-            </StyledDate>
-            {transactionByDate[month][day].map((transaction, i) => {
-              return (
-                <>
-                  <StyledCheckbox>
-                    <>
-                      {deleteStatus && (
-                        <input
-                          type="checkbox"
-                          data-id={transaction._id}
-                          onClick={(e) => handleDeleteClick(e)}
-                        />
-                      )}
-                      <Fragment key={`transactionDay${i}`}>
-                        <StyledDiv onClick={() => handleClick(transaction)}>
-                          <div>{transaction.time}</div>
-                          <div>{transaction.category}</div>
-                          <div>{transaction.description}</div>
-                          <Cost>{transaction.cost}</Cost>
-                        </StyledDiv>
-                      </Fragment>
-                    </>
-                  </StyledCheckbox>
-                </>
-              );
-            })}
+            <TransactionContainerDay>
+              <StyledDate>
+                {month}/{day}
+              </StyledDate>
+              {transactionByDate[month][day].map((transaction, i) => {
+                return (
+                  <Fragment key={`transactionByDate${i}`}>
+                    <StyledCheckbox>
+                      <>
+                        {deleteStatus && (
+                          <input
+                            type="checkbox"
+                            data-id={transaction._id}
+                            onClick={(e) => handleDeleteClick(e)}
+                          />
+                        )}
+                        <Fragment key={`transactionDay${i}`}>
+                          <StyledDiv onClick={() => handleClick(transaction)}>
+                            <div>{transaction.time}</div>
+                            <div>{transaction.category}</div>
+                            <div>{transaction.description}</div>
+                            <Cost>
+                              {transaction.type === '수입' ? '+' : '-'}
+                              {transaction.cost}
+                            </Cost>
+                          </StyledDiv>
+                        </Fragment>
+                      </>
+                    </StyledCheckbox>
+                  </Fragment>
+                );
+              })}
+            </TransactionContainerDay>
           </Fragment>
         );
       });

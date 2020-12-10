@@ -3,9 +3,10 @@ import Button from '@material-ui/core/Button';
 
 const HeaderContainer = styled.header`
   width: 100%;
+  padding: 0.7em;
   text-align: center;
-  padding: 0.5em;
   position: relative;
+  background-color: #95e1d3;
 `;
 
 const Logout = styled.div`

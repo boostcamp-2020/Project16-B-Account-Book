@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const Editor = styled.section`
   flex-basis: 50%;
-  background-color: #eaffd0;
+  /* background-color: #eaffd0; */
+  border-right: 1px solid lightgray;
 `;
 
 const Title = styled.h1`
@@ -11,10 +12,10 @@ const Title = styled.h1`
   margin-bottom: 1em;
 `;
 
-const SettingEditor = () => {
+const SettingEditor = ({ usersInfo }) => {
   return (
     <Editor>
-      <Title>설정</Title>
+      <Title>내 정보 🔥</Title>
     </Editor>
   );
 };

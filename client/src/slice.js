@@ -9,6 +9,7 @@ import {
   updateTag,
   deleteTag,
   getTransactions,
+  getTransactionsByAccountBookId,
   getCalendarTransactions,
   postTransaction,
   updateTransaction,
@@ -36,6 +37,7 @@ const { actions, reducer } = createSlice({
     accessToken: '',
     test: 1,
     transactions: tempTransactionData,
+    accountBookTransactions: [],
     payments: [],
     paymentsDetail: [{ title: null }],
     tags: [],
@@ -65,6 +67,12 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         transactions,
+      };
+    },
+    setAccountBookTransactions(state, { payload: accountBookTransactions }) {
+      return {
+        ...state,
+        accountBookTransactions,
       };
     },
     insertTransactions(state, { payload: transactions }) {
@@ -149,6 +157,7 @@ export const {
   setAccountBooks,
   setAccountBook,
   setTransactions,
+  setAccountBookTransactions,
   insertTransactions,
   setDate,
   setCalendarInfo,
@@ -257,6 +266,14 @@ export const loadTransactions = () => {
     const transactions = await getTransactions();
 
     dispatch(setTransactions(transactions));
+  };
+};
+
+export const loadAccountBookTransactions = () => {
+  return async (dispatch) => {
+    const accountBookTransactions = await getTransactionsByAccountBookId();
+
+    dispatch(setAccountBookTransactions(accountBookTransactions));
   };
 };
 

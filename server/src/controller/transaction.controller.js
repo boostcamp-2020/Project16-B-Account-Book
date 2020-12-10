@@ -16,6 +16,20 @@ const transactionController = {
     }
   },
 
+  getTransactions: async (ctx) => {
+    try {
+      const { accountBookId } = ctx.request.params;
+
+      const transactions = await transactionService.getTransactions({
+        accountBookId,
+      });
+
+      ctx.body = transactions;
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
+
   getCalendarTransactions: async (ctx) => {
     try {
       const { year, month } = ctx.request.params;

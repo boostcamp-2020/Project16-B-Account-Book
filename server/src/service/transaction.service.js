@@ -11,6 +11,13 @@ const transactionService = {
     return transactions;
   },
 
+  getTransactions: async ({ accountBookId }) => {
+    const transactions = await TransactionModel.find({
+      accountBookId,
+    });
+    return transactions;
+  },
+
   addTransaction: async ({
     userId,
     accountBookId,

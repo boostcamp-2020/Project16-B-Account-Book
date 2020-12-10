@@ -42,6 +42,13 @@ const UserController = {
 
     ctx.body = userInfo;
   },
+
+  getAccountBookUsers: async (ctx) => {
+    const accountBookId = ctx.header.cookie.replace(/accountBookId=/, '');
+    const usersInfo = await userService.getAccountBookUsers(accountBookId);
+
+    ctx.body = usersInfo;
+  },
 };
 
 module.exports = UserController;

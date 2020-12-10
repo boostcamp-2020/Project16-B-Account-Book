@@ -12,9 +12,9 @@ const makeTemplate = ({
   });
   let days = '';
 
-  for (let x = firstDayIndex; x > 0; x--) {
+  for (let x = firstDayIndex - 1; x >= 0; x--) {
     days += `<div class="transaction"><div class="prev-date">${
-      prevLastDay - x + 1
+      prevLastDay - x
     }</div>`;
     days += `<div class="no-expenditure"></div>`;
     days += `<div class="no-income"></div>`;

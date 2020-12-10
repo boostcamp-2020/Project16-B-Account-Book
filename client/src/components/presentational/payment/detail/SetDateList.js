@@ -1,8 +1,8 @@
 const date = new Date();
 
 const SetDateList = () => {
-  const year = date.getUTCFullYear();
-  const month = date.getUTCMonth() + 1;
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
 
   let beforeYear = null;
   let beforeMonth = null;

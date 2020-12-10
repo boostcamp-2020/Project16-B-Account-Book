@@ -1,5 +1,6 @@
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 import LoginPage from './pages/LoginPage';
 import AccountBookPage from './pages/AccountBookPage';
@@ -14,6 +15,9 @@ import SettingPage from './pages/SettingPage';
 import TransactionPage from './pages/TransactionPage';
 import Layout from './components/presentational/common/Layout';
 
+import { setAccessToken, setUserInfo } from './slice';
+import { getCookie } from '@util/cookie';
+
 const GlobalStyle = createGlobalStyle`
   body {
     background: #ffffff;
@@ -23,67 +27,40 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  const cookie = getCookie('accountBookId');
+  const accessToken = localStorage.getItem('accessToken');
+  if (accessToken) {
+    dispatch(setAccessToken(accessToken));
+    dispatch(setUserInfo(JSON.parse(localStorage.getItem('userInfo'))));
+  }
+
   return (
     <>
       <GlobalStyle />
-
+      {!accessToken && <Redirect to="/" />}
+      {accessToken && !cookie && <Redirect to="/account-book" />}
       <Switch>
         <Route exact path="/" component={LoginPage} />
-        <Route path="/account-book" component={AccountBookPage} />
-
-        <Route path="/analysis">
-          <Layout>
-            <Route component={AnalysisPage} />
-          </Layout>
-        </Route>
-
-        <Route exact path="/calendar">
-          <Layout>
-            <Route component={CalendarPage} />
-          </Layout>
-        </Route>
-
-        <Route exact path="/category">
-          <Layout>
-            <Route component={CategoryTagPage} />
-          </Layout>
-        </Route>
-
-        <Route path="/dashboard">
-          <Layout>
-            <Route component={DashboardPage} />
-          </Layout>
-        </Route>
-
-        <Route path="/payment-method/:id">
-          <Layout>
-            <Route component={PaymentDetailPage} />
-          </Layout>
-        </Route>
-
-        <Route path="/payment-method">
-          <Layout>
-            <Route component={PaymentMethodPage} />
-          </Layout>
-        </Route>
-
-        <Route path="/setting">
-          <Layout>
-            <Route component={SettingPage} />
-          </Layout>
-        </Route>
-
-        <Route path="/transaction">
-          <Layout>
-            <Route component={TransactionPage} />
-          </Layout>
-        </Route>
-
-        <Route>
-          <Layout>
+        <Route exact path="/account-book" component={AccountBookPage} />
+        <Layout>
+          <Switch>
+            <Route exact path="/analysis" component={AnalysisPage} />
+            <Route exact path="/calendar" component={CalendarPage} />
+            <Route exact path="/category" component={CategoryTagPage} />
+            <Route exact path="/dashboard" component={DashboardPage} />
+            <Route
+              exact
+              path="/payment-method/:id"
+              component={PaymentDetailPage}
+            />
+            <Route exact path="/payment-method" component={PaymentMethodPage} />
+            <Route exact path="/setting" component={SettingPage} />
+            <Route exact path="/transaction" component={TransactionPage} />
             <Route component={NotFoundPage} />
-          </Layout>
-        </Route>
+          </Switch>
+        </Layout>
       </Switch>
     </>
   );

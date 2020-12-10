@@ -6,13 +6,18 @@ const CardFormContainer = styled.li`
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: white;
+  background-color: #fdfdfd;
   color: black;
   margin-bottom: 0.5em;
   padding: 0.2em 0;
   border-radius: 1em;
-  box-shadow: 6px 6px 8px 0px;
+  border: 1px solid whitesmoke;
+  box-shadow: 6px 6px 8px 0px rgba(226, 226, 226, 1);
   max-width: 30rem;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const Avatar = styled.img`
@@ -37,6 +42,7 @@ const Info = styled.div`
 const Name = styled.h1`
   font-size: 1.2rem;
 `;
+
 const Email = styled.p`
   margin-bottom: 1em;
 
@@ -45,13 +51,32 @@ const Email = styled.p`
     display: block;
     width: 90%;
     height: 2px;
-    background-color: #95e1d3;
+    background-color: #3fc1c9;
     transform: translateY(0.5em);
   }
 `;
+
+const MasterEmail = styled.p`
+  margin-bottom: 1em;
+
+  &:after {
+    content: '';
+    display: block;
+    width: 90%;
+    height: 2px;
+    background-color: #fc5185;
+    transform: translateY(0.5em);
+  }
+`;
+
 const SubInfo = styled.p``;
 
-const CardForm = ({ userInfo }) => {
+const Master = styled.span`
+  margin-left: 10px;
+  color: #fc5185;
+`;
+
+const CardForm = ({ userInfo, index }) => {
   const {
     email,
     provider,
@@ -66,8 +91,15 @@ const CardForm = ({ userInfo }) => {
     <CardFormContainer>
       <Avatar src={url} alt="profile photo" />
       <Info>
-        <Name>{name}</Name>
-        <Email>{email}</Email>
+        <Name>
+          {name}
+          {index === 0 ? <Master>🔥 가계부 Master 🔥</Master> : <></>}
+        </Name>
+        {index === 0 ? (
+          <MasterEmail>{email}</MasterEmail>
+        ) : (
+          <Email>{email}</Email>
+        )}
         <SubInfo>소셜 로그인: {provider}</SubInfo>
         <SubInfo>달력 시작 요일: {startDateOfMonth}일</SubInfo>
         <SubInfo>달력 시작일: {startDayOfWeek}</SubInfo>

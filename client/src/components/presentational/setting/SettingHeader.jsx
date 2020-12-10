@@ -33,7 +33,7 @@ const SettingHeader = ({ userInfo, onLogout }) => {
     <HeaderContainer>
       <Logout>
         <Button variant="outlined" onClick={onLogout}>
-          로그아웃 😥
+          로그아웃
         </Button>
       </Logout>
       <ItemContainer>

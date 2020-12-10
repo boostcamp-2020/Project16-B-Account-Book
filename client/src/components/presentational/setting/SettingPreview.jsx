@@ -3,7 +3,6 @@ import CardForm from './form/CardForm';
 
 const Preview = styled.section`
   flex-basis: 50%;
-  /* background-color: #95e1d3; */
 `;
 
 const Title = styled.h1`
@@ -27,7 +26,7 @@ const SettingPreview = ({ usersInfo }) => {
       <Title>가계부 Member 🙈</Title>
       <Cards>
         {usersInfo.map((user, index) => (
-          <CardForm key={'settingUser' + index} userInfo={user} />
+          <CardForm key={'settingUser' + index} userInfo={user} index={index} />
         ))}
       </Cards>
     </Preview>

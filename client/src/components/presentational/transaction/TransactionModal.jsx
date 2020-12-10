@@ -25,6 +25,7 @@ const TransactionModal = ({
   insertTransaction,
   updateTransactionHandler,
   editIdStatus,
+  setEditIdStatus,
   handleCancel,
   tags,
   paymentMethods,
@@ -33,6 +34,7 @@ const TransactionModal = ({
 
   const handleClose = () => {
     setOpenModalStatus(false);
+    setEditIdStatus('');
   };
 
   return (

@@ -14,7 +14,7 @@ router.get('/', tokenValidator, (ctx) => {
 });
 
 router.use('/user', userRouter.routes());
-router.use('/payment', paymentRouter.routes());
+router.use('/payment', tokenValidator, paymentRouter.routes());
 router.use('/transaction', transactionRouter.routes());
 router.use('/category', categoryRouter.routes());
 router.use('/accountBook', tokenValidator, accountBookRouter.routes());

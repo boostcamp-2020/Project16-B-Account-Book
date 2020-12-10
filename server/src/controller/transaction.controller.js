@@ -1,21 +1,6 @@
 const transactionService = require('../service/transaction.service');
 
 const transactionController = {
-  getUserTransactions: async (ctx) => {
-    try {
-      //개발용
-      const userId = ctx.request.userInfo?.userId || '5fc75fa3d69e8b4e1f3313ac';
-
-      const transactions = await transactionService.getUserTransactions({
-        userId,
-      });
-
-      ctx.body = transactions;
-    } catch (err) {
-      ctx.throw(err.code, err);
-    }
-  },
-
   getTransactions: async (ctx) => {
     try {
       const { accountBookId } = ctx.request.params;
@@ -23,7 +8,18 @@ const transactionController = {
       const transactions = await transactionService.getTransactions({
         accountBookId,
       });
-
+      ctx.body = transactions;
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
+  
+  getAccountBookTransactions: async (ctx) => {
+    try {
+      const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
+      const transactions = await transactionService.getAccountBookTransactions({
+        accountBookId,
+      });
       ctx.body = transactions;
     } catch (err) {
       ctx.throw(err.code, err);
@@ -51,8 +47,7 @@ const transactionController = {
     try {
       //개발용
       const userId = ctx.request.userInfo?.userId || '5fc75fa3d69e8b4e1f3313ac';
-      const accountBookId = '5fc713abd120a78e5c18216d';
-      // const { userId } = ctx.request.userInfo;
+      const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
 
       const result = await transactionService.addTransaction({
         userId,
@@ -69,14 +64,12 @@ const transactionController = {
   updateTransaction: async (ctx) => {
     try {
       const transactionInfo = ctx.request.body;
-      console.log(transactionInfo);
       const transactions = await transactionService.updateTransaction(
         transactionInfo
       );
 
       ctx.body = transactions;
-    } catch (err) {
-      //ctx.body = 'error';
+    } catch (err) {      
       ctx.throw(err.code, err);
     }
   },
@@ -84,7 +77,7 @@ const transactionController = {
   deleteTransaction: async (ctx) => {
     try {
       const { transactionIds } = ctx.request.body;
-
+      
       const transactions = await transactionService.deleteTransaction({
         ids: transactionIds,
       });

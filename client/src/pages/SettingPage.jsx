@@ -1,7 +1,11 @@
-import React from 'react';
+import SettingContainer from '../components/containers/SettingContainer';
 
 const SettingPage = () => {
-  return <div>SettingPage</div>;
+  return (
+    <>
+      <SettingContainer />
+    </>
+  );
 };
 
 export default SettingPage;

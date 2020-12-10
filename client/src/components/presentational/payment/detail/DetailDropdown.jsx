@@ -16,6 +16,7 @@ const PaymentApp = styled.div`
   width: 50vw;
   justify-content: center;
   margin-bottom: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 const DetailDropdown = ({ setYear, setMonth }) => {
@@ -41,12 +42,10 @@ const DetailDropdown = ({ setYear, setMonth }) => {
   return (
     <PaymentApp>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-autowidth-label">
-          카드 사용 년/월
-        </InputLabel>
+        <InputLabel id="select-autowidth-label">카드 사용 년/월</InputLabel>
         <Select
-          labelId="demo-simple-select-autowidth-label"
-          id="demo-simple-select-autowidth"
+          labelId="select-autowidth-label"
+          id="select-autowidth"
           value={date}
           onChange={handleChange}
           autoWidth

@@ -11,8 +11,8 @@ const TransactionInputForm = ({
   updateTransactionHandler,
   editIdStatus,
   handleCancel,
-  paymentMethods,
-  tags,
+  paymentMethods = [],
+  tags = [],
 }) => {
   const categoryInput = useRef();
   const paymentMethodInput = useRef();
@@ -22,6 +22,7 @@ const TransactionInputForm = ({
   const descriptionInput = useRef();
   const tagInput = useRef();
   const ImageURLInput = useRef();
+  const typeInput = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,6 +43,7 @@ const TransactionInputForm = ({
       category: categoryInput.current.value,
       paymentMethod: paymentMethodInput.current.value,
       cost: costInput.current.value,
+      type: typeInput.current.value,
       date: ISODate,
       description: descriptionInput.current.value,
       tag: [tagInput.current.value],
@@ -53,12 +55,31 @@ const TransactionInputForm = ({
     categoryInput.current.value = transaction.category || '';
     paymentMethodInput.current.value = transaction.paymentMethod || '';
     costInput.current.value = transaction.cost || '';
-    dateInput.current.value =
-      `${transaction.year}-${transaction.month}-${transaction.day}` || '';
-    timeInput.current.value = transaction.time || '';
+    typeInput.current.value = transaction.type || '지출';
+    dateInput.current.value = getDate(transaction);
+    timeInput.current.value = getTime(transaction);
     descriptionInput.current.value = transaction.description || '';
     tagInput.current.value = transaction?.tag || '';
     ImageURLInput.current.value = transaction.imageURL || '';
+  };
+
+  const getDate = (transaction) => {
+    if (transaction.date) {
+      return `${transaction.year}-${transaction.month}-${transaction.day}`;
+    }
+    const date = new Date();
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  };
+
+  const getTime = (transaction) => {
+    if (transaction.date) {
+      return transaction.time;
+    }
+    const date = new Date();
+    const hour = date.getHours().toString().padStart(2, '0');
+    const minute = date.getMinutes().toString().padStart(2, '0');
+    const second = date.getSeconds().toString().padStart(2, '0');
+    return `${hour}:${minute}:${second}`;
   };
 
   useLayoutEffect(() => {
@@ -73,19 +94,28 @@ const TransactionInputForm = ({
           category:
           <input type="text" name="name" ref={categoryInput} />
         </label>
-        <label>paymentMethod:</label>
-        <select ref={paymentMethodInput}>
-          {paymentMethods.map((paymentMethod, i) => {
-            return (
-              <Fragment key={`paymentMethod-${i}`}>
-                <option value={paymentMethod}>{paymentMethod}</option>
-              </Fragment>
-            );
-          })}
-        </select>
+        <label>
+          paymentMethod:
+          <select ref={paymentMethodInput}>
+            {paymentMethods.map((paymentMethod, i) => {
+              return (
+                <Fragment key={`paymentMethod-${i}`}>
+                  <option value={paymentMethod}>{paymentMethod}</option>
+                </Fragment>
+              );
+            })}
+          </select>
+        </label>
         <label>
           cost:
           <input type="text" name="name" ref={costInput} />
+        </label>
+        <label>
+          수입/지출:
+          <select ref={typeInput}>
+            <option value={'지출'}>지출</option>
+            <option value={'수입'}>수입</option>
+          </select>
         </label>
         <label>
           date:
@@ -99,16 +129,18 @@ const TransactionInputForm = ({
           description:
           <input type="text" name="name" ref={descriptionInput} />
         </label>
-        <label>tag:</label>
-        <select ref={tagInput}>
-          {tags.map((tag, i) => {
-            return (
-              <Fragment key={`tag-${i}`}>
-                <option value={tag}>{tag}</option>
-              </Fragment>
-            );
-          })}
-        </select>
+        <label>
+          tag:
+          <select ref={tagInput}>
+            {tags.map((tag, i) => {
+              return (
+                <Fragment key={`tag-${i}`}>
+                  <option value={tag}>{tag}</option>
+                </Fragment>
+              );
+            })}
+          </select>
+        </label>
         <label>
           imageURL:
           <input type="text" name="name" ref={ImageURLInput} />

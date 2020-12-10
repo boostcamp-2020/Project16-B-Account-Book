@@ -29,6 +29,8 @@ import {
   updatePayment,
 } from '@service/paymentAPI';
 
+import { getUserInfo } from '@service/userAPI';
+
 import { tempTransactionData } from './tempData';
 
 const { actions, reducer } = createSlice({
@@ -43,6 +45,7 @@ const { actions, reducer } = createSlice({
     tags: [],
     accountBooks: [],
     accountBookId: '',
+    userInfo: { name: '', ImageURL: '' },
     selectedDate: {
       year: new Date().getFullYear(),
       month: new Date().getMonth() + 1,
@@ -55,6 +58,7 @@ const { actions, reducer } = createSlice({
       day: new Date().getUTCDay(),
     },
     calendarTransactions: [],
+    UserSettingsInfo: [],
   },
   reducers: {
     setTest(state, { payload: test }) {
@@ -132,7 +136,6 @@ const { actions, reducer } = createSlice({
         ...selectedDate,
       };
     },
-
     setCalendarInfo(state, { payload: calendarInfo }) {
       return {
         ...state,
@@ -144,6 +147,21 @@ const { actions, reducer } = createSlice({
         ...state,
         calendarTransactions,
       };
+    },
+    setUserSettingsInfo(state, { payload: UserSettingsInfo }) {
+      return {
+        ...state,
+        UserSettingsInfo,
+      };
+    },
+    setUserInfo(state, { payload: userInfo }) {
+      return {
+        ...state,
+        userInfo,
+      };
+    },
+    reset() {
+      return { state: {} };
     },
   },
 });
@@ -158,12 +176,15 @@ export const {
   setAccountBook,
   setTransactions,
   setAccountBookTransactions,
+  setUserInfo,
   insertTransactions,
   setDate,
   setCalendarInfo,
   setCalendarTransactions,
   setPaymentMethods,
   setCategories,
+  setUserSettingsInfo,
+  reset,
 } = actions;
 
 export const loader = ({ test }) => {
@@ -176,16 +197,23 @@ export const loader = ({ test }) => {
 export function login({ code, state }) {
   return async (dispatch) => {
     let accessToken;
+    let userInfo;
 
     if (code && state === 'naver') {
-      accessToken = await postLoginNaver(code);
+      const result = await postLoginNaver(code);
+      accessToken = result.token;
+      userInfo = result.userInfo;
     }
     if (code && !state) {
-      accessToken = await postLoginGithub(code);
+      const result = await postLoginGithub(code);
+      accessToken = result.token;
+      userInfo = result.userInfo;
     }
 
     localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
     dispatch(setAccessToken(accessToken));
+    dispatch(setUserInfo(userInfo));
   };
 }
 
@@ -357,8 +385,14 @@ export const updateDate = ({ date }) => {
 export const loadCalendarTransactions = (year, month) => {
   return async (dispatch) => {
     const transactions = await getCalendarTransactions(year, month);
-    //alert(JSON.stringify(transactions));
     dispatch(setCalendarTransactions(transactions));
+  };
+};
+
+export const loadUserInfo = () => {
+  return async (dispatch) => {
+    const UserSettingsInfo = await getUserInfo();
+    dispatch(setUserSettingsInfo(UserSettingsInfo));
   };
 };
 

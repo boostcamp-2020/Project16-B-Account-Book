@@ -36,6 +36,8 @@ const icon = {
   ),
   edit: <BiIcons.BiPencil size={14} />,
   save: <BiIcons.BiSave size={14} />,
+  leftArrow: <BiIcons.BiLeftArrow size={15} />,
+  rightArrow: <BiIcons.BiRightArrow size={15} />,
 };
 
 export default icon;

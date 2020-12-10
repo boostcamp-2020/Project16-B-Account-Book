@@ -4,14 +4,14 @@ const ObjectId = mongoose.Types.ObjectId;
 const TransactionModel = require('../model/transaction.model');
 
 const transactionService = {
-  getUserTransactions: async ({ userId }) => {
+  getTransactions: async ({ accountBookId }) => {
     const transactions = await TransactionModel.find({
-      userId: userId,
+      accountBookId,
     });
     return transactions;
   },
 
-  getTransactions: async ({ accountBookId }) => {
+  getAccountBookTransactions: async ({ accountBookId }) => {
     const transactions = await TransactionModel.find({
       accountBookId,
     });

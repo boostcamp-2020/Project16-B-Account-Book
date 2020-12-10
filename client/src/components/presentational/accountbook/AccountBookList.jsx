@@ -5,15 +5,26 @@ import { generateRandomColor, getContrastYIQ } from '@util/color';
 
 const AccountBookWrapper = styled.div`
   width: 100%;
-  float: right;
   position: relative;
-  left: -50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Header = styled.div`
+  position: relative;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 50%;
+  font-size: 3rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
 `;
 
 const AccountBookUl = styled.ul`
   list-style-type: none;
+  margin-left: 5rem;
   position: relative;
-  left: 55%;
 `;
 
 const AccountBookList = ({
@@ -44,6 +55,7 @@ const AccountBookList = ({
   return (
     <>
       <AccountBookWrapper>
+        <Header>가계부를 선택해주세요📚</Header>
         <AccountBookUl>{list}</AccountBookUl>
       </AccountBookWrapper>
     </>

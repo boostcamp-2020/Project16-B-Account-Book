@@ -1,7 +1,9 @@
 import React from 'react';
 
+import AnalysisContainer from '../components/containers/AnalysisContainer';
+
 const AnalysisPage = () => {
-  return <div>AnalysisPage</div>;
+  return <AnalysisContainer />;
 };
 
 export default AnalysisPage;

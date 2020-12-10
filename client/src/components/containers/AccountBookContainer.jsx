@@ -24,13 +24,14 @@ const AddAccountBookBtn = styled.div`
   border: none;
   outline: none;
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: 5%;
+  right: 6%;
   transition: transform 250ms ease-in;
   &:hover {
     cursor: pointer;
     transform: scale(1.05);
   }
+  z-index: 3;
 `;
 
 const AccountBookContainerWrapper = styled.div`

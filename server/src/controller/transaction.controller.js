@@ -1,21 +1,19 @@
 const transactionService = require('../service/transaction.service');
 
 const transactionController = {
-  getUserTransactions: async (ctx) => {
+  getTransactions: async (ctx) => {
     try {
-      //개발용
-      const userId = ctx.request.userInfo?.userId || '5fc75fa3d69e8b4e1f3313ac';
+      const { accountBookId } = ctx.request.params;
 
-      const transactions = await transactionService.getUserTransactions({
-        userId,
+      const transactions = await transactionService.getTransactions({
+        accountBookId,
       });
-
       ctx.body = transactions;
     } catch (err) {
       ctx.throw(err.code, err);
     }
   },
-
+  
   getAccountBookTransactions: async (ctx) => {
     try {
       const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
@@ -66,14 +64,12 @@ const transactionController = {
   updateTransaction: async (ctx) => {
     try {
       const transactionInfo = ctx.request.body;
-      console.log(transactionInfo);
       const transactions = await transactionService.updateTransaction(
         transactionInfo
       );
 
       ctx.body = transactions;
-    } catch (err) {
-      //ctx.body = 'error';
+    } catch (err) {      
       ctx.throw(err.code, err);
     }
   },
@@ -81,7 +77,7 @@ const transactionController = {
   deleteTransaction: async (ctx) => {
     try {
       const { transactionIds } = ctx.request.body;
-
+      
       const transactions = await transactionService.deleteTransaction({
         ids: transactionIds,
       });

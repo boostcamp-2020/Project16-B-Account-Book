@@ -14,14 +14,15 @@ const UserController = {
       ctx.body = 'error';
     }
   },
-  update: async (ctx) => {
+  updateUser: async (ctx) => {
     try {
-      const data = ctx.request.body;
-      console.log(data);
+      const { userInfo } = ctx.request.body;
+      const token = ctx.header.authorization.replace(/Bearer /, '');
+      const updateInfo = await userService.updateUser(token, userInfo);
 
-      ctx.body = `GOOOOD  ${ctx.request.url} ${ctx.response.status}`;
+      ctx.body = updateInfo;
     } catch (err) {
-      ctx.body = 'error';
+      ctx.throw(err.code, err);
     }
   },
   login: async (ctx) => {

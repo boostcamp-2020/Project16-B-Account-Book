@@ -76,6 +76,24 @@ const UserService = {
       msg: '요청하신 token을 다시 확인해주세요.',
     });
   },
+
+  updateUser: async (token, userInfo) => {
+    const tokenInfo = JWTTokenUtil.verifyToken(token);
+
+    const updateUser = await UserModel.updateOne(
+      { _id: tokenInfo.data },
+      { $set: userInfo }
+    );
+
+    if (updateUser) {
+      return updateUser;
+    }
+
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '요청하신 token을 다시 확인해주세요.',
+    });
+  },
 };
 
 module.exports = UserService;

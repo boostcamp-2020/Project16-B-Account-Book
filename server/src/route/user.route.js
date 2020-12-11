@@ -6,7 +6,8 @@ const userController = require('../controller/user.controller');
 
 router.get('/', userController.test);
 router.get('/info', userController.getUser);
-router.post('/', userController.update);
+router.get('/accountBook', userController.getAccountBookUsers);
+router.post('/', userController.updateUser);
 router.post('/githublogin', githubOAuth, userController.login);
 router.post('/naverlogin', naverOAuth, userController.login);
 

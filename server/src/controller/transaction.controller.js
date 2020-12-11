@@ -29,7 +29,7 @@ const transactionController = {
   getCalendarTransactions: async (ctx) => {
     try {
       const { year, month } = ctx.request.params;
-      const { accountbookid: accountBookId } = ctx.request.header;
+      const accountBookId = ctx.header.cookie.replace(/accountBookId=/, '');
 
       const transactions = await transactionService.getCalendarTransactions({
         accountBookId,

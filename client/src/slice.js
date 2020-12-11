@@ -29,7 +29,11 @@ import {
   updatePayment,
 } from '@service/paymentAPI';
 
-import { getUserInfo } from '@service/userAPI';
+import {
+  getUserInfo,
+  getUsersByAccountBook,
+  updateUserInfo,
+} from '@service/userAPI';
 
 import { tempTransactionData } from './tempData';
 
@@ -58,7 +62,8 @@ const { actions, reducer } = createSlice({
       day: new Date().getDay(),
     },
     calendarTransactions: [],
-    UserSettingsInfo: [],
+    userSettingsInfo: [],
+    allUsersInfo: [],
   },
   reducers: {
     setTest(state, { payload: test }) {
@@ -148,16 +153,22 @@ const { actions, reducer } = createSlice({
         calendarTransactions,
       };
     },
-    setUserSettingsInfo(state, { payload: UserSettingsInfo }) {
+    setUserSettingsInfo(state, { payload: userSettingsInfo }) {
       return {
         ...state,
-        UserSettingsInfo,
+        userSettingsInfo,
       };
     },
     setUserInfo(state, { payload: userInfo }) {
       return {
         ...state,
         userInfo,
+      };
+    },
+    setUsersInfo(state, { payload: allUsersInfo }) {
+      return {
+        ...state,
+        allUsersInfo,
       };
     },
     reset() {
@@ -183,6 +194,7 @@ export const {
   setCalendarTransactions,
   setPaymentMethods,
   setCategories,
+  setUsersInfo,
   setUserSettingsInfo,
   reset,
 } = actions;
@@ -391,8 +403,22 @@ export const loadCalendarTransactions = (year, month) => {
 
 export const loadUserInfo = () => {
   return async (dispatch) => {
-    const UserSettingsInfo = await getUserInfo();
-    dispatch(setUserSettingsInfo(UserSettingsInfo));
+    const userSettingsInfo = await getUserInfo();
+    dispatch(setUserSettingsInfo(userSettingsInfo));
+  };
+};
+
+export const loadAllUsersInfo = () => {
+  return async (dispatch) => {
+    const usersInfo = await getUsersByAccountBook();
+    dispatch(setUsersInfo(usersInfo));
+  };
+};
+
+export const changeUserInfo = (userInfo) => {
+  return async (dispatch) => {
+    await updateUserInfo(userInfo);
+    dispatch(loadAllUsersInfo());
   };
 };
 

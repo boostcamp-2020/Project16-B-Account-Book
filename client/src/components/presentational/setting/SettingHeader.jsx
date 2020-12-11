@@ -3,10 +3,10 @@ import Button from '@material-ui/core/Button';
 
 const HeaderContainer = styled.header`
   width: 100%;
+  padding: 0.7em;
   text-align: center;
-  padding: 0.5em;
   position: relative;
-  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #95e1d3;
 `;
 
 const Logout = styled.div`
@@ -17,11 +17,14 @@ const Logout = styled.div`
 
 const ItemContainer = styled.div`
   font-size: 1.3rem;
+  margin-top: 15px;
+  margin-bottom: 15px;
 
   img {
     margin-left: 10px;
     margin-right: 8px;
-    border-radius: 50% !important;
+    margin-bottom: 5px;
+    border-radius: 50%;
     width: 100px;
     height: 100px;
     object-fit: cover;
@@ -33,7 +36,7 @@ const SettingHeader = ({ userInfo, onLogout }) => {
     <HeaderContainer>
       <Logout>
         <Button variant="outlined" onClick={onLogout}>
-          로그아웃 😥
+          로그아웃
         </Button>
       </Logout>
       <ItemContainer>

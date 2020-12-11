@@ -1,6 +1,11 @@
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+
 const newError = require('../util/error');
-const UserModel = require('../model/user.model');
 const JWTTokenUtil = require('../util/jwtToken.util');
+
+const UserModel = require('../model/user.model');
+const AccountBookModel = require('../model/accountBook.model');
 
 const UserService = {
   test: async (data) => {
@@ -43,6 +48,45 @@ const UserService = {
 
     if (userInfo) {
       return userInfo;
+    }
+
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '요청하신 token을 다시 확인해주세요.',
+    });
+  },
+
+  getAccountBookUsers: async (accountBookId) => {
+    const { authorizedUsers } = await AccountBookModel.findOne({
+      _id: accountBookId,
+    });
+
+    let usersList = [];
+
+    for (let userId of authorizedUsers) {
+      usersList.push(await UserModel.findOne({ _id: ObjectId(userId) }));
+    }
+
+    if (usersList) {
+      return usersList;
+    }
+
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '요청하신 token을 다시 확인해주세요.',
+    });
+  },
+
+  updateUser: async (token, userInfo) => {
+    const tokenInfo = JWTTokenUtil.verifyToken(token);
+
+    const updateUser = await UserModel.updateOne(
+      { _id: tokenInfo.data },
+      { $set: userInfo }
+    );
+
+    if (updateUser) {
+      return updateUser;
     }
 
     throw newError({

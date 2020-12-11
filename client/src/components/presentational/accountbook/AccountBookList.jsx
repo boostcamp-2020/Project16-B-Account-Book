@@ -17,7 +17,6 @@ const Header = styled.div`
   margin-bottom: 1rem;
   width: 50%;
   font-size: 3rem;
-  font-family: 'Noto Sans KR', sans-serif;
   text-align: center;
 `;
 

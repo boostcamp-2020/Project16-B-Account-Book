@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import CardEditForm from './form/CardEditForm';
 
 const Editor = styled.section`
   flex-basis: 50%;
-  background-color: #eaffd0;
+  border-right: 1px solid lightgray;
+  padding: 0.5em 2em;
 `;
 
 const Title = styled.h1`
@@ -11,10 +13,19 @@ const Title = styled.h1`
   margin-bottom: 1em;
 `;
 
-const SettingEditor = () => {
+const SettingEditor = ({ userInfo, updateUserInfo, onChange }) => {
   return (
     <Editor>
-      <Title>설정</Title>
+      <Title>내 정보 💗</Title>
+      {userInfo !== [] ? (
+        <CardEditForm
+          userInfo={userInfo}
+          updateUserInfo={updateUserInfo}
+          onChange={onChange}
+        />
+      ) : (
+        <></>
+      )}
     </Editor>
   );
 };

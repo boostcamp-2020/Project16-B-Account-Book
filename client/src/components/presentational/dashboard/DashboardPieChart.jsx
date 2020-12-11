@@ -29,6 +29,9 @@ const renderLabelContent = (props) => {
 const parseData = (transactions) => {
   return transactions
     .reduce((acc, cur) => {
+      if (cur.type === '수입') {
+        return acc;
+      }
       const index = acc.findIndex((item) => item.name === cur.category);
       if (acc[index]) {
         acc[index].value += cur.cost;

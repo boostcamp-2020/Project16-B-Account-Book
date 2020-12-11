@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import icon from '@public/icon';
+import csvDataParser from '@util/csvDataParser';
+import csvDataToTransaction from '@util/csvDataToTransaction';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,9 +40,16 @@ const TransactionFab = ({
   setOpenModalStatus,
   setDeleteStatus,
   setParserStatus,
+  setBulkInsert,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+
+  const inputRef = useRef();
+
+  const handleFileUploadClick = () => {
+    inputRef.current.click();
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -50,6 +58,17 @@ const TransactionFab = ({
   const handleOpen = () => {
     setOpen(true);
   };
+
+  const handleFiles = (e) => {
+    const reader = new FileReader();
+    reader.onload = handleFileLoad;
+    reader.readAsText(e.target.files[0]);
+    inputRef.current.value = '';
+  };
+
+  function handleFileLoad(e) {
+    setBulkInsert(csvDataToTransaction(csvDataParser(e.target.result)));
+  }
 
   const actions = [
     {
@@ -68,10 +87,18 @@ const TransactionFab = ({
     },
     {
       icon: icon.message,
-      name: 'Message',
+      name: 'Upload sms/mms text',
       handleClick: () => {
         setOpenModalStatus(true);
         setParserStatus(true);
+      },
+    },
+    {
+      icon: icon.spreadsheet,
+      name: 'Upload csv file',
+      handleClick: () => {
+        handleFileUploadClick();
+        setOpenModalStatus(true);
       },
     },
   ];
@@ -97,6 +124,13 @@ const TransactionFab = ({
               onClick={action.handleClick}
             />
           ))}
+          <input
+            style={{ display: 'none' }}
+            ref={inputRef}
+            accept=".csv"
+            type="file"
+            onChange={handleFiles}
+          />
         </SpeedDial>
       </div>
     </div>

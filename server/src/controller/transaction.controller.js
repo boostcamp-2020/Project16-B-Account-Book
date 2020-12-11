@@ -29,7 +29,7 @@ const transactionController = {
   getCalendarTransactions: async (ctx) => {
     try {
       const { year, month } = ctx.request.params;
-      const { accountbookid: accountBookId } = ctx.request.header;
+      const accountBookId = ctx.header.cookie.replace(/accountBookId=/, '');
 
       const transactions = await transactionService.getCalendarTransactions({
         accountBookId,
@@ -47,11 +47,11 @@ const transactionController = {
     try {
       const userId = ctx.request.userInfo?.userId;
       const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
-
+      const { transactions } = ctx.request.body;
       const result = await transactionService.addTransaction({
         userId,
         accountBookId,
-        ...ctx.request.body,
+        transactions,
       });
 
       ctx.body = result;

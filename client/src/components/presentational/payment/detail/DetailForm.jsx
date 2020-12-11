@@ -17,7 +17,6 @@ const PaymentDetail = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 50vw;
-  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 const NoContents = styled.div`

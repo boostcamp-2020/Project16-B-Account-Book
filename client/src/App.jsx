@@ -20,9 +20,10 @@ import { getCookie } from '@util/cookie';
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background: #ffffff;
     margin: 0;
     padding: 0;
+    background: #ffffff;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 `;
 

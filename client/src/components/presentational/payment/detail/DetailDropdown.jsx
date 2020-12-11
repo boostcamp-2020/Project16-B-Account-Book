@@ -16,7 +16,6 @@ const PaymentApp = styled.div`
   width: 50vw;
   justify-content: center;
   margin-bottom: 15px;
-  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 const DetailDropdown = ({ setYear, setMonth }) => {

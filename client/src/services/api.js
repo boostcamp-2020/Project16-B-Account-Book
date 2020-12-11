@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { axiosAPI, getOptions } from '../../util/axios';
+import { axiosAPI } from '../../util/axios';
 import { getCookie } from '../../util/cookie';
 
 const API_URL = process.env.API_URL;
@@ -62,18 +62,15 @@ export async function getTransactionsByAccountBookId() {
 
 export async function getCalendarTransactions(year, month) {
   const url = `${API_URL}/transaction/${year}/${month}`;
-
-  const { data } = await axios(getOptions(url));
+  const { data } = await axiosAPI(url, 'GET');
 
   return data;
 }
 
-export async function postTransaction({ transaction }) {
-  const { data } = await axiosAPI(
-    `${API_URL}/transaction`,
-    'POST',
-    transaction
-  );
+export async function postTransaction({ transactions }) {
+  const { data } = await axiosAPI(`${API_URL}/transaction`, 'POST', {
+    transactions,
+  });
 
   return data;
 }

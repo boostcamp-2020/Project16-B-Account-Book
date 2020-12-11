@@ -6,6 +6,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as GiIcons from 'react-icons/gi';
 import * as MdIcons from 'react-icons/md';
 import * as FcIcons from 'react-icons/fc';
+import * as BsIcons from 'react-icons/bs';
 
 const icon = {
   meal: <GiIcons.GiMeal size={15} />,
@@ -39,6 +40,7 @@ const icon = {
   leftArrow: <BiIcons.BiLeftArrow size={15} />,
   rightArrow: <BiIcons.BiRightArrow size={15} />,
   message: <BiIcons.BiMessageAdd size={15} />,
+  spreadsheet: <BsIcons.BsFileSpreadsheet size={15} />,
   one: (
     <svg width="20px" height="16px" viewBox="0 0 785.000000 1280.000000">
       <g

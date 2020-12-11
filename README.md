@@ -9,7 +9,7 @@
 
 ## 💫 배포 주소
 
-- http://piggybook.kro.kr:8080/
+- http://piggybook.kro.kr/
 
 <br />
 

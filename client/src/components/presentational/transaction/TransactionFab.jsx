@@ -124,14 +124,14 @@ const TransactionFab = ({
               onClick={action.handleClick}
             />
           ))}
-          <input
-            style={{ display: 'none' }}
-            ref={inputRef}
-            accept=".csv"
-            type="file"
-            onChange={handleFiles}
-          />
         </SpeedDial>
+        <input
+          style={{ display: 'none' }}
+          ref={inputRef}
+          accept=".csv"
+          type="file"
+          onChange={handleFiles}
+        />
       </div>
     </div>
   );

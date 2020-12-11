@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const dbURL = process.env.MONGO_URI;
+const dbURL = process.env.MONGO_URL;
 
-module.exports = function () {
+module.exports = () => {
   const db = mongoose.connection;
   db.on('error', console.error);
   db.once('open', function () {

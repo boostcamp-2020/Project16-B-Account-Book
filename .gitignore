@@ -4,3 +4,6 @@ dist
 
 # file
 .env
+.env.development
+.env.production
+.env.test

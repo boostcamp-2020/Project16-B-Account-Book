@@ -9,10 +9,13 @@ const userSchema = new Schema({
   providerId: String,
   startDayOfWeek: { type: String, default: 'Sun' },
   startDateOfMonth: { type: Number, default: 1 },
-  imageURL: String,
+  imageURL: {
+    type: String,
+    default: 'https://simpleicon.com/wp-content/uploads/user1.svg',
+  },
   createAt: { type: Date, default: Date.now },
-  paymentMethod: [String],
-  tag: [String],
+  paymentMethod: { type: [String], default: [] },
+  tag: { type: [String], default: [] },
 });
 
 module.exports = mongoose.model('user', userSchema);

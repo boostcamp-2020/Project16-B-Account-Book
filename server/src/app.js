@@ -2,14 +2,18 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const cors = require('@koa/cors');
 const bodyParser = require('koa-bodyparser');
+const path = require('path');
 
 const indexRouter = require('./route/index');
 
-require('dotenv').config();
+require('dotenv').config({
+  path: path.join(__dirname, `../.env.${process.env.NODE_ENV}`),
+});
 require('./startup/db')();
 
 const corsOptions = {
   origin: process.env.CLIENT_URL,
+  credentials: true,
 };
 
 const app = new Koa();
@@ -25,6 +29,10 @@ app.on('error', (err) => {
   console.log('server error', err);
 });
 
-app.listen(port, () => {
-  console.log(`Listening to port ${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`Listening to port ${port}`);
+  });
+}
+
+module.exports = app;

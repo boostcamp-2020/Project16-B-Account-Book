@@ -67,12 +67,10 @@ export async function getCalendarTransactions(year, month) {
   return data;
 }
 
-export async function postTransaction({ transaction }) {
-  const { data } = await axiosAPI(
-    `${API_URL}/transaction`,
-    'POST',
-    transaction
-  );
+export async function postTransaction({ transactions }) {
+  const { data } = await axiosAPI(`${API_URL}/transaction`, 'POST', {
+    transactions,
+  });
 
   return data;
 }

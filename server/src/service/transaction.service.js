@@ -19,43 +19,38 @@ const transactionService = {
     return transactions;
   },
 
-  addTransaction: async ({
-    userId,
-    accountBookId,
-    category,
-    paymentMethod,
-    description,
-    imageURL,
-    cost,
-    tag,
-    date,
-  }) => {
+  addTransaction: async ({ userId, accountBookId, transactions }) => {
     const accountBook = await AccountBookModel.findOne({
       _id: accountBookId,
     });
+    transactions.forEach((transaction) => {
+      if (transaction.tag && !accountBook.tags.includes(transaction.tag)) {
+        accountBook.tags = [...accountBook.tags, ...transaction.tag];
+      }
 
-    if (tag[0] && !accountBook.tags.includes(tag[0])) {
-      accountBook.tags = [...accountBook.tags, ...tag];
-    }
-
-    if (paymentMethod && !accountBook.paymentMethod.includes(paymentMethod)) {
-      accountBook.paymentMethod = [...accountBook.paymentMethod, paymentMethod];
-    }
-
+      if (
+        transaction.paymentMethod &&
+        !accountBook.paymentMethod.includes(transaction.paymentMethod)
+      ) {
+        accountBook.paymentMethod = [
+          ...accountBook.paymentMethod,
+          transactionpaymentMethod,
+        ];
+      }
+    });
     await accountBook.save();
 
-    const transaction = new TransactionModel({
-      userId,
-      accountBookId,
-      category,
-      paymentMethod,
-      description,
-      imageURL,
-      cost,
-      tag,
-      date,
+    const mappedTransaction = transactions.map((transaction) => {
+      return {
+        ...transaction,
+        userId,
+        accountBookId,
+        date: new Date(transaction.date),
+        tag: transaction.tag || [],
+      };
     });
-    await transaction.save();
+
+    return await TransactionModel.insertMany(mappedTransaction);
   },
 
   getCalendarTransactions: async ({ accountBookId, year, month }) => {

@@ -24,7 +24,7 @@ const transactionService = {
       _id: accountBookId,
     });
     transactions.forEach((transaction) => {
-      if (transaction.tag && !accountBook.tags.includes(transaction.tag)) {
+      if (transaction.tag && !accountBook.tags.includes(transaction.tag[0])) {
         accountBook.tags = [...accountBook.tags, ...transaction.tag];
       }
 
@@ -34,7 +34,7 @@ const transactionService = {
       ) {
         accountBook.paymentMethod = [
           ...accountBook.paymentMethod,
-          transactionpaymentMethod,
+          transaction.paymentMethod,
         ];
       }
     });

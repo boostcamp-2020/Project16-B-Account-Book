@@ -33,6 +33,7 @@ import {
 import {
   getUserInfo,
   getUsersByAccountBook,
+  getInviteUsers,
   updateUserInfo,
 } from '@service/userAPI';
 
@@ -65,6 +66,7 @@ const { actions, reducer } = createSlice({
     calendarTransactions: [],
     userSettingsInfo: [{ _id: null }],
     allUsersInfo: [{ _id: null }],
+    inviteUsers: [],
   },
   reducers: {
     setTest(state, { payload: test }) {
@@ -172,6 +174,12 @@ const { actions, reducer } = createSlice({
         allUsersInfo,
       };
     },
+    setInviteUsers(state, { payload: inviteUsers }) {
+      return {
+        ...state,
+        inviteUsers,
+      };
+    },
     reset() {
       return { state: {} };
     },
@@ -197,6 +205,7 @@ export const {
   setCategories,
   setUsersInfo,
   setUserSettingsInfo,
+  setInviteUsers,
   reset,
 } = actions;
 
@@ -413,6 +422,13 @@ export const loadAllUsersInfo = () => {
   return async (dispatch) => {
     const usersInfo = await getUsersByAccountBook();
     dispatch(setUsersInfo(usersInfo));
+  };
+};
+
+export const loadInviteUsers = () => {
+  return async (dispatch) => {
+    const inviteUsers = await getInviteUsers();
+    dispatch(setInviteUsers(inviteUsers));
   };
 };
 

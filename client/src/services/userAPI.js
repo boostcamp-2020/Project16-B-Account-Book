@@ -16,6 +16,13 @@ export async function getUsersByAccountBook() {
   return data;
 }
 
+export async function getInviteUsers() {
+  const url = `${API_URL}/user/inviteUser`;
+  const { data } = await axiosAPI(url, 'GET');
+
+  return data;
+}
+
 export async function updateUserInfo(userInfo) {
   const { data } = await axiosAPI(`${API_URL}/user`, 'POST', {
     userInfo,

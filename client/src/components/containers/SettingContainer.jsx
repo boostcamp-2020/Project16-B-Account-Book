@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   loadUserInfo,
   loadAllUsersInfo,
+  loadInviteUsers,
   setUserSettingsInfo,
   changeUserInfo,
   reset,
@@ -38,8 +39,11 @@ const SettingContainer = () => {
   const [isMaster, setIsMaster] = useState(false);
   const userInfo = useSelector((state) => state.userSettingsInfo);
   const usersInfo = useSelector((state) => state.allUsersInfo);
+  const inviteUserList = useSelector((state) => state.inviteUsers);
 
   const compareInfo = () => {
+    setIsMaster(false);
+
     if (userInfo._id === usersInfo[0]._id) {
       setIsMaster(true);
     }
@@ -48,10 +52,12 @@ const SettingContainer = () => {
   useEffect(() => {
     dispatch(loadUserInfo());
     dispatch(loadAllUsersInfo());
+    dispatch(loadInviteUsers());
   }, []);
 
   useEffect(() => {
     compareInfo();
+    dispatch(loadInviteUsers());
   }, [usersInfo]);
 
   const updateUserInfo = (info) => {
@@ -60,6 +66,10 @@ const SettingContainer = () => {
 
   const onChange = (info) => {
     dispatch(setUserSettingsInfo(info));
+  };
+
+  const onInviteUser = (users) => {
+    // DB에 새로운 user 가계부에 추가해주기
   };
 
   const onLogout = () => {
@@ -80,6 +90,8 @@ const SettingContainer = () => {
           updateUserInfo={updateUserInfo}
           onChange={onChange}
           isMaster={isMaster}
+          onInviteUser={onInviteUser}
+          inviteUserList={inviteUserList}
         />
         <SettingPreview usersInfo={usersInfo} />
       </SubContainer>

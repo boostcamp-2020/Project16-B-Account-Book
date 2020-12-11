@@ -7,7 +7,6 @@ const UserController = {
       const testResult = await userService.test(data);
       if (testResult) {
         ctx.body = testResult;
-        // ctx.body = `GOOOOD  ${ctx.request.url} ${ctx.response.status} ${testResult}`;
         return;
       }
     } catch (err) {
@@ -19,7 +18,6 @@ const UserController = {
       const { userInfo } = ctx.request.body;
       const token = ctx.header.authorization.replace(/Bearer /, '');
       const updateInfo = await userService.updateUser(token, userInfo);
-
       ctx.body = updateInfo;
     } catch (err) {
       ctx.throw(err.code, err);

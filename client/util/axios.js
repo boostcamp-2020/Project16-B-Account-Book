@@ -16,7 +16,7 @@ export const axiosAPI = (url, method, body) => {
     },
     data: {
       ...body,
-      accountBookId: body?.accountBookId || getCookie('accountBookId'),
+      accountBookId: body?.accountBookId,
     },
   });
 };

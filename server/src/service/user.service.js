@@ -77,16 +77,34 @@ const UserService = {
     });
   },
 
-  updateUser: async (token, userInfo) => {
-    const tokenInfo = JWTTokenUtil.verifyToken(token);
-
+  updateUser: async (userInfo) => {
     const updateUser = await UserModel.updateOne(
-      { _id: tokenInfo.data },
+      { _id: userInfo._id },
       { $set: userInfo }
     );
 
     if (updateUser) {
       return updateUser;
+    }
+
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '요청하신 token을 다시 확인해주세요.',
+    });
+  },
+
+  getInviteUsers: async (accountBookId) => {
+    const allUsers = await UserModel.find();
+    const { authorizedUsers } = await AccountBookModel.findOne({
+      _id: accountBookId,
+    });
+
+    const InviteUsersList = allUsers.filter(
+      (user) => !authorizedUsers.includes(user._id)
+    );
+
+    if (InviteUsersList) {
+      return InviteUsersList;
     }
 
     throw newError({

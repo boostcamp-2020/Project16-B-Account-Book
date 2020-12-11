@@ -16,9 +16,6 @@ const UserController = {
   },
   update: async (ctx) => {
     try {
-      const data = ctx.request.body;
-      console.log(data);
-
       ctx.body = `GOOOOD  ${ctx.request.url} ${ctx.response.status}`;
     } catch (err) {
       ctx.body = 'error';

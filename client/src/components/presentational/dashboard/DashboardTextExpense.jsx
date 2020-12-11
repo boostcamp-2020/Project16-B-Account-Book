@@ -6,7 +6,7 @@ const StyledDiv = styled.div`
   width: fit-content;
   padding: 12px;
 `;
-//TODO: 그래프 css 수정 후 이 css도 다 다시 수정
+
 const Title = styled.div`
   font-size: 1.5vw;
 `;
@@ -63,33 +63,33 @@ const Underline = styled.div`
 
 const DashboardTextExpense = ({ transactions }) => {
   const [expenseStatus, setExpenseStatus] = useState(true);
-  const [profitStatus, setProfitStatus] = useState(false);
+  const [incomeStatus, setIncomeStatus] = useState(false);
   let total = 0;
   let expenseTotal = 0;
-  let profitTotal = 0;
+  let incomeTotal = 0;
 
   const handleOnClick = (e) => {
     if (e.target.innerText === '지출') {
       setExpenseStatus(true);
-      setProfitStatus(false);
+      setIncomeStatus(false);
       return;
     }
     setExpenseStatus(false);
-    setProfitStatus(true);
+    setIncomeStatus(true);
   };
 
+  console.log(transactions);
   const cardTransactions = transactions.map((transaction, i) => {
-    total += transaction.cost;
-    if (transaction.cost > 0) {
+    if (transaction.type === '지출') {
       expenseTotal += transaction.cost;
+      total -= transaction.cost;
     }
-    if (transaction.cost < 0) {
-      profitTotal += transaction.cost;
+    if (transaction.type === '수입') {
+      incomeTotal += transaction.cost;
+      total += transaction.cost;
+      return;
     }
-    // TODO/고민:
-    // 이걸 여기서 연산해도 되는지?
-    // profit이 양수? expense가 음수??
-    // 나중에 지출/수입 형태 결정되면 다시 수정하기
+
     return (
       <Info key={`card-transaction${i}`}>
         <SmallText>{transaction.paymentMethod}</SmallText>
@@ -106,7 +106,7 @@ const DashboardTextExpense = ({ transactions }) => {
           <Tab isActive={expenseStatus} onClick={handleOnClick}>
             <span>지출</span>
           </Tab>
-          <Tab isActive={profitStatus} onClick={handleOnClick}>
+          <Tab isActive={incomeStatus} onClick={handleOnClick}>
             수입
           </Tab>
         </Tabs>
@@ -114,16 +114,16 @@ const DashboardTextExpense = ({ transactions }) => {
           <Info>
             <SmallText>전체</SmallText>
             <span>
-              {expenseStatus && Number(total).toLocaleString()}
-              {profitStatus && '-' + Number(total).toLocaleString()}
+              {expenseStatus && Math.abs(Number(total)).toLocaleString()}
+              {incomeStatus && Number(total).toLocaleString()}
             </span>
           </Info>
           <Underline />
           {expenseStatus && cardTransactions}
-          {profitStatus && (
+          {incomeStatus && (
             <Info>
               <SmallText>수입</SmallText>
-              <span>{profitTotal.toLocaleString()}</span>
+              <span>{incomeTotal.toLocaleString()}</span>
               <SmallText>지출</SmallText>
               <span>-{expenseTotal.toLocaleString()}</span>
             </Info>

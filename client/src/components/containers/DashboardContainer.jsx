@@ -33,13 +33,17 @@ const DashboardContainer = () => {
 
   const transactionByCard = transactions.reduce((acc, cur) => {
     const index = acc.findIndex(
-      (item) => item.paymentMethod === cur.paymentMethod
+      (item) =>
+        item.paymentMethod === cur.paymentMethod && item.type === cur.type
     );
     if (acc[index]) {
       acc[index].cost += cur.cost;
       return acc;
     }
-    return [...acc, { paymentMethod: cur.paymentMethod, cost: cur.cost }];
+    return [
+      ...acc,
+      { paymentMethod: cur.paymentMethod, cost: cur.cost, type: cur.type },
+    ];
   }, []);
 
   return (

@@ -3,7 +3,7 @@ const transactionService = require('../service/transaction.service');
 const transactionController = {
   getTransactions: async (ctx) => {
     try {
-      const { accountBookId } = ctx.request.params;
+      const { accountBookId } = ctx.request.userInfo;
 
       const transactions = await transactionService.getTransactions({
         accountBookId,
@@ -16,7 +16,7 @@ const transactionController = {
 
   getAccountBookTransactions: async (ctx) => {
     try {
-      const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
+      const { accountBookId } = ctx.request.userInfo;
       const transactions = await transactionService.getAccountBookTransactions({
         accountBookId,
       });
@@ -47,11 +47,11 @@ const transactionController = {
     try {
       const userId = ctx.request.userInfo?.userId;
       const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
-
+      const { transactions } = ctx.request.body;
       const result = await transactionService.addTransaction({
         userId,
         accountBookId,
-        ...ctx.request.body,
+        transactions,
       });
 
       ctx.body = result;

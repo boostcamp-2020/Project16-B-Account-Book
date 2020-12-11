@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Swal from 'sweetalert2';
 
 import AccountBookList from '@presentational/accountbook/AccountBookList';
-import AddModal from '@presentational/accountBook/AddModal';
+import AddModal from '@presentational/accountbook/AddModal';
 import {
   loadAccountBooks,
   loadAccountBook,
@@ -36,7 +36,7 @@ const AddAccountBookBtn = styled.div`
 
 const AccountBookContainerWrapper = styled.div`
   height: 100vh;
-  background-color: #fdfdfe;
+  background-color: #f5f6fa;
 `;
 
 const AccountBookContainer = () => {

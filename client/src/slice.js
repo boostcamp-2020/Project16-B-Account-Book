@@ -12,6 +12,7 @@ import {
   getTransactionsByAccountBookId,
   getCalendarTransactions,
   postTransaction,
+  postTransactions,
   updateTransaction,
   deleteTransaction,
   getAccountBooks,
@@ -317,9 +318,9 @@ export const loadAccountBookTransactions = () => {
   };
 };
 
-export const addTransaction = ({ transaction }) => {
+export const addTransaction = ({ transactions }) => {
   return async (dispatch) => {
-    await postTransaction({ transaction });
+    await postTransaction({ transactions });
 
     dispatch(loadTransactions());
   };

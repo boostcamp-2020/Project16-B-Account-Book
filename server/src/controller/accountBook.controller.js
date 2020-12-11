@@ -12,8 +12,7 @@ const accountBookController = {
   },
   getAccountBook: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId;
-      const { accountBookId } = ctx.request.params;
+      const { userId, accountBookId } = ctx.request.userInfo;
       const accountBook = await accountBookService.getAccountBook(
         userId,
         accountBookId
@@ -70,8 +69,8 @@ const accountBookController = {
   },
   addAccountBookUsers: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId;
-      const { newUsers, accountBookId } = ctx.request.body;
+      const { userId, accountBookId } = ctx.request.userInfo;
+      const { newUsers } = ctx.request.body;
       const result = await accountBookService.updateAccountBook(
         userId,
         accountBookId,
@@ -85,8 +84,8 @@ const accountBookController = {
   },
   addAccountBookTag: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId;
-      const { newTag, accountBookId } = ctx.request.body;
+      const { userId, accountBookId } = ctx.request.userInfo;
+      const { newTag } = ctx.request.body;
       const result = await accountBookService.addAccountBookTag(
         userId,
         accountBookId,
@@ -100,8 +99,8 @@ const accountBookController = {
   },
   updateAccountBookTag: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId;
-      const { originalTag, newTag, accountBookId } = ctx.request.body;
+      const { userId, accountBookId } = ctx.request.userInfo;
+      const { originalTag, newTag } = ctx.request.body;
       const result = await accountBookService.updateAccountBookTag(
         userId,
         accountBookId,
@@ -116,8 +115,8 @@ const accountBookController = {
   },
   deleteAccountBookTag: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId;
-      const { accountBookId, tagName: tag } = ctx.request.params;
+      const { userId, accountBookId } = ctx.request.userInfo;
+      const { tagName: tag } = ctx.request.params;
       const result = await accountBookService.deleteAccountBookTag(
         userId,
         accountBookId,

@@ -69,7 +69,7 @@ const SettingContainer = () => {
   };
 
   const onInviteUser = (users) => {
-    // DB에 새로운 user 가계부에 추가해주기
+    // TODO: DB에 새로운 user 가계부에 추가해주기
   };
 
   const onLogout = () => {
@@ -87,6 +87,7 @@ const SettingContainer = () => {
       <SubContainer>
         <SettingEditor
           userInfo={userInfo}
+          usersInfo={usersInfo}
           updateUserInfo={updateUserInfo}
           onChange={onChange}
           isMaster={isMaster}

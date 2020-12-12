@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development nodemon --exec babel-node src/app.js",
-    "start": "NODE_ENV=production node src/app.js",
+    "start": "NODE_ENV=production node --exec babel-node src/app.js",
     "test": "jest --testEnvironment=node --runInBand"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "@babel/cli": "^7.12.8",
     "@babel/core": "^7.12.9",
     "@babel/node": "^7.12.6",
@@ -26,7 +27,6 @@
     "mongoose": "^5.10.15"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",

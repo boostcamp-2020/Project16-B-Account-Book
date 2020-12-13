@@ -30,3 +30,12 @@ export async function updateUserInfo(userInfo) {
 
   return data;
 }
+
+export async function updateMembers(newMembers, deleteMembers) {
+  const { data } = await axiosAPI(`${API_URL}/user/members`, 'POST', {
+    newMembers,
+    deleteMembers,
+  });
+
+  return data;
+}

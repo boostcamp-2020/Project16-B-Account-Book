@@ -9,6 +9,7 @@ const Editor = styled.section`
   flex-basis: 50%;
   border-right: 1px solid lightgray;
   padding: 0.5em 2em;
+  margin-bottom: 50px;
 `;
 
 const Title = styled.h1`
@@ -23,14 +24,9 @@ const SettingEditor = ({
   updateUserInfo,
   onChange,
   isMaster,
-  onInviteUser,
+  onChangeUser,
   inviteUserList,
 }) => {
-  const addUser = (event) => {
-    event.preventDefault();
-    onInviteUser();
-  };
-
   const [modal, setModal] = useState(false);
   const handleClose = () => setModal(false);
   const handleShow = () => setModal(true);
@@ -62,7 +58,7 @@ const SettingEditor = ({
               <InviteModal
                 isOpen={modal}
                 close={handleClose}
-                addUser={addUser}
+                onChangeUser={onChangeUser}
                 inviteUserList={inviteUserList}
                 usersInfo={usersInfo}
               />

@@ -9,6 +9,7 @@ import {
   loadInviteUsers,
   setUserSettingsInfo,
   changeUserInfo,
+  changeMembers,
   reset,
 } from '@slice';
 import SettingHeader from '@presentational/setting/SettingHeader';
@@ -68,8 +69,8 @@ const SettingContainer = () => {
     dispatch(setUserSettingsInfo(info));
   };
 
-  const onInviteUser = (users) => {
-    // TODO: DB에 새로운 user 가계부에 추가해주기
+  const onChangeUser = (newMembers, deleteMembers) => {
+    dispatch(changeMembers(newMembers, deleteMembers));
   };
 
   const onLogout = () => {
@@ -91,7 +92,7 @@ const SettingContainer = () => {
           updateUserInfo={updateUserInfo}
           onChange={onChange}
           isMaster={isMaster}
-          onInviteUser={onInviteUser}
+          onChangeUser={onChangeUser}
           inviteUserList={inviteUserList}
         />
         <SettingPreview usersInfo={usersInfo} />

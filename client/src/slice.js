@@ -35,6 +35,7 @@ import {
   getUsersByAccountBook,
   getInviteUsers,
   updateUserInfo,
+  updateMembers,
 } from '@service/userAPI';
 
 import { tempTransactionData } from './tempData';
@@ -436,6 +437,14 @@ export const changeUserInfo = (userInfo) => {
   return async (dispatch) => {
     await updateUserInfo(userInfo);
     dispatch(loadAllUsersInfo());
+  };
+};
+
+export const changeMembers = (newMembers, deleteMembers) => {
+  return async (dispatch) => {
+    await updateMembers(newMembers, deleteMembers);
+    dispatch(loadAllUsersInfo());
+    dispatch(loadInviteUsers());
   };
 };
 

@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import Swal from 'sweetalert2';
 
-import { successFormat } from '@service/swalFormat';
 import ModalContents from './ModalContents';
 
 const Modal = styled.form`
@@ -36,17 +34,24 @@ const Close = styled.div`
   cursor: pointer;
 `;
 
-const InviteModal = ({ isOpen, close, addUser, inviteUserList, usersInfo }) => {
+const InviteModal = ({
+  isOpen,
+  close,
+  onChangeUser,
+  inviteUserList,
+  usersInfo,
+}) => {
   return (
     <>
       {isOpen ? (
         <Modal>
           <ModalWrapper>
-            <Close onClick={close}>&times;</Close>
+            <Close onClick={close} />
             <ModalContents
               inviteUserList={inviteUserList}
               usersInfo={usersInfo}
-              addUser={addUser}
+              onChangeUser={onChangeUser}
+              close={close}
             />
           </ModalWrapper>
         </Modal>

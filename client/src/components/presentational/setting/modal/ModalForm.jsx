@@ -23,13 +23,20 @@ const Checkbox = styled.input`
   height: 20px;
 `;
 
-const ModalForm = ({ user }) => {
+const ModalForm = ({ user, handleNewMemberCheck }) => {
   const { email, name } = user;
 
+  const handleClick = (event) => {
+    handleNewMemberCheck(event);
+  };
   return (
     <Info>
       <Name>
-        <Checkbox type="checkbox" />
+        <Checkbox
+          type="checkbox"
+          onChange={(e) => handleClick(e.target)}
+          value={JSON.stringify(user)}
+        />
         {name} {email ? `(${email})` : null}
       </Name>
     </Info>

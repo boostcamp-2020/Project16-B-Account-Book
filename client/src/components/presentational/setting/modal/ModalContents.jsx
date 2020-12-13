@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import ModalForm from './ModalForm';
@@ -37,15 +37,34 @@ const UserMap = styled.div`
   margin-bottom: 25px;
 `;
 
-const ModalContents = ({ inviteUserList, usersInfo }) => {
+const ModalContents = ({ inviteUserList, usersInfo, addUser }) => {
   const inMemberRef = useRef();
   const outMemberRef = useRef();
+
+  const [newMember, setNewMember] = useState([]);
 
   const onClick = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    console.log('클릭!', inMemberRef.current);
+    console.log('클릭!', newMember);
     // handleAdd();
+    // addUser
+
+    // onChange={(e) => handleAllCheck(e.target.checked)}
+  };
+
+  const handleNewMemberCheck = (event) => {
+    if (event.checked) {
+      setNewMember([...newMember, event.value]);
+    }
+
+    if (!event.checked) {
+      const deleteMember = newMember.filter((member) => {
+        member != event.value;
+      });
+      console.log(deleteMember);
+      setNewMember([deleteMember]);
+    }
   };
 
   return (
@@ -55,7 +74,11 @@ const ModalContents = ({ inviteUserList, usersInfo }) => {
       </SubTitle>
       <UserMap ref={inMemberRef}>
         {inviteUserList.map((user, index) => (
-          <ModalForm key={'inviteUser' + index} user={user} />
+          <ModalForm
+            key={'inviteUser' + index}
+            user={user}
+            handleNewMemberCheck={handleNewMemberCheck}
+          />
         ))}
       </UserMap>
       <SubTitle>

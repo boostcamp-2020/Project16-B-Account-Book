@@ -46,6 +46,7 @@ const InviteModal = ({ isOpen, close, addUser, inviteUserList, usersInfo }) => {
             <ModalContents
               inviteUserList={inviteUserList}
               usersInfo={usersInfo}
+              addUser={addUser}
             />
           </ModalWrapper>
         </Modal>

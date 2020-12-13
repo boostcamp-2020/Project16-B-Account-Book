@@ -15,6 +15,7 @@ const ButtonStyle = styled.button`
   font-size: 1rem;
   border: none;
   outline: none;
+  box-shadow: 6px 6px 8px 0px rgba(226, 226, 226, 1);
 
   &:hover {
     opacity: 0.8;

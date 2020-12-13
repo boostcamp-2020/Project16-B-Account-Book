@@ -4,6 +4,10 @@
       "presets": ["@babel/preset-env", "@babel/preset-react"],
       "plugins": ["react-refresh/babel"]
     },
+    "production": {
+      "presets": ["@babel/preset-env", "@babel/preset-react"],
+      "plugins": []
+    },
     "test": {
       "presets": ["@babel/preset-env", "@babel/preset-react"],
       "plugins": []

@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import ModalForm from './ModalForm';
+import DeleteModalForm from './DeleteModalForm';
 
 const ModalContent = styled.div`
   margin: 0 auto;
@@ -14,17 +15,25 @@ const ModalContent = styled.div`
   flex-direction: column;
 `;
 
+const SubContainer = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex: 1;
+`;
+
 const AddBtn = styled.button`
+  flex-basis: 50%;
   height: 40px;
   font-size: 1rem;
   padding: 13px 30px;
   cursor: pointer;
-  background-color: #3fc1c9;
+  background-color: ${(props) => props.color || '#3fc1c9'};
   color: white;
   line-height: 1px;
+  margin-right: 12px;
   margin-bottom: 12px;
-  border-radius: 3px;
   border-style: none;
+  box-shadow: 6px 6px 8px 0px rgba(226, 226, 226, 1);
 `;
 
 const SubTitle = styled.span`
@@ -37,20 +46,29 @@ const UserMap = styled.div`
   margin-bottom: 25px;
 `;
 
-const ModalContents = ({ inviteUserList, usersInfo, addUser }) => {
+const ModalContents = ({ inviteUserList, usersInfo, onChangeUser, close }) => {
   const inMemberRef = useRef();
   const outMemberRef = useRef();
 
   const [newMember, setNewMember] = useState([]);
+  const [deleteMember, setDeleteMember] = useState([]);
 
   const onClick = (event) => {
-    event.preventDefault();
     event.stopPropagation();
-    console.log('클릭!', newMember);
-    // handleAdd();
-    // addUser
 
-    // onChange={(e) => handleAllCheck(e.target.checked)}
+    const newMemberArray = [];
+    const deleteMemberArray = [];
+
+    for (const member of newMember) {
+      newMemberArray.push(JSON.parse(member)._id);
+    }
+
+    for (const member of deleteMember) {
+      deleteMemberArray.push(JSON.parse(member)._id);
+    }
+
+    onChangeUser(newMemberArray, deleteMemberArray);
+    close();
   };
 
   const handleNewMemberCheck = (event) => {
@@ -59,11 +77,27 @@ const ModalContents = ({ inviteUserList, usersInfo, addUser }) => {
     }
 
     if (!event.checked) {
-      const deleteMember = newMember.filter((member) => {
-        member != event.value;
+      const deleteIndex = newMember.findIndex((item) => {
+        return item._id === event.value._id;
       });
-      console.log(deleteMember);
-      setNewMember([deleteMember]);
+
+      newMember.splice(deleteIndex, 1);
+      setNewMember(newMember);
+    }
+  };
+
+  const handleDeleteMemberCheck = (event) => {
+    if (event.checked) {
+      setDeleteMember([...deleteMember, event.value]);
+    }
+
+    if (!event.checked) {
+      const deleteIndex = deleteMember.findIndex((item) => {
+        return item._id === event.value._id;
+      });
+
+      deleteMember.splice(deleteIndex, 1);
+      setDeleteMember(deleteMember);
     }
   };
 
@@ -86,12 +120,21 @@ const ModalContents = ({ inviteUserList, usersInfo, addUser }) => {
       </SubTitle>
       <UserMap ref={outMemberRef}>
         {usersInfo.map((user, index) => (
-          <ModalForm key={'goodByeUser' + index} user={user} />
+          <DeleteModalForm
+            key={'goodByeUser' + index}
+            user={user}
+            handleDeleteMemberCheck={handleDeleteMemberCheck}
+          />
         ))}
       </UserMap>
-      <AddBtn type="submit" onClick={(e) => onClick(e)}>
-        Member 변경
-      </AddBtn>
+      <SubContainer>
+        <AddBtn type="button" onClick={(e) => onClick(e)}>
+          Member 변경
+        </AddBtn>
+        <AddBtn type="button" onClick={close} color="#333333">
+          취소
+        </AddBtn>
+      </SubContainer>
     </ModalContent>
   );
 };

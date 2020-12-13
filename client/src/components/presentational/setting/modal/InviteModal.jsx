@@ -46,7 +46,7 @@ const InviteModal = ({
       {isOpen ? (
         <Modal>
           <ModalWrapper>
-            <Close onClick={close} />
+            <Close onClick={close}>&times;</Close>
             <ModalContents
               inviteUserList={inviteUserList}
               usersInfo={usersInfo}

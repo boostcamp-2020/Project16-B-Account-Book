@@ -112,6 +112,35 @@ const UserService = {
       msg: '요청하신 token을 다시 확인해주세요.',
     });
   },
+
+  updateMembers: async (accountBookId, newMembers, deleteMembers) => {
+    const { authorizedUsers } = await AccountBookModel.findOne({
+      _id: accountBookId,
+    });
+
+    let newUsers = authorizedUsers;
+    deleteMembers.map((id) => {
+      newUsers.remove(id);
+    });
+
+    if (newMembers.length !== 0) {
+      newUsers = [...newUsers, ...newMembers];
+    }
+
+    const result = await AccountBookModel.update(
+      { _id: accountBookId },
+      { $set: { authorizedUsers: newUsers } }
+    );
+
+    if (result.ok === 1) {
+      return 'success';
+    }
+
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: 'Member 수정에 실패했습니다.',
+    });
+  },
 };
 
 module.exports = UserService;

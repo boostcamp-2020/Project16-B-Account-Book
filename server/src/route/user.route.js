@@ -22,6 +22,12 @@ router.get(
   cookieParser,
   userController.getInviteUsers
 );
+router.post(
+  '/members',
+  tokenValidator,
+  cookieParser,
+  userController.updateMembers
+);
 router.post('/', userController.updateUser);
 router.post('/githublogin', githubOAuth, userController.login);
 router.post('/naverlogin', naverOAuth, userController.login);

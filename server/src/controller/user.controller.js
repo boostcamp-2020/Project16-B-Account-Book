@@ -55,6 +55,19 @@ const UserController = {
 
     ctx.body = usersInfo;
   },
+
+  updateMembers: async (ctx) => {
+    const { newMembers, deleteMembers } = ctx.request.body;
+    const { accountBookId } = ctx.request.userInfo;
+
+    const usersInfo = await userService.updateMembers(
+      accountBookId,
+      newMembers,
+      deleteMembers
+    );
+
+    ctx.body = usersInfo;
+  },
 };
 
 module.exports = UserController;

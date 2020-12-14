@@ -104,17 +104,16 @@ const Box = styled.div`
   display: flex;
 `;
 
-const Four = (
-  <>
-    <Box>
-      <AA />
-      <BB />
-      <CC />
-    </Box>
-  </>
-);
-
-export default function NotFoundPage() {
+const NotFoundPage = () => {
+  const Four = (
+    <>
+      <Box>
+        <AA />
+        <BB />
+        <CC />
+      </Box>
+    </>
+  );
   return (
     <>
       <Title>Page Not Found</Title>
@@ -125,4 +124,6 @@ export default function NotFoundPage() {
       </StyledDiv>
     </>
   );
-}
+};
+
+export default NotFoundPage;

@@ -54,7 +54,7 @@ const TransactionInputForm = ({
       type: typeInput.current.value,
       date: ISODate,
       description: descriptionInput.current.value,
-      tag: [tagInput.current.value],
+      tag: [...tagInput.current.value],
       imageURL: ImageURLInput.current.value,
     };
   };
@@ -67,7 +67,7 @@ const TransactionInputForm = ({
     dateInput.current.value = getDate(transaction);
     timeInput.current.value = getTime(transaction);
     descriptionInput.current.value = transaction.description || '';
-    tagInput.current.value = transaction?.tag || '';
+    tagInput.current.value = [transaction?.tag] || [];
     ImageURLInput.current.value = transaction.imageURL || '';
   };
 

@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {
-  fetchTest,
   postLoginGithub,
   postLoginNaver,
   getTags,
@@ -209,13 +208,6 @@ export const {
   setInviteUsers,
   reset,
 } = actions;
-
-export const loader = ({ test }) => {
-  return async (dispatch) => {
-    const testData = await fetchTest({ test });
-    dispatch(setTest(testData));
-  };
-};
 
 export function login({ code, state }) {
   return async (dispatch) => {

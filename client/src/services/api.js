@@ -5,13 +5,6 @@ import { getCookie } from '../../util/cookie';
 
 const API_URL = process.env.API_URL;
 
-export async function fetchTest({ test }) {
-  console.log(test);
-  const url = `${API_URL}/user`;
-  const { data } = await axios(url);
-  return data;
-}
-
 export async function postLoginGithub(code) {
   const url = `${API_URL}/user/githublogin`;
 

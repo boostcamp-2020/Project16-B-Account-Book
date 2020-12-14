@@ -26,6 +26,7 @@ const TransactionInputForm = ({
   const tagInput = useRef();
   const ImageURLInput = useRef();
   const typeInput = useRef();
+  const costTypeInput = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +63,7 @@ const TransactionInputForm = ({
   const insertData = (transaction) => {
     categoryInput.current.value = transaction.category || '';
     paymentMethodInput.current.value = transaction.paymentMethod || '';
-    costInput.current.value = transaction.cost || '';
+    costInput.current.value = transaction.cost || 0;
     typeInput.current.value = transaction.type || '지출';
     dateInput.current.value = getDate(transaction);
     timeInput.current.value = getTime(transaction);
@@ -127,6 +128,14 @@ const TransactionInputForm = ({
         <label>
           cost:
           <input type="number" name="name" ref={costInput} />
+          <select ref={costTypeInput}>
+            <option value={'원'}>원</option>
+            <option value={'USD'}>USD</option>
+            <option value={'EUR'}>EUR</option>
+            <option value={'RUB'}>RUB</option>
+            <option value={'CNY'}>CNY</option>
+            <option value={'JPY'}>JPY</option>
+          </select>
         </label>
         <label>
           수입/지출:

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React, { useRef } from 'react';
 
 import Button from '../button/Button';
+import ImageFileInput from '../uploader/ImageFileInput';
 
 const CardFormContainer = styled.form`
   display: flex;
@@ -38,11 +39,6 @@ const Select = styled.select`
   cursor: pointer;
 `;
 
-const FileInput = styled.div`
-  padding: 0;
-  flex: 1 1 50%;
-`;
-
 const CardEditForm = ({ userInfo, updateUserInfo, onChange }) => {
   const { email, imageURL, name, startDateOfMonth, startDayOfWeek } = userInfo;
 
@@ -50,14 +46,18 @@ const CardEditForm = ({ userInfo, updateUserInfo, onChange }) => {
   const weekRef = useRef();
 
   const onChangeInfo = (event) => {
-    if (event.currentTarget == null) {
-      return;
-    }
     event.preventDefault();
 
     onChange({
       ...userInfo,
       [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
+
+  const onChangeFileInfo = (url) => {
+    onChange({
+      ...userInfo,
+      imageURL: url,
     });
   };
 
@@ -97,12 +97,7 @@ const CardEditForm = ({ userInfo, updateUserInfo, onChange }) => {
         <option value="Mon">달력 시작 요일: Monday</option>
       </Select>
 
-      {/* 
-      // TODO: 이미지 업로드 & 이미지 url 수정 기능 추가 예정
-      <FileInput>
-        <ImageFileInput />
-      </FileInput> */}
-
+      <ImageFileInput imageURL={imageURL} onChangeFileInfo={onChangeFileInfo} />
       <Button name="정보 수정" onClick={onSubmit} />
     </CardFormContainer>
   );

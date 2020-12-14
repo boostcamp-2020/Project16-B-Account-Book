@@ -78,7 +78,7 @@ const TransactionInputForm = ({
 
   const changeCurrency = (cost, currency) => {
     if (currency === '원') {
-      return cost;
+      return cost.replace(/[^\d]/g, '');
     }
     return currencyExchange(cost, currency);
   };

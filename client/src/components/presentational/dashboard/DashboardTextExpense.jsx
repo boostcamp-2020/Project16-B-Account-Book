@@ -78,7 +78,6 @@ const DashboardTextExpense = ({ transactions }) => {
     setIncomeStatus(true);
   };
 
-  console.log(transactions);
   const cardTransactions = transactions.map((transaction, i) => {
     if (transaction.type === '지출') {
       expenseTotal += transaction.cost;

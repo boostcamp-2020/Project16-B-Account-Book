@@ -44,8 +44,7 @@ const SettingContainer = () => {
 
   const compareInfo = () => {
     setIsMaster(false);
-
-    if (userInfo._id === usersInfo[0]._id) {
+    if (usersInfo[0] != null && userInfo['_id'] === usersInfo[0]['_id']) {
       setIsMaster(true);
     }
   };
@@ -70,6 +69,14 @@ const SettingContainer = () => {
   };
 
   const onChangeUser = (newMembers, deleteMembers) => {
+    if (deleteMembers.includes(userInfo['_id'])) {
+      dispatch(changeMembers(newMembers, deleteMembers));
+      dispatch(loadAllUsersInfo()).then(() => {
+        history.push('/account-book');
+      });
+      return;
+    }
+
     dispatch(changeMembers(newMembers, deleteMembers));
   };
 

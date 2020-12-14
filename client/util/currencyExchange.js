@@ -1,6 +1,6 @@
 const currencyExchange = (amount, currency) => {
   if (exchangeCurrencyToWon[currency]) {
-    return amount * exchangeCurrencyToWon[currency];
+    return Math.floor(amount * exchangeCurrencyToWon[currency]);
   }
   return amount;
 };

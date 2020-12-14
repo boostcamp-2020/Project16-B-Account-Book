@@ -34,6 +34,7 @@ const Cost = styled.div`
 
 const StyledTransactionList = styled.div`
   margin-top: 10%;
+  padding-bottom: 10%;
 `;
 
 const DeleteOverview = styled.div`
@@ -200,7 +201,26 @@ const TransactionList = ({
     return template;
   };
 
-  const template = transactionTemplate();
+  const emptyTemplate = (
+    <>
+      <div>
+        현제 월 내역이 없습니다! 아래 + 버튼으로 수입 지출 내역을 추가 해보세요!
+      </div>
+    </>
+  );
+
+  const templateIsEmpty = () => {
+    return !!transactions[0];
+  };
+
+  const selectTemplate = () => {
+    if (templateIsEmpty()) {
+      return transactionTemplate();
+    }
+    return emptyTemplate;
+  };
+
+  const template = selectTemplate();
 
   return (
     <>

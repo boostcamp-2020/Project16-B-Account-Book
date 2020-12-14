@@ -15,7 +15,7 @@ import {
 
 const Box = styled.div`
   width: 45vw;
-  height: 45vw;
+  height: 25vw;
   min-width: 250px;
   min-height: 250px;
 `;
@@ -66,47 +66,51 @@ const TransactionLineChart = ({ currentDateTransactions }) => {
   const transactions = changeTransaction(currentDateTransactions);
   return (
     <>
-      지출
-      <Checkbox
-        label="지출"
-        checked={isExpense}
-        onChange={handleExpenseChange}
-        style={{ color: '#8884d8' }}
-      />
-      수입
-      <Checkbox
-        label="수입"
-        checked={isIncome}
-        onChange={handleIncomeChange}
-        style={{ color: '#82ca9d' }}
-      />
-      <Box>
-        <ResponsiveContainer>
-          <LineChart
-            width={600}
-            height={300}
-            data={transactions}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <XAxis dataKey="name" />
-            <YAxis />
-            <CartesianGrid strokeDasharray="3 3" />
-            <Tooltip />
-            <Legend />
-            {isExpense && (
-              <Line
-                type="monotone"
-                dataKey="지출"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-            )}
-            {isIncome && (
-              <Line type="monotone" dataKey="수입" stroke="#82ca9d" />
-            )}
-          </LineChart>
-        </ResponsiveContainer>
-      </Box>
+      {currentDateTransactions[0] && (
+        <>
+          지출
+          <Checkbox
+            label="지출"
+            checked={isExpense}
+            onChange={handleExpenseChange}
+            style={{ color: '#8884d8' }}
+          />
+          수입
+          <Checkbox
+            label="수입"
+            checked={isIncome}
+            onChange={handleIncomeChange}
+            style={{ color: '#82ca9d' }}
+          />
+          <Box>
+            <ResponsiveContainer>
+              <LineChart
+                width={600}
+                height={300}
+                data={transactions}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <XAxis dataKey="name" />
+                <YAxis />
+                <CartesianGrid strokeDasharray="3 3" />
+                <Tooltip />
+                <Legend />
+                {isExpense && (
+                  <Line
+                    type="monotone"
+                    dataKey="지출"
+                    stroke="#8884d8"
+                    activeDot={{ r: 8 }}
+                  />
+                )}
+                {isIncome && (
+                  <Line type="monotone" dataKey="수입" stroke="#82ca9d" />
+                )}
+              </LineChart>
+            </ResponsiveContainer>
+          </Box>
+        </>
+      )}
     </>
   );
 };

@@ -11,11 +11,12 @@ const BulkInputForm = ({
   bulkInsert,
   setBulkInsert,
   bulkInsertTransactionHandler,
+  setOpenModalStatus,
 }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(bulkInsert);
     bulkInsertTransactionHandler({ transactions: bulkInsert });
+    setOpenModalStatus(false);
   };
   return (
     <>

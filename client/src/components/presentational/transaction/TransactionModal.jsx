@@ -67,6 +67,7 @@ const TransactionModal = ({
               <BulkInputForm
                 bulkInsert={bulkInsert}
                 setBulkInsert={setBulkInsert}
+                setOpenModalStatus={setOpenModalStatus}
                 bulkInsertTransactionHandler={bulkInsertTransactionHandler}
               />
             ) : parserStatus ? (

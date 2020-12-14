@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
 import icon from '@public/icon';
 import csvDataParser from '@util/csvDataParser';
 import csvDataToTransaction from '@util/csvDataToTransaction';
@@ -72,14 +70,14 @@ const TransactionFab = ({
 
   const actions = [
     {
-      icon: <AddIcon />,
+      icon: icon.plus,
       name: 'Add',
       handleClick: () => {
         setOpenModalStatus(true);
       },
     },
     {
-      icon: <DeleteIcon />,
+      icon: icon.trashcan,
       name: 'Delete',
       handleClick: () => {
         setDeleteStatus(true);

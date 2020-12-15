@@ -38,8 +38,8 @@ const AnnualExpenditure = ({ title, transactions }) => {
             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
+            <XAxis unit="월" dataKey="month" tick={{ fontSize: 12 }} />
+            <YAxis unit="만 원" tick={{ fontSize: 10 }} />
             <Tooltip />
             <Legend />
             <Bar dataKey="월별" fill="#FFC41F" />

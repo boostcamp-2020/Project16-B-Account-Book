@@ -40,10 +40,16 @@ const Unit = styled.span`
 
 const getLastNElements = (arr, n) => arr.slice(arr.length - n);
 
-const getCostSum = (transactions) => {
-  return transactions.reduce((acc, cur) => {
-    return acc + cur['월별'];
-  }, 0);
+const getCostAvg = (transactions, months) => {
+  return (
+    Math.floor(
+      transactions.reduce((acc, cur) => {
+        return acc + cur['월별'];
+      }, 0) /
+        months /
+        1000
+    ) * 1000
+  );
 };
 
 const MonthlyAnalysis = ({ title, transactions }) => {
@@ -59,21 +65,21 @@ const MonthlyAnalysis = ({ title, transactions }) => {
           <Item>
             <Category>3개월 평균 지출:</Category>
             <Data>
-              {getCostSum(last3Months)}
+              {getCostAvg(last3Months, 3).toLocaleString()}
               <Unit> 원</Unit>
             </Data>
           </Item>
           <Item>
             <Category>6개월 평균 지출 :</Category>
             <Data>
-              {getCostSum(last6Months)}
+              {getCostAvg(last6Months, 6).toLocaleString()}
               <Unit> 원</Unit>
             </Data>
           </Item>
           <Item>
             <Category>12개월 평균 지출:</Category>
             <Data>
-              {getCostSum(last12Months)}
+              {getCostAvg(last12Months, 12).toLocaleString()}
               <Unit> 원</Unit>
             </Data>
           </Item>

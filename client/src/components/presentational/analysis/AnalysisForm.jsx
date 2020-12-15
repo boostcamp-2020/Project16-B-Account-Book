@@ -43,13 +43,14 @@ const parseDate = (transaction) => {
 
 // TODO: transaction.filter 로 (type: 지출)만 남겨야 하는데
 // 데이터 적어서 일단 (수입/지출/all) 전부넣어서 확인
-const copyTransactions = (transactions) => {
-  return transactions.map((transaction) => {
-    return Object.assign({}, transaction, {
-      parsedDate: parseDate(transaction),
+const copyTransactions = (transactions) =>
+  transactions
+    .filter((transaction) => transaction.type === '지출')
+    .map((transaction) => {
+      return Object.assign({}, transaction, {
+        parsedDate: parseDate(transaction),
+      });
     });
-  });
-};
 
 const findTop3BySortOption = (transactions, sortOption) => {
   const map = new Map();
@@ -152,12 +153,8 @@ const flipToFalse = (checkbox) => {
   return newCheckbox;
 };
 
-// 2020 10
-// 2020 9, 8, ... 1
-// 2019 12, 11, 10
-
 const getAnnualTransactions = (transactions, year, month) => {
-  const copied = copyTransactions(transactions); // parsedDate 추가
+  const copied = copyTransactions(transactions);
   return copied.filter((transaction) => {
     const date = transaction.parsedDate;
     if (date.year === year) {
@@ -174,7 +171,6 @@ const parseAnnualTransactions = (transactions, year, month) => {
   const data = [];
   for (let i = month; i >= 1; i--) {
     data.unshift({
-      name: `${i}월`,
       year,
       month: i,
       월별: 0,
@@ -182,7 +178,6 @@ const parseAnnualTransactions = (transactions, year, month) => {
   }
   for (let i = 12; i >= month; i--) {
     data.unshift({
-      name: `${i}월`,
       year: year - 1,
       month: i,
       월별: 0,
@@ -198,7 +193,7 @@ const parseAnnualTransactions = (transactions, year, month) => {
       return acc;
     }, 0);
   });
-  console.log('data', data);
+
   return data;
 };
 
@@ -264,7 +259,10 @@ const AnalysisForm = ({
       <MonthlyAnalysisWrapper>
         <MonthlyExpenditure
           title="월별 지출"
-          transactions={parsedAnnualTransactions}
+          transactions={parsedAnnualTransactions.map((t) => ({
+            ...t,
+            월별: t['월별'] / 10000,
+          }))}
         />
         <MonthlyAnalysis
           title="월별 분석"

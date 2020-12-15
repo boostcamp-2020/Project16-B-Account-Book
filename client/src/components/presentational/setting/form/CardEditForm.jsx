@@ -8,8 +8,8 @@ const CardFormContainer = styled.form`
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
   margin-bottom: 5em;
 `;
 
@@ -17,7 +17,7 @@ const Info = styled.div`
   width: 100%;
   border: 0;
   padding: 1.2em;
-  border-right: 1px solid black;
+  border-right: 1px solid gray;
   background: white;
   flex: 1 1 40%;
   font-size: 1rem;
@@ -31,15 +31,20 @@ const Select = styled.select`
   width: 100%;
   border: 0;
   padding: 1.2em;
-  border-top: 1px solid black;
-  border-right: 1px solid black;
+  border-top: 1px solid gray;
+  border-right: 1px solid gray;
 
   background: white;
   font-size: 1rem;
   cursor: pointer;
 `;
 
-const CardEditForm = ({ userInfo, updateUserInfo, onChange }) => {
+const CardEditForm = ({
+  userInfo,
+  originUserInfo,
+  updateUserInfo,
+  onChange,
+}) => {
   const { email, imageURL, name, startDateOfMonth, startDayOfWeek } = userInfo;
 
   const monthRef = useRef();
@@ -97,7 +102,10 @@ const CardEditForm = ({ userInfo, updateUserInfo, onChange }) => {
         <option value="Mon">달력 시작 요일: Monday</option>
       </Select>
 
-      <ImageFileInput imageURL={imageURL} onChangeFileInfo={onChangeFileInfo} />
+      <ImageFileInput
+        originUserInfo={originUserInfo}
+        onChangeFileInfo={onChangeFileInfo}
+      />
       <Button name="정보 수정" onClick={onSubmit} />
     </CardFormContainer>
   );

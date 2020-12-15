@@ -48,8 +48,8 @@ const calcTotalExpenditure = (transactions) => {
   return total.cost;
 };
 
-const CumulativeAnalysis = ({ date, transactions }) => {
-  const month = date.getUTCMonth() + 1;
+const CumulativeAnalysis = ({ title, date, transactions }) => {
+  const month = date.getMonth() + 1;
   const totalExpenditure = calcTotalExpenditure(transactions);
   const averagePerCase =
     totalExpenditure > 0
@@ -59,7 +59,7 @@ const CumulativeAnalysis = ({ date, transactions }) => {
   return (
     <>
       <CumulativeAnalysisWrapper>
-        <Title>일별 누적 분석</Title>
+        <Title>{title}</Title>
         <Content>
           <Item>
             <Category>{month}월 총 지출액:</Category>

@@ -77,11 +77,9 @@ const UserService = {
     });
   },
 
-  updateUser: async (token, userInfo) => {
-    const tokenInfo = JWTTokenUtil.verifyToken(token);
-
+  updateUser: async (userInfo) => {
     const updateUser = await UserModel.updateOne(
-      { _id: tokenInfo.data },
+      { _id: userInfo._id },
       { $set: userInfo }
     );
 
@@ -92,6 +90,56 @@ const UserService = {
     throw newError({
       status: 'BAD REQUEST',
       msg: '요청하신 token을 다시 확인해주세요.',
+    });
+  },
+
+  getInviteUsers: async (accountBookId) => {
+    const allUsers = await UserModel.find();
+    const { authorizedUsers } = await AccountBookModel.findOne({
+      _id: accountBookId,
+    });
+
+    const InviteUsersList = allUsers.filter(
+      (user) => !authorizedUsers.includes(user._id)
+    );
+
+    if (InviteUsersList) {
+      return InviteUsersList;
+    }
+
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: '요청하신 token을 다시 확인해주세요.',
+    });
+  },
+
+  updateMembers: async (accountBookId, newMembers, deleteMembers) => {
+    const { authorizedUsers } = await AccountBookModel.findOne({
+      _id: accountBookId,
+    });
+
+    let newUsers = authorizedUsers;
+
+    deleteMembers.forEach((id) => {
+      newUsers.remove(id);
+    });
+
+    if (newMembers.length !== 0) {
+      newUsers = [...newUsers, ...newMembers];
+    }
+
+    const result = await AccountBookModel.updateOne(
+      { _id: accountBookId },
+      { $set: { authorizedUsers: newUsers } }
+    );
+
+    if (result.ok === 1) {
+      return 'success';
+    }
+
+    throw newError({
+      status: 'BAD REQUEST',
+      msg: 'Member 수정에 실패했습니다.',
     });
   },
 };

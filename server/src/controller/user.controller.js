@@ -16,8 +16,8 @@ const UserController = {
   updateUser: async (ctx) => {
     try {
       const { userInfo } = ctx.request.body;
-      const token = ctx.header.authorization.replace(/Bearer /, '');
-      const updateInfo = await userService.updateUser(token, userInfo);
+      const updateInfo = await userService.updateUser(userInfo);
+
       ctx.body = updateInfo;
     } catch (err) {
       ctx.throw(err.code, err);
@@ -43,8 +43,28 @@ const UserController = {
   },
 
   getAccountBookUsers: async (ctx) => {
-    const accountBookId = ctx.header.cookie.replace(/accountBookId=/, '');
+    const { accountBookId } = ctx.request.userInfo;
     const usersInfo = await userService.getAccountBookUsers(accountBookId);
+
+    ctx.body = usersInfo;
+  },
+
+  getInviteUsers: async (ctx) => {
+    const { accountBookId } = ctx.request.userInfo;
+    const usersInfo = await userService.getInviteUsers(accountBookId);
+
+    ctx.body = usersInfo;
+  },
+
+  updateMembers: async (ctx) => {
+    const { newMembers, deleteMembers } = ctx.request.body;
+    const { accountBookId } = ctx.request.userInfo;
+
+    const usersInfo = await userService.updateMembers(
+      accountBookId,
+      newMembers,
+      deleteMembers
+    );
 
     ctx.body = usersInfo;
   },

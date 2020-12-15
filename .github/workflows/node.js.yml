@@ -32,3 +32,12 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
+          cd /root/Project16-B-Account-Book
+          git pull origin master
+          cd server/
+          npm install
+          pm2 reload server
+          cd ../client
+          npm install
+          npm run build
+          pm2 reload client

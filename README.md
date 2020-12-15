@@ -70,9 +70,9 @@ npm start
 
 
 ## 📢 기술 특장점
-![image](https://user-images.githubusercontent.com/13073517/102005390-c9175580-3d5b-11eb-96ff-813a1da871d0.png)
+![image](https://user-images.githubusercontent.com/13073517/102180967-1aa31a00-3eed-11eb-983e-698f2161b17a.png)
 
 <br />
 
-## 📚 기술스택
-![기술스택](https://user-images.githubusercontent.com/57941049/99750021-f9841f00-2b22-11eb-960e-ee53d59d646d.png)
+## 🛠️ 기술스택
+![image](https://user-images.githubusercontent.com/13073517/102177170-48d12b80-3ee6-11eb-8a2f-3e35ab0038ed.png)

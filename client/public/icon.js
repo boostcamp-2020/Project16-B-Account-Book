@@ -19,6 +19,7 @@ const icon = {
   medical: <FaIcons.FaBriefcaseMedical size={12} />,
   more: <MdIcons.MdMoreVert size={20} />,
   tagDefault: <MdIcons.MdLocalOffer size={15} />,
+  plus: <IoIcons.IoMdAdd size={15} />,
   addBtn: (
     <FcIcons.FcPlus
       size={40}
@@ -41,6 +42,7 @@ const icon = {
   rightArrow: <BiIcons.BiRightArrow size={15} />,
   message: <BiIcons.BiMessageAdd size={15} />,
   spreadsheet: <BsIcons.BsFileSpreadsheet size={15} />,
+  trashcan: <FaIcons.FaRegTrashAlt size={15} />,
   one: (
     <svg width="20px" height="16px" viewBox="0 0 785.000000 1280.000000">
       <g

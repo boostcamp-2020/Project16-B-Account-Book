@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {
-  fetchTest,
   postLoginGithub,
   postLoginNaver,
   getTags,
@@ -33,7 +32,9 @@ import {
 import {
   getUserInfo,
   getUsersByAccountBook,
+  getInviteUsers,
   updateUserInfo,
+  updateMembers,
 } from '@service/userAPI';
 
 import { tempTransactionData } from './tempData';
@@ -63,8 +64,9 @@ const { actions, reducer } = createSlice({
       day: new Date().getDay(),
     },
     calendarTransactions: [],
-    userSettingsInfo: [],
-    allUsersInfo: [],
+    userSettingsInfo: [{ _id: null }],
+    allUsersInfo: [{ _id: null }],
+    inviteUsers: [],
   },
   reducers: {
     setTest(state, { payload: test }) {
@@ -172,6 +174,12 @@ const { actions, reducer } = createSlice({
         allUsersInfo,
       };
     },
+    setInviteUsers(state, { payload: inviteUsers }) {
+      return {
+        ...state,
+        inviteUsers,
+      };
+    },
     reset() {
       return { state: {} };
     },
@@ -197,15 +205,9 @@ export const {
   setCategories,
   setUsersInfo,
   setUserSettingsInfo,
+  setInviteUsers,
   reset,
 } = actions;
-
-export const loader = ({ test }) => {
-  return async (dispatch) => {
-    const testData = await fetchTest({ test });
-    dispatch(setTest(testData));
-  };
-};
 
 export function login({ code, state }) {
   return async (dispatch) => {
@@ -416,10 +418,25 @@ export const loadAllUsersInfo = () => {
   };
 };
 
+export const loadInviteUsers = () => {
+  return async (dispatch) => {
+    const inviteUsers = await getInviteUsers();
+    dispatch(setInviteUsers(inviteUsers));
+  };
+};
+
 export const changeUserInfo = (userInfo) => {
   return async (dispatch) => {
     await updateUserInfo(userInfo);
     dispatch(loadAllUsersInfo());
+  };
+};
+
+export const changeMembers = (newMembers, deleteMembers) => {
+  return async (dispatch) => {
+    await updateMembers(newMembers, deleteMembers);
+    dispatch(loadAllUsersInfo());
+    dispatch(loadInviteUsers());
   };
 };
 

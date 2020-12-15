@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
+const NAVER_CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET;
 const NAVER_TOKEN_API_URL = 'https://nid.naver.com/oauth2.0/token';
 const NAVER_USERINFO_API_URL = 'https://openapi.naver.com/v1/nid/me';
 
@@ -24,7 +26,7 @@ module.exports = async (ctx, next) => {
 
 const requestToken = async (code) => {
   const { data } = await axios.get(
-    `${NAVER_TOKEN_API_URL}?grant_type=authorization_code&client_id=${process.env.NAVER_CLIENT_ID}&client_secret=${process.env.NAVER_CLIENT_SECRET}&code=${code}&state=asds`
+    `${NAVER_TOKEN_API_URL}?grant_type=authorization_code&client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&code=${code}&state=asds`
   );
 
   return data.access_token;

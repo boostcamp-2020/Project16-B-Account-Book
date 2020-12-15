@@ -35,7 +35,7 @@ const AddAccountBookBtn = styled.div`
 `;
 
 const AccountBookContainerWrapper = styled.div`
-  height: 100vh;
+  height: 100%;
   background-color: #f5f6fa;
 `;
 

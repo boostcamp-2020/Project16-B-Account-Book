@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 
@@ -139,6 +140,7 @@ const TagCard = ({
   const [editMode, setEditMode] = useState(hidden);
   const [tagName, setTagName] = useState(title);
   const tags = useSelector((state) => state.tags);
+  const history = useHistory();
 
   const onInputChange = (e) => {
     setTagName(e.target.value);
@@ -176,13 +178,6 @@ const TagCard = ({
 
   const dropDownOptions = [
     {
-      text: '분석에서 제외',
-      func: () => {
-        console.log('TODO-분석에서 제외');
-        setDropDown(false);
-      },
-    },
-    {
       text: '태그 수정',
       func: () => {
         setEditMode(true);
@@ -199,8 +194,11 @@ const TagCard = ({
     {
       text: '보고서 보기',
       func: () => {
-        console.log('TODO-보고서 보기');
         setDropDown(false);
+        history.push({
+          pathname: '/analysis',
+          state: { type: 'tag', name: title },
+        });
       },
     },
     {

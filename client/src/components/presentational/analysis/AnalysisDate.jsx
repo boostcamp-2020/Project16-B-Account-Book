@@ -25,16 +25,18 @@ const Date = styled.div`
   margin: 0 2rem;
 `;
 
-const AnalysisDate = ({ date, setDate }) => {
+const AnalysisDate = ({ date, setDate, setLocState }) => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
 
   const onClickPrevMonth = () => {
     setDate(new window.Date(year, month - 2));
+    setLocState({});
   };
 
   const onClickNextMonth = () => {
     setDate(new window.Date(year, month));
+    setLocState({});
   };
 
   return (

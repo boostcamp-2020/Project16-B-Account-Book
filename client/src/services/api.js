@@ -31,6 +31,19 @@ export async function postLoginNaver(code) {
   return data;
 }
 
+export async function postLoginKakao(code) {
+  const url = `${API_URL}/user/kakaologin`;
+
+  const { data } = await axios(url, {
+    method: 'post',
+    data: {
+      code,
+    },
+  });
+
+  return data;
+}
+
 export async function getTags() {
   const accountBookId = getCookie('accountBookId');
   const { data } = await axiosAPI(`accountBook/${accountBookId}`, 'GET');

@@ -13,7 +13,7 @@ const transactionSchema = new Schema({
   cost: Number,
   tag: [String],
   imageURL: String,
-  type: String,
+  type: { type: String, default: '지출' },
 });
 
 module.exports = mongoose.model('transaction', transactionSchema);

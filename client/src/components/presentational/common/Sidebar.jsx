@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import color from '@public/color';
 import { SidebarList } from './SidebarList';
@@ -66,6 +66,10 @@ const NavMenu = styled.div`
     justify-content: flex-end;
     align-items: center;
   }
+
+  .current-page {
+    background-color: #f5f5f5;
+  }
 `;
 
 const Span = styled.span`
@@ -76,9 +80,12 @@ const Span = styled.span`
 const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
-
+  const location = useLocation();
   // TODO: 현재 sidebar의 state 에 상관없이 sidebar를 화면에 안보이는 왼쪽에 두었다가 화면에 보이도록
   // media query만을 사용하고 있기 때문에, X 버튼을 눌러서 sidebar 가 사라지게 하는 기능은 구현하지 않은 상태입니다
+
+  const pageMarker = (path) =>
+    path === location.pathname ? ' current-page' : '';
 
   return (
     <NavMenu>
@@ -86,7 +93,10 @@ const Sidebar = () => {
         <ul className="nav-menu-items" onClick={showSidebar}>
           {SidebarList.map((item, index) => {
             return (
-              <li key={'sidebar' + index} className={item.cName}>
+              <li
+                key={'sidebar' + index}
+                className={item.cName + pageMarker(item.path)}
+              >
                 <Link to={item.path}>
                   {item.icon}
                   <Span>{item.title}</Span>

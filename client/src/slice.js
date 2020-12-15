@@ -65,6 +65,7 @@ const { actions, reducer } = createSlice({
     },
     calendarTransactions: [],
     userSettingsInfo: [{ _id: null }],
+    userOriginInfo: [{ _id: null }],
     allUsersInfo: [{ _id: null }],
     inviteUsers: [],
   },
@@ -162,6 +163,12 @@ const { actions, reducer } = createSlice({
         userSettingsInfo,
       };
     },
+    setUserOriginInfo(state, { payload: userOriginInfo }) {
+      return {
+        ...state,
+        userOriginInfo,
+      };
+    },
     setUserInfo(state, { payload: userInfo }) {
       return {
         ...state,
@@ -204,6 +211,7 @@ export const {
   setPaymentMethods,
   setCategories,
   setUsersInfo,
+  setUserOriginInfo,
   setUserSettingsInfo,
   setInviteUsers,
   reset,
@@ -408,6 +416,7 @@ export const loadUserInfo = () => {
   return async (dispatch) => {
     const userSettingsInfo = await getUserInfo();
     dispatch(setUserSettingsInfo(userSettingsInfo));
+    dispatch(setUserOriginInfo(userSettingsInfo));
   };
 };
 

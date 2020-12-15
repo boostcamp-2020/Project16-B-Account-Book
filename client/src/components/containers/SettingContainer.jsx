@@ -39,6 +39,7 @@ const SettingContainer = () => {
 
   const [isMaster, setIsMaster] = useState(false);
   const userInfo = useSelector((state) => state.userSettingsInfo);
+  const originUserInfo = useSelector((state) => state.userOriginInfo);
   const usersInfo = useSelector((state) => state.allUsersInfo);
   const inviteUserList = useSelector((state) => state.inviteUsers);
 
@@ -96,6 +97,7 @@ const SettingContainer = () => {
         <SettingEditor
           userInfo={userInfo}
           usersInfo={usersInfo}
+          originUserInfo={originUserInfo}
           updateUserInfo={updateUserInfo}
           onChange={onChange}
           isMaster={isMaster}

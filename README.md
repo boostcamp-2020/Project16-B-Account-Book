@@ -74,5 +74,6 @@ npm start
 
 <br />
 
-## 📚 기술스택
-![기술스택](https://user-images.githubusercontent.com/57941049/99750021-f9841f00-2b22-11eb-960e-ee53d59d646d.png)
+## 🛠️ 기술스택
+![image](https://user-images.githubusercontent.com/13073517/102177170-48d12b80-3ee6-11eb-8a2f-3e35ab0038ed.png)
+

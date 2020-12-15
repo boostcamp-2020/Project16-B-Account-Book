@@ -79,8 +79,9 @@ const ModalContents = ({ inviteUserList, usersInfo, onChangeUser, close }) => {
         return item._id === event.value._id;
       });
 
-      newMember.splice(deleteIndex, 1);
-      setNewMember(newMember);
+      let copyMember = Object.assign([], newMember);
+      copyMember.splice(deleteIndex, 1);
+      setNewMember(copyMember);
     }
   };
 
@@ -94,7 +95,8 @@ const ModalContents = ({ inviteUserList, usersInfo, onChangeUser, close }) => {
         return item._id === event.value._id;
       });
 
-      deleteMember.splice(deleteIndex, 1);
+      let copyMember = Object.assign([], deleteMember);
+      copyMember.splice(deleteIndex, 1);
       setDeleteMember(deleteMember);
     }
   };

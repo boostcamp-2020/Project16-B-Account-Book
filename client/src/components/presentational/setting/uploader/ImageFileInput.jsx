@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import ImageUploader from '@service/imageUploader';
 
@@ -7,6 +7,10 @@ const UploadContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid gray;
+  border-right: 1px solid gray;
 `;
 
 const UploadInput = styled.input`
@@ -15,43 +19,59 @@ const UploadInput = styled.input`
 
 const UploadButton = styled.button`
   background-color: ${(props) => props.color || '#e7e7e7'};
+  color: ${(props) => props.fontColor || 'black'};
   cursor: pointer;
   padding: 0.7em;
-  flex: 1 1 100%;
+  flex: 1 1 ${(props) => props.size || '80%'};
   font-size: 1.05rem;
+  border: none;
   outline: none;
-  border-left: none;
-  border-bottom: none;
 
   &:hover {
     opacity: 0.8;
   }
 `;
 
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const LoadingDiv = styled.div`
+  width: 1.5em;
+  height: 1.5em;
+  margin: 10px;
+  border-radius: 50%;
+  border: 3px solid lightgray;
+  border-top: 3px solid #65ced4;
+  animation: ${spin} 2s linear infinite;
+`;
+
 const imageUploader = new ImageUploader();
 
-const ImageFileInput = ({ imageURL, onChangeFileInfo }) => {
+const ImageFileInput = ({ originUserInfo, onChangeFileInfo }) => {
   const inputRef = useRef();
-  const [imageName, setImageName] = useState('파일 선택');
   const [format, setFormat] = useState();
+  const [loading, setLoading] = useState(false);
+  const [imageName, setImageName] = useState('파일 선택');
 
   const onButtonClick = (event) => {
     event.preventDefault();
     inputRef.current.click();
   };
 
-  // TODO: 프로필 이미지 되돌리기는 추후 구현 예정
-  // const onCancelClick = (event) => {
-  //   event.preventDefault();
+  const onCancelClick = (event) => {
+    event.preventDefault();
 
-  //   setImageName('파일 선택');
-  //   setUploadURL(imageURL);
-  //   onChangeFileInfo(imageURL);
-  //   setFormat();
-  // };
+    setImageName('파일 선택');
+    onChangeFileInfo(originUserInfo.imageURL);
+    setFormat();
+  };
 
   const onChange = async (event) => {
+    setLoading(true);
     const uploaded = await imageUploader.upload(event.target.files[0]);
+    setLoading(false);
 
     setImageName(uploaded.original_filename);
     onChangeFileInfo(uploaded.url);
@@ -67,10 +87,25 @@ const ImageFileInput = ({ imageURL, onChangeFileInfo }) => {
         name="file"
         onChange={onChange}
       />
-      <UploadButton onClick={onButtonClick} color="white">
-        {imageName}
-        {format !== undefined ? `.${format}` : <></>}
-      </UploadButton>
+
+      {!loading && (
+        <>
+          <UploadButton onClick={onButtonClick} color="#f7f7f7">
+            {imageName}
+            {format !== undefined ? `.${format}` : <></>}
+          </UploadButton>
+          <UploadButton
+            onClick={onCancelClick}
+            size="20%"
+            color="#333333"
+            fontColor="white"
+          >
+            취소
+          </UploadButton>
+        </>
+      )}
+
+      {loading && <LoadingDiv />}
     </UploadContainer>
   );
 };

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   postLoginGithub,
   postLoginNaver,
+  postLoginKakao,
   getTags,
   createTag,
   updateTag,
@@ -216,6 +217,11 @@ export function login({ code, state }) {
 
     if (code && state === 'naver') {
       const result = await postLoginNaver(code);
+      accessToken = result.token;
+      userInfo = result.userInfo;
+    }
+    if (code && state === 'kakao') {
+      const result = await postLoginKakao(code);
       accessToken = result.token;
       userInfo = result.userInfo;
     }

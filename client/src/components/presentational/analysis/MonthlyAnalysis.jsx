@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import color from '@public/color';
 
-const CumulativeAnalysisWrapper = styled.div`
+const MonthlyAnalysisWrapper = styled.div`
   border: 1.5px solid ${color.line};
   background-color: white;
   padding-top: 0.6rem;
@@ -30,62 +30,63 @@ const Category = styled.div`
   color: #808080;
 `;
 const Data = styled.span`
-  color: #1cda90;
+  color: #ffc41f;
   font-size: 1.5rem;
 `;
 const Unit = styled.span`
-  color: #1cda90;
+  color: #ffc41f;
   font-size: 1rem;
 `;
 
-const calcTotalExpenditure = (transactions) => {
-  if (!transactions.length) return 0;
+const getLastNElements = (arr, n) => arr.slice(arr.length - n);
 
-  const total = transactions.reduce((acc, cur) => ({
-    cost: acc.cost + cur.cost,
-  }));
-
-  return total.cost;
+const getCostAvg = (transactions, months) => {
+  return (
+    Math.floor(
+      transactions.reduce((acc, cur) => {
+        return acc + cur['월별'];
+      }, 0) /
+        months /
+        1000
+    ) * 1000
+  );
 };
 
-const CumulativeAnalysis = ({ title, date, transactions }) => {
-  const month = date.getMonth() + 1;
-  const totalExpenditure = calcTotalExpenditure(transactions);
-  const averagePerCase =
-    totalExpenditure > 0
-      ? Math.floor(totalExpenditure / transactions.length / 100) * 100
-      : 0;
+const MonthlyAnalysis = ({ title, transactions }) => {
+  const last3Months = getLastNElements(transactions, 3);
+  const last6Months = getLastNElements(transactions, 6);
+  const last12Months = getLastNElements(transactions, 12);
 
   return (
     <>
-      <CumulativeAnalysisWrapper>
+      <MonthlyAnalysisWrapper>
         <Title>{title}</Title>
         <Content>
           <Item>
-            <Category>{month}월 총 지출액:</Category>
+            <Category>3개월 평균 지출:</Category>
             <Data>
-              {totalExpenditure.toLocaleString()}
+              {getCostAvg(last3Months, 3).toLocaleString()}
               <Unit> 원</Unit>
             </Data>
           </Item>
           <Item>
-            <Category>건별 평균 결제액 :</Category>
+            <Category>6개월 평균 지출 :</Category>
             <Data>
-              {averagePerCase.toLocaleString()}
+              {getCostAvg(last6Months, 6).toLocaleString()}
               <Unit> 원</Unit>
             </Data>
           </Item>
           <Item>
-            <Category>결제 건수:</Category>
+            <Category>12개월 평균 지출:</Category>
             <Data>
-              {transactions.length}
-              <Unit> 건</Unit>
+              {getCostAvg(last12Months, 12).toLocaleString()}
+              <Unit> 원</Unit>
             </Data>
           </Item>
         </Content>
-      </CumulativeAnalysisWrapper>
+      </MonthlyAnalysisWrapper>
     </>
   );
 };
 
-export default CumulativeAnalysis;
+export default MonthlyAnalysis;

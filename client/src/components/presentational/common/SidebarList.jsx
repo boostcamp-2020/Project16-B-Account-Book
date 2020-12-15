@@ -8,12 +8,6 @@ export const SidebarList = [
     cName: 'nav-text',
   },
   {
-    title: '가계부',
-    path: '/account-book',
-    icon: <FcIcons.FcComboChart />,
-    cName: 'nav-text',
-  },
-  {
     title: '수입/지출 내역',
     path: '/transaction',
     icon: <FcIcons.FcLike />,

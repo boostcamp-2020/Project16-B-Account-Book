@@ -70,7 +70,7 @@ npm start
 
 
 ## 📢 기술 특장점
-![image](https://user-images.githubusercontent.com/13073517/102005390-c9175580-3d5b-11eb-96ff-813a1da871d0.png)
+![image](https://user-images.githubusercontent.com/13073517/102180967-1aa31a00-3eed-11eb-983e-698f2161b17a.png)
 
 <br />
 

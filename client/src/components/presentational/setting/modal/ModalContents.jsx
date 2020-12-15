@@ -53,19 +53,17 @@ const ModalContents = ({ inviteUserList, usersInfo, onChangeUser, close }) => {
   const [newMember, setNewMember] = useState([]);
   const [deleteMember, setDeleteMember] = useState([]);
 
-  const onClick = (event) => {
-    event.stopPropagation();
-
+  const onClick = () => {
     const newMemberArray = [];
     const deleteMemberArray = [];
 
-    for (const member of newMember) {
+    newMember.forEach((member) => {
       newMemberArray.push(JSON.parse(member)._id);
-    }
+    });
 
-    for (const member of deleteMember) {
+    deleteMember.forEach((member) => {
       deleteMemberArray.push(JSON.parse(member)._id);
-    }
+    });
 
     onChangeUser(newMemberArray, deleteMemberArray);
     close();

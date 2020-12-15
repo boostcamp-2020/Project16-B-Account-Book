@@ -119,7 +119,8 @@ const UserService = {
     });
 
     let newUsers = authorizedUsers;
-    deleteMembers.map((id) => {
+
+    deleteMembers.forEach((id) => {
       newUsers.remove(id);
     });
 
@@ -127,7 +128,7 @@ const UserService = {
       newUsers = [...newUsers, ...newMembers];
     }
 
-    const result = await AccountBookModel.update(
+    const result = await AccountBookModel.updateOne(
       { _id: accountBookId },
       { $set: { authorizedUsers: newUsers } }
     );

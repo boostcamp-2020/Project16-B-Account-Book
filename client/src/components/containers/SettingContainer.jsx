@@ -10,6 +10,7 @@ import {
   setUserSettingsInfo,
   changeUserInfo,
   changeMembers,
+  setUserInfo,
   reset,
 } from '@slice';
 import SettingHeader from '@presentational/setting/SettingHeader';
@@ -63,6 +64,7 @@ const SettingContainer = () => {
 
   const updateUserInfo = (info) => {
     dispatch(changeUserInfo(info));
+    dispatch(setUserInfo(info));
   };
 
   const onChange = (info) => {

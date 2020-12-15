@@ -9,7 +9,6 @@ const UploadContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid gray;
   border-right: 1px solid gray;
 `;
 
@@ -21,15 +20,12 @@ const UploadButton = styled.button`
   background-color: ${(props) => props.color || '#e7e7e7'};
   color: ${(props) => props.fontColor || 'black'};
   cursor: pointer;
-  padding: 0.7em;
+  padding: 0.6em;
   flex: 1 1 ${(props) => props.size || '80%'};
   font-size: 1.05rem;
   border: none;
   outline: none;
-
-  &:hover {
-    opacity: 0.8;
-  }
+  border-top: 1px ${(props) => props.line || 'solid'} gray;
 `;
 
 const spin = keyframes`
@@ -90,14 +86,19 @@ const ImageFileInput = ({ originUserInfo, onChangeFileInfo }) => {
 
       {!loading && (
         <>
-          <UploadButton onClick={onButtonClick} color="#f7f7f7">
+          <UploadButton
+            onClick={onButtonClick}
+            color="#fafbfc"
+            fontColor="#586069"
+            line="dotted"
+          >
             {imageName}
             {format !== undefined ? `.${format}` : <></>}
           </UploadButton>
           <UploadButton
             onClick={onCancelClick}
             size="20%"
-            color="#333333"
+            color="#586069"
             fontColor="white"
           >
             취소

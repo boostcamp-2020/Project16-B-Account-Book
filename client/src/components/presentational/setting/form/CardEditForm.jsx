@@ -45,7 +45,7 @@ const CardEditForm = ({
   updateUserInfo,
   onChange,
 }) => {
-  const { email, imageURL, name, startDateOfMonth, startDayOfWeek } = userInfo;
+  const { email, name, startDateOfMonth, startDayOfWeek } = userInfo;
 
   const monthRef = useRef();
   const weekRef = useRef();
@@ -73,7 +73,7 @@ const CardEditForm = ({
 
   return (
     <CardFormContainer>
-      <Info name="name">{name}</Info>
+      <Info name="name">Name: {name}</Info>
       <Info name="email">{email}</Info>
       <Select
         ref={monthRef}

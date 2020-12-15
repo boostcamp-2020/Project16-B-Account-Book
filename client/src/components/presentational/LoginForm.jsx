@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import GitHubSvg from '../../svgs/GitHubSvg';
 import NaverSvg from '../../svgs/NaverSvg';
+import KakaoSvg from '../../svgs/KakaoSvg';
 import logoImg from '@public/img/colored_logo_img.png';
 
 const GITHUB_AUTHORIZATION_URL = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${process.env.HOMEPAGE_URL}`;
-
 const NAVER_AUTHORIZATION_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.NAVER_CLIENT_ID}&redirect_uri=${process.env.HOMEPAGE_URL}&state=naver`;
+const KAKAO_AUTHORIZATION_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.KAKAO_CLIENT_ID}&redirect_uri=${process.env.HOMEPAGE_URL}&state=kakao`;
 
 const StyledLink = styled.a`
   text-decoration: none;
@@ -109,12 +110,17 @@ const LoginForm = () => {
               <Text>오늘 당장 Piggy Book에 가입하세요.</Text>
               <StyledLink href={GITHUB_AUTHORIZATION_URL}>
                 <LoginButton type="button">
-                  <GitHubSvg /> Login With github
+                  <GitHubSvg /> Login with GitHub
                 </LoginButton>
               </StyledLink>
               <StyledLink href={NAVER_AUTHORIZATION_URL}>
                 <LoginButton type="button">
-                  <NaverSvg /> Login With naver
+                  <NaverSvg /> Login with NAVER
+                </LoginButton>
+              </StyledLink>
+              <StyledLink href={KAKAO_AUTHORIZATION_URL}>
+                <LoginButton type="button">
+                  <KakaoSvg /> Login with kakao
                 </LoginButton>
               </StyledLink>
             </Box>

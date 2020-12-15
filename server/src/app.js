@@ -3,13 +3,11 @@ const Router = require('koa-router');
 const cors = require('@koa/cors');
 const bodyParser = require('koa-bodyparser');
 const path = require('path');
-
-const indexRouter = require('./route/index');
-
 require('dotenv').config({
   path: path.join(__dirname, `../.env.${process.env.NODE_ENV}`),
 });
 require('./startup/db')();
+const indexRouter = require('./route/index');
 
 const corsOptions = {
   origin: process.env.CLIENT_URL,

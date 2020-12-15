@@ -10,7 +10,7 @@ const ContentWrapper = styled.div`
   left: 251px;
   padding: 50px 20px;
   width: 972px;
-  height: 100%;
+  height: auto;
   background-color: ${color.pageBackground};
   transition: 850ms;
 

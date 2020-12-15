@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 const GITHUB_TOKEN_API_URL = 'https://github.com/login/oauth/access_token';
 const GITHUB_USERINFO_API_URL = 'https://api.github.com/user';
 
@@ -25,8 +27,8 @@ module.exports = async (ctx, next) => {
 const requestToken = async (code) => {
   const info = {
     code,
-    client_id: process.env.GITHUB_CLIENT_ID,
-    client_secret: process.env.GITHUB_CLIENT_SECRET,
+    client_id: GITHUB_CLIENT_ID,
+    client_secret: GITHUB_CLIENT_SECRET,
   };
 
   const { data } = await axios.post(GITHUB_TOKEN_API_URL, info, {

@@ -54,13 +54,13 @@ const parseTransactions = (transactions) => {
   return data.map((t) => ({ ...t, cost: t.cost / 10000, date: t.date + '일' }));
 };
 
-const CumulativeExpenditure = ({ transactions }) => {
+const CumulativeExpenditure = ({ title, transactions }) => {
   const data = parseTransactions(transactions);
 
   return (
     <>
       <ChartWrapper>
-        <ChartTitle>일별 누적 지출</ChartTitle>
+        <ChartTitle>{title}</ChartTitle>
         <ResponsiveContainer width="100%" height={400}>
           <AreaChart
             data={data}
@@ -73,7 +73,7 @@ const CumulativeExpenditure = ({ transactions }) => {
               </linearGradient>
             </defs>
             <XAxis dataKey="date" tick={{ fontSize: 12 }} />
-            <YAxis unit="만원" tick={{ fontSize: 10 }} />
+            <YAxis unit="만 원" tick={{ fontSize: 10 }} />
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
             <Area

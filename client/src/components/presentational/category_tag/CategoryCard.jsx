@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import icon from '@public/icon';
 import color from '@public/color';
-import DropDown from '../common/DropDown';
+import CardDropDown from './CardDropDown';
 
 const CardWrapper = styled.div`
   flex: 1 0 calc(50% - 20px);
@@ -79,7 +80,27 @@ const IconWrapper = styled.div`
 
 const CategoryCard = ({ iconName, title, description }) => {
   const [dropdown, setDropDown] = useState(false);
-  const dropDownOptions = ['분석에서 제외', '보고서 보기', '내역 보기'];
+  const history = useHistory();
+
+  const dropDownOptions = [
+    {
+      text: '보고서 보기',
+      func: () => {
+        setDropDown(false);
+        history.push({
+          pathname: '/analysis',
+          state: { type: 'category', name: title },
+        });
+      },
+    },
+    {
+      text: '내역 보기',
+      func: () => {
+        console.log('TODO-내역 보기');
+        setDropDown(false);
+      },
+    },
+  ];
   return (
     <>
       <CardWrapper>
@@ -90,7 +111,7 @@ const CategoryCard = ({ iconName, title, description }) => {
             {icon.more}
           </div>
           {dropdown && (
-            <DropDown options={dropDownOptions} setDropDown={setDropDown} />
+            <CardDropDown options={dropDownOptions} setDropDown={setDropDown} />
           )}
         </div>
         <div className="card-description">{description}</div>

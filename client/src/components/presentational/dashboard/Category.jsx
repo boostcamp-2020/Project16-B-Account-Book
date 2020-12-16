@@ -1,5 +1,3 @@
-import coffeeImage from '@public/img/coffee.jpeg';
-import squirrel from '@public/img/squirrel.jpeg';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
@@ -24,10 +22,11 @@ const Category = ({ image, text, redirectCategory }) => {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push({
-      pathname: '/analysis',
-      state: { type: 'category', name: redirectCategory },
-    });
+    redirectCategory &&
+      history.push({
+        pathname: '/analysis',
+        state: { type: 'category', name: redirectCategory },
+      });
   };
 
   return (

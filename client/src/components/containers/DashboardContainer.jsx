@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import DashboardVisualExpense from '../presentational/dashboard/DashboardVisualExpense';
 import DashboardTextExpense from '../presentational/dashboard/DashboardTextExpense';
 import { loadTransactions } from '@slice';
-import CategorySection from '../presentational/dashboard/CategorySection';
+import OtherAnalyses from '../presentational/dashboard/OtherAnalyses';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -86,19 +86,22 @@ const DashboardContainer = () => {
     <>
       <div>DashboardContainer</div>
       <StyledDiv>
-        <MonthlyAnalysis>
-          {transactions[0] ? (
-            <>
+        {transactions[0] ? (
+          <>
+            <MonthlyAnalysis>
               <DashboardVisualExpense transactions={transactionByCategory} />
               <MediaTextExpense>
                 <DashboardTextExpense transactions={transactionByCard} />
               </MediaTextExpense>
-            </>
-          ) : (
-            <div> No transactions! please move to 수입/지출 내역 tab</div>
-          )}
-        </MonthlyAnalysis>
-        <CategorySection transactions={transactionByCategory} />
+            </MonthlyAnalysis>
+            <OtherAnalyses
+              transactions={transactions}
+              transactionByCategory={transactionByCategory}
+            />
+          </>
+        ) : (
+          <div> No transactions! please move to 수입/지출 내역 tab</div>
+        )}
       </StyledDiv>
     </>
   );

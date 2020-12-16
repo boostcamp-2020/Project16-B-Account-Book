@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Category from './Category';
 import squirrel from '@public/img/squirrel.jpeg';
 import coffeeImage from '@public/img/coffee.jpeg';
+import beer from '@public/img/beer.jpg';
 
 const Section = styled.div`
   display: flex;
@@ -29,7 +30,7 @@ const categorySection = ({ transactions }) => {
       <Section>
         {transactionObject['술/유흥'] && (
           <Category
-            image={squirrel}
+            image={beer}
             text={`술/유흥 ${transactionObject['술/유흥']}원`}
             redirectCategory={'술/유흥'}
           />

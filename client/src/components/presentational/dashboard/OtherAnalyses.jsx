@@ -17,7 +17,6 @@ const Section = styled.div`
   }
 `;
 const OtherAnalyses = ({ transactions, transactionByCategory }) => {
-  console.log(transactions);
   return (
     <>
       <Section>

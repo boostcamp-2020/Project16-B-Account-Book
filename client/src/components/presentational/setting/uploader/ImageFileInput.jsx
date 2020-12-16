@@ -93,7 +93,7 @@ const ImageFileInput = ({ originUserInfo, onChangeFileInfo }) => {
             line="dotted"
           >
             {imageName}
-            {format !== undefined ? `.${format}` : <></>}
+            {format ? `.${format}` : <></>}
           </UploadButton>
           <UploadButton
             onClick={onCancelClick}

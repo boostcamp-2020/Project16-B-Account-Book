@@ -4,8 +4,13 @@ import styled from 'styled-components';
 
 import DashboardVisualExpense from '../presentational/dashboard/DashboardVisualExpense';
 import DashboardTextExpense from '../presentational/dashboard/DashboardTextExpense';
-import { loadTransactions } from '@slice';
 import OtherAnalyses from '../presentational/dashboard/OtherAnalyses';
+import { loadTransactions } from '@slice';
+import {
+  getCurrentDateTransactions,
+  getTransactionsByCard,
+  getTransactionsByCategory,
+} from '@util/transaction';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -41,46 +46,22 @@ const DashboardContainer = () => {
     dispatch(loadTransactions());
   }, []);
 
-  const transactionByCard = transactions.reduce((acc, cur) => {
-    const index = acc.findIndex(
-      (item) =>
-        item.paymentMethod === cur.paymentMethod && item.type === cur.type
-    );
-    if (acc[index]) {
-      acc[index].cost += cur.cost;
-      return acc;
-    }
-    return [
-      ...acc,
-      { paymentMethod: cur.paymentMethod, cost: cur.cost, type: cur.type },
-    ];
-  }, []);
-
-  const parseData = (transactions) => {
-    return transactions
-      .reduce((acc, cur) => {
-        if (cur.type === '수입') {
-          return acc;
-        }
-        const index = acc.findIndex((item) => item.name === cur.category);
-        if (acc[index]) {
-          acc[index].value += cur.cost;
-          return acc;
-        }
-        return [...acc, { name: cur.category, value: cur.cost }];
-      }, [])
-      .sort((a, b) => {
-        if (a.cost > b.cost) {
-          return 1;
-        }
-        if (a.cost < b.cost) {
-          return -1;
-        }
-        return 1;
-      });
+  const date = new Date();
+  const currentDate = {
+    year: date.getUTCFullYear(),
+    month: date.getUTCMonth() + 1,
   };
 
-  const transactionByCategory = parseData(transactions);
+  const currentDateTransactions = getCurrentDateTransactions(
+    currentDate,
+    transactions
+  );
+
+  const transactionByCard = getTransactionsByCard(currentDateTransactions);
+
+  const transactionByCategory = getTransactionsByCategory(
+    currentDateTransactions
+  );
 
   return (
     <>

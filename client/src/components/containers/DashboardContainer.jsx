@@ -98,7 +98,7 @@ const DashboardContainer = () => {
             <div> No transactions! please move to 수입/지출 내역 tab</div>
           )}
         </MonthlyAnalysis>
-        <CategorySection transaction={transactionByCategory} />
+        <CategorySection transactions={transactionByCategory} />
       </StyledDiv>
     </>
   );

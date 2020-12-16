@@ -18,35 +18,46 @@ const Section = styled.div`
   }
 `;
 
-const categorySection = () => {
+const categorySection = ({ transactions }) => {
+  const transactionObject = {};
+  transactions.forEach((transaction) => {
+    transactionObject[transaction.name] = 1;
+  });
+
   return (
     <>
       <Section>
-        <Category
-          image={squirrel}
-          text="술/유흥"
-          redirectCategory={'술/유흥'}
-        />
-        <Category
-          image={squirrel}
-          text="aaaaaaaaaaaa"
-          redirectCategory={'식사'}
-        />
-        <Category
-          image={coffeeImage}
-          text="aaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaa"
-          redirectCategory={'카페/간식'}
-        />
-        <Category
-          image={coffeeImage}
-          text="aaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaa"
-          redirectCategory={'카페/간식'}
-        />
-        <Category
-          image={coffeeImage}
-          text="aaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaa"
-          redirectCategory={'카페/간식'}
-        />
+        {transactionObject['술/유흥'] && (
+          <Category
+            image={squirrel}
+            text="술/유흥"
+            redirectCategory={'술/유흥'}
+          />
+        )}
+        {transactionObject['식사'] && (
+          <Category image={squirrel} text="식사" redirectCategory={'식사'} />
+        )}
+        {transactionObject['카페/간식'] && (
+          <Category
+            image={coffeeImage}
+            text="카페/간식"
+            redirectCategory={'카페/간식'}
+          />
+        )}
+        {transactionObject['생활/마트'] && (
+          <Category
+            image={coffeeImage}
+            text="생활/마트"
+            redirectCategory={'생활/마트'}
+          />
+        )}
+        {transactionObject['온라인쇼핑'] && (
+          <Category
+            image={coffeeImage}
+            text="온라인쇼핑"
+            redirectCategory={'온라인쇼핑'}
+          />
+        )}
       </Section>
     </>
   );

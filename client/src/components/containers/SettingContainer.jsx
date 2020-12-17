@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { setUserInfo, reset } from '@slice';
 import {
   loadUserInfo,
   loadAllUsersInfo,
@@ -10,9 +11,8 @@ import {
   setUserSettingsInfo,
   changeUserInfo,
   changeMembers,
-  setUserInfo,
-  reset,
-} from '@slice';
+} from '@settingSlice';
+
 import SettingHeader from '@presentational/setting/SettingHeader';
 import SettingEditor from '../presentational/setting/SettingEditor';
 import SettingPreview from '../presentational/setting/SettingPreview';
@@ -39,10 +39,11 @@ const SettingContainer = () => {
   const dispatch = useDispatch();
 
   const [isMaster, setIsMaster] = useState(false);
-  const userInfo = useSelector((state) => state.default.userSettingsInfo);
-  const originUserInfo = useSelector((state) => state.default.userOriginInfo);
-  const usersInfo = useSelector((state) => state.default.allUsersInfo);
-  const inviteUserList = useSelector((state) => state.default.inviteUsers);
+  
+  const userInfo = useSelector((state) => state.setting.userSettingsInfo);
+  const currentUserInfo = useSelector((state) => state.setting.currentUserInfo);
+  const usersInfo = useSelector((state) => state.setting.allUsersInfo);
+  const inviteUserList = useSelector((state) => state.setting.inviteUsers);
 
   const compareInfo = () => {
     setIsMaster(false);
@@ -99,7 +100,7 @@ const SettingContainer = () => {
         <SettingEditor
           userInfo={userInfo}
           usersInfo={usersInfo}
-          originUserInfo={originUserInfo}
+          currentUserInfo={currentUserInfo}
           updateUserInfo={updateUserInfo}
           onChange={onChange}
           isMaster={isMaster}

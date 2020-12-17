@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import S from '@presentational/calendar/style';
-import { setCalendarInfo, loadCalendarTransactions } from '@slice';
+import { setCalendarInfo, loadCalendarTransactions } from '@calendarSlice';
 import { nowDateMap } from '@presentational/calendar/CalendarUtil';
 import CalendarForm from '@presentational/calendar/CalendarForm';
 import makeTemplate from '@presentational/calendar/MakeTemplate';
@@ -10,9 +10,10 @@ import makeTemplate from '@presentational/calendar/MakeTemplate';
 const CalendarContainer = () => {
   const dispatch = useDispatch();
   const transactions = useSelector(
-    (state) => state.default.calendarTransactions
+    (state) => state.calendar.calendarTransactions
   );
-  const calendarInfo = useSelector((state) => state.default.calendarInfo);
+  const calendarInfo = useSelector((state) => state.calendar.calendarInfo);
+
 
   const daysRef = useRef();
   const [date, setDate] = useState(new Date());

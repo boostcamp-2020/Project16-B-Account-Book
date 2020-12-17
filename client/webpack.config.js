@@ -16,6 +16,10 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       '@slice': path.resolve(__dirname, './src/slice'),
+      '@transactionSlice': path.resolve(__dirname, './src/transactionSlice'),
+      '@paymentSlice': path.resolve(__dirname, './src/paymentSlice'),
+      '@calendarSlice': path.resolve(__dirname, './src/calendarSlice'),
+      '@settingSlice': path.resolve(__dirname, './src/settingSlice'),
       '@presentational': path.resolve(
         __dirname,
         './src/components/presentational'

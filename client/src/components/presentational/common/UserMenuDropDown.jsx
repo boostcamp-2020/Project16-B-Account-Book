@@ -40,7 +40,7 @@ const UserMenuDropDown = ({ setUserMenu }) => {
       'accountBookId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
   };
 
-  const goSetting = () => {
+  const moveToSettingPage = () => {
     history.push('/setting');
   };
 
@@ -48,7 +48,7 @@ const UserMenuDropDown = ({ setUserMenu }) => {
     <>
       <Overlay setModal={setUserMenu} />
       <UserMenuDropDownWrapper>
-        <div className="dropdown-option" onClick={goSetting}>
+        <div className="dropdown-option" onClick={moveToSettingPage}>
           정보수정
         </div>
         <div className="dropdown-option">

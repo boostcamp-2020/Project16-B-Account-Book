@@ -41,7 +41,7 @@ const Select = styled.select`
 
 const CardEditForm = ({
   userInfo,
-  originUserInfo,
+  currentUserInfo,
   updateUserInfo,
   onChange,
 }) => {
@@ -103,7 +103,7 @@ const CardEditForm = ({
       </Select>
 
       <ImageFileInput
-        originUserInfo={originUserInfo}
+        currentUserInfo={currentUserInfo}
         onChangeFileInfo={onChangeFileInfo}
       />
       <Button name="정보 수정" onClick={onSubmit} />

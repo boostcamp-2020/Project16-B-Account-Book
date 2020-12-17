@@ -10,8 +10,8 @@ const Arrow = styled.div`
   bottom: 0;
   transform: rotate(-45deg) !important;
 
-  animation: slide 2s infinite;
-  @keyframes slide {
+  animation: slideRight 2s infinite;
+  @keyframes slideRight {
     0% {
       opacity: 0;
       transform: translateX(0vw) rotate(135deg);

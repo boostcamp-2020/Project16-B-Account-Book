@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import React, { useRef } from 'react';
 
 import Button from '../button/Button';
+import ImageFileInput from '../uploader/ImageFileInput';
 
 const CardFormContainer = styled.form`
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
   margin-bottom: 5em;
 `;
 
@@ -16,7 +17,7 @@ const Info = styled.div`
   width: 100%;
   border: 0;
   padding: 1.2em;
-  border-right: 1px solid black;
+  border-right: 1px solid gray;
   background: white;
   flex: 1 1 40%;
   font-size: 1rem;
@@ -30,34 +31,38 @@ const Select = styled.select`
   width: 100%;
   border: 0;
   padding: 1.2em;
-  border-top: 1px solid black;
-  border-right: 1px solid black;
+  border-top: 1px solid gray;
+  border-right: 1px solid gray;
 
   background: white;
   font-size: 1rem;
   cursor: pointer;
 `;
 
-const FileInput = styled.div`
-  padding: 0;
-  flex: 1 1 50%;
-`;
-
-const CardEditForm = ({ userInfo, updateUserInfo, onChange }) => {
-  const { email, imageURL, name, startDateOfMonth, startDayOfWeek } = userInfo;
+const CardEditForm = ({
+  userInfo,
+  originUserInfo,
+  updateUserInfo,
+  onChange,
+}) => {
+  const { email, name, startDateOfMonth, startDayOfWeek } = userInfo;
 
   const monthRef = useRef();
   const weekRef = useRef();
 
   const onChangeInfo = (event) => {
-    if (event.currentTarget == null) {
-      return;
-    }
     event.preventDefault();
 
     onChange({
       ...userInfo,
       [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
+
+  const onChangeFileInfo = (url) => {
+    onChange({
+      ...userInfo,
+      imageURL: url,
     });
   };
 
@@ -68,7 +73,7 @@ const CardEditForm = ({ userInfo, updateUserInfo, onChange }) => {
 
   return (
     <CardFormContainer>
-      <Info name="name">{name}</Info>
+      <Info name="name">Name: {name}</Info>
       <Info name="email">{email}</Info>
       <Select
         ref={monthRef}
@@ -97,12 +102,10 @@ const CardEditForm = ({ userInfo, updateUserInfo, onChange }) => {
         <option value="Mon">달력 시작 요일: Monday</option>
       </Select>
 
-      {/* 
-      // TODO: 이미지 업로드 & 이미지 url 수정 기능 추가 예정
-      <FileInput>
-        <ImageFileInput />
-      </FileInput> */}
-
+      <ImageFileInput
+        originUserInfo={originUserInfo}
+        onChangeFileInfo={onChangeFileInfo}
+      />
       <Button name="정보 수정" onClick={onSubmit} />
     </CardFormContainer>
   );

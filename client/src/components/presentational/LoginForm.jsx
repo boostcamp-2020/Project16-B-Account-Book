@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import GitHubSvg from '../../svgs/GitHubSvg';
 import NaverSvg from '../../svgs/NaverSvg';
 import KakaoSvg from '../../svgs/KakaoSvg';
@@ -16,10 +16,11 @@ const LoginButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #1da1f2;
+  border: 1px solid lightgray;
   outline: none;
   background-color: white;
-  width: 95%;
+  width: 80%;
+  padding: 3px;
   border-radius: 20px;
   & > * {
     padding-right: 10px;
@@ -47,7 +48,7 @@ const Content = styled.div`
 `;
 
 const Box = styled.div`
-  width: 33%;
+  width: ${(props) => props.width || '40%'};
   font-size: 1.5rem;
 
   display: flex;
@@ -73,15 +74,48 @@ const MiddleBox = styled.div`
   display: flex;
 `;
 
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const StyledImage = styled.img`
-  width: 100vw;
-  height: 100vh;
+  margin-top: 10%;
+  width: 70%;
+  height: 80%;
 `;
 
 const Title = styled.span`
   margin-bottom: 3rem;
   font-weight: bolder;
   font-size: 3vw;
+`;
+
+const SubTitle = styled.div`
+  margin-bottom: 10px;
+  font-size: 2vw;
+
+  &:after {
+    content: '';
+    display: block;
+    width: 43%;
+    height: 2px;
+    background-color: #fc5185;
+    transform: translateY(0.1em);
+  }
+`;
+
+const show = keyframes`
+  0% { color: transparent; }
+  100% { color: black; }
+`;
+
+const SubText = styled.span`
+  font-size: 2vw;
+  animation: ${show} 3.5s linear infinite;
 `;
 
 const Text = styled.span`
@@ -93,14 +127,20 @@ const LoginForm = () => {
     <>
       <OuterBox>
         {/* <GitHubSvg background={true} /> */}
-        <StyledImage src={logoImg} />
+        <Container>
+          <StyledImage src={logoImg} />
+        </Container>
         <MiddleBox>
           <Content>
-            <Box>
-              <Text> 돈 관리 하세요.</Text>
-              <Text>
-                사람들과 거래 내역을 등록 해서 당신의 지갑을 관리 해보세요.
-              </Text>
+            <Box width="33%">
+              <SubTitle>
+                <b>'돈 관리'</b>하세요.
+              </SubTitle>
+              <SubText>
+                사람들과 <b>공유하고,</b> <br />
+                거래 내역을 <b>등록하며</b> <br />
+                당신의 지갑을 관리해 보세요.
+              </SubText>
             </Box>
             <Box color="black">
               <GitHubSvg />

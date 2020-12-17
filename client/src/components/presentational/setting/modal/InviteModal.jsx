@@ -14,9 +14,9 @@ const Modal = styled.form`
 
 const ModalWrapper = styled.div`
   position: relative;
-  top: 200px;
+  top: 10px;
   width: 480px;
-  max-height: 100vh;
+  max-height: 90vh;
   background-color: white;
   position: relative;
   box-sizing: border-box;

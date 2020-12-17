@@ -6,6 +6,7 @@ import Fade from '@material-ui/core/Fade';
 import TransactionInputForm from './TransactionInputForm';
 import ParserInputForm from './ParserInputForm';
 import BulkInputForm from './BulkInputForm';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -22,31 +23,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TransactionModal = ({
-  openModalStatus,
-  setOpenModalStatus,
   insertTransaction,
   updateTransactionHandler,
   deleteTransactionHandler,
-  editIdStatus,
-  setEditIdStatus,
-  handleCancel,
-  tags,
-  paymentMethods,
-  parserStatus,
-  setParserStatus,
-  bulkInsert,
-  setBulkInsert,
   bulkInsertTransactionHandler,
+  handleClose,
 }) => {
   const classes = useStyles();
 
-  const handleClose = () => {
-    setOpenModalStatus(false);
-    setEditIdStatus('');
-    setParserStatus(false);
-    setBulkInsert([]);
-  };
-
+  const openModalStatus = useSelector(
+    (state) => state.transaction.openModalStatus
+  );
+  const bulkInsert = useSelector((state) => state.transaction.bulkInsert);
+  const parserStatus = useSelector((state) => state.transaction.parserStatus);
   return (
     <div>
       <Modal
@@ -65,26 +54,17 @@ const TransactionModal = ({
           <div className={classes.paper}>
             {bulkInsert[0] ? (
               <BulkInputForm
-                bulkInsert={bulkInsert}
-                setBulkInsert={setBulkInsert}
-                setOpenModalStatus={setOpenModalStatus}
                 bulkInsertTransactionHandler={bulkInsertTransactionHandler}
+                handleClose={handleClose}
               />
             ) : parserStatus ? (
-              <ParserInputForm
-                setParserStatus={setParserStatus}
-                setEditIdStatus={setEditIdStatus}
-              />
+              <ParserInputForm />
             ) : (
               <TransactionInputForm
                 insertTransaction={insertTransaction}
-                setOpenModalStatus={setOpenModalStatus}
                 updateTransactionHandler={updateTransactionHandler}
                 deleteTransactionHandler={deleteTransactionHandler}
-                editIdStatus={editIdStatus}
-                handleCancel={handleCancel}
-                tags={tags}
-                paymentMethods={paymentMethods}
+                handleClose={handleClose}
               />
             )}
           </div>

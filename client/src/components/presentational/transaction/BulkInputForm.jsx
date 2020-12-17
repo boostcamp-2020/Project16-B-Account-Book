@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 
 import styled from 'styled-components';
 import currencyExchange from '@util/currencyExchange';
+import { useSelector } from 'react-redux';
 
 const StyledDiv = styled.div`
   display: grid;
@@ -22,12 +23,9 @@ const transactionInputFormObject = {
 const formKeys = Object.keys(transactionInputFormObject);
 const formValues = Object.values(transactionInputFormObject);
 
-const BulkInputForm = ({
-  bulkInsert,
-  setBulkInsert,
-  bulkInsertTransactionHandler,
-  setOpenModalStatus,
-}) => {
+const BulkInputForm = ({ bulkInsertTransactionHandler, handleClose }) => {
+  const bulkInsert = useSelector((state) => state.transaction.bulkInsert);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -37,9 +35,7 @@ const BulkInputForm = ({
         return { ...transaction, cost: currencyExchange(cost, currency) };
       }),
     });
-
-    setBulkInsert(false);
-    setOpenModalStatus(false);
+    handleClose();
   };
   return (
     <>

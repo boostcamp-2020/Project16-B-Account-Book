@@ -43,7 +43,7 @@ const AccountBookContainerWrapper = styled.div`
 const AccountBookContainer = () => {
   const [addModal, setAddModal] = useState(false);
   const dispatch = useDispatch();
-  const accountBooks = useSelector((state) => state.default.accountBooks);
+  const accountBooks = useSelector((state) => state.default.accountBooks) || [];
 
   useEffect(() => {
     dispatch(loadAccountBooks());

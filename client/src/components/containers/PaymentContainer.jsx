@@ -13,6 +13,7 @@ const PaymentContainer = () => {
   const dispatch = useDispatch();
   const payments = useSelector((state) => state.payment.payments);
 
+
   useEffect(() => {
     dispatch(loadPayment());
   }, []);

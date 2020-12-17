@@ -2,6 +2,7 @@ import { Fragment, useLayoutEffect, useRef } from 'react';
 import styled from 'styled-components';
 import categories from '@presentational/category_tag/categories';
 import currencyExchange from '@util/currencyExchange';
+import { useSelector } from 'react-redux';
 
 const StyledForm = styled.form`
   display: flex;
@@ -12,11 +13,7 @@ const TransactionInputForm = ({
   insertTransaction,
   updateTransactionHandler,
   deleteTransactionHandler,
-  editIdStatus,
-  handleCancel,
-  setOpenModalStatus,
-  paymentMethods = [],
-  tags = [],
+  handleClose,
 }) => {
   const categoryInput = useRef();
   const paymentMethodInput = useRef();
@@ -29,20 +26,30 @@ const TransactionInputForm = ({
   const typeInput = useRef();
   const currencyInput = useRef();
 
+  const paymentMethods =
+    useSelector((state) => state.default.paymentMethods) || [];
+  const tags = useSelector((state) => state.default.tags) || [];
+  const editIdStatus = useSelector((state) => state.transaction.editIdStatus);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = parseData();
 
     if (editIdStatus) {
-      updateTransactionHandler({ transaction: data });
+      updateTransactionHandler({
+        transactionId: editIdStatus,
+        transaction: data,
+      });
+      handleClose();
       return;
     }
     insertTransaction({ transaction: data });
+    handleClose();
   };
 
   const handleDelete = () => {
-    setOpenModalStatus(false);
     deleteTransactionHandler([editIdStatus._id]);
+    handleClose();
   };
 
   const parseData = () => {
@@ -64,16 +71,16 @@ const TransactionInputForm = ({
     };
   };
 
-  const insertData = (transaction) => {
-    categoryInput.current.value = transaction.category || '';
-    paymentMethodInput.current.value = transaction.paymentMethod || '';
-    costInput.current.value = transaction.cost || 0;
-    typeInput.current.value = transaction.type || '지출';
+  const insertData = (transaction = {}) => {
+    categoryInput.current.value = transaction?.category || '';
+    paymentMethodInput.current.value = transaction?.paymentMethod || '';
+    costInput.current.value = transaction?.cost || 0;
+    typeInput.current.value = transaction?.type || '지출';
     dateInput.current.value = getDate(transaction);
     timeInput.current.value = getTime(transaction);
-    descriptionInput.current.value = transaction.description || '';
+    descriptionInput.current.value = transaction?.description || '';
     tagInput.current.value = [transaction?.tag] || [];
-    ImageURLInput.current.value = transaction.imageURL || '';
+    ImageURLInput.current.value = transaction?.imageURL || '';
   };
 
   const changeCurrency = (cost, currency) => {
@@ -83,7 +90,7 @@ const TransactionInputForm = ({
     return currencyExchange(cost, currency);
   };
 
-  const getDate = (transaction) => {
+  const getDate = (transaction = {}) => {
     if (transaction.date) {
       return `${transaction.year}-${transaction.month}-${transaction.day}`;
     }
@@ -191,7 +198,7 @@ const TransactionInputForm = ({
 
       {editIdStatus && (
         <>
-          <button onClick={handleCancel}>수정 취소</button>
+          <button onClick={handleClose}>수정 취소</button>
           <button onClick={handleDelete}>삭제</button>
         </>
       )}

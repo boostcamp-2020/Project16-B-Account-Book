@@ -39,6 +39,7 @@ const SettingContainer = () => {
   const dispatch = useDispatch();
 
   const [isMaster, setIsMaster] = useState(false);
+  
   const userInfo = useSelector((state) => state.setting.userSettingsInfo);
   const currentUserInfo = useSelector((state) => state.setting.currentUserInfo);
   const usersInfo = useSelector((state) => state.setting.allUsersInfo);

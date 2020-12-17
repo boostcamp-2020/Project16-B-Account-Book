@@ -1,5 +1,6 @@
 import Category from './Category';
-import squirrel from '@public/img/squirrel.jpeg';
+import 돈 from '@public/img/돈.jpeg';
+import 지출 from '@public/img/지출.jpg';
 
 const ComparisonAnaysisSection = ({ transactions }) => {
   let thisMonthTotalExpense = 0;
@@ -9,6 +10,9 @@ const ComparisonAnaysisSection = ({ transactions }) => {
   const currentYear = currentDate.getUTCFullYear();
 
   transactions.forEach((transaction) => {
+    if (transaction.type === '수입') {
+      return;
+    }
     const [transactionYear, transactionMonth] = transaction?.date.split('-');
     const transactionYearNumberFormat = Number(transactionYear);
     const transactionMonthNumberFormat = Number(transactionMonth);
@@ -33,17 +37,28 @@ const ComparisonAnaysisSection = ({ transactions }) => {
     }
   });
 
+  const getComparisonText = () => {
+    const difference = thisMonthTotalExpense - lastMonthTotalExpense;
+    if (difference < 0) {
+      return `지난 달에 비해 ${(
+        (1 - thisMonthTotalExpense / lastMonthTotalExpense) *
+        100
+      ).toFixed(2)}% 적게 쓰고 있습니다`;
+    }
+    return `지난 달에 비해 ${(
+      (thisMonthTotalExpense / lastMonthTotalExpense - 1) *
+      100
+    ).toFixed(2)}% 더 쓰고 있습니다`;
+  };
+
+  const comparisonText = getComparisonText();
+
   return (
     <>
+      <Category image={지출} text={comparisonText} />
       <Category
-        image={squirrel}
-        text={`지난 달에 비해 ${(
-          thisMonthTotalExpense / lastMonthTotalExpense
-        ).toFixed(2)}% 쓰고 있습니다`}
-      />
-      <Category
-        image={squirrel}
-        text={`지난 달에는 ${lastMonthTotalExpense}원 썼습니다`}
+        image={돈}
+        text={`지난 달에는 ${lastMonthTotalExpense.toLocaleString()}원 썼습니다`}
       />
     </>
   );

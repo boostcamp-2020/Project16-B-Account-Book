@@ -16,41 +16,45 @@ const categorySection = ({ transactions }) => {
       {transactionObject['술/유흥'] && (
         <Category
           image={beer2}
-          text={`술/유흥 ${transactionObject['술/유흥'].toLocaleString()}원`}
+          text={`술/유흥에 ${transactionObject[
+            '술/유흥'
+          ].toLocaleString()}원 소비 하셨습니다!`}
           redirectCategory={'술/유흥'}
         />
       )}
       {transactionObject['식사'] && (
         <Category
           image={식사}
-          text={`식사 ${transactionObject['식사'].toLocaleString()}원`}
+          text={`식사에 ${transactionObject[
+            '식사'
+          ].toLocaleString()}원 소비 하셨습니다!`}
           redirectCategory={'식사'}
         />
       )}
       {transactionObject['카페/간식'] && (
         <Category
           image={coffee2}
-          text={`카페/간식 ${transactionObject[
+          text={`카페/간식에 ${transactionObject[
             '카페/간식'
-          ].toLocaleString()}원`}
+          ].toLocaleString()}원 소비 하셨습니다!`}
           redirectCategory={'카페/간식'}
         />
       )}
       {transactionObject['생활/마트'] && (
         <Category
           image={마트}
-          text={`생활/마트 ${transactionObject[
+          text={`생활/마트에 ${transactionObject[
             '생활/마트'
-          ].toLocaleString()}원`}
+          ].toLocaleString()}원 소비 하셨습니다!`}
           redirectCategory={'생활/마트'}
         />
       )}
       {transactionObject['온라인쇼핑'] && (
         <Category
           image={onlineShopping}
-          text={`온라인쇼핑 ${transactionObject[
+          text={`온라인쇼핑에 ${transactionObject[
             '온라인쇼핑'
-          ].toLocaleString()}원`}
+          ].toLocaleString()}원 소비 하셨습니다!`}
           redirectCategory={'온라인쇼핑'}
         />
       )}

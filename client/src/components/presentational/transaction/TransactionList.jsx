@@ -7,6 +7,7 @@ import {
   setDeleteStatus,
   setEditIdStatus,
 } from '@transactionSlice';
+import ArrowPointer from './ArrowPointer';
 
 const StyledDiv = styled.div`
   display: grid;
@@ -242,6 +243,7 @@ const TransactionList = ({ transactions, deleteTransactionHandler }) => {
           </ButtonGroup>
         </DeleteOverview>
       )}
+      {!transactions[0] && <ArrowPointer />}
     </>
   );
 };

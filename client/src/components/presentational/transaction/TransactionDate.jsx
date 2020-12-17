@@ -52,24 +52,20 @@ const TransactionDate = ({ date, updateDateHandler }) => {
       <DateSelectSection>
         <StyledDiv>
           <StyledButton onClick={() => handleClick('year', -1)}>
-            {' '}
-            {icon.leftArrow}{' '}
+            {icon.leftArrow}
           </StyledButton>
           year {date.year}
           <StyledButton onClick={() => handleClick('year', 1)}>
-            {' '}
-            {icon.rightArrow}{' '}
+            {icon.rightArrow}
           </StyledButton>
         </StyledDiv>
         <StyledDiv>
           <StyledButton onClick={() => handleClick('month', -1)}>
-            {' '}
-            {icon.leftArrow}{' '}
+            {icon.leftArrow}
           </StyledButton>
           month {date.month}
           <StyledButton onClick={() => handleClick('month', 1)}>
-            {' '}
-            {icon.rightArrow}{' '}
+            {icon.rightArrow}
           </StyledButton>
         </StyledDiv>
       </DateSelectSection>

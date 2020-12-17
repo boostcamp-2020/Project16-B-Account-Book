@@ -64,11 +64,4 @@ export const closeModal = () => {
   };
 };
 
-export const changeDeleteStatus = (status) => {
-  console.log(status, 'ㅁㄴㅇㅁㄴㅇ');
-  return (dispatch) => {
-    dispatch(setDeleteStatus(status));
-  };
-};
-
 export default transactionSlice;

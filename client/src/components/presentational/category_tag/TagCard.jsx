@@ -139,7 +139,7 @@ const TagCard = ({
   const [dropdown, setDropDown] = useState(false);
   const [editMode, setEditMode] = useState(hidden);
   const [tagName, setTagName] = useState(title);
-  const tags = useSelector((state) => state.tags);
+  const tags = useSelector((state) => state.default.tags);
   const history = useHistory();
 
   const onInputChange = (e) => {

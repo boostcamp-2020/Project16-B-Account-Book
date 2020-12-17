@@ -8,7 +8,6 @@ const Box = styled.div`
   border-radius: 0.3em;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
   border-color: lightgray;
-  /* max-width: fit-content; */
   width: 30vw;
   margin: 0px 0px 1% 1%;
 `;

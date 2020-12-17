@@ -8,7 +8,7 @@ export const getCurrentDateTransactions = (date, transactions) => {
   });
 };
 
-export const getTransactionsByCard = (transactions) => {
+export const getTransactionsByPaymentMethod = (transactions) => {
   return transactions.reduce((acc, cur) => {
     const index = acc.findIndex(
       (item) =>
@@ -39,12 +39,9 @@ export const getTransactionsByCategory = (transactions) => {
       return [...acc, { name: cur.category, value: cur.cost }];
     }, [])
     .sort((a, b) => {
-      if (a.cost > b.cost) {
+      if (a.cost >= b.cost) {
         return 1;
       }
-      if (a.cost < b.cost) {
-        return -1;
-      }
-      return 1;
+      return -1;
     });
 };

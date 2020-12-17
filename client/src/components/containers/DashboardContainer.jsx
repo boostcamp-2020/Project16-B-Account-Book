@@ -8,7 +8,7 @@ import OtherAnalyses from '../presentational/dashboard/OtherAnalyses';
 import { loadTransactions } from '@slice';
 import {
   getCurrentDateTransactions,
-  getTransactionsByCard,
+  getTransactionsByPaymentMethod,
   getTransactionsByCategory,
 } from '@util/transaction';
 
@@ -57,7 +57,9 @@ const DashboardContainer = () => {
     transactions
   );
 
-  const transactionByCard = getTransactionsByCard(currentDateTransactions);
+  const transactionByCard = getTransactionsByPaymentMethod(
+    currentDateTransactions
+  );
 
   const transactionByCategory = getTransactionsByCategory(
     currentDateTransactions
@@ -65,7 +67,6 @@ const DashboardContainer = () => {
 
   return (
     <>
-      <div>DashboardContainer</div>
       <StyledDiv>
         {transactions[0] ? (
           <>

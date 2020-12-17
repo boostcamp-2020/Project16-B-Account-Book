@@ -43,7 +43,7 @@ const ComparisonAnaysisSection = ({ transactions }) => {
       />
       <Category
         image={squirrel}
-        text={`지난 달에는 ${lastMonthTotalExpense}만원 썼습니다`}
+        text={`지난 달에는 ${lastMonthTotalExpense}원 썼습니다`}
       />
     </>
   );

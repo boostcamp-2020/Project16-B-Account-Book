@@ -39,10 +39,10 @@ const SettingContainer = () => {
   const dispatch = useDispatch();
 
   const [isMaster, setIsMaster] = useState(false);
-  const userInfo = useSelector((state) => state.userSettingsInfo);
-  const currentUserInfo = useSelector((state) => state.currentUserInfo);
-  const usersInfo = useSelector((state) => state.allUsersInfo);
-  const inviteUserList = useSelector((state) => state.inviteUsers);
+  const userInfo = useSelector((state) => state.default.userSettingsInfo);
+  const currentUserInfo = useSelector((state) => state.default.currentUserInfo);
+  const usersInfo = useSelector((state) => state.default.allUsersInfo);
+  const inviteUserList = useSelector((state) => state.default.inviteUsers);
 
   const compareInfo = () => {
     setIsMaster(false);

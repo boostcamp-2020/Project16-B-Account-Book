@@ -25,10 +25,10 @@ const TransactionContainer = () => {
   const [parserStatus, setParserStatus] = useState(false);
   const [bulkInsert, setBulkInsert] = useState([]);
 
-  const transactions = useSelector((state) => state.transactions);
-  const date = useSelector((state) => state.selectedDate);
-  const paymentMethods = useSelector((state) => state.paymentMethods);
-  const tags = useSelector((state) => state.tags);
+  const transactions = useSelector((state) => state.default.transactions);
+  const date = useSelector((state) => state.default.selectedDate);
+  const paymentMethods = useSelector((state) => state.default.paymentMethods);
+  const tags = useSelector((state) => state.default.tags);
 
   const currentDateTransactions = getCurrentDateTransactions(
     date,

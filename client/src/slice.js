@@ -39,7 +39,7 @@ import {
 } from '@service/userAPI';
 
 const { actions, reducer } = createSlice({
-  name: 'app',
+  name: 'default',
   initialState: {
     accessToken: '',
     test: 1,
@@ -162,7 +162,7 @@ const { actions, reducer } = createSlice({
         userSettingsInfo,
       };
     },
-    setcurrentUserInfo(state, { payload: currentUserInfo }) {
+    setCurrentUserInfo(state, { payload: currentUserInfo }) {
       return {
         ...state,
         currentUserInfo,
@@ -210,7 +210,7 @@ export const {
   setPaymentMethods,
   setCategories,
   setUsersInfo,
-  setcurrentUserInfo,
+  setCurrentUserInfo,
   setUserSettingsInfo,
   setInviteUsers,
   reset,
@@ -420,7 +420,7 @@ export const loadUserInfo = () => {
   return async (dispatch) => {
     const userSettingsInfo = await getUserInfo();
     dispatch(setUserSettingsInfo(userSettingsInfo));
-    dispatch(setcurrentUserInfo(userSettingsInfo));
+    dispatch(setCurrentUserInfo(userSettingsInfo));
   };
 };
 

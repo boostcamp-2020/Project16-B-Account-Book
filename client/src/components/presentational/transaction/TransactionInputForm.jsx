@@ -7,6 +7,53 @@ import { useSelector } from 'react-redux';
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+  & > * {
+    margin-bottom: 10px;
+  }
+`;
+
+const Select = styled.select`
+  position: relative;
+  padding: 8px 0px 8px 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  line-height: 34px;
+  font-size: 15px;
+  text-align: left;
+`;
+
+const Input = styled.input`
+  position: relative;
+  padding: 0 0 0 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  line-height: 34px;
+  font-size: 15px;
+  text-align: left;
+`;
+
+const Button = styled.button`
+  display: inline-block;
+  padding: 0 16px;
+  min-width: 88px;
+  background: #ffc0cb;
+  border: 0;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 34px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.258824) 0 2px 2px 0;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  background: #fafafa;
+  color: #111;
+  &:hover {
+    background: #ffc0cb;
+    color: #fff;
+  }
 `;
 
 const TransactionInputForm = ({
@@ -115,11 +162,17 @@ const TransactionInputForm = ({
 
   return (
     <>
-      <div>Transaction Input Form</div>
       <StyledForm onSubmit={handleSubmit}>
         <label>
-          category:
-          <input type="text" list="category" ref={categoryInput} />
+          수입/지출: &nbsp;
+          <Select ref={typeInput}>
+            <option value={'지출'}>지출</option>
+            <option value={'수입'}>수입</option>
+          </Select>
+        </label>
+        <label>
+          구분: &nbsp;
+          <Input type="text" list="category" ref={categoryInput} />
           <datalist id="category">
             {categories.map((category, i) => {
               return (
@@ -131,8 +184,8 @@ const TransactionInputForm = ({
           </datalist>
         </label>
         <label>
-          paymentMethod:
-          <input type="text" list="paymentMethod" ref={paymentMethodInput} />
+          수단: &nbsp;
+          <Input type="text" list="paymentMethod" ref={paymentMethodInput} />
           <datalist id="paymentMethod">
             {paymentMethods.map((paymentMethod, i) => {
               return (
@@ -144,39 +197,33 @@ const TransactionInputForm = ({
           </datalist>
         </label>
         <label>
-          cost:
-          <input type="number" name="name" ref={costInput} />
-          <select ref={currencyInput}>
+          가격: &nbsp;
+          <Input type="number" name="name" ref={costInput} />
+          <Select ref={currencyInput}>
             <option value={'원'}>원</option>
             <option value={'USD'}>USD</option>
             <option value={'EUR'}>EUR</option>
             <option value={'RUB'}>RUB</option>
             <option value={'CNY'}>CNY</option>
             <option value={'JPY'}>JPY</option>
-          </select>
+          </Select>
+        </label>
+
+        <label>
+          날짜: &nbsp;
+          <Input type="date" name="name" ref={dateInput} />
         </label>
         <label>
-          수입/지출:
-          <select ref={typeInput}>
-            <option value={'지출'}>지출</option>
-            <option value={'수입'}>수입</option>
-          </select>
+          시간: &nbsp;
+          <Input type="time" step="any" name="name" ref={timeInput} />
         </label>
         <label>
-          date:
-          <input type="date" name="name" ref={dateInput} />
+          설명: &nbsp;
+          <Input type="text" name="name" ref={descriptionInput} />
         </label>
         <label>
-          time:
-          <input type="time" step="any" name="name" ref={timeInput} />
-        </label>
-        <label>
-          description:
-          <input type="text" name="name" ref={descriptionInput} />
-        </label>
-        <label>
-          tag:
-          <input type="text" list="tag" ref={tagInput} />
+          태그: &nbsp;
+          <Input type="text" list="tag" ref={tagInput} />
           <datalist id="tag">
             {tags.map((tag, i) => {
               return (
@@ -188,12 +235,11 @@ const TransactionInputForm = ({
           </datalist>
         </label>
         <label>
-          imageURL:
-          <input type="text" name="name" ref={ImageURLInput} />
+          <input type="text" name="name" ref={ImageURLInput} hidden />
         </label>
-        <button type="submit" value="Submit">
+        <Button type="submit" value="Submit">
           확인
-        </button>
+        </Button>
       </StyledForm>
 
       {editIdStatus && (

@@ -110,7 +110,7 @@ const SubTitle = styled.div`
 
 const show = keyframes`
   0% { color: transparent; }
-  100% { color: awesome; }
+  100% { color: black; }
 `;
 
 const SubText = styled.span`

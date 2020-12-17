@@ -1,4 +1,4 @@
-import * as FaIcons from 'react-icons/fa';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 import S from './style';
 import CalendarCheckbox from './CalendarCheckbox';
@@ -19,7 +19,7 @@ const CalendarForm = ({
             onClickPrev();
           }}
         >
-          <FaIcons.FaAngleLeft size={50} />
+          <FaAngleLeft size={50} />
         </S.Prev>
         <S.DateDiv>
           <S.MonthTitle>{calendarInfo.month}월</S.MonthTitle>
@@ -32,7 +32,7 @@ const CalendarForm = ({
             onClickNext();
           }}
         >
-          <FaIcons.FaAngleRight size={50} />
+          <FaAngleRight size={50} />
         </S.Next>
       </S.Month>
       <CalendarCheckbox

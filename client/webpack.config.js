@@ -3,6 +3,8 @@ const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 const webpack = require('webpack');
 
 const port = process.env.PORT || 8080;
@@ -50,6 +52,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.ico',

@@ -80,6 +80,8 @@ const TransactionInputForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(tagInput.current.value);
+
     const data = parseData();
 
     if (editIdStatus) {
@@ -90,6 +92,7 @@ const TransactionInputForm = ({
       handleClose();
       return;
     }
+    console.log(data);
     insertTransaction({ transaction: data });
     handleClose();
   };
@@ -113,7 +116,7 @@ const TransactionInputForm = ({
       type: typeInput.current.value,
       date: ISODate,
       description: descriptionInput.current.value,
-      tag: [...tagInput.current.value],
+      tag: [tagInput.current.value],
       imageURL: ImageURLInput.current.value,
     };
   };

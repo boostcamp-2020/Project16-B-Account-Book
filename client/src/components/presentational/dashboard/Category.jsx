@@ -36,6 +36,7 @@ const Category = ({ image, text, redirectCategory }) => {
       <Box onClick={handleClick}>
         <img src={image} width={'100%'} height={'80%'} />
         <Text>{text}</Text>
+        <span>자세한 정보를 확인 하고 싶으시면 클릭을 해주세요</span>
       </Box>
     </>
   );

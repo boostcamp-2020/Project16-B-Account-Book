@@ -2,11 +2,16 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import PaymentForm from '@presentational/payment/PaymentForm';
-import { loadPayment, addPayment, removePayment, changePayment } from '@slice';
+import {
+  loadPayment,
+  addPayment,
+  removePayment,
+  changePayment,
+} from '@paymentSlice';
 
 const PaymentContainer = () => {
   const dispatch = useDispatch();
-  const payments = useSelector((state) => state.payments);
+  const payments = useSelector((state) => state.payment.payments);
 
   useEffect(() => {
     dispatch(loadPayment());

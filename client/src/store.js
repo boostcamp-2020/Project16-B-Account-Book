@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import reducer from './slice';
-import paymentReducer from './PaymentSlice';
+import paymentSlice from './paymentSlice';
+import calendarSlice from './calendarSlice';
 
 const rootReducer = combineReducers({
   default: reducer,
-  payment: paymentReducer.reducer,
+  payment: paymentSlice.reducer,
+  calendar: calendarSlice.reducer,
 });
 
 const store = configureStore({

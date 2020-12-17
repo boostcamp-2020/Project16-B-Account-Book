@@ -10,7 +10,6 @@ import {
   deleteTag,
   getTransactions,
   getTransactionsByAccountBookId,
-  getCalendarTransactions,
   postTransaction,
   postTransactions,
   updateTransaction,
@@ -46,13 +45,6 @@ const { actions, reducer } = createSlice({
       month: new Date().getMonth() + 1,
       day: new Date().getDay(),
     },
-    calendarInfo: {
-      year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
-      date: new Date().getDate(),
-      day: new Date().getDay(),
-    },
-    calendarTransactions: [],
     userSettingsInfo: [{ _id: null }],
     currentUserInfo: [{ _id: null }],
     allUsersInfo: [{ _id: null }],
@@ -63,6 +55,12 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         test,
+      };
+    },
+    setPaymentMethods(state, { payload: paymentMethods }) {
+      return {
+        ...state,
+        paymentMethods,
       };
     },
     setTransactions(state, { payload: transactions }) {
@@ -116,18 +114,6 @@ const { actions, reducer } = createSlice({
         ...selectedDate,
       };
     },
-    setCalendarInfo(state, { payload: calendarInfo }) {
-      return {
-        ...state,
-        calendarInfo,
-      };
-    },
-    setCalendarTransactions(state, { payload: calendarTransactions }) {
-      return {
-        ...state,
-        calendarTransactions,
-      };
-    },
     setUserSettingsInfo(state, { payload: userSettingsInfo }) {
       return {
         ...state,
@@ -175,8 +161,6 @@ export const {
   setUserInfo,
   insertTransactions,
   setDate,
-  setCalendarInfo,
-  setCalendarTransactions,
   setPaymentMethods,
   setCategories,
   setUsersInfo,
@@ -336,13 +320,6 @@ export const changeAccountBook = (accountBookId, newTitle) => {
 export const updateDate = ({ date }) => {
   return async (dispatch) => {
     dispatch(setDate({ selectedDate: date }));
-  };
-};
-
-export const loadCalendarTransactions = (year, month) => {
-  return async (dispatch) => {
-    const transactions = await getCalendarTransactions(year, month);
-    dispatch(setCalendarTransactions(transactions));
   };
 };
 

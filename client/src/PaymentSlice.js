@@ -8,7 +8,7 @@ import {
   updatePayment,
 } from '@service/paymentAPI';
 
-const paymentReducer = createSlice({
+const paymentSlice = createSlice({
   name: 'payment',
   initialState: {
     payments: [],
@@ -27,16 +27,10 @@ const paymentReducer = createSlice({
         paymentsDetail,
       };
     },
-    setPaymentMethods(state, { payload: paymentMethods }) {
-      return {
-        ...state,
-        paymentMethods,
-      };
-    },
   },
 });
 
-export const { setPayments, setPaymentsDetail } = paymentReducer.actions;
+export const { setPayments, setPaymentsDetail } = paymentSlice.actions;
 
 export const loadPayment = () => {
   return async (dispatch) => {
@@ -78,4 +72,4 @@ export const changePayment = ({ selectedCardName, newCardName }) => {
   };
 };
 
-export default paymentReducer;
+export default paymentSlice;

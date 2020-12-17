@@ -77,7 +77,7 @@ const MenuBars = styled.div`
 `;
 
 const Header = () => {
-  const userInfo = useSelector((state) => state.userInfo);
+  const userInfo = useSelector((state) => state.default.userInfo);
   const [sidebarModal, setSidebarModal] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
 

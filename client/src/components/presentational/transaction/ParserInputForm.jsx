@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
 import smsParser from '@util/smsParser';
+import { setParserStatus, setEditIdStatus } from '@transactionSlice';
+import { useDispatch } from 'react-redux';
 
 const TextArea = styled.textarea`
   width: 100%;
@@ -9,19 +11,23 @@ const TextArea = styled.textarea`
   resize: vertical;
 `;
 
-const ParserInputForm = ({ setParserStatus, setEditIdStatus }) => {
+const ParserInputForm = () => {
   const textAreaInput = useRef();
+  const dispatch = useDispatch();
 
   const parseOnClick = () => {
     if (textAreaInput.current.value) {
       const parsedData = smsParser(textAreaInput.current.value);
       const data = dateParser(parsedData);
-      setEditIdStatus(data);
+      dispatch(setEditIdStatus(data));
     }
-    setParserStatus(false);
+    dispatch(setParserStatus(false));
   };
 
-  const dateParser = (data) => {
+  const dateParser = (data = {}) => {
+    if (!data.date) {
+      return;
+    }
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const [month, day] = data?.date.split('/');

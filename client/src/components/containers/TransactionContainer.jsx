@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -15,20 +15,13 @@ import TransactionModal from '@presentational/transaction/TransactionModal';
 import TransactionLineChart from '@presentational/transaction/TransactionLineChart';
 import TransactionDate from '@presentational/transaction/TransactionDate';
 import { getCurrentDateTransactions } from '@util/transaction';
+import { closeModal } from '@transactionSlice';
 
 const TransactionContainer = () => {
   const dispatch = useDispatch();
 
-  const [deleteStatus, setDeleteStatus] = useState(false);
-  const [editIdStatus, setEditIdStatus] = useState('');
-  const [openModalStatus, setOpenModalStatus] = useState(false);
-  const [parserStatus, setParserStatus] = useState(false);
-  const [bulkInsert, setBulkInsert] = useState([]);
-
-  const transactions = useSelector((state) => state.transactions);
-  const date = useSelector((state) => state.selectedDate);
-  const paymentMethods = useSelector((state) => state.paymentMethods);
-  const tags = useSelector((state) => state.tags);
+  const transactions = useSelector((state) => state.default.transactions);
+  const date = useSelector((state) => state.default.selectedDate);
 
   const currentDateTransactions = getCurrentDateTransactions(
     date,
@@ -42,7 +35,6 @@ const TransactionContainer = () => {
 
   const insertTransaction = ({ transaction }) => {
     dispatch(addTransaction({ transactions: [transaction] }));
-    handleCancel();
   };
 
   const bulkInsertTransactionHandler = ({ transactions }) => {
@@ -53,54 +45,34 @@ const TransactionContainer = () => {
     dispatch(removeTransaction({ transactionIds }));
   };
 
-  const updateTransactionHandler = ({ transaction }) => {
-    dispatch(changeTransaction({ transactionId: editIdStatus, transaction }));
-    handleCancel();
+  const updateTransactionHandler = ({ transactionId, transaction }) => {
+    dispatch(changeTransaction({ transactionId, transaction }));
+    handleClose();
   };
 
   const updateDateHandler = ({ date }) => {
     dispatch(updateDate({ date }));
   };
 
-  const handleCancel = () => {
-    setEditIdStatus('');
-    setOpenModalStatus(false);
+  const handleClose = () => {
+    dispatch(closeModal());
   };
 
   return (
     <>
       <TransactionDate date={date} updateDateHandler={updateDateHandler} />
       <TransactionLineChart currentDateTransactions={currentDateTransactions} />
-      <TransactionFab
-        setOpenModalStatus={setOpenModalStatus}
-        setDeleteStatus={setDeleteStatus}
-        setParserStatus={setParserStatus}
-        setBulkInsert={setBulkInsert}
-      />
+      <TransactionFab />
       <TransactionModal
-        openModalStatus={openModalStatus}
-        setOpenModalStatus={setOpenModalStatus}
         insertTransaction={insertTransaction}
         updateTransactionHandler={updateTransactionHandler}
         deleteTransactionHandler={deleteTransactionHandler}
-        editIdStatus={editIdStatus}
-        setEditIdStatus={setEditIdStatus}
-        handleCancel={handleCancel}
-        tags={tags}
-        paymentMethods={paymentMethods}
-        parserStatus={parserStatus}
-        setParserStatus={setParserStatus}
-        setBulkInsert={setBulkInsert}
-        bulkInsert={bulkInsert}
         bulkInsertTransactionHandler={bulkInsertTransactionHandler}
+        handleClose={handleClose}
       />
       <TransactionList
         transactions={currentDateTransactions}
         deleteTransactionHandler={deleteTransactionHandler}
-        setDeleteStatus={setDeleteStatus}
-        setEditIdStatus={setEditIdStatus}
-        setOpenModalStatus={setOpenModalStatus}
-        deleteStatus={deleteStatus}
       />
     </>
   );

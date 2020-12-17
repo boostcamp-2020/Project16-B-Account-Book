@@ -36,7 +36,7 @@ const MonthlyAnalysis = styled.div`
 const DashboardContainer = () => {
   const dispatch = useDispatch();
 
-  const transactions = useSelector((state) => state.transactions);
+  const transactions = useSelector((state) => state.default.transactions);
 
   useEffect(() => {
     dispatch(loadTransactions());

@@ -12,7 +12,7 @@ const PaymentDetailContainer = (cardName) => {
   const [year, setYear] = useState(date.getUTCFullYear());
   const [month, setMonth] = useState(date.getUTCMonth() + 1);
 
-  const transactions = useSelector((state) => state.paymentsDetail);
+  const transactions = useSelector((state) => state.default.paymentsDetail);
 
   const title = transactions[transactions.length - 1].title;
 

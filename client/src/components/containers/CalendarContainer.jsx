@@ -9,8 +9,10 @@ import makeTemplate from '@presentational/calendar/MakeTemplate';
 
 const CalendarContainer = () => {
   const dispatch = useDispatch();
-  const transactions = useSelector((state) => state.calendarTransactions);
-  const calendarInfo = useSelector((state) => state.calendarInfo);
+  const transactions = useSelector(
+    (state) => state.default.calendarTransactions
+  );
+  const calendarInfo = useSelector((state) => state.default.calendarInfo);
 
   const daysRef = useRef();
   const [date, setDate] = useState(new Date());

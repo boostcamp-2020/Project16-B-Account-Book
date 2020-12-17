@@ -12,7 +12,7 @@ const TagContainer = ({ navMenu }) => {
     dispatch(loadTag());
   }, []);
 
-  const tags = useSelector((state) => state.tags);
+  const tags = useSelector((state) => state.default.tags);
 
   const handleAddTag = (tag) => {
     dispatch(addTag({ tag }));

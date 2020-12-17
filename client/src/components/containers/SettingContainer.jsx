@@ -10,6 +10,7 @@ import {
   setUserSettingsInfo,
   changeUserInfo,
   changeMembers,
+  setUserInfo,
   reset,
 } from '@slice';
 import SettingHeader from '@presentational/setting/SettingHeader';
@@ -39,6 +40,7 @@ const SettingContainer = () => {
 
   const [isMaster, setIsMaster] = useState(false);
   const userInfo = useSelector((state) => state.userSettingsInfo);
+  const originUserInfo = useSelector((state) => state.userOriginInfo);
   const usersInfo = useSelector((state) => state.allUsersInfo);
   const inviteUserList = useSelector((state) => state.inviteUsers);
 
@@ -62,6 +64,7 @@ const SettingContainer = () => {
 
   const updateUserInfo = (info) => {
     dispatch(changeUserInfo(info));
+    dispatch(setUserInfo(info));
   };
 
   const onChange = (info) => {
@@ -96,6 +99,7 @@ const SettingContainer = () => {
         <SettingEditor
           userInfo={userInfo}
           usersInfo={usersInfo}
+          originUserInfo={originUserInfo}
           updateUserInfo={updateUserInfo}
           onChange={onChange}
           isMaster={isMaster}

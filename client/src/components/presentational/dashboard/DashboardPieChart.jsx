@@ -26,53 +26,28 @@ const renderLabelContent = (props) => {
   );
 };
 
-const parseData = (transactions) => {
-  return transactions
-    .reduce((acc, cur) => {
-      if (cur.type === '수입') {
-        return acc;
-      }
-      const index = acc.findIndex((item) => item.name === cur.category);
-      if (acc[index]) {
-        acc[index].value += cur.cost;
-        return acc;
-      }
-      return [...acc, { name: cur.category, value: cur.cost }];
-    }, [])
-    .sort((a, b) => {
-      if (a.cost > b.cost) {
-        return 1;
-      }
-      if (a.cost < b.cost) {
-        return -1;
-      }
-      return 1;
-    });
-};
-
 const Box = styled.div`
   width: 45vw;
-  height: 45vw;
+  height: 25vw;
   min-width: 250px;
   min-height: 250px;
 
   .recharts-legend-wrapper {
-    bottom: 10vw !important;
+    /* bottom: 2vw !important; */
   }
   .recharts-legend-item {
-    font-size: 2.5vw;
+    font-size: 1.5vw;
   }
 `;
 
 const DashboardPieChart = ({ transactions }) => {
-  const data = parseData(transactions);
   return (
     <Box>
       <ResponsiveContainer>
         <PieChart>
           <Legend paylodUniqBy />
           <Pie
-            data={data}
+            data={transactions}
             dataKey="value"
             cy="40%"
             startAngle={180}
@@ -83,7 +58,7 @@ const DashboardPieChart = ({ transactions }) => {
             paddingAngle={5}
             isAnimationActive={true}
           >
-            {data.map((entry, index) => (
+            {transactions.map((entry, index) => (
               <Cell key={`slice-${index}`} fill={colors[index % 10]} />
             ))}
             <Label width={50} fontSize="4vw" position="center">

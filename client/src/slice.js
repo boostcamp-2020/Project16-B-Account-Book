@@ -38,14 +38,12 @@ import {
   updateMembers,
 } from '@service/userAPI';
 
-import { tempTransactionData } from './tempData';
-
 const { actions, reducer } = createSlice({
   name: 'app',
   initialState: {
     accessToken: '',
     test: 1,
-    transactions: tempTransactionData,
+    transactions: [],
     accountBookTransactions: [],
     payments: [],
     paymentsDetail: [{ title: null }],
@@ -66,6 +64,7 @@ const { actions, reducer } = createSlice({
     },
     calendarTransactions: [],
     userSettingsInfo: [{ _id: null }],
+    userOriginInfo: [{ _id: null }],
     allUsersInfo: [{ _id: null }],
     inviteUsers: [],
   },
@@ -163,6 +162,12 @@ const { actions, reducer } = createSlice({
         userSettingsInfo,
       };
     },
+    setUserOriginInfo(state, { payload: userOriginInfo }) {
+      return {
+        ...state,
+        userOriginInfo,
+      };
+    },
     setUserInfo(state, { payload: userInfo }) {
       return {
         ...state,
@@ -205,6 +210,7 @@ export const {
   setPaymentMethods,
   setCategories,
   setUsersInfo,
+  setUserOriginInfo,
   setUserSettingsInfo,
   setInviteUsers,
   reset,
@@ -414,6 +420,7 @@ export const loadUserInfo = () => {
   return async (dispatch) => {
     const userSettingsInfo = await getUserInfo();
     dispatch(setUserSettingsInfo(userSettingsInfo));
+    dispatch(setUserOriginInfo(userSettingsInfo));
   };
 };
 

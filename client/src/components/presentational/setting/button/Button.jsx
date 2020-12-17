@@ -8,6 +8,8 @@ const ButtonStyle = styled.button`
   flex: 1 1 100%;
   font-size: 1.05rem;
   outline: none;
+  border: 1px solid gray;
+  border-left: none;
 
   &:hover {
     opacity: 0.8;

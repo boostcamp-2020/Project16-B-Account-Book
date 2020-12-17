@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { getCalendarTransactions } from '@service/api';
 
-const CalendarSlice = createSlice({
+const calendarSlice = createSlice({
   name: 'calendar',
   initialState: {
     calendarInfo: {
@@ -36,7 +36,7 @@ const CalendarSlice = createSlice({
 export const {
   setCalendarInfo,
   setCalendarTransactions,
-} = CalendarSlice.actions;
+} = calendarSlice.actions;
 
 export const loadCalendarTransactions = (year, month) => {
   return async (dispatch) => {
@@ -44,4 +44,5 @@ export const loadCalendarTransactions = (year, month) => {
     dispatch(setCalendarTransactions(transactions));
   };
 };
-export default CalendarSlice;
+
+export default calendarSlice;

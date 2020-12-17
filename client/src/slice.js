@@ -21,14 +21,6 @@ import {
   getAccountBook,
 } from '@service/api';
 
-import {
-  getUserInfo,
-  getUsersByAccountBook,
-  getInviteUsers,
-  updateUserInfo,
-  updateMembers,
-} from '@service/userAPI';
-
 const { actions, reducer } = createSlice({
   name: 'default',
   initialState: {
@@ -45,10 +37,6 @@ const { actions, reducer } = createSlice({
       month: new Date().getMonth() + 1,
       day: new Date().getDay(),
     },
-    userSettingsInfo: [{ _id: null }],
-    currentUserInfo: [{ _id: null }],
-    allUsersInfo: [{ _id: null }],
-    inviteUsers: [],
   },
   reducers: {
     setTest(state, { payload: test }) {
@@ -114,34 +102,11 @@ const { actions, reducer } = createSlice({
         ...selectedDate,
       };
     },
-    setUserSettingsInfo(state, { payload: userSettingsInfo }) {
-      return {
-        ...state,
-        userSettingsInfo,
-      };
-    },
-    setCurrentUserInfo(state, { payload: currentUserInfo }) {
-      return {
-        ...state,
-        currentUserInfo,
-      };
-    },
+
     setUserInfo(state, { payload: userInfo }) {
       return {
         ...state,
         userInfo,
-      };
-    },
-    setUsersInfo(state, { payload: allUsersInfo }) {
-      return {
-        ...state,
-        allUsersInfo,
-      };
-    },
-    setInviteUsers(state, { payload: inviteUsers }) {
-      return {
-        ...state,
-        inviteUsers,
       };
     },
     reset() {
@@ -163,10 +128,6 @@ export const {
   setDate,
   setPaymentMethods,
   setCategories,
-  setUsersInfo,
-  setCurrentUserInfo,
-  setUserSettingsInfo,
-  setInviteUsers,
   reset,
 } = actions;
 
@@ -320,43 +281,6 @@ export const changeAccountBook = (accountBookId, newTitle) => {
 export const updateDate = ({ date }) => {
   return async (dispatch) => {
     dispatch(setDate({ selectedDate: date }));
-  };
-};
-
-export const loadUserInfo = () => {
-  return async (dispatch) => {
-    const userSettingsInfo = await getUserInfo();
-    dispatch(setUserSettingsInfo(userSettingsInfo));
-    dispatch(setCurrentUserInfo(userSettingsInfo));
-  };
-};
-
-export const loadAllUsersInfo = () => {
-  return async (dispatch) => {
-    const usersInfo = await getUsersByAccountBook();
-    dispatch(setUsersInfo(usersInfo));
-  };
-};
-
-export const loadInviteUsers = () => {
-  return async (dispatch) => {
-    const inviteUsers = await getInviteUsers();
-    dispatch(setInviteUsers(inviteUsers));
-  };
-};
-
-export const changeUserInfo = (userInfo) => {
-  return async (dispatch) => {
-    await updateUserInfo(userInfo);
-    dispatch(loadAllUsersInfo());
-  };
-};
-
-export const changeMembers = (newMembers, deleteMembers) => {
-  return async (dispatch) => {
-    await updateMembers(newMembers, deleteMembers);
-    dispatch(loadAllUsersInfo());
-    dispatch(loadInviteUsers());
   };
 };
 

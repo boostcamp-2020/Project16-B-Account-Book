@@ -23,14 +23,6 @@ import {
 } from '@service/api';
 
 import {
-  getPayments,
-  getPaymentsDetail,
-  patchPayment,
-  deletePayment,
-  updatePayment,
-} from '@service/paymentAPI';
-
-import {
   getUserInfo,
   getUsersByAccountBook,
   getInviteUsers,
@@ -45,8 +37,6 @@ const { actions, reducer } = createSlice({
     test: 1,
     transactions: [],
     accountBookTransactions: [],
-    payments: [],
-    paymentsDetail: [{ title: null }],
     tags: [],
     accountBooks: [],
     accountBookId: '',
@@ -94,24 +84,6 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         accessToken,
-      };
-    },
-    setPayments(state, { payload: payments }) {
-      return {
-        ...state,
-        payments,
-      };
-    },
-    setPaymentsDetail(state, { payload: paymentsDetail }) {
-      return {
-        ...state,
-        paymentsDetail,
-      };
-    },
-    setPaymentMethods(state, { payload: paymentMethods }) {
-      return {
-        ...state,
-        paymentMethods,
       };
     },
     setTags(state, { payload: tags }) {
@@ -195,8 +167,6 @@ const { actions, reducer } = createSlice({
 export const {
   setTest,
   setAccessToken,
-  setPayments,
-  setPaymentsDetail,
   setTags,
   setAccountBooks,
   setAccountBook,
@@ -243,46 +213,6 @@ export function login({ code, state }) {
     dispatch(setUserInfo(userInfo));
   };
 }
-
-export const loadPayment = () => {
-  return async (dispatch) => {
-    const paymentsList = await getPayments();
-
-    dispatch(setPayments(paymentsList));
-  };
-};
-
-export const loadDetailPayment = (cardName, type, year, month) => {
-  return async (dispatch) => {
-    const paymentsList = await getPaymentsDetail(cardName, type, year, month);
-
-    dispatch(setPaymentsDetail(paymentsList));
-  };
-};
-
-export const addPayment = ({ paymentName }) => {
-  return async (dispatch) => {
-    await patchPayment({ paymentName });
-
-    dispatch(loadPayment());
-  };
-};
-
-export const removePayment = ({ paymentName }) => {
-  return async (dispatch) => {
-    await deletePayment({ paymentName });
-
-    dispatch(loadPayment());
-  };
-};
-
-export const changePayment = ({ selectedCardName, newCardName }) => {
-  return async (dispatch) => {
-    await updatePayment({ selectedCardName, newCardName });
-
-    dispatch(loadPayment());
-  };
-};
 
 export const loadTag = () => {
   return async (dispatch) => {

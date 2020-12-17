@@ -15,14 +15,13 @@ import {
   FaBriefcaseMedical,
   FaRegTrashAlt,
 } from 'react-icons/fa';
-//import { GiMeal } from 'react-icons/gi';
+import { GiMeal } from 'react-icons/gi';
 import { MdMoreVert, MdLocalOffer } from 'react-icons/md';
 import { FcPlus } from 'react-icons/fc';
 import { BsFileSpreadsheet } from 'react-icons/bs';
 
 const icon = {
-  //meal: <GiMeal size={15} />,
-  meal: <BiDrink size={15} />,
+  meal: <GiMeal size={15} />,
   cafe: <IoMdCafe size={15} />,
   drink: <BiDrink size={15} />,
   living: <HiShoppingCart size={15} />,

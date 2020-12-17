@@ -11,7 +11,7 @@ const LoginFormContainer = () => {
 
   const { code, state } = queryString.parse(window.location.search);
 
-  const token = useSelector((state) => state.accessToken);
+  const token = useSelector((state) => state.default.accessToken);
 
   const handleLogin = () => {
     const accessToken = localStorage.getItem('accessToken');

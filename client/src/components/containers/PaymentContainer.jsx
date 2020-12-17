@@ -6,7 +6,7 @@ import { loadPayment, addPayment, removePayment, changePayment } from '@slice';
 
 const PaymentContainer = () => {
   const dispatch = useDispatch();
-  const payments = useSelector((state) => state.payments);
+  const payments = useSelector((state) => state.default.payments);
 
   useEffect(() => {
     dispatch(loadPayment());

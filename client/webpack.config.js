@@ -16,6 +16,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       '@slice': path.resolve(__dirname, './src/slice'),
+      '@transactionSlice': path.resolve(__dirname, './src/transactionSlice'),
       '@presentational': path.resolve(
         __dirname,
         './src/components/presentational'

@@ -39,6 +39,12 @@ const ComparisonAnaysisSection = ({ transactions }) => {
 
   const getComparisonText = () => {
     const difference = thisMonthTotalExpense - lastMonthTotalExpense;
+    if (thisMonthTotalExpense === 0) {
+      return `이번 달 지출 내역이 없군요!`;
+    }
+    if (lastMonthTotalExpense === 0) {
+      return `저번 달 지출 내역이 없군요!`;
+    }
     if (difference < 0) {
       return `지난 달에 비해 ${(
         (1 - thisMonthTotalExpense / lastMonthTotalExpense) *

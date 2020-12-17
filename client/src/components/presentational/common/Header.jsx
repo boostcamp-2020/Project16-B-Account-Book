@@ -2,8 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
-import * as FaIcons from 'react-icons/fa';
-import * as IoIcons from 'react-icons/io';
+import { FaBars } from 'react-icons/fa';
+import { IoIosArrowDown } from 'react-icons/io';
 import { useSelector } from 'react-redux';
 
 import color from '@public/color';
@@ -90,7 +90,7 @@ const Header = () => {
       <IconContext.Provider value={{ color: color.fontBold }}>
         <HeaderWrapper>
           <MenuBars>
-            <FaIcons.FaBars size={20} onClick={showSidebarModal} />
+            <FaBars size={20} onClick={showSidebarModal} />
           </MenuBars>
           <Logo>
             <Link to="/">
@@ -104,7 +104,7 @@ const Header = () => {
             </div>
             <div className="user-email">{userInfo?.name || 'piggy book'}</div>
             <div className="user-dropdown" onClick={onUserMenuClick}>
-              <IoIcons.IoIosArrowDown size={20} />
+              <IoIosArrowDown size={20} />
             </div>
             {userMenu && <UserMenuDropDown setUserMenu={setUserMenu} />}
           </UserMenu>

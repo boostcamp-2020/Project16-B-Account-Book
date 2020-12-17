@@ -38,14 +38,12 @@ import {
   updateMembers,
 } from '@service/userAPI';
 
-import { tempTransactionData } from './tempData';
-
 const { actions, reducer } = createSlice({
   name: 'app',
   initialState: {
     accessToken: '',
     test: 1,
-    transactions: tempTransactionData,
+    transactions: [],
     accountBookTransactions: [],
     payments: [],
     paymentsDetail: [{ title: null }],

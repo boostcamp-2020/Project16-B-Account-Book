@@ -113,7 +113,7 @@ const DashboardTextExpense = ({ transactions }) => {
           <Info>
             <SmallText>전체</SmallText>
             <span>
-              {expenseStatus && Math.abs(Number(total)).toLocaleString()}
+              {expenseStatus && Math.abs(Number(expenseTotal)).toLocaleString()}
               {incomeStatus && Number(total).toLocaleString()}
             </span>
           </Info>

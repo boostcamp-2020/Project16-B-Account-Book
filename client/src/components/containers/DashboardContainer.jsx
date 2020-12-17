@@ -4,21 +4,32 @@ import styled from 'styled-components';
 
 import DashboardVisualExpense from '../presentational/dashboard/DashboardVisualExpense';
 import DashboardTextExpense from '../presentational/dashboard/DashboardTextExpense';
+import OtherAnalyses from '../presentational/dashboard/OtherAnalyses';
 import { loadTransactions } from '@slice';
+import {
+  getCurrentDateTransactions,
+  getTransactionsByPaymentMethod,
+  getTransactionsByCategory,
+} from '@util/transaction';
+
 const StyledDiv = styled.div`
   display: flex;
+  flex-direction: column;
+
   & > * {
     margin-right: 1rem;
+    margin-bottom: 5%;
   }
 `;
 
-const MediaTextExpense = styled.div`
-  transition: 1s;
+const MonthlyAnalysis = styled.div`
+  display: flex;
+  flex-direction: row;
   @media (max-width: 967px) {
-    transform: translate(-47vw, 110%);
-  }
-  @media (max-width: 768px) {
-    transform: translate(-50vw, 110%);
+    flex-direction: column;
+    & > * {
+      margin-bottom: 5%;
+    }
   }
 `;
 
@@ -31,29 +42,42 @@ const DashboardContainer = () => {
     dispatch(loadTransactions());
   }, []);
 
-  const transactionByCard = transactions.reduce((acc, cur) => {
-    const index = acc.findIndex(
-      (item) =>
-        item.paymentMethod === cur.paymentMethod && item.type === cur.type
-    );
-    if (acc[index]) {
-      acc[index].cost += cur.cost;
-      return acc;
-    }
-    return [
-      ...acc,
-      { paymentMethod: cur.paymentMethod, cost: cur.cost, type: cur.type },
-    ];
-  }, []);
+  const date = new Date();
+  const currentDate = {
+    year: date.getUTCFullYear(),
+    month: date.getUTCMonth() + 1,
+  };
+
+  const currentDateTransactions = getCurrentDateTransactions(
+    currentDate,
+    transactions
+  );
+
+  const transactionByCard = getTransactionsByPaymentMethod(
+    currentDateTransactions
+  );
+
+  const transactionByCategory = getTransactionsByCategory(
+    currentDateTransactions
+  );
 
   return (
     <>
-      <div>DashboardContainer</div>
       <StyledDiv>
-        <DashboardVisualExpense transactions={transactions} />
-        <MediaTextExpense>
-          <DashboardTextExpense transactions={transactionByCard} />
-        </MediaTextExpense>
+        {transactions[0] ? (
+          <>
+            <MonthlyAnalysis>
+              <DashboardVisualExpense transactions={transactionByCategory} />
+              <DashboardTextExpense transactions={transactionByCard} />
+            </MonthlyAnalysis>
+            <OtherAnalyses
+              transactions={transactions}
+              transactionByCategory={transactionByCategory}
+            />
+          </>
+        ) : (
+          <div> No transactions! please move to 수입/지출 내역 tab</div>
+        )}
       </StyledDiv>
     </>
   );

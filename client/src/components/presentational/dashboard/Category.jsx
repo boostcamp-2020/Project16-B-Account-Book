@@ -10,6 +10,9 @@ const Box = styled.div`
   border-color: lightgray;
   width: 30vw;
   margin: 0px 0px 1% 1%;
+  @media (max-width: 967px) {
+    width: 45vw;
+  }
 `;
 
 const Text = styled.span`

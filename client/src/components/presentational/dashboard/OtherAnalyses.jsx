@@ -8,13 +8,6 @@ const Section = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   width: 90vw;
-
-  @media (max-width: 967px) {
-    transform: translate(-0vw, 8%);
-  }
-  @media (max-width: 768px) {
-    transform: scale(0.5) translate(-25vw, -36%);
-  }
 `;
 const OtherAnalyses = ({ transactions, transactionByCategory }) => {
   return (

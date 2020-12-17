@@ -25,15 +25,11 @@ const StyledDiv = styled.div`
 const MonthlyAnalysis = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-const MediaTextExpense = styled.div`
-  transition: 1s;
   @media (max-width: 967px) {
-    transform: translate(-47vw, 110%);
-  }
-  @media (max-width: 768px) {
-    transform: translate(-50vw, 110%);
+    flex-direction: column;
+    & > * {
+      margin-bottom: 5%;
+    }
   }
 `;
 
@@ -72,9 +68,7 @@ const DashboardContainer = () => {
           <>
             <MonthlyAnalysis>
               <DashboardVisualExpense transactions={transactionByCategory} />
-              <MediaTextExpense>
-                <DashboardTextExpense transactions={transactionByCard} />
-              </MediaTextExpense>
+              <DashboardTextExpense transactions={transactionByCard} />
             </MonthlyAnalysis>
             <OtherAnalyses
               transactions={transactions}

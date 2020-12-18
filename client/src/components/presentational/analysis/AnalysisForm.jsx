@@ -140,7 +140,10 @@ const initCheckbox = (items, itemType, location, mode) => {
   }
 
   const { type, name } = location.state;
-  const initState = flipToFalse(items);
+  const initState = items.reduce((acc, cur) => {
+    acc[cur] = false;
+    return acc;
+  }, {});
 
   if (itemType !== type) {
     return initState;
@@ -149,7 +152,6 @@ const initCheckbox = (items, itemType, location, mode) => {
   if (name && Object.hasOwnProperty.call(initState, name)) {
     return { ...initState, [name]: true };
   }
-
   return initState;
 };
 

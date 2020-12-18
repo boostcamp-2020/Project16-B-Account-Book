@@ -10,7 +10,6 @@ import {
   deleteTag,
   getTransactions,
   getTransactionsByAccountBookId,
-  getCalendarTransactions,
   postTransaction,
   postTransactions,
   updateTransaction,
@@ -22,31 +21,13 @@ import {
   getAccountBook,
 } from '@service/api';
 
-import {
-  getPayments,
-  getPaymentsDetail,
-  patchPayment,
-  deletePayment,
-  updatePayment,
-} from '@service/paymentAPI';
-
-import {
-  getUserInfo,
-  getUsersByAccountBook,
-  getInviteUsers,
-  updateUserInfo,
-  updateMembers,
-} from '@service/userAPI';
-
 const { actions, reducer } = createSlice({
-  name: 'app',
+  name: 'default',
   initialState: {
     accessToken: '',
     test: 1,
     transactions: [],
     accountBookTransactions: [],
-    payments: [],
-    paymentsDetail: [{ title: null }],
     tags: [],
     accountBooks: [],
     accountBookId: '',
@@ -56,23 +37,18 @@ const { actions, reducer } = createSlice({
       month: new Date().getMonth() + 1,
       day: new Date().getDay(),
     },
-    calendarInfo: {
-      year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
-      date: new Date().getDate(),
-      day: new Date().getDay(),
-    },
-    calendarTransactions: [],
-    userSettingsInfo: [{ _id: null }],
-    userOriginInfo: [{ _id: null }],
-    allUsersInfo: [{ _id: null }],
-    inviteUsers: [],
   },
   reducers: {
     setTest(state, { payload: test }) {
       return {
         ...state,
         test,
+      };
+    },
+    setPaymentMethods(state, { payload: paymentMethods }) {
+      return {
+        ...state,
+        paymentMethods,
       };
     },
     setTransactions(state, { payload: transactions }) {
@@ -94,24 +70,6 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         accessToken,
-      };
-    },
-    setPayments(state, { payload: payments }) {
-      return {
-        ...state,
-        payments,
-      };
-    },
-    setPaymentsDetail(state, { payload: paymentsDetail }) {
-      return {
-        ...state,
-        paymentsDetail,
-      };
-    },
-    setPaymentMethods(state, { payload: paymentMethods }) {
-      return {
-        ...state,
-        paymentMethods,
       };
     },
     setTags(state, { payload: tags }) {
@@ -144,46 +102,11 @@ const { actions, reducer } = createSlice({
         ...selectedDate,
       };
     },
-    setCalendarInfo(state, { payload: calendarInfo }) {
-      return {
-        ...state,
-        calendarInfo,
-      };
-    },
-    setCalendarTransactions(state, { payload: calendarTransactions }) {
-      return {
-        ...state,
-        calendarTransactions,
-      };
-    },
-    setUserSettingsInfo(state, { payload: userSettingsInfo }) {
-      return {
-        ...state,
-        userSettingsInfo,
-      };
-    },
-    setUserOriginInfo(state, { payload: userOriginInfo }) {
-      return {
-        ...state,
-        userOriginInfo,
-      };
-    },
+
     setUserInfo(state, { payload: userInfo }) {
       return {
         ...state,
         userInfo,
-      };
-    },
-    setUsersInfo(state, { payload: allUsersInfo }) {
-      return {
-        ...state,
-        allUsersInfo,
-      };
-    },
-    setInviteUsers(state, { payload: inviteUsers }) {
-      return {
-        ...state,
-        inviteUsers,
       };
     },
     reset() {
@@ -195,8 +118,6 @@ const { actions, reducer } = createSlice({
 export const {
   setTest,
   setAccessToken,
-  setPayments,
-  setPaymentsDetail,
   setTags,
   setAccountBooks,
   setAccountBook,
@@ -205,14 +126,8 @@ export const {
   setUserInfo,
   insertTransactions,
   setDate,
-  setCalendarInfo,
-  setCalendarTransactions,
   setPaymentMethods,
   setCategories,
-  setUsersInfo,
-  setUserOriginInfo,
-  setUserSettingsInfo,
-  setInviteUsers,
   reset,
 } = actions;
 
@@ -243,46 +158,6 @@ export function login({ code, state }) {
     dispatch(setUserInfo(userInfo));
   };
 }
-
-export const loadPayment = () => {
-  return async (dispatch) => {
-    const paymentsList = await getPayments();
-
-    dispatch(setPayments(paymentsList));
-  };
-};
-
-export const loadDetailPayment = (cardName, type, year, month) => {
-  return async (dispatch) => {
-    const paymentsList = await getPaymentsDetail(cardName, type, year, month);
-
-    dispatch(setPaymentsDetail(paymentsList));
-  };
-};
-
-export const addPayment = ({ paymentName }) => {
-  return async (dispatch) => {
-    await patchPayment({ paymentName });
-
-    dispatch(loadPayment());
-  };
-};
-
-export const removePayment = ({ paymentName }) => {
-  return async (dispatch) => {
-    await deletePayment({ paymentName });
-
-    dispatch(loadPayment());
-  };
-};
-
-export const changePayment = ({ selectedCardName, newCardName }) => {
-  return async (dispatch) => {
-    await updatePayment({ selectedCardName, newCardName });
-
-    dispatch(loadPayment());
-  };
-};
 
 export const loadTag = () => {
   return async (dispatch) => {
@@ -406,50 +281,6 @@ export const changeAccountBook = (accountBookId, newTitle) => {
 export const updateDate = ({ date }) => {
   return async (dispatch) => {
     dispatch(setDate({ selectedDate: date }));
-  };
-};
-
-export const loadCalendarTransactions = (year, month) => {
-  return async (dispatch) => {
-    const transactions = await getCalendarTransactions(year, month);
-    dispatch(setCalendarTransactions(transactions));
-  };
-};
-
-export const loadUserInfo = () => {
-  return async (dispatch) => {
-    const userSettingsInfo = await getUserInfo();
-    dispatch(setUserSettingsInfo(userSettingsInfo));
-    dispatch(setUserOriginInfo(userSettingsInfo));
-  };
-};
-
-export const loadAllUsersInfo = () => {
-  return async (dispatch) => {
-    const usersInfo = await getUsersByAccountBook();
-    dispatch(setUsersInfo(usersInfo));
-  };
-};
-
-export const loadInviteUsers = () => {
-  return async (dispatch) => {
-    const inviteUsers = await getInviteUsers();
-    dispatch(setInviteUsers(inviteUsers));
-  };
-};
-
-export const changeUserInfo = (userInfo) => {
-  return async (dispatch) => {
-    await updateUserInfo(userInfo);
-    dispatch(loadAllUsersInfo());
-  };
-};
-
-export const changeMembers = (newMembers, deleteMembers) => {
-  return async (dispatch) => {
-    await updateMembers(newMembers, deleteMembers);
-    dispatch(loadAllUsersInfo());
-    dispatch(loadInviteUsers());
   };
 };
 

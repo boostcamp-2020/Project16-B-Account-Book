@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import DetailForm from '@presentational/payment/detail/DetailForm';
-import { loadDetailPayment } from '@slice';
+import { loadDetailPayment } from '@paymentSlice';
 
 const PaymentDetailContainer = (cardName) => {
   const dispatch = useDispatch();
@@ -12,8 +12,7 @@ const PaymentDetailContainer = (cardName) => {
   const [year, setYear] = useState(date.getUTCFullYear());
   const [month, setMonth] = useState(date.getUTCMonth() + 1);
 
-  const transactions = useSelector((state) => state.paymentsDetail);
-
+  const transactions = useSelector((state) => state.payment.paymentsDetail);
   const title = transactions[transactions.length - 1].title;
 
   useEffect(() => {

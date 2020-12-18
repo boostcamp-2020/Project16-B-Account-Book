@@ -45,7 +45,7 @@ const LoadingDiv = styled.div`
 
 const imageUploader = new ImageUploader();
 
-const ImageFileInput = ({ originUserInfo, onChangeFileInfo }) => {
+const ImageFileInput = ({ currentUserInfo, onChangeFileInfo }) => {
   const inputRef = useRef();
   const [format, setFormat] = useState();
   const [loading, setLoading] = useState(false);
@@ -60,7 +60,7 @@ const ImageFileInput = ({ originUserInfo, onChangeFileInfo }) => {
     event.preventDefault();
 
     setImageName('파일 선택');
-    onChangeFileInfo(originUserInfo.imageURL);
+    onChangeFileInfo(currentUserInfo.imageURL);
     setFormat();
   };
 

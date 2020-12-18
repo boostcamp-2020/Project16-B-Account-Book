@@ -1,8 +1,12 @@
-export const getCurrentDateTransactions = (date, transactions) => {
+export const getCurrentDateTransactions = (date = [], transactions = []) => {
+  if (!date || !transactions) {
+    return [];
+  }
+
   return transactions.filter((transaction) => {
     if (transaction.date) {
       const [year, month] = transaction?.date.split('-');
-      return year == date.year && month == date.month;
+      return year == date?.year && month == date?.month;
     }
     return;
   });

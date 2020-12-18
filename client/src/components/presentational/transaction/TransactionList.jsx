@@ -1,5 +1,13 @@
 import { Fragment, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+  setOpenModalStatus,
+  setDeleteStatus,
+  setEditIdStatus,
+} from '@transactionSlice';
+import ArrowPointer from './ArrowPointer';
 
 const StyledDiv = styled.div`
   display: grid;
@@ -80,28 +88,25 @@ const StyledButton = styled.button`
   }}
 `;
 
-const TransactionList = ({
-  transactions,
-  deleteTransactionHandler,
-  deleteStatus,
-  setDeleteStatus,
-  setEditIdStatus,
-  setOpenModalStatus,
-}) => {
+const TransactionList = ({ transactions, deleteTransactionHandler }) => {
+  const dispatch = useDispatch();
   const [dataSets, setDataSets] = useState([]);
+
+  const deleteStatus = useSelector((state) => state.transaction.deleteStatus);
+
   const handleClick = (transaction) => {
-    setOpenModalStatus(true);
-    setEditIdStatus(transaction);
+    dispatch(setOpenModalStatus(true));
+    dispatch(setEditIdStatus(transaction));
   };
 
   const cancelDeleteHandler = () => {
-    setDeleteStatus(false);
+    dispatch(setDeleteStatus(false));
     setDataSets([]);
   };
 
   const deleteHandler = () => {
     deleteTransactionHandler(dataSets);
-    setDeleteStatus(false);
+    dispatch(setDeleteStatus(false));
     setDataSets([]);
   };
 
@@ -238,6 +243,7 @@ const TransactionList = ({
           </ButtonGroup>
         </DeleteOverview>
       )}
+      {!transactions[0] && <ArrowPointer />}
     </>
   );
 };

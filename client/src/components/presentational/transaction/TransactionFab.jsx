@@ -7,6 +7,13 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import icon from '@public/icon';
 import csvDataParser from '@util/csvDataParser';
 import csvDataToTransaction from '@util/csvDataToTransaction';
+import {
+  setOpenModalStatus,
+  setDeleteStatus,
+  setParserStatus,
+  setBulkInsert,
+} from '@transactionSlice';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,10 +23,15 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     right: 0,
     zIndex: 15,
+    size: 'large',
   },
   exampleWrapper: {
     position: 'fixed',
     marginTop: theme.spacing(3),
+    '& > * > .MuiFab-root': {
+      height: '5rem',
+      width: '5rem',
+    },
   },
   speedDial: {
     position: 'fixed',
@@ -34,13 +46,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TransactionFab = ({
-  setOpenModalStatus,
-  setDeleteStatus,
-  setParserStatus,
-  setBulkInsert,
-}) => {
+const TransactionFab = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
   const inputRef = useRef();
@@ -65,7 +73,9 @@ const TransactionFab = ({
   };
 
   function handleFileLoad(e) {
-    setBulkInsert(csvDataToTransaction(csvDataParser(e.target.result)));
+    dispatch(
+      setBulkInsert(csvDataToTransaction(csvDataParser(e.target.result)))
+    );
   }
 
   const actions = [
@@ -73,22 +83,22 @@ const TransactionFab = ({
       icon: icon.plus,
       name: 'Add',
       handleClick: () => {
-        setOpenModalStatus(true);
+        dispatch(setOpenModalStatus(true));
       },
     },
     {
       icon: icon.trashcan,
       name: 'Delete',
       handleClick: () => {
-        setDeleteStatus(true);
+        dispatch(setDeleteStatus(true));
       },
     },
     {
       icon: icon.message,
       name: 'Upload sms/mms text',
       handleClick: () => {
-        setOpenModalStatus(true);
-        setParserStatus(true);
+        dispatch(setOpenModalStatus(true));
+        dispatch(setParserStatus(true));
       },
     },
     {
@@ -96,7 +106,7 @@ const TransactionFab = ({
       name: 'Upload csv file',
       handleClick: () => {
         handleFileUploadClick();
-        setOpenModalStatus(true);
+        dispatch(setOpenModalStatus(true));
       },
     },
   ];

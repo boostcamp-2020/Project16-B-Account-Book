@@ -21,7 +21,7 @@ const Title = styled.h1`
 const SettingEditor = ({
   userInfo,
   usersInfo,
-  originUserInfo,
+  currentUserInfo,
   updateUserInfo,
   onChange,
   isMaster,
@@ -39,7 +39,7 @@ const SettingEditor = ({
         {userInfo != [] ? (
           <CardEditForm
             userInfo={userInfo}
-            originUserInfo={originUserInfo}
+            currentUserInfo={currentUserInfo}
             updateUserInfo={updateUserInfo}
             onChange={onChange}
           />

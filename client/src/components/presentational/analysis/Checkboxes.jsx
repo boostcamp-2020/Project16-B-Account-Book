@@ -25,13 +25,16 @@ const Title = styled.div`
   padding: 0 0.3rem;
 `;
 
-const Checkboxes = ({ checkboxes, setCheckbox, title }) => {
+const Checkboxes = ({ checkboxes, setCheckbox, title, mode, setMode }) => {
   const renderedItemsLit = () => {
     const items = Object.entries(checkboxes);
     if (!items.length) return;
     return items.map((item) => {
       const onChangeHandler = () => {
         setCheckbox({ ...checkboxes, [item[0]]: !item[1] });
+        if (title !== mode) {
+          setMode(title);
+        }
       };
 
       return (

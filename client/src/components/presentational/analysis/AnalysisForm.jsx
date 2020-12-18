@@ -41,8 +41,6 @@ const parseDate = (transaction) => {
   };
 };
 
-// TODO: transaction.filter 로 (type: 지출)만 남겨야 하는데
-// 데이터 적어서 일단 (수입/지출/all) 전부넣어서 확인
 const copyTransactions = (transactions) =>
   transactions
     .filter((transaction) => transaction.type === '지출')
@@ -113,38 +111,46 @@ const getCategoriesAndTags = (transactions) => {
   return [[...categorySet], [...tagSet]];
 };
 
-const filterByCheckbox = (copied, categoryCheckbox, tagCheckbox) => {
-  const result = copied
-    .filter((transaction) => categoryCheckbox[transaction.category])
-    .filter((transaction) => {
-      if (!transaction.tag.length) return true;
-      return transaction.tag.some((t) => {
-        // TODO: delete
-        if (t === '') {
-          return true;
-        }
-        return t in tagCheckbox && tagCheckbox[t];
-      });
+const filterByCheckbox = (copied, categoryCheckbox, tagCheckbox, mode) => {
+  if (mode === '카테고리') {
+    return copied.filter(
+      (transaction) => categoryCheckbox[transaction.category]
+    );
+  }
+
+  return copied.filter((transaction) => {
+    if (!transaction.tag.length) return true;
+    return transaction.tag.some((t) => {
+      return t in tagCheckbox && tagCheckbox[t];
     });
-  return result;
+  });
 };
 
-const initCheckbox = (items, itemType, location) => {
-  const initState = items?.reduce((acc, cur) => {
-    acc[cur] = true;
-    return acc;
-  }, {});
-  if (!location.state) {
-    return initState;
+const modeConfig = {
+  tag: '태그',
+  category: '카테고리',
+};
+
+const initCheckbox = (items, itemType, location, mode) => {
+  if (!location?.state) {
+    return items.reduce((acc, cur) => {
+      acc[cur] = modeConfig[itemType] === mode;
+      return acc;
+    }, {});
   }
+
   const { type, name } = location.state;
+  const initState = flipToFalse(items);
+
   if (itemType !== type) {
     return initState;
   }
+
   if (name && Object.hasOwnProperty.call(initState, name)) {
-    return { ...flipToFalse(initState), [name]: true };
+    return { ...initState, [name]: true };
   }
-  return { ...flipToFalse(initState) };
+
+  return initState;
 };
 
 const flipToFalse = (checkbox) => {
@@ -206,12 +212,6 @@ const AnalysisForm = ({
 }) => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
-  const annualTransactions = getAnnualTransactions(transactions, year, month);
-  const parsedAnnualTransactions = parseAnnualTransactions(
-    annualTransactions,
-    year,
-    month
-  );
   const filteredTransactions = getCurrentDateTransactions(
     { year, month },
     transactions
@@ -221,15 +221,39 @@ const AnalysisForm = ({
   const [categories, tags] = getCategoriesAndTags(copied);
   const [categoryCheckbox, setCategoryCheckbox] = useState({});
   const [tagCheckbox, setTagCheckbox] = useState({});
+  const initialMode = location?.state?.type === 'tag' ? '태그' : '카테고리';
+  const [mode, setMode] = useState(initialMode);
 
-  const filtered = filterByCheckbox(copied, categoryCheckbox, tagCheckbox);
+  const filtered = filterByCheckbox(
+    copied,
+    categoryCheckbox,
+    tagCheckbox,
+    mode
+  );
+
   const top3CostTransactions = findTop3BySortOption(filtered, 'cost');
   const top3CaseTransactions = findTop3BySortOption(filtered, 'count');
 
+  const annualTransactions = getAnnualTransactions(transactions, year, month);
+  const parsedAnnualTransactions = parseAnnualTransactions(
+    annualTransactions,
+    year,
+    month
+  );
+
   useEffect(() => {
-    setCategoryCheckbox(initCheckbox(categories, 'category', location));
-    setTagCheckbox(initCheckbox(tags, 'tag', location));
+    setCategoryCheckbox(initCheckbox(categories, 'category', location, mode));
+    setTagCheckbox(initCheckbox(tags, 'tag', location, mode));
   }, [transactions, date]);
+
+  useEffect(() => {
+    if (mode === '카테고리') {
+      return setTagCheckbox(flipToFalse(tagCheckbox));
+    }
+    if (mode === '태그') {
+      return setCategoryCheckbox(flipToFalse(categoryCheckbox));
+    }
+  }, [mode]);
 
   return (
     <>
@@ -238,11 +262,15 @@ const AnalysisForm = ({
         checkboxes={categoryCheckbox}
         setCheckbox={setCategoryCheckbox}
         title="카테고리"
+        mode={mode}
+        setMode={setMode}
       />
       <Checkboxes
         checkboxes={tagCheckbox}
         setCheckbox={setTagCheckbox}
         title="태그"
+        mode={mode}
+        setMode={setMode}
       />
       <CumulativeContentWrapper>
         <CumulativeExpenditure title="일별 누적 지출" transactions={filtered} />

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Paper from '@material-ui/core/Paper';
 import {
   Chart,
   BarSeries,
@@ -12,11 +11,24 @@ import { Animation } from '@devexpress/dx-react-chart';
 import DetailButton from './DetailButton';
 import DetailDropdown from './DetailDropdown';
 
+const Paper = styled.div`
+  border: 1px solid #eeeeef;
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+`;
+
 const PaymentDetail = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 50vw;
+
+  @media (max-width: 767px) {
+    width: auto;
+  }
 `;
 
 const NoContents = styled.div`
@@ -30,6 +42,11 @@ const NoContents = styled.div`
 const GraphDetail = styled.div`
   margin-left: 10%;
   width: 40vw;
+
+  @media (max-width: 767px) {
+    margin-left: 0;
+    width: auto;
+  }
 `;
 
 const DetailForm = ({

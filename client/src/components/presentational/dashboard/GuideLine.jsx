@@ -7,6 +7,9 @@ const Hole = styled.div`
   width: 250px;
   height: 50px;
   box-shadow: 0 0 0 200rem rgba(0, 0, 0, 0.75);
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;
 
 const TopHole = styled.div`
@@ -17,6 +20,9 @@ const TopHole = styled.div`
   height: 83px;
   box-shadow: inset 5rem -2rem 0px 11rem rgba(0, 0, 0, 0.75);
   z-index: 100;
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;
 
 const BottomHole = styled.div`
@@ -27,28 +33,50 @@ const BottomHole = styled.div`
   height: 100%;
   box-shadow: inset 5rem -2rem 0px 16rem rgba(0, 0, 0, 0.75);
   z-index: 100;
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;
 
 const Arrow = styled.div`
-  width: 3vw;
-  height: 3vw;
-  border: 2.5vw solid;
-  border-color: white transparent transparent white;
-  position: fixed;
-  left: 300px;
-  top: 125px;
-  transform: rotate(-45deg) !important;
-
   animation: slide 2s infinite;
-  @keyframes slide {
-    0% {
-      opacity: 0;
-      transform: translateX(9vw) rotate(-45deg);
-    }
+  @media (min-width: 768px) {
+    width: 3rem;
+    height: 3rem;
+    border: 2.5rem solid;
+    left: 300px;
+    top: 115px;
+    border-color: white transparent transparent white;
+    position: fixed;
+    @keyframes slide {
+      0% {
+        opacity: 0;
+        transform: translateX(9rem) rotate(-45deg);
+      }
 
-    100% {
-      opacity: 1;
-      transform: translateX(0vw) rotate(-45deg);
+      100% {
+        opacity: 1;
+        transform: translateX(0rem) rotate(-45deg);
+      }
+    }
+  }
+  @media (max-width: 767px) {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1rem solid;
+    left: -6px;
+    border-color: black black transparent white;
+    position: fixed;
+    @keyframes slide {
+      0% {
+        opacity: 0;
+        transform: translateY(10rem) rotate(-45deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(-2rem) rotate(-45deg);
+      }
     }
   }
 `;

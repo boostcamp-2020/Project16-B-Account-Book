@@ -26,6 +26,10 @@ const ModalHeader = styled.div`
   background: #fff;
   border-radius: 10px 10px 0 0;
   border-bottom: 1px solid lightgray;
+
+  @media (max-width: 767px) {
+    width: 90%;
+  }
 `;
 
 const ModalWrapper = styled.div`
@@ -41,6 +45,10 @@ const ModalWrapper = styled.div`
   margin-bottom: 0;
   padding: 15px;
   background: #fff;
+
+  @media (max-width: 767px) {
+    width: 90%;
+  }
 `;
 
 const ModalFooter = styled.div`
@@ -55,6 +63,10 @@ const ModalFooter = styled.div`
   padding: 15px;
   background: #fff;
   border-radius: 0 0 10px 10px;
+
+  @media (max-width: 767px) {
+    width: 90%;
+  }
 `;
 
 const Close = styled.div`

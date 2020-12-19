@@ -1,44 +1,44 @@
-import S from './style';
+import Styled from './style';
 
-const DayArr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const dayOfWeeks = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-const makeArr = (DaysArr) => {
+const CalendarWeekTemplate = (DaysArr) => {
   return DaysArr.map((day, index) => {
     if (day === 'Sun') {
       return (
-        <S.WeekDay key={'day' + index} sunday={true}>
+        <Styled.WeekDay key={'day' + index} sunday={true}>
           {day}
-        </S.WeekDay>
+        </Styled.WeekDay>
       );
     }
 
     if (day === 'Sat') {
       return (
-        <S.WeekDay key={'day' + index} saturday={true}>
+        <Styled.WeekDay key={'day' + index} saturday={true}>
           {day}
-        </S.WeekDay>
+        </Styled.WeekDay>
       );
     }
 
-    return <S.WeekDay key={'day' + index}>{day}</S.WeekDay>;
+    return <Styled.WeekDay key={'day' + index}>{day}</Styled.WeekDay>;
   });
 };
 
 const CalendarWeekDays = ({ userInfo }) => {
   const startDayOfWeek = userInfo.startDayOfWeek;
-  const IndexOfStartDay = DayArr.indexOf(startDayOfWeek);
+  const IndexOfStartDay = dayOfWeeks.indexOf(startDayOfWeek);
 
-  const firstWeekDaysArr = DayArr.slice(IndexOfStartDay);
-  const lastWeekDaysArr = DayArr.slice(0, IndexOfStartDay);
+  const firstWeekDaysArr = dayOfWeeks.slice(IndexOfStartDay);
+  const lastWeekDaysArr = dayOfWeeks.slice(0, IndexOfStartDay);
 
-  const firstWeekDays = makeArr(firstWeekDaysArr);
-  const lastWeekDays = makeArr(lastWeekDaysArr);
+  const firstWeekDays = CalendarWeekTemplate(firstWeekDaysArr);
+  const lastWeekDays = CalendarWeekTemplate(lastWeekDaysArr);
 
   return (
-    <S.WeekDays>
+    <Styled.WeekDays>
       {firstWeekDays}
       {lastWeekDays}
-    </S.WeekDays>
+    </Styled.WeekDays>
   );
 };
 

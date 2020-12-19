@@ -7,7 +7,7 @@ import PaymentModal from './PaymentModal';
 const AddPaymentBtn = styled.div`
   display: flex;
   flex-direction: row-reverse;
-  max-width: auto;
+  width: 93%;
   cursor: pointer;
   border: none;
   outline: none;

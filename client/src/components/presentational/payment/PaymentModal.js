@@ -15,7 +15,7 @@ const Modal = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-  width: 480px;
+  width: auto;
   height: 225px;
   background-color: white;
   position: relative;

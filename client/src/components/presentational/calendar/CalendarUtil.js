@@ -1,8 +1,9 @@
-const DayArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const dayOfWeeks = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const Variable = ({ calendarInfo, userInfo }) => {
+  const daysPerWeek = 7;
   const startDayOfWeek = userInfo.startDayOfWeek;
-  const IndexOfStartDay = DayArray.indexOf(startDayOfWeek);
+  const IndexOfStartDay = dayOfWeeks.indexOf(startDayOfWeek);
 
   const lastDay = new Date(calendarInfo.year, calendarInfo.month, 0).getDate();
 
@@ -11,7 +12,7 @@ const Variable = ({ calendarInfo, userInfo }) => {
     IndexOfStartDay;
 
   if (firstDayIndex < 0) {
-    firstDayIndex += 7;
+    firstDayIndex += Number(daysPerWeek);
   }
 
   const prevLastDay = new Date(

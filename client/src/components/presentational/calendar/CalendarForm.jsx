@@ -2,6 +2,7 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 import S from './style';
 import CalendarCheckbox from './CalendarCheckbox';
+import CalendarWeekDays from './CalendarWeekDays';
 
 const CalendarForm = ({
   calendarInfo,
@@ -10,6 +11,7 @@ const CalendarForm = ({
   onClickType,
   state,
   setState,
+  userInfo,
 }) => {
   return (
     <>
@@ -40,15 +42,7 @@ const CalendarForm = ({
         state={state}
         setState={setState}
       />
-      <S.WeekDays>
-        <S.WeekDay sunday={true}>Sun</S.WeekDay>
-        <S.WeekDay>Mon</S.WeekDay>
-        <S.WeekDay>Tue</S.WeekDay>
-        <S.WeekDay>Wed</S.WeekDay>
-        <S.WeekDay>Thu</S.WeekDay>
-        <S.WeekDay>Fri</S.WeekDay>
-        <S.WeekDay saturday={true}>Sat</S.WeekDay>
-      </S.WeekDays>
+      <CalendarWeekDays userInfo={userInfo} />
     </>
   );
 };

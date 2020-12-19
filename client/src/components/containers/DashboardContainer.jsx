@@ -96,8 +96,8 @@ const DashboardContainer = () => {
 
   const date = new Date();
   const currentDate = {
-    year: date.getUTCFullYear(),
-    month: date.getUTCMonth() + 1,
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
   };
 
   const currentDateTransactions = getCurrentDateTransactions(

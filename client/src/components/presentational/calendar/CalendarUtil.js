@@ -1,21 +1,32 @@
-const Variable = ({ calendarInfo }) => {
+const DayArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+const Variable = ({ calendarInfo, userInfo }) => {
+  const startDayOfWeek = userInfo.startDayOfWeek;
+  const IndexOfStartDay = DayArray.indexOf(startDayOfWeek);
+
   const lastDay = new Date(calendarInfo.year, calendarInfo.month, 0).getDate();
-  const firstDayIndex = new Date(
-    `${calendarInfo.year}-${calendarInfo.month}-01`
-  ).getDay();
+
+  let firstDayIndex =
+    new Date(`${calendarInfo.year}-${calendarInfo.month}-01`).getDay() -
+    IndexOfStartDay;
+
+  if (firstDayIndex < 0) {
+    firstDayIndex += 7;
+  }
 
   const prevLastDay = new Date(
     calendarInfo.year,
     calendarInfo.month - 1,
     0
   ).getDate();
+
   const lastDayIndex = new Date(
     calendarInfo.year,
     calendarInfo.month,
     0
   ).getDay();
 
-  const nextDays = 7 - lastDayIndex - 1;
+  const nextDays = 7 - lastDayIndex + (IndexOfStartDay - 1);
 
   return {
     lastDay,

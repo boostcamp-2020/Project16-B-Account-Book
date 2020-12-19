@@ -5,9 +5,9 @@ import { FcPlus } from 'react-icons/fc';
 import PaymentModal from './PaymentModal';
 
 const AddPaymentBtn = styled.div`
-  width: 93%;
   display: flex;
   flex-direction: row-reverse;
+  max-width: auto;
   cursor: pointer;
   border: none;
   outline: none;

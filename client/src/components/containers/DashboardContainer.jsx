@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
@@ -36,11 +36,14 @@ const MonthlyAnalysis = styled.div`
 
 const DashboardContainer = () => {
   const dispatch = useDispatch();
+  const [renderGuideLine, setRenderGuideLine] = useState(false);
 
   const transactions = useSelector((state) => state.default.transactions);
 
   useEffect(() => {
     dispatch(loadTransactions());
+    const timer = setTimeout(() => setRenderGuideLine(true), 500);
+    return () => clearTimeout(timer);
   }, []);
 
   const date = new Date();
@@ -79,7 +82,7 @@ const DashboardContainer = () => {
         ) : (
           <>
             <div> No transactions! please move to 수입/지출 내역 tab</div>
-            <GuideLine />
+            {renderGuideLine && <GuideLine />}
           </>
         )}
       </StyledDiv>

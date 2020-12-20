@@ -12,13 +12,6 @@ const transactionService = {
     return transactions;
   },
 
-  getAccountBookTransactions: async ({ accountBookId }) => {
-    const transactions = await TransactionModel.find({
-      accountBookId,
-    });
-    return transactions;
-  },
-
   addTransaction: async ({ userId, accountBookId, transactions }) => {
     const accountBook = await AccountBookModel.findOne({
       _id: accountBookId,

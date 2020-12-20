@@ -5,7 +5,6 @@ import {
   postLoginNaver,
   postLoginKakao,
   getTransactions,
-  getTransactionsByAccountBookId,
   postTransaction,
   updateTransaction,
   updateTransactionTag,
@@ -144,7 +143,7 @@ export const loadTransactions = () => {
 
 export const loadAccountBookTransactions = () => {
   return async (dispatch) => {
-    const accountBookTransactions = await getTransactionsByAccountBookId();
+    const accountBookTransactions = await getTransactions();
 
     dispatch(setAccountBookTransactions(accountBookTransactions));
   };

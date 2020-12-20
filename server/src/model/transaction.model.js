@@ -7,7 +7,7 @@ const transactionSchema = new Schema({
   accountBookId: ObjectId,
   userId: ObjectId,
   date: { type: Date, default: Date.now },
-  category: String,
+  category: { type: String, default: '미분류' },
   paymentMethod: String,
   description: String,
   cost: Number,

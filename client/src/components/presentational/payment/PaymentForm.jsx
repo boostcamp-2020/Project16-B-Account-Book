@@ -11,7 +11,6 @@ const PaymentApp = styled.div`
 const PaymentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 100rem;
 `;
 
 const Payments = styled.ul`

@@ -26,6 +26,10 @@ const UploadButton = styled.button`
   border: none;
   outline: none;
   border-top: 1px ${(props) => props.line || 'solid'} gray;
+
+  @media (max-width: 767px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const spin = keyframes`

@@ -19,7 +19,7 @@ def genDate():
     hours = random.randint(0, 24)
     mins = random.randint(0, 60)
     d = datetime.datetime.now() - datetime.timedelta(days=days, hours = hours, minutes = mins)
-    return d.strftime('%Y-%m-%d')
+    return d.strftime('%Y-%m-%d %H:%M:%S')
 
 def genMoney(id, maxMoney = 800.00):
     return round(DIST[id] * maxMoney) * 100
@@ -29,8 +29,8 @@ def choiceRandomData(list):
 
 def createTransactions():
     file = open('Expenditure_Transaction.csv', 'w', encoding='utf-8')
-    wr = csv.writer(file)
-    wr.writerow(['date','type','cost','description','category', 'paymentMethod'])
+    wr = csv.writer(file, lineterminator='\n')
+    wr.writerow(['date','type','cost','description','category', 'paymentMethod', 'tag'])
 
     jsonFile = open('DescriptionExample.json','r',encoding='utf-8')
     jsondata = json.load(jsonFile)
@@ -48,10 +48,13 @@ def createTransactions():
             description = choiceRandomData(descriptionArray)
             category = categoryName
             paymentMethod = choiceRandomData(결제수단)
+            tag = 'tag'
             
-            lines.append([date,type,cost,description,category,paymentMethod])
+            lines.append([date,type,cost,description,category,paymentMethod,tag])
     
     wr.writerows(lines)
+    file.close()
+    jsonFile.close()
 
 
 createTransactions()

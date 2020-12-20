@@ -10,7 +10,7 @@ const OverlayWrapper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 2;
+  z-index: 12;
   background-color: ${color.modal};
   opacity: 0.5;
 `;

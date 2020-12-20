@@ -89,7 +89,7 @@ const accountBookController = {
       const result = await accountBookService.addAccountBookTag(
         userId,
         accountBookId,
-        newTag
+        newTag || '미분류'
       );
 
       ctx.body = result;

@@ -31,12 +31,9 @@
 
 <br />
 
-## 📽️ 시연 영상 & 페이지별 상세 화면
+## 📽️ 시연 영상
 <details>
-  <summary> <b> <---- (click!!!!)  🔥 시연 영상 & 상세 화면 확인하기 🔥</b> </summary>
-    
-    
-  [![IMAGE](https://img.youtube.com/vi/R4hTnqwwVS4/0.jpg)](https://youtu.be/R4hTnqwwVS4)
+  <summary> <b> <---- (click!!!!) 🔥 상세 화면 정보 확인하기 🔥</b> </summary>
     
   ### 🗝️ 가계부 로그인
   |                로그인 - 가계부 선택                 |                로그아웃                |
@@ -110,6 +107,9 @@
   <br />
 
 </details>
+
+
+[![IMAGE](https://img.youtube.com/vi/R4hTnqwwVS4/0.jpg)](https://youtu.be/R4hTnqwwVS4)
 
 <br />
 

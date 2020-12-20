@@ -11,6 +11,27 @@ const TextArea = styled.textarea`
   resize: vertical;
 `;
 
+const Button = styled.button`
+  display: inline-block;
+  padding: 0 16px;
+  min-width: 88px;
+  background: #ffc0cb;
+  border: 0;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 34px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.258824) 0 2px 2px 0;
+  transition: all 0.3s ease 0s;
+  background: #fafafa;
+  color: #111;
+  &:hover {
+    background: #ffc0cb;
+    color: #fff;
+  }
+`;
+
 const ParserInputForm = () => {
   const textAreaInput = useRef();
   const dispatch = useDispatch();
@@ -41,7 +62,7 @@ const ParserInputForm = () => {
     <>
       <div>sms/mms 파싱을 원하는 텍스트를 붙여 넣어 주세요!</div>
       <TextArea type="textArea" ref={textAreaInput}></TextArea>
-      <button onClick={parseOnClick}>변환</button>
+      <Button onClick={parseOnClick}>변환</Button>
     </>
   );
 };

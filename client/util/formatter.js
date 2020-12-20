@@ -4,13 +4,13 @@ export const transactionValidationFormatter = (key, value) => {
   switch (key) {
     case 'date':
       if (dateRegex.test(value)) {
-        const currentDate = new Date();
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-        const day = currentDate.getDate();
-        return `${year}-${month}-${day}`;
+        return value;
       }
-      return;
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1;
+      const day = currentDate.getDate();
+      return `${year}-${month}-${day}`;
     case 'time':
       if (timeRegex.test(value)) {
         return value;

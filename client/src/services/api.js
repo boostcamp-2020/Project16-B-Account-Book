@@ -90,10 +90,25 @@ export async function updateTransaction({ transactionId, transaction }) {
   return data;
 }
 
+export async function updateTransactionTag({ oldTag, newTag }) {
+  const { data } = await axiosAPI(`${API_URL}/transaction/tag`, 'PATCH', {
+    oldTag,
+    newTag,
+  });
+
+  return data;
+}
+
 export async function deleteTransaction({ transactionIds }) {
   const { data } = await axiosAPI(`${API_URL}/transaction`, 'DELETE', {
     transactionIds,
   });
+
+  return data;
+}
+
+export async function deleteTransactionTag({ tag }) {
+  const { data } = await axiosAPI(`${API_URL}/transaction/${tag}`, 'DELETE');
 
   return data;
 }

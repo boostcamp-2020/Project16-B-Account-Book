@@ -8,6 +8,7 @@ const transactionSlice = createSlice({
     openModalStatus: false,
     parserStatus: false,
     bulkInsert: [],
+    SMSStatus: false,
   },
   reducers: {
     setDeleteStatus(state, { payload: deleteStatus }) {
@@ -38,6 +39,13 @@ const transactionSlice = createSlice({
       };
     },
 
+    setSMSStatus(state, { payload: SMSStatus }) {
+      return {
+        ...state,
+        SMSStatus,
+      };
+    },
+
     setBulkInsert(state, { payload: bulkInsert }) {
       return {
         ...state,
@@ -53,6 +61,7 @@ export const {
   setOpenModalStatus,
   setParserStatus,
   setBulkInsert,
+  setSMSStatus,
 } = transactionSlice.actions;
 
 export const closeModal = () => {
@@ -61,6 +70,7 @@ export const closeModal = () => {
     dispatch(setEditIdStatus(''));
     dispatch(setParserStatus(false));
     dispatch(setBulkInsert([]));
+    dispatch(setSMSStatus(false));
   };
 };
 

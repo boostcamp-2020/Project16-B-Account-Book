@@ -33,8 +33,7 @@ const transactionController = {
 
   addTransaction: async (ctx) => {
     try {
-      const userId = ctx.request.userInfo?.userId;
-      const accountBookId = ctx.header?.cookie.replace(/accountBookId=/, '');
+      const { accountBookId, userId } = ctx.request.userInfo;
       const { transactions } = ctx.request.body;
       const result = await transactionService.addTransaction({
         userId,

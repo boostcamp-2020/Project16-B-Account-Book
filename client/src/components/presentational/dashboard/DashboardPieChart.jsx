@@ -9,6 +9,7 @@ import {
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 
 const colors = scaleOrdinal(schemeCategory10).range();
 
@@ -41,6 +42,13 @@ const Box = styled.div`
 `;
 
 const DashboardPieChart = ({ transactions }) => {
+  const [animationState, setAnimationState] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimationState(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Box>
       <ResponsiveContainer>
@@ -56,7 +64,7 @@ const DashboardPieChart = ({ transactions }) => {
             outerRadius="55%"
             label={renderLabelContent}
             paddingAngle={5}
-            isAnimationActive={true}
+            isAnimationActive={animationState}
           >
             {transactions.map((entry, index) => (
               <Cell key={`slice-${index}`} fill={colors[index % 10]} />

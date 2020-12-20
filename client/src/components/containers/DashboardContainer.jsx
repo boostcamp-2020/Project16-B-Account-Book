@@ -42,7 +42,7 @@ const DashboardContainer = () => {
 
   useEffect(() => {
     dispatch(loadTransactions());
-    const timer = setTimeout(() => setRenderGuideLine(true), 500);
+    const timer = setTimeout(() => setRenderGuideLine(true), 1000);
     return () => clearTimeout(timer);
   }, []);
 

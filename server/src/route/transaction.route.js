@@ -7,6 +7,8 @@ router.get('/', transactionController.getAccountBookTransactions);
 router.get('/:year/:month', transactionController.getCalendarTransactions);
 router.post('/', transactionController.addTransaction);
 router.patch('/', transactionController.updateTransaction);
+router.patch('/tag', transactionController.updateTransactionTag);
 router.delete('/', transactionController.deleteTransaction);
+router.delete('/:tag', transactionController.deleteTransactionTag);
 
 module.exports = router;

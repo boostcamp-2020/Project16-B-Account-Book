@@ -108,6 +108,14 @@ const transactionService = {
 
     return transaction;
   },
+  updateTransactionTag: async (accountBookId, oldTag, newTag) => {
+    const result = await TransactionModel.updateMany(
+      { accountBookId, tag: oldTag },
+      { $set: { 'tag.$': newTag } }
+    );
+
+    return result;
+  },
 
   deleteTransaction: async ({ ids }) => {
     await TransactionModel.deleteMany({
@@ -115,6 +123,15 @@ const transactionService = {
         $in: ids,
       },
     });
+  },
+
+  deleteTransactionTag: async (accountBookId, tagToDelete) => {
+    const result = await TransactionModel.updateMany(
+      { accountBookId },
+      { $pull: { tag: tagToDelete } }
+    );
+
+    return result;
   },
 };
 

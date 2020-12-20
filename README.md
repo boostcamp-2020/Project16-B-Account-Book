@@ -31,9 +31,9 @@
 
 <br />
 
-## 📽️ 시연 영상
+## 📽️ 시연 영상 & 페이지별 상세 화면
 <details>
-  <summary> <b> <---- (click!!!!) 🔥 영상 정보 확인하기 🔥</b> </summary>
+  <summary> <b> <---- (click!!!!) 🔥 시연 영상 & 상세 화면 확인하기 🔥</b> </summary>
     
     
   [![IMAGE](https://img.youtube.com/vi/R4hTnqwwVS4/0.jpg)](https://youtu.be/R4hTnqwwVS4)

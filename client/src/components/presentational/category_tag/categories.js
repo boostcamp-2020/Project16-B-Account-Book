@@ -95,23 +95,13 @@ const categories = [
   },
   {
     icon: 'tagDefault',
-    title: '주수입',
+    title: '수입',
     description: '기타',
   },
   {
     icon: 'tagDefault',
-    title: '부수입',
-    description: '기타',
-  },
-  {
-    icon: 'tagDefault',
-    title: '금융/대출',
-    description: '기타',
-  },
-  {
-    icon: 'tagDefault',
-    title: '기타수입',
-    description: '기타',
+    title: '미분류',
+    description: '미분류',
   },
 ];
 

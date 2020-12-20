@@ -33,7 +33,10 @@
 
 ## 📽️ 시연 영상
 <details>
-  <summary> <b> <---- (click!!!!) 🔥 상세 화면 정보 확인하기 🔥</b> </summary>
+  <summary> <b> <---- (click!!!!) 🔥 영상 정보 확인하기 🔥</b> </summary>
+    
+    
+  [![IMAGE](https://img.youtube.com/vi/R4hTnqwwVS4/0.jpg)](https://youtu.be/R4hTnqwwVS4)
     
   ### 🗝️ 가계부 로그인
   |                로그인 - 가계부 선택                 |                로그아웃                |
@@ -107,9 +110,6 @@
   <br />
 
 </details>
-
-
-[![IMAGE](https://img.youtube.com/vi/R4hTnqwwVS4/0.jpg)](https://youtu.be/R4hTnqwwVS4)
 
 <br />
 

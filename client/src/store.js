@@ -5,6 +5,7 @@ import transactionSlice from './transactionSlice';
 import paymentSlice from './paymentSlice';
 import calendarSlice from './calendarSlice';
 import settingSlice from './settingSlice';
+import tagSlice from './tagSlice';
 
 const rootReducer = combineReducers({
   default: reducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   payment: paymentSlice.reducer,
   calendar: calendarSlice.reducer,
   setting: settingSlice.reducer,
+  tag: tagSlice.reducer,
 });
 
 const store = configureStore({

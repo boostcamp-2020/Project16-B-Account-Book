@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 
 import CardList from '@presentational/category_tag/CardList';
-import { loadTag, addTag, changeTag, removeTag } from '@slice';
+import { loadTag, addTag, changeTag, removeTag } from '../../tagSlice';
+import { changeTransactionTag, removeTransactionTag } from '@slice';
+
 import { successFormat, confirmFormat } from '@service/swalFormat';
 
 const TagContainer = ({ navMenu }) => {
@@ -12,7 +14,7 @@ const TagContainer = ({ navMenu }) => {
     dispatch(loadTag());
   }, []);
 
-  const tags = useSelector((state) => state.default.tags);
+  const tags = useSelector((state) => state.tag.tags);
 
   const handleAddTag = (tag) => {
     dispatch(addTag({ tag }));
@@ -26,6 +28,7 @@ const TagContainer = ({ navMenu }) => {
 
   const handleChangeTag = (originalTag, newTag) => {
     dispatch(changeTag({ originalTag, newTag }));
+    dispatch(changeTransactionTag(originalTag, newTag));
     Swal.fire(
       successFormat({
         position: 'center',
@@ -42,6 +45,7 @@ const TagContainer = ({ navMenu }) => {
     ).then((result) => {
       if (result.isConfirmed) {
         dispatch(removeTag({ tag }));
+        dispatch(removeTransactionTag(tag));
         Swal.fire({
           text: `태그 삭제가 완료되었습니다.`,
         });

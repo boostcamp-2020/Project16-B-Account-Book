@@ -209,7 +209,7 @@ const TransactionList = ({ transactions, deleteTransactionHandler }) => {
   const emptyTemplate = (
     <>
       <div>
-        현제 월 내역이 없습니다! 아래 + 버튼으로 수입 지출 내역을 추가 해보세요!
+        현재 월 내역이 없습니다! 아래 + 버튼으로 수입 지출 내역을 추가 해보세요!
       </div>
     </>
   );

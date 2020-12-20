@@ -78,7 +78,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const CategoryCard = ({ iconName, title, description }) => {
+const CategoryCard = ({ iconName, title, description, setFilterOption }) => {
   const [dropdown, setDropDown] = useState(false);
   const history = useHistory();
 
@@ -96,8 +96,8 @@ const CategoryCard = ({ iconName, title, description }) => {
     {
       text: '내역 보기',
       func: () => {
-        console.log('TODO-내역 보기');
         setDropDown(false);
+        setFilterOption(title);
       },
     },
   ];

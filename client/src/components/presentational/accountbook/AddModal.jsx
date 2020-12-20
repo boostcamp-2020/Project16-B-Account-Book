@@ -11,7 +11,7 @@ const AddForm = styled.div`
   width: 25rem;
   height: 10.8rem;
   margin: auto;
-  z-index: 3;
+  z-index: 13;
   background-color: white;
   border-radius: 5px;
 `;

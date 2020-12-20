@@ -53,7 +53,7 @@ const CumulativeAnalysis = ({ title, date, transactions }) => {
   const totalExpenditure = calcTotalExpenditure(transactions);
   const averagePerCase =
     totalExpenditure > 0
-      ? Math.floor(totalExpenditure / transactions.length / 100) * 100
+      ? Math.floor(totalExpenditure / transactions.length)
       : 0;
 
   return (

@@ -75,7 +75,7 @@ const TransactionInputForm = ({
 
   const paymentMethods =
     useSelector((state) => state.default.paymentMethods) || [];
-  const tags = useSelector((state) => state.default.tags) || [];
+  const tags = useSelector((state) => state.tag.tags) || [];
   const editIdStatus = useSelector((state) => state.transaction.editIdStatus);
 
   const handleSubmit = (e) => {

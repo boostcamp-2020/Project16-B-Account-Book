@@ -40,16 +40,8 @@
 
 ### “PIGGY BOOK은 더 잘 읽히는 입출금 및 가계 재정을 만들기 위해 노력하고 있습니다”
 
-`PIGGY BOOK` 은 웹 기반으로 동작하는 서비스입니다. <br />
-개인의 입출금 및 가계 재정을 `시각화 및 분석`할 수 있으며, <br />
-가계부는 `개인` 또는 `공용`으로 이용하실 수 있습니다. 😊
-
-![image](https://user-images.githubusercontent.com/13073517/102005330-63c36480-3d5b-11eb-9bd7-5e9d31c4464b.png)
-
-<br />
-
 <details>
-  <h1><summary> 상세 화면 정보 확인하기 </summary></h1>
+  <summary> 🔥 상세 화면 정보 확인하기 🔥 </summary>
     
   ### 🗝️ 가계부 로그인
   |                로그인 - 가계부 선택                 |                로그아웃                |
@@ -124,6 +116,13 @@
 
 </details>
 
+`PIGGY BOOK` 은 웹 기반으로 동작하는 서비스입니다. <br />
+개인의 입출금 및 가계 재정을 `시각화 및 분석`할 수 있으며, <br />
+가계부는 `개인` 또는 `공용`으로 이용하실 수 있습니다. 😊
+
+![image](https://user-images.githubusercontent.com/13073517/102005330-63c36480-3d5b-11eb-9bd7-5e9d31c4464b.png)
+
+<br />
 
 ## 📌 프로젝트 시작하기
 

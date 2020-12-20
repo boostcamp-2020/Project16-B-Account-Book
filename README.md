@@ -31,6 +31,11 @@
 
 <br />
 
+## 📽️ 시연 영상
+[![IMAGE](https://img.youtube.com/vi/R4hTnqwwVS4/0.jpg)](https://youtu.be/R4hTnqwwVS4)
+
+<br />
+
 ## 🚀 프로젝트 소개
 
 ### “PIGGY BOOK은 더 잘 읽히는 입출금 및 가계 재정을 만들기 위해 노력하고 있습니다”

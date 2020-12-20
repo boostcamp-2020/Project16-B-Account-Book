@@ -4,31 +4,27 @@ import {
   postLoginGithub,
   postLoginNaver,
   postLoginKakao,
-  getTags,
-  createTag,
-  updateTag,
-  deleteTag,
   getTransactions,
   getTransactionsByAccountBookId,
   postTransaction,
-  postTransactions,
   updateTransaction,
+  updateTransactionTag,
   deleteTransaction,
+  deleteTransactionTag,
   getAccountBooks,
   createAccountBook,
   deleteAccountBook,
   updateAccountBook,
   getAccountBook,
 } from '@service/api';
+import { setTags } from './tagSlice';
 
 const { actions, reducer } = createSlice({
   name: 'default',
   initialState: {
     accessToken: '',
-    test: 1,
     transactions: [],
     accountBookTransactions: [],
-    tags: [],
     accountBooks: [],
     accountBookId: '',
     userInfo: { name: '', ImageURL: '' },
@@ -39,12 +35,6 @@ const { actions, reducer } = createSlice({
     },
   },
   reducers: {
-    setTest(state, { payload: test }) {
-      return {
-        ...state,
-        test,
-      };
-    },
     setPaymentMethods(state, { payload: paymentMethods }) {
       return {
         ...state,
@@ -70,18 +60,6 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         accessToken,
-      };
-    },
-    setTags(state, { payload: tags }) {
-      return {
-        ...state,
-        tags,
-      };
-    },
-    setCategories(state, { payload: categories }) {
-      return {
-        ...state,
-        categories,
       };
     },
     setAccountBooks(state, { payload: accountBooks }) {
@@ -116,9 +94,7 @@ const { actions, reducer } = createSlice({
 });
 
 export const {
-  setTest,
   setAccessToken,
-  setTags,
   setAccountBooks,
   setAccountBook,
   setTransactions,
@@ -127,7 +103,6 @@ export const {
   insertTransactions,
   setDate,
   setPaymentMethods,
-  setCategories,
   reset,
 } = actions;
 
@@ -158,38 +133,6 @@ export function login({ code, state }) {
     dispatch(setUserInfo(userInfo));
   };
 }
-
-export const loadTag = () => {
-  return async (dispatch) => {
-    const tags = await getTags();
-
-    dispatch(setTags(tags));
-  };
-};
-
-export const addTag = ({ tag }) => {
-  return async (dispatch) => {
-    await createTag({ tag });
-
-    dispatch(loadTag());
-  };
-};
-
-export const changeTag = ({ originalTag, newTag }) => {
-  return async (dispatch) => {
-    await updateTag({ originalTag, newTag });
-
-    dispatch(loadTag());
-  };
-};
-
-export const removeTag = ({ tag }) => {
-  return async (dispatch) => {
-    await deleteTag({ tag });
-
-    dispatch(loadTag());
-  };
-};
 
 export const loadTransactions = () => {
   return async (dispatch) => {
@@ -231,6 +174,22 @@ export const removeTransaction = ({ transactionIds }) => {
   };
 };
 
+export const changeTransactionTag = (oldTag, newTag) => {
+  return async (dispatch) => {
+    await updateTransactionTag({ oldTag, newTag });
+
+    dispatch(loadTransactions());
+  };
+};
+
+export const removeTransactionTag = (tag) => {
+  return async (dispatch) => {
+    await deleteTransactionTag({ tag });
+
+    dispatch(loadTransactions());
+  };
+};
+
 export const loadAccountBooks = () => {
   return async (dispatch) => {
     const accountBooks = await getAccountBooks();
@@ -244,11 +203,10 @@ export const loadAccountBook = (accountBookId) => {
   };
 };
 
-export const loadAccountbookTest = () => {
+export const loadAccountbookInfo = () => {
   return async (dispatch) => {
     const accountBookInfo = await getAccountBook();
 
-    // dispatch(setCategories(accountBookInfo.categories));
     dispatch(setTags(accountBookInfo.tags));
     dispatch(setPaymentMethods(accountBookInfo.paymentMethod));
   };

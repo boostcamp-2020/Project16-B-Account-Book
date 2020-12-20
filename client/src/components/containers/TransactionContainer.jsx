@@ -7,7 +7,7 @@ import {
   changeTransaction,
   loadTransactions,
   updateDate,
-  loadAccountbookTest,
+  loadAccountbookInfo,
 } from '@slice';
 import TransactionList from '@presentational/transaction/TransactionList';
 import TransactionFab from '@presentational/transaction/TransactionFab';
@@ -30,7 +30,7 @@ const TransactionContainer = () => {
 
   useEffect(() => {
     dispatch(loadTransactions());
-    dispatch(loadAccountbookTest());
+    dispatch(loadAccountbookInfo());
   }, []);
 
   const insertTransaction = ({ transaction }) => {

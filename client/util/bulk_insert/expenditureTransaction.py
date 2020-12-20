@@ -19,7 +19,7 @@ def genDate():
     hours = random.randint(0, 24)
     mins = random.randint(0, 60)
     d = datetime.datetime.now() - datetime.timedelta(days=days, hours = hours, minutes = mins)
-    return d.strftime('%Y-%m-%d %H:%M:%S')
+    return d.strftime('%Y-%m-%d')
 
 def genMoney(id, maxMoney = 800.00):
     return round(DIST[id] * maxMoney) * 100

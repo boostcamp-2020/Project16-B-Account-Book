@@ -89,6 +89,7 @@ const StyledImage = styled.img`
 `;
 
 const Title = styled.span`
+  margin-top: 2rem;
   margin-bottom: 3rem;
   font-weight: bolder;
   font-size: 3vw;
@@ -143,7 +144,6 @@ const LoginForm = () => {
               </SubText>
             </Box>
             <Box color="black">
-              <GitHubSvg />
               <Title>
                 지금 당신의 지갑에서 무슨 일이 일어나고 있는지 알아보세요.
               </Title>

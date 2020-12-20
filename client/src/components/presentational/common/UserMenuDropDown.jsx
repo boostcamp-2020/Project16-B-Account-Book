@@ -17,6 +17,7 @@ const UserMenuDropDownWrapper = styled.div`
   color: ${color.fontLightBold};
   border: 1px solid ${color.line};
   box-shadow: ${color.boxShadow};
+  cursor: pointer;
   z-index: 12;
   .dropdown-option {
     height: 40px;

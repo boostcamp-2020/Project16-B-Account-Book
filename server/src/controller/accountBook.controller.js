@@ -101,11 +101,12 @@ const accountBookController = {
     try {
       const { userId, accountBookId } = ctx.request.userInfo;
       const { originalTag, newTag } = ctx.request.body;
+
       const result = await accountBookService.updateAccountBookTag(
         userId,
         accountBookId,
         originalTag,
-        newTag
+        newTag || '미분류'
       );
 
       ctx.body = result;

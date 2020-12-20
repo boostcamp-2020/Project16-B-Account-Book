@@ -16,7 +16,7 @@ const Box = styled.div`
     height: 45vw;
   }
   &:hover {
-    cursor: pointer;
+    cursor: ${(props) => (props.isCategory ? 'pointer' : '')};
   }
 `;
 
@@ -53,10 +53,14 @@ const Category = ({ image, text, redirectCategory }) => {
 
   return (
     <>
-      <Box onClick={handleClick}>
+      <Box onClick={handleClick} isCategory={redirectCategory}>
         <img src={image} width={'100%'} height={'80%'} />
         <Text>{text}</Text>
-        <ExtraText>자세한 정보를 확인 하고 싶으시면 클릭을 해주세요</ExtraText>
+        {redirectCategory && (
+          <ExtraText>
+            자세한 정보를 확인 하고 싶으시면 클릭을 해주세요
+          </ExtraText>
+        )}
       </Box>
     </>
   );

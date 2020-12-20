@@ -80,7 +80,6 @@ const TransactionInputForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(tagInput.current.value);
 
     const data = parseData();
 
@@ -92,7 +91,7 @@ const TransactionInputForm = ({
       handleClose();
       return;
     }
-    console.log(data);
+
     insertTransaction({ transaction: data });
     handleClose();
   };

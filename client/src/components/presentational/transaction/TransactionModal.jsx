@@ -5,7 +5,7 @@ import Fade from '@material-ui/core/Fade';
 
 import TransactionInputForm from './TransactionInputForm';
 import ParserInputForm from './ParserInputForm';
-import BulkInputForm from './BulkInputForm';
+import CSVInputForm from './CSVInputForm';
 import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +53,7 @@ const TransactionModal = ({
         <Fade in={openModalStatus}>
           <div className={classes.paper}>
             {bulkInsert[0] ? (
-              <BulkInputForm
+              <CSVInputForm
                 bulkInsertTransactionHandler={bulkInsertTransactionHandler}
                 handleClose={handleClose}
               />

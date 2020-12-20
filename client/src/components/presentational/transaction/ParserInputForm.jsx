@@ -1,7 +1,11 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
 import smsParser from '@util/smsParser';
-import { setParserStatus, setEditIdStatus } from '@transactionSlice';
+import {
+  setParserStatus,
+  setEditIdStatus,
+  setSMSStatus,
+} from '@transactionSlice';
 import { useDispatch } from 'react-redux';
 
 const TextArea = styled.textarea`
@@ -41,6 +45,7 @@ const ParserInputForm = () => {
       const parsedData = smsParser(textAreaInput.current.value);
       const data = dateParser(parsedData);
       dispatch(setEditIdStatus(data));
+      dispatch(setSMSStatus(true));
     }
     dispatch(setParserStatus(false));
   };

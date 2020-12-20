@@ -8,15 +8,24 @@ import {
   BiLeftArrow,
   BiRightArrow,
   BiMessageAdd,
+  BiNetworkChart,
+  BiCar,
+  BiBaseball,
 } from 'react-icons/bi';
 import { HiShoppingCart } from 'react-icons/hi';
 import {
   FaShoppingBag,
   FaBriefcaseMedical,
   FaRegTrashAlt,
+  FaSchool,
 } from 'react-icons/fa';
-import { GiMeal } from 'react-icons/gi';
-import { MdMoreVert, MdLocalOffer } from 'react-icons/md';
+import { GiMeal, GiLoveInjection } from 'react-icons/gi';
+import {
+  MdMoreVert,
+  MdLocalOffer,
+  MdLocalMovies,
+  MdAirplanemodeActive,
+} from 'react-icons/md';
 import { FcPlus } from 'react-icons/fc';
 import { BsFileSpreadsheet } from 'react-icons/bs';
 
@@ -29,6 +38,13 @@ const icon = {
   shopping: <FaShoppingBag size={12} />,
   finance: <GrMoney size={13} />,
   medical: <FaBriefcaseMedical size={12} />,
+  beauty: <GiLoveInjection size={14} />,
+  network: <BiNetworkChart size={14} />,
+  school: <FaSchool size={14} />,
+  movie: <MdLocalMovies size={14} />,
+  ball: <BiBaseball size={14} />,
+  car: <BiCar size={14} />,
+  airplane: <MdAirplanemodeActive size={14} />,
   more: <MdMoreVert size={20} />,
   tagDefault: <MdLocalOffer size={15} />,
   plus: <IoMdAdd size={15} />,

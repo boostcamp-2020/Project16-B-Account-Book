@@ -6,9 +6,11 @@ const makeTemplate = ({
   calendarInfo,
   daysRef,
   transactions,
+  userInfo,
 }) => {
   const { lastDay, firstDayIndex, prevLastDay, nextDays } = Variable({
     calendarInfo,
+    userInfo,
   });
   let days = '';
 

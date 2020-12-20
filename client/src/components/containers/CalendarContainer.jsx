@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import S from '@presentational/calendar/style';
 import { setCalendarInfo, loadCalendarTransactions } from '@calendarSlice';
+import { loadUserInfo } from '@settingSlice';
+
 import { nowDateMap } from '@presentational/calendar/CalendarUtil';
 import CalendarForm from '@presentational/calendar/CalendarForm';
 import makeTemplate from '@presentational/calendar/MakeTemplate';
@@ -13,7 +15,7 @@ const CalendarContainer = () => {
     (state) => state.calendar.calendarTransactions
   );
   const calendarInfo = useSelector((state) => state.calendar.calendarInfo);
-
+  const userInfo = useSelector((state) => state.setting.userSettingsInfo);
 
   const daysRef = useRef();
   const [date, setDate] = useState(new Date());
@@ -39,10 +41,11 @@ const CalendarContainer = () => {
   };
 
   const onClickType = (type) => {
-    makeTemplate({ type, calendarInfo, daysRef, transactions });
+    makeTemplate({ type, calendarInfo, daysRef, transactions, userInfo });
   };
 
   useEffect(() => {
+    dispatch(loadUserInfo());
     dispatch(loadCalendarTransactions(date.getFullYear(), date.getMonth() + 1));
     dispatch(setCalendarInfo(nowDateMap(date)));
   }, []);
@@ -52,7 +55,7 @@ const CalendarContainer = () => {
       income: true,
       expenditure: true,
     });
-    makeTemplate({ calendarInfo, daysRef, transactions });
+    makeTemplate({ calendarInfo, daysRef, transactions, userInfo });
   }, [transactions]);
 
   return (
@@ -66,6 +69,7 @@ const CalendarContainer = () => {
             onClickType={onClickType}
             state={state}
             setState={setState}
+            userInfo={userInfo}
           />
           <S.Days ref={daysRef} />
         </S.Calendar>

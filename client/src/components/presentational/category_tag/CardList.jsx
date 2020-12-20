@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import icon from '@public/icon';
+import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
 import CategoryCard from './CategoryCard';
 import TagCard from './TagCard';
+import TransactionModal from './TransactionModal';
 
 const CardListWrapper = styled.div`
   display: flex;
@@ -35,6 +37,22 @@ const CardList = ({
   onClickDelete,
 }) => {
   const [addMode, setAddMode] = useState(false);
+  const [filterOption, setFilterOption] = useState(false);
+  const transactions = useSelector((state) => state.default.transactions);
+
+  const filterTransactions = (transactions) => {
+    const copied = transactions.slice();
+    const filtered = copied
+      .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
+      .filter((transaction) => {
+        if (navMenu === 'tag') {
+          return transaction.tag.includes(filterOption);
+        }
+        return transaction.category === filterOption;
+      });
+
+    return filtered;
+  };
 
   const renderCategoryList = (categories) => {
     return categories.map(({ icon, title, description }) => {
@@ -44,6 +62,7 @@ const CardList = ({
           iconName={icon}
           title={title}
           description={description}
+          setFilterOption={setFilterOption}
         />
       );
     });
@@ -66,6 +85,7 @@ const CardList = ({
           onClickDelete={onClickDelete}
           hidden={handleVisibility(tag)}
           setAddMode={setAddMode}
+          setFilterOption={setFilterOption}
         />
       );
     });
@@ -76,6 +96,13 @@ const CardList = ({
   return (
     <>
       <CardListWrapper>
+        {filterOption && (
+          <TransactionModal
+            filterOption={filterOption}
+            setTransactionModal={setFilterOption}
+            list={filterTransactions(transactions)}
+          />
+        )}
         {navMenu === 'tag' ? renderTagList(data) : renderCategoryList(data)}
         {navMenu === 'tag' && (
           <AddTagBtn onClick={onClickAddTag}>{icon.addBtn}</AddTagBtn>

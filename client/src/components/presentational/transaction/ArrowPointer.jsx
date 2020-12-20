@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 const Arrow = styled.div`
-  width: 2.5vw;
-  height: 2.5vw;
-  border: 2.5vw solid;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2.5rem solid;
   border-color: black transparent transparent black;
   position: fixed;
   right: 300px;
@@ -14,12 +14,12 @@ const Arrow = styled.div`
   @keyframes slideRight {
     0% {
       opacity: 0;
-      transform: translateX(0vw) rotate(135deg);
+      transform: translateX(-10rem) rotate(135deg);
     }
 
     100% {
       opacity: 1;
-      transform: translateX(15vw) rotate(135deg);
+      transform: translateX(10rem) rotate(135deg);
     }
   }
 `;

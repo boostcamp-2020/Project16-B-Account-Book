@@ -135,11 +135,12 @@ const TagCard = ({
   onClickDelete,
   hidden,
   setAddMode,
+  setFilterOption,
 }) => {
   const [dropdown, setDropDown] = useState(false);
   const [editMode, setEditMode] = useState(hidden);
   const [tagName, setTagName] = useState(title);
-  const tags = useSelector((state) => state.default.tags);
+  const tags = useSelector((state) => state.tag.tags);
   const history = useHistory();
 
   const onInputChange = (e) => {
@@ -204,8 +205,8 @@ const TagCard = ({
     {
       text: '내역 보기',
       func: () => {
-        console.log('TODO-내역 보기');
         setDropDown(false);
+        setFilterOption(title);
       },
     },
   ];

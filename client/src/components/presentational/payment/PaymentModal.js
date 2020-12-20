@@ -25,6 +25,10 @@ const ModalWrapper = styled.div`
   padding-top: 10px;
   background: #fff;
   border-radius: 10px;
+
+  @media (max-width: 767px) {
+    width: 90%;
+  }
 `;
 
 const Close = styled.div`

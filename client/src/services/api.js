@@ -59,13 +59,6 @@ export async function getTransactions() {
   return data;
 }
 
-export async function getTransactionsByAccountBookId() {
-  const accountBookId = getCookie('accountBookId');
-  const { data } = await axiosAPI(`/transaction/${accountBookId}`, 'GET');
-
-  return data;
-}
-
 export async function getCalendarTransactions(year, month) {
   const url = `${API_URL}/transaction/${year}/${month}`;
   const { data } = await axiosAPI(url, 'GET');
@@ -90,10 +83,25 @@ export async function updateTransaction({ transactionId, transaction }) {
   return data;
 }
 
+export async function updateTransactionTag({ oldTag, newTag }) {
+  const { data } = await axiosAPI(`${API_URL}/transaction/tag`, 'PATCH', {
+    oldTag,
+    newTag,
+  });
+
+  return data;
+}
+
 export async function deleteTransaction({ transactionIds }) {
   const { data } = await axiosAPI(`${API_URL}/transaction`, 'DELETE', {
     transactionIds,
   });
+
+  return data;
+}
+
+export async function deleteTransactionTag({ tag }) {
+  const { data } = await axiosAPI(`${API_URL}/transaction/${tag}`, 'DELETE');
 
   return data;
 }

@@ -14,18 +14,6 @@ const transactionController = {
     }
   },
 
-  getAccountBookTransactions: async (ctx) => {
-    try {
-      const { accountBookId } = ctx.request.userInfo;
-      const transactions = await transactionService.getAccountBookTransactions({
-        accountBookId,
-      });
-      ctx.body = transactions;
-    } catch (err) {
-      ctx.throw(err.code, err);
-    }
-  },
-
   getCalendarTransactions: async (ctx) => {
     try {
       const { year, month } = ctx.request.params;
@@ -72,6 +60,21 @@ const transactionController = {
       ctx.throw(err.code, err);
     }
   },
+  updateTransactionTag: async (ctx) => {
+    try {
+      const { accountBookId } = ctx.request.userInfo;
+      const { oldTag, newTag } = ctx.request.body;
+      const result = await transactionService.updateTransactionTag(
+        accountBookId,
+        oldTag,
+        newTag
+      );
+
+      ctx.body = result;
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
 
   deleteTransaction: async (ctx) => {
     try {
@@ -82,6 +85,21 @@ const transactionController = {
       });
 
       ctx.body = transactions;
+    } catch (err) {
+      ctx.throw(err.code, err);
+    }
+  },
+
+  deleteTransactionTag: async (ctx) => {
+    try {
+      const { accountBookId } = ctx.request.userInfo;
+      const { tag } = ctx.request.params;
+      const result = await transactionService.deleteTransactionTag(
+        accountBookId,
+        tag
+      );
+
+      ctx.body = result;
     } catch (err) {
       ctx.throw(err.code, err);
     }

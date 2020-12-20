@@ -44,9 +44,6 @@ const Button = styled.button`
   line-height: 34px;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.258824) 0 2px 2px 0;
-  -webkit-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
   background: #fafafa;
   color: #111;
@@ -75,12 +72,11 @@ const TransactionInputForm = ({
 
   const paymentMethods =
     useSelector((state) => state.default.paymentMethods) || [];
-  const tags = useSelector((state) => state.default.tags) || [];
+  const tags = useSelector((state) => state.tag.tags) || [];
   const editIdStatus = useSelector((state) => state.transaction.editIdStatus);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(tagInput.current.value);
 
     const data = parseData();
 
@@ -92,7 +88,7 @@ const TransactionInputForm = ({
       handleClose();
       return;
     }
-    console.log(data);
+
     insertTransaction({ transaction: data });
     handleClose();
   };
@@ -247,8 +243,8 @@ const TransactionInputForm = ({
 
       {editIdStatus && (
         <>
-          <button onClick={handleClose}>수정 취소</button>
-          <button onClick={handleDelete}>삭제</button>
+          <Button onClick={handleClose}>수정 취소</Button>
+          <Button onClick={handleDelete}>삭제</Button>
         </>
       )}
     </>

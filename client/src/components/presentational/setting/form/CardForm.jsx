@@ -19,6 +19,10 @@ const CardFormContainer = styled.li`
   &:hover {
     transform: scale(1.05);
   }
+
+  @media (max-width: 767px) {
+    width: auto;
+  }
 `;
 
 const Avatar = styled.img`

@@ -96,10 +96,15 @@ const CardEditForm = ({
         value={startDayOfWeek}
       >
         <option disabled value={startDayOfWeek}>
-          달력 시작 요일: {startDayOfWeek}day
+          달력 시작 요일: {startDayOfWeek}
         </option>
         <option value="Sun">달력 시작 요일: Sunday</option>
         <option value="Mon">달력 시작 요일: Monday</option>
+        <option value="Tue">달력 시작 요일: Tuesday</option>
+        <option value="Wed">달력 시작 요일: Wednesday</option>
+        <option value="Thu">달력 시작 요일: Thursday</option>
+        <option value="Fri">달력 시작 요일: Friday</option>
+        <option value="Sat">달력 시작 요일: Saturday</option>
       </Select>
 
       <ImageFileInput

@@ -74,11 +74,17 @@ const TransactionInputForm = ({
     useSelector((state) => state.default.paymentMethods) || [];
   const tags = useSelector((state) => state.tag.tags) || [];
   const editIdStatus = useSelector((state) => state.transaction.editIdStatus);
+  const SMSStatus = useSelector((state) => state.transaction.SMSStatus);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = parseData();
+    if (SMSStatus) {
+      insertTransaction({ transaction: data });
+      handleClose();
+      return;
+    }
 
     if (editIdStatus) {
       updateTransactionHandler({
@@ -112,7 +118,7 @@ const TransactionInputForm = ({
       type: typeInput.current.value,
       date: ISODate,
       description: descriptionInput.current.value,
-      tag: [tagInput.current.value],
+      tag: [tagInput.current.value].filter((e) => e),
       imageURL: ImageURLInput.current.value,
     };
   };

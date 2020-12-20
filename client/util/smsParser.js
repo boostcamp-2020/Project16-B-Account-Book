@@ -52,7 +52,12 @@ const smsParser = (sms) => {
         .replace(/[\[\]]/gi, '')
         .substring(0, 2)
         .toUpperCase();
-      newData['cardname'] = cardName;
+      if (cardObj[cardName]) {
+        newData['paymentMethod'] = cardObj[cardName];
+        return;
+      }
+      const guessedCardName = data.replace(/[\[\]]/gi, '').split(' ')[0];
+      newData['paymentMethod'] = guessedCardName;
     }
     if (data.includes('원') && !newData['cost']) {
       newData['cost'] = Number(

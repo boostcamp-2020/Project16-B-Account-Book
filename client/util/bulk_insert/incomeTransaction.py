@@ -28,7 +28,7 @@ def choiceRandomData(list):
 def createTransactions():
     file = open('Income_Transaction.csv', 'w', encoding='utf-8')
     wr = csv.writer(file, lineterminator='\n')
-    wr.writerow(['date','type','cost','description','category', 'paymentMethod','tag'])
+    wr.writerow(['날짜','수입/지출','가격','추가 설명','분류', '결제수단','태그'])
 
     lines = []
     
@@ -37,7 +37,7 @@ def createTransactions():
         type = '수입'
         cost = genMoney(random.randint(0,99))
         description = choiceRandomData(설명)
-        category = choiceRandomData(카테고리)
+        category = '수입'
         paymentMethod = choiceRandomData(결제수단)
         tag = 'tag'
         lines.append([date,type,cost,description,category,paymentMethod,tag])

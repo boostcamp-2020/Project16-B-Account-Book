@@ -247,7 +247,7 @@ const TransactionInputForm = ({
         </Button>
       </StyledForm>
 
-      {editIdStatus && (
+      {editIdStatus && !SMSStatus && (
         <>
           <Button onClick={handleClose}>수정 취소</Button>
           <Button onClick={handleDelete}>삭제</Button>
